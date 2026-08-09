@@ -26,7 +26,10 @@ func TestWriteCreatesAllExports(t *testing.T) {
 	rank := 2
 	world := &sav.World{
 		Players: []sav.Player{{UID: "player", Nickname: "Player", OtomoContainerID: "party", PalStorageContainerID: "box", PalCaptureCounts: map[string]int64{"Lamball": 4}}},
-		Pals:    []sav.Pal{{CharacterID: "Lamball", ContainerID: "party", Rank: &rank}},
+		Pals: []sav.Pal{
+			{CharacterID: "Lamball", ContainerID: "party", Rank: &rank},
+			{CharacterID: "WildPal"},
+		},
 	}
 	dir := t.TempDir()
 	if err := Write(dir, world, false); err != nil {
@@ -36,5 +39,12 @@ func TestWriteCreatesAllExports(t *testing.T) {
 		if _, err := os.Stat(filepath.Join(dir, name)); err != nil {
 			t.Fatalf("%s: %v", name, err)
 		}
+	}
+	csvBytes, err := os.ReadFile(filepath.Join(dir, "pals.csv"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if strings.Contains(string(csvBytes), "WildPal") {
+		t.Fatal("pals.csv contains a Pal outside the current collection")
 	}
 }

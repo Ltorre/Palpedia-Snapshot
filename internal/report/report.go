@@ -62,16 +62,27 @@ func Write(outputDir string, world *sav.World, force bool) error {
 		return err
 	}
 	rows := pals(world)
+	collectionRows := currentCollection(rows)
 	if err := writeBytes(filepath.Join(outputDir, "world.json"), append(worldJSON, '\n'), force); err != nil {
 		return err
 	}
-	if err := writeBytes(filepath.Join(outputDir, "pals.csv"), palsCSV(rows), force); err != nil {
+	if err := writeBytes(filepath.Join(outputDir, "pals.csv"), palsCSV(collectionRows), force); err != nil {
 		return err
 	}
 	if err := writeBytes(filepath.Join(outputDir, "capture-history.csv"), capturesCSV(world), force); err != nil {
 		return err
 	}
 	return writeBytes(filepath.Join(outputDir, "collection.md"), markdown(world, rows), force)
+}
+
+func currentCollection(rows []palRow) []palRow {
+	collection := make([]palRow, 0, len(rows))
+	for _, row := range rows {
+		if row.Scope == "party" || row.Scope == "palbox" {
+			collection = append(collection, row)
+		}
+	}
+	return collection
 }
 
 func pals(world *sav.World) []palRow {

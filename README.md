@@ -5,9 +5,9 @@ Small read-only Windows CLI for exporting a Palworld `Level.sav` and its player 
 It writes four files to a directory you choose:
 
 - `collection.md` — player collection summary and current party/Palbox Pals
-- `pals.csv` — every decoded Pal, including base and world Pals
+- `pals.csv` — current player-owned Pals in the party or Palbox; this is the NotebookLM collection source
 - `capture-history.csv` — per-player Paldeck capture counts
-- `world.json` — complete typed export: players, Pals, guilds, bases, and parser diagnostics
+- `world.json` — complete typed export, including players, all decoded Pals, guilds, bases, and parser diagnostics
 
 The application never modifies save files. It refuses to place its output inside the save directory.
 
@@ -26,6 +26,10 @@ Official Windows binaries are attached to each GitHub release. Check a binary wi
 ```
 
 Each release includes a standalone, source-ready release note describing its export format, use, and safety limits.
+
+## NotebookLM template
+
+Duplicate the shared [Palworld Palpedia NotebookLM template](https://notebook.google.com/notebook/fec4f41d-1c32-4b8d-975c-a0fbe3f7eba1), then add the generated `pals.csv` as your personal collection source. The notebook can use that CSV to identify gaps in your Palpedia and propose efficient next captures.
 
 ## Export
 
