@@ -19,7 +19,7 @@ Do **not** add `world.json` to NotebookLM. It is a complete technical export for
 
 ## Breeding planner preview
 
-The `v3.0.0-rc1` branch adds an in-app, read-only breeding planner. After selecting a `Level.sav`, use **Update planner from selected save** to load current party and Palbox Pals. It shows when the collection was loaded, when the selected save was last modified, and the newest `export_<date time>` folder in the chosen destination.
+The `v3.0.0-rc1` branch adds in-app, read-only planning tools. The app first asks only for a `Level.sav`; after choosing it, select **NotebookLM export**, **Breeding planner**, or **Quickest route**. Only the chosen workspace opens, while the other choices stay available above it. **Change save** reopens the save selector at any time.
 
 The planner can:
 
@@ -30,9 +30,9 @@ The planner can:
 
 The planner translates all 299 bundled game IDs into their Palpedia-facing names: for example, `BOSS_GrassMammoth` displays as **Mammorest**. It still accepts raw IDs when useful.
 
-To keep the picker compact, identical species/sex/passive-trait combinations are represented by only their highest-level Pal. Gold traits use yellow labels and diamond traits green labels. The header includes a light/dark theme switch, and the selected save/export setup collapses into small summaries that can be reopened when needed.
+To keep the picker compact, identical species/sex/passive-trait combinations are represented by only their highest-level Pal. Gold traits use yellow labels and diamond traits green labels. Standard passive IDs are translated too: for example, `CraftSpeed_up1` displays as **Serious** and `PAL_ALLAttack_up1` as **Brave**. Hover any known trait to see its in-game effect. The header includes a light/dark theme switch, and the selected save/export setup collapses into small summaries that can be reopened when needed.
 
-The quickest-route section is above the parent calculator and offers clickable name suggestions as you type. The selected male and female parents remain in dedicated cards above the scrollable Pal list.
+The quickest-route workspace offers clickable name suggestions as you type. The selected male and female parents remain in dedicated cards above the scrollable Pal list.
 
 For a route longer than two generations, it also identifies the Philanthropist and Babysitter Pals in the loaded collection and explains how to use them to speed up the breeding farm.
 

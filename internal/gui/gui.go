@@ -42,6 +42,15 @@ const (
 	darkTheme  themeMode = "dark"
 )
 
+type workspaceView string
+
+const (
+	noWorkspace       workspaceView = ""
+	notebookWorkspace workspaceView = "notebook"
+	plannerWorkspace  workspaceView = "planner"
+	routeWorkspace    workspaceView = "route"
+)
+
 type taskResult struct {
 	kind        string
 	candidates  []SaveCandidate
@@ -69,6 +78,7 @@ type screen struct {
 	root, level, output, players, player, compare                                                          widget.Editor
 	advanced                                                                                               widget.Bool
 	englishButton, frenchButton, lightButton, darkButton, scanButton, changeSaveButton, changeExportButton widget.Clickable
+	notebookViewButton, plannerViewButton, routeViewButton                                                 widget.Clickable
 	browseButton, outputBrowseButton, compareBrowseButton, playersButton, exportButton, openExportButton   widget.Clickable
 	candidates                                                                                             []SaveCandidate
 	candidateButtons                                                                                       []widget.Clickable
@@ -81,6 +91,7 @@ type screen struct {
 	statusError                                                                                            bool
 	lastExportDir                                                                                          string
 	showSaveSetup, showExportSetup                                                                         bool
+	activeView                                                                                             workspaceView
 	plannerRefreshButton, pairButton, routeButton, plannerSortLevelAsc, plannerSortLevelDesc               widget.Clickable
 	plannerGold, plannerDiamond, plannerMale, plannerFemale                                                widget.Bool
 	plannerSort                                                                                            planner.SortOrder
@@ -88,6 +99,7 @@ type screen struct {
 	plannerPals                                                                                            []planner.Pal
 	plannerPickers                                                                                         map[string]*plannerPicker
 	targetSuggestionButtons                                                                                map[string]*widget.Clickable
+	traitHovers                                                                                            map[string]*widget.Clickable
 	selectedMale, selectedFemale                                                                           *planner.Pal
 	plannerLoadedAt                                                                                        time.Time
 	plannerSaveModified                                                                                    time.Time
@@ -125,6 +137,7 @@ func newScreen(window *app.Window, version string) *screen {
 	}
 	s.plannerPickers = make(map[string]*plannerPicker)
 	s.targetSuggestionButtons = make(map[string]*widget.Clickable)
+	s.traitHovers = make(map[string]*widget.Clickable)
 	s.root.SetText(DefaultSaveRoot())
 	s.output.SetText(DefaultExportDir())
 	s.lastExportDir = latestExportDir(s.output.Text())
@@ -189,6 +202,9 @@ func (s *screen) handle(gtx layout.Context) {
 			case "browse":
 				s.level.SetText(result.path)
 				s.showSaveSetup = result.path == ""
+				if result.path != "" {
+					s.activeView = noWorkspace
+				}
 			case "output-browse":
 				s.output.SetText(result.path)
 				if result.path != "" {
@@ -232,9 +248,21 @@ handled:
 	}
 	if s.changeSaveButton.Clicked(gtx) {
 		s.showSaveSetup = true
+		s.activeView = noWorkspace
 	}
 	if s.changeExportButton.Clicked(gtx) {
 		s.showExportSetup = true
+	}
+	if s.notebookViewButton.Clicked(gtx) {
+		s.activeView = notebookWorkspace
+	}
+	if s.plannerViewButton.Clicked(gtx) {
+		s.activeView = plannerWorkspace
+		s.ensurePlannerLoaded()
+	}
+	if s.routeViewButton.Clicked(gtx) {
+		s.activeView = routeWorkspace
+		s.ensurePlannerLoaded()
 	}
 	if s.scanButton.Clicked(gtx) && !s.busy {
 		s.startScan()
@@ -278,6 +306,7 @@ handled:
 		if s.candidateButtons[index].Clicked(gtx) {
 			s.level.SetText(s.candidates[index].LevelPath)
 			s.showSaveSetup = false
+			s.activeView = noWorkspace
 			s.statusError = false
 			s.status = s.t("world_selected")
 		}
@@ -308,6 +337,12 @@ handled:
 				s.target.SetText(rules.DisplayName(characterID))
 			}
 		}
+	}
+}
+
+func (s *screen) ensurePlannerLoaded() {
+	if len(s.plannerPals) == 0 && !s.busy {
+		s.startPlannerRefresh()
 	}
 }
 
@@ -616,15 +651,26 @@ func (s *screen) layout(gtx layout.Context) layout.Dimensions {
 			if s.showSaveSetup || strings.TrimSpace(s.level.Text()) == "" {
 				children = append(children, layout.Rigid(s.saveSection))
 			} else {
-				children = append(children, layout.Rigid(s.selectedSaveSummary))
+				children = append(children,
+					layout.Rigid(s.selectedSaveSummary),
+					layout.Rigid(spacer(12)),
+					layout.Rigid(s.workspaceChooser),
+				)
+				switch s.activeView {
+				case notebookWorkspace:
+					children = append(children, layout.Rigid(spacer(12)))
+					if s.showExportSetup {
+						children = append(children, layout.Rigid(s.exportSection))
+					} else {
+						children = append(children, layout.Rigid(s.exportSummary))
+					}
+				case plannerWorkspace:
+					children = append(children, layout.Rigid(spacer(12)), layout.Rigid(s.plannerSection))
+				case routeWorkspace:
+					children = append(children, layout.Rigid(spacer(12)), layout.Rigid(s.quickestRouteSection))
+				}
 			}
-			children = append(children, layout.Rigid(spacer(12)))
-			if s.showExportSetup {
-				children = append(children, layout.Rigid(s.exportSection))
-			} else {
-				children = append(children, layout.Rigid(s.exportSummary))
-			}
-			children = append(children, layout.Rigid(spacer(12)), layout.Rigid(s.plannerSection), layout.Rigid(spacer(12)), layout.Rigid(s.statusSection))
+			children = append(children, layout.Rigid(spacer(12)), layout.Rigid(s.statusSection))
 			return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
 		})
 	})
@@ -705,6 +751,32 @@ func (s *screen) selectedSaveSummary(gtx layout.Context) layout.Dimensions {
 			}),
 		)
 	})
+}
+
+func (s *screen) workspaceChooser(gtx layout.Context) layout.Dimensions {
+	return section(gtx, s.theme, s.t("workspace_title"), func(gtx layout.Context) layout.Dimensions {
+		return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+			layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+				return s.workspaceButton(gtx, &s.notebookViewButton, s.t("workspace_notebook"), s.activeView == notebookWorkspace)
+			}),
+			layout.Rigid(spacer(8)),
+			layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+				return s.workspaceButton(gtx, &s.plannerViewButton, s.t("workspace_planner"), s.activeView == plannerWorkspace)
+			}),
+			layout.Rigid(spacer(8)),
+			layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+				return s.workspaceButton(gtx, &s.routeViewButton, s.t("workspace_route"), s.activeView == routeWorkspace)
+			}),
+		)
+	})
+}
+
+func (s *screen) workspaceButton(gtx layout.Context, button *widget.Clickable, label string, active bool) layout.Dimensions {
+	style := material.Button(s.theme, button, label)
+	if !active {
+		style.Background, style.Color = s.surface(), s.primaryText()
+	}
+	return style.Layout(gtx)
 }
 
 func (s *screen) candidatesList(gtx layout.Context) layout.Dimensions {
@@ -807,24 +879,6 @@ func (s *screen) plannerSection(gtx layout.Context) layout.Dimensions {
 		children = append(children,
 			layout.Rigid(spacer(12)),
 			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-				return material.Subtitle2(s.theme, s.t("planner_route_section")).Layout(gtx)
-			}),
-			layout.Rigid(s.caption("planner_route_help")),
-			layout.Rigid(s.editor(&s.target, s.t("planner_target"))),
-			layout.Rigid(s.plannerTargetSuggestions),
-			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-				button := material.Button(s.theme, &s.routeButton, s.t("planner_find_route"))
-				button.Background = color.NRGBA{R: 32, G: 125, B: 104, A: 255}
-				button.Color = color.NRGBA{R: 255, G: 255, B: 255, A: 255}
-				return button.Layout(gtx)
-			}),
-		)
-		if s.plannerRoute != "" {
-			children = append(children, layout.Rigid(spacer(5)), layout.Rigid(s.note(s.plannerRoute, s.primaryText())))
-		}
-		children = append(children,
-			layout.Rigid(spacer(16)),
-			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 				return material.Subtitle2(s.theme, s.t("planner_pick_title")).Layout(gtx)
 			}),
 			layout.Rigid(s.plannerParentCards),
@@ -841,6 +895,7 @@ func (s *screen) plannerSection(gtx layout.Context) layout.Dimensions {
 		children = append(children,
 			layout.Rigid(spacer(8)),
 			layout.Rigid(s.caption("planner_filter_help")),
+			layout.Rigid(s.caption("planner_trait_help")),
 			layout.Rigid(s.editor(&s.plannerFilter, s.t("planner_filter"))),
 			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 				return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
@@ -885,6 +940,42 @@ func (s *screen) plannerSection(gtx layout.Context) layout.Dimensions {
 			layout.Rigid(spacer(4)),
 			layout.Rigid(s.plannerPalsList),
 		)
+		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
+	})
+}
+
+func (s *screen) quickestRouteSection(gtx layout.Context) layout.Dimensions {
+	return section(gtx, s.theme, s.t("planner_route_section"), func(gtx layout.Context) layout.Dimensions {
+		children := []layout.FlexChild{
+			layout.Rigid(s.caption("planner_route_help")),
+			layout.Rigid(spacer(6)),
+			layout.Rigid(s.plannerFreshness),
+			layout.Rigid(spacer(6)),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				button := material.Button(s.theme, &s.plannerRefreshButton, s.t("planner_refresh"))
+				button.Background = color.NRGBA{R: 46, G: 103, B: 171, A: 255}
+				button.Color = color.NRGBA{R: 255, G: 255, B: 255, A: 255}
+				return button.Layout(gtx)
+			}),
+		}
+		if len(s.plannerPals) == 0 {
+			children = append(children, layout.Rigid(spacer(6)), layout.Rigid(s.caption("planner_empty")))
+			return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
+		}
+		children = append(children,
+			layout.Rigid(spacer(12)),
+			layout.Rigid(s.editor(&s.target, s.t("planner_target"))),
+			layout.Rigid(s.plannerTargetSuggestions),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				button := material.Button(s.theme, &s.routeButton, s.t("planner_find_route"))
+				button.Background = color.NRGBA{R: 32, G: 125, B: 104, A: 255}
+				button.Color = color.NRGBA{R: 255, G: 255, B: 255, A: 255}
+				return button.Layout(gtx)
+			}),
+		)
+		if s.plannerRoute != "" {
+			children = append(children, layout.Rigid(spacer(8)), layout.Rigid(s.note(s.plannerRoute, s.primaryText())))
+		}
 		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
 	})
 }
@@ -969,7 +1060,7 @@ func (s *screen) plannerPalsList(gtx layout.Context) layout.Dimensions {
 					return widget.Border{Color: s.border(), CornerRadius: unit.Dp(6), Width: unit.Dp(1)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 						return layout.Inset{Top: unit.Dp(7), Bottom: unit.Dp(7), Left: unit.Dp(10), Right: unit.Dp(10)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 							return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
-								layout.Flexed(1, s.plannerPalDetails(pal)),
+								layout.Flexed(1, s.plannerPalDetails(pal, "list")),
 								layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 									if strings.EqualFold(pal.Gender, "male") {
 										return material.Button(s.theme, &picker.male, s.t("planner_choose_male")).Layout(gtx)
@@ -1041,7 +1132,7 @@ func (s *screen) plannerParentCard(gtx layout.Context, title string, pal *planne
 			if pal == nil {
 				children = append(children, layout.Rigid(s.note(s.t("planner_no_parent"), s.mutedText())))
 			} else {
-				children = append(children, layout.Rigid(s.plannerPalDetails(*pal)))
+				children = append(children, layout.Rigid(s.plannerPalDetails(*pal, title)))
 			}
 			return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
 		})
@@ -1052,32 +1143,56 @@ func plannerPalLabel(pal planner.Pal) string {
 	return fmt.Sprintf("%s · Lv. %d · %s", planner.PalName(pal), planner.PalLevel(pal), pal.Gender)
 }
 
-func (s *screen) plannerPalDetails(pal planner.Pal) layout.Widget {
+func (s *screen) plannerPalDetails(pal planner.Pal, location string) layout.Widget {
 	return func(gtx layout.Context) layout.Dimensions {
 		children := []layout.FlexChild{layout.Rigid(s.note(plannerPalLabel(pal), s.primaryText()))}
 		if len(pal.Traits) > 0 {
-			children = append(children, layout.Rigid(s.traitLabels(pal.Traits)))
+			children = append(children, layout.Rigid(s.traitLabels(location+"\x00"+pal.InstanceID, pal.Traits)))
 		}
 		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
 	}
 }
 
-func (s *screen) traitLabels(traits []string) layout.Widget {
+func (s *screen) traitLabels(location string, traits []string) layout.Widget {
 	return func(gtx layout.Context) layout.Dimensions {
 		children := make([]layout.FlexChild, 0, len(traits))
 		for index, trait := range traits {
-			trait := trait
+			index, trait := index, trait
+			key := fmt.Sprintf("%s\x00%d\x00%s", location, index, trait)
+			hover := s.traitHover(key)
 			children = append(children, layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 				label := material.Caption(s.theme, planner.TraitName(trait))
 				label.Color = s.traitColor(trait)
-				if index < len(traits)-1 {
-					return layout.Inset{Right: unit.Dp(8)}.Layout(gtx, label.Layout)
+				traitLabel := func(gtx layout.Context) layout.Dimensions {
+					if index < len(traits)-1 {
+						return layout.Inset{Right: unit.Dp(8)}.Layout(gtx, label.Layout)
+					}
+					return label.Layout(gtx)
 				}
-				return label.Layout(gtx)
+				return hover.Layout(gtx, traitLabel)
 			}))
 		}
-		return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx, children...)
+		labelRow := layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx, children...)
+		for index, trait := range traits {
+			key := fmt.Sprintf("%s\x00%d\x00%s", location, index, trait)
+			if effect := planner.TraitEffect(trait); effect != "" && s.traitHover(key).Hovered() {
+				return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+					layout.Rigid(func(layout.Context) layout.Dimensions { return labelRow }),
+					layout.Rigid(s.note(effect, s.mutedText())),
+				)
+			}
+		}
+		return labelRow
 	}
+}
+
+func (s *screen) traitHover(key string) *widget.Clickable {
+	if hover, ok := s.traitHovers[key]; ok {
+		return hover
+	}
+	hover := new(widget.Clickable)
+	s.traitHovers[key] = hover
+	return hover
 }
 
 func (s *screen) traitColor(trait string) color.NRGBA {
@@ -1196,8 +1311,16 @@ func init() {
 	translations[french]["change_export"] = "Modifier l’export"
 	translations[english]["notebooklm_files"] = "Create your own notebook at notebook.google.com. First upload the 31 reference Markdown files from palpedia-snapshot-notebooklm-reference.zip, then add: collection.md, pals.csv, capture-history.csv, palpedia-progress.md, breeding-candidates.md, breeding-rules.md, breeding-direct-pairs.csv, and collection-diff.md when comparing. Do not add world.json."
 	translations[french]["notebooklm_files"] = "Créez votre propre notebook sur notebook.google.com. Importez d’abord les 31 fichiers Markdown de référence depuis palpedia-snapshot-notebooklm-reference.zip, puis ajoutez : collection.md, pals.csv, capture-history.csv, palpedia-progress.md, breeding-candidates.md, breeding-rules.md, breeding-direct-pairs.csv et collection-diff.md lors d’une comparaison. Ne pas ajouter world.json."
-	translations[english]["planner_title"] = "3. Breeding planner"
-	translations[english]["planner_help"] = "Load the selected save to choose actual Pals, calculate an exact pair, or plan the fastest breeding-generation route to a target. This is read-only."
+	translations[english]["workspace_title"] = "Choose a workspace"
+	translations[english]["workspace_notebook"] = "NotebookLM export"
+	translations[english]["workspace_planner"] = "Breeding planner"
+	translations[english]["workspace_route"] = "Quickest route"
+	translations[french]["workspace_title"] = "Choisir un espace"
+	translations[french]["workspace_notebook"] = "Export NotebookLM"
+	translations[french]["workspace_planner"] = "Planificateur d’élevage"
+	translations[french]["workspace_route"] = "Chemin le plus rapide"
+	translations[english]["planner_title"] = "Breeding planner"
+	translations[english]["planner_help"] = "Load the selected save to choose actual Pals and calculate the exact child of a selected pair. This is read-only."
 	translations[english]["planner_not_loaded"] = "No collection is loaded for planning yet."
 	translations[english]["planner_freshness"] = "Planner collection: %d current Pals · loaded %s · selected save last changed %s."
 	translations[english]["planner_last_export"] = "Latest NotebookLM export in the selected folder: %s"
@@ -1209,6 +1332,7 @@ func init() {
 	translations[english]["planner_empty"] = "No current party or Palbox Pals are loaded. Update the planner from a selected save."
 	translations[english]["planner_pick_title"] = "Pick real parents"
 	translations[english]["planner_filter_help"] = "Search a Pal name (for example Mammorest), a raw game ID, or a passive trait. Filter by sex or sort by level when useful. Gold is rank 3; diamond is rank 4. If both are checked, either tier is included."
+	translations[english]["planner_trait_help"] = "Hover a trait to see its in-game effect."
 	translations[english]["planner_filter"] = "Search Pal name or trait"
 	translations[english]["planner_gold"] = "Gold traits (rank 3)"
 	translations[english]["planner_diamond"] = "Diamond traits (rank 4)"
@@ -1245,8 +1369,8 @@ func init() {
 	translations[english]["planner_route_caveat"] = "This is a species route. Passive inheritance and egg-gender RNG are not guaranteed; breed extra eggs when a later step needs a specific sex."
 	translations[english]["planner_route_ready"] = "Quickest breeding route calculated."
 
-	translations[french]["planner_title"] = "3. Planificateur d’élevage"
-	translations[french]["planner_help"] = "Chargez la sauvegarde sélectionnée pour choisir vos vrais Pals, calculer une paire exacte ou trouver le chemin le plus rapide vers une cible. Lecture seule."
+	translations[french]["planner_title"] = "Planificateur d’élevage"
+	translations[french]["planner_help"] = "Chargez la sauvegarde sélectionnée pour choisir vos vrais Pals et calculer l’enfant exact d’une paire. Lecture seule."
 	translations[french]["planner_not_loaded"] = "Aucune collection n’est encore chargée pour le planificateur."
 	translations[french]["planner_freshness"] = "Collection du planificateur : %d Pals actuels · chargée à %s · sauvegarde sélectionnée modifiée à %s."
 	translations[french]["planner_last_export"] = "Dernier export NotebookLM du dossier sélectionné : %s"
@@ -1258,6 +1382,7 @@ func init() {
 	translations[french]["planner_empty"] = "Aucun Pal de l’équipe ou du Palbox n’est chargé. Mettez à jour depuis une sauvegarde sélectionnée."
 	translations[french]["planner_pick_title"] = "Choisir les vrais parents"
 	translations[french]["planner_filter_help"] = "Recherchez un nom de Pal (par exemple Mammorest), un identifiant du jeu ou un trait passif. Filtrez par sexe ou triez par niveau si nécessaire. Or = rang 3 ; diamant = rang 4. Avec les deux cochés, les deux rangs sont inclus."
+	translations[french]["planner_trait_help"] = "Survolez un trait pour voir son effet en jeu."
 	translations[french]["planner_filter"] = "Rechercher un Pal ou trait"
 	translations[french]["planner_gold"] = "Traits or (rang 3)"
 	translations[french]["planner_diamond"] = "Traits diamant (rang 4)"
