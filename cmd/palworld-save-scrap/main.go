@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
 
 	"github.com/Ltorre/palworld-save-scrap/internal/report"
 	"github.com/Ltorre/palworld-save-scrap/internal/sav"
@@ -14,15 +15,18 @@ import (
 var version = "dev"
 
 func main() {
-	var levelPath, outputDir, playersDir, oodleLibrary string
+	var levelPath, outputDir, playersDir, oodleLibrary, playerUID string
 	var force bool
 	var showVersion bool
+	var listPlayers bool
 	flag.StringVar(&levelPath, "level", "", "path to Level.sav")
 	flag.StringVar(&outputDir, "output", "", "empty output directory")
 	flag.StringVar(&playersDir, "players-dir", "", "path to Players directory (defaults to the sibling Players directory)")
 	flag.StringVar(&oodleLibrary, "oodle-lib", "", "absolute path to oo2core_9_win64.dll for PlM saves")
 	flag.BoolVar(&force, "force", false, "allow writing into a non-empty output directory")
 	flag.BoolVar(&showVersion, "version", false, "print version")
+	flag.BoolVar(&listPlayers, "list-players", false, "list players found in the save")
+	flag.StringVar(&playerUID, "player", "", "player UID to export; use --list-players to find it")
 	flag.Parse()
 	if showVersion {
 		fmt.Println(version)
@@ -31,8 +35,8 @@ func main() {
 	if levelPath == "" && flag.NArg() == 1 {
 		levelPath = flag.Arg(0)
 	}
-	if levelPath == "" || outputDir == "" {
-		fmt.Fprintln(os.Stderr, "usage: palworld-save-scrap --level <Level.sav> --output <directory> [--players-dir <Players>] [--oodle-lib <dll>] [--force]")
+	if levelPath == "" || (!listPlayers && outputDir == "") || (listPlayers && playerUID != "") {
+		fmt.Fprintln(os.Stderr, "usage: palworld-save-scrap --level <Level.sav> --output <directory> [--player <UID>] [--players-dir <Players>] [--oodle-lib <dll>] [--force]\n       palworld-save-scrap --level <Level.sav> --list-players [--players-dir <Players>] [--oodle-lib <dll>]")
 		os.Exit(2)
 	}
 	if oodleLibrary != "" {
@@ -49,6 +53,17 @@ func main() {
 	if err != nil {
 		fail(err)
 	}
+	world, err := sav.ParseLevel(levelPath, sav.Options{PlayersDir: playersDir})
+	if err != nil {
+		fail(fmt.Errorf("read save: %w", err))
+	}
+	if listPlayers {
+		printPlayers(world.Players)
+		return
+	}
+	if !report.HasPlayer(world, playerUID) {
+		fail(fmt.Errorf("player %q was not found; use --list-players to choose a player UID", playerUID))
+	}
 	outputDir, err = filepath.Abs(outputDir)
 	if err != nil {
 		fail(err)
@@ -56,15 +71,26 @@ func main() {
 	if err := report.ValidateOutputDirectory(levelPath, outputDir, force); err != nil {
 		fail(err)
 	}
-
-	world, err := sav.ParseLevel(levelPath, sav.Options{PlayersDir: playersDir})
-	if err != nil {
-		fail(fmt.Errorf("read save: %w", err))
-	}
-	if err := report.Write(outputDir, world, force); err != nil {
+	if err := report.Write(outputDir, world, playerUID, force); err != nil {
 		fail(err)
 	}
-	fmt.Printf("Exported %d players and %d Pals to %s\n", len(world.Players), len(world.Pals), outputDir)
+	if playerUID == "" {
+		fmt.Printf("Exported %d players and %d Pals to %s\n", len(world.Players), len(world.Pals), outputDir)
+	} else {
+		fmt.Printf("Exported player %s to %s\n", playerUID, outputDir)
+	}
+}
+
+func printPlayers(players []sav.Player) {
+	sort.Slice(players, func(i, j int) bool { return players[i].Nickname < players[j].Nickname })
+	if len(players) == 0 {
+		fmt.Println("No players found.")
+		return
+	}
+	fmt.Println("PLAYER UID\tLEVEL\tNAME")
+	for _, player := range players {
+		fmt.Printf("%s\t%d\t%s\n", player.UID, player.Level, player.Nickname)
+	}
 }
 
 func fail(err error) {

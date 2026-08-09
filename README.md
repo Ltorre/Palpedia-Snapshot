@@ -50,6 +50,22 @@ C:\Users\<WindowsUser>\AppData\Local\Pal\Saved\SaveGames\<SteamID>\<WorldID>\Lev
 
 `Level.sav` must have its matching `Players` directory beside it, unless you pass `--players-dir` explicitly. `--output` is mandatory and must be outside the save directory. Use `--force` only to replace files in an existing export directory.
 
+### Shared worlds: export one player's collection
+
+List the player IDs in the save, then use the chosen UID with `--player`:
+
+```powershell
+.\palworld-save-scrap.exe --level "D:\path\to\Level.sav" --list-players --oodle-lib "D:\path\to\oo2core_9_win64.dll"
+
+.\palworld-save-scrap.exe `
+  --level "D:\path\to\Level.sav" `
+  --output "D:\path\to\personal-export" `
+  --player "player-uid-from-list" `
+  --oodle-lib "D:\path\to\oo2core_9_win64.dll"
+```
+
+With `--player`, `pals.csv`, `capture-history.csv`, and `collection.md` contain only that player's data. `world.json` remains the complete world export.
+
 Modern saves use Oodle compression. For those saves, pass the absolute path to `oo2core_9_win64.dll` from your own Palworld installation. The DLL is not included, downloaded, copied, or changed by this project.
 
 ## Safety and scope

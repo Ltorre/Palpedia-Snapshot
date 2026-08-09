@@ -15,7 +15,7 @@ func TestPalsClassifiesPlayerContainers(t *testing.T) {
 		Players: []sav.Player{{UID: "player", OtomoContainerID: "party", PalStorageContainerID: "box"}},
 		Pals:    []sav.Pal{{CharacterID: "PartyPal", ContainerID: "party", Rank: &rank}, {CharacterID: "BoxPal", ContainerID: "box", Rank: &rank}, {CharacterID: "BasePal", BaseID: "base"}},
 	}
-	rows := pals(world)
+	rows := pals(world, "")
 	got := []string{rows[0].Scope, rows[1].Scope, rows[2].Scope}
 	if strings.Join(got, ",") != "base,palbox,party" {
 		t.Fatalf("scopes = %v", got)
@@ -32,7 +32,7 @@ func TestWriteCreatesAllExports(t *testing.T) {
 		},
 	}
 	dir := t.TempDir()
-	if err := Write(dir, world, false); err != nil {
+	if err := Write(dir, world, "", false); err != nil {
 		t.Fatal(err)
 	}
 	for _, name := range []string{"collection.md", "pals.csv", "capture-history.csv", "world.json"} {
@@ -46,5 +46,26 @@ func TestWriteCreatesAllExports(t *testing.T) {
 	}
 	if strings.Contains(string(csvBytes), "WildPal") {
 		t.Fatal("pals.csv contains a Pal outside the current collection")
+	}
+}
+
+func TestPlayerFilterKeepsOnlyRequestedCollection(t *testing.T) {
+	rank := 1
+	world := &sav.World{
+		Players: []sav.Player{
+			{UID: "one", OtomoContainerID: "one-party"},
+			{UID: "two", OtomoContainerID: "two-party"},
+		},
+		Pals: []sav.Pal{
+			{CharacterID: "OnePal", ContainerID: "one-party", Rank: &rank},
+			{CharacterID: "TwoPal", ContainerID: "two-party", Rank: &rank},
+		},
+	}
+	rows := currentCollection(pals(world, "one"))
+	if len(rows) != 1 || rows[0].Character != "OnePal" {
+		t.Fatalf("filtered collection = %#v", rows)
+	}
+	if !HasPlayer(world, "one") || HasPlayer(world, "missing") {
+		t.Fatal("unexpected player lookup result")
 	}
 }

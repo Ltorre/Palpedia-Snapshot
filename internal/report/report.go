@@ -53,7 +53,19 @@ func ValidateOutputDirectory(levelPath, outputDir string, force bool) error {
 	return nil
 }
 
-func Write(outputDir string, world *sav.World, force bool) error {
+func HasPlayer(world *sav.World, playerUID string) bool {
+	if playerUID == "" {
+		return true
+	}
+	for _, player := range world.Players {
+		if strings.EqualFold(player.UID, playerUID) {
+			return true
+		}
+	}
+	return false
+}
+
+func Write(outputDir string, world *sav.World, playerUID string, force bool) error {
 	if err := os.MkdirAll(outputDir, 0o755); err != nil {
 		return err
 	}
@@ -61,7 +73,7 @@ func Write(outputDir string, world *sav.World, force bool) error {
 	if err != nil {
 		return err
 	}
-	rows := pals(world)
+	rows := pals(world, playerUID)
 	collectionRows := currentCollection(rows)
 	if err := writeBytes(filepath.Join(outputDir, "world.json"), append(worldJSON, '\n'), force); err != nil {
 		return err
@@ -69,10 +81,10 @@ func Write(outputDir string, world *sav.World, force bool) error {
 	if err := writeBytes(filepath.Join(outputDir, "pals.csv"), palsCSV(collectionRows), force); err != nil {
 		return err
 	}
-	if err := writeBytes(filepath.Join(outputDir, "capture-history.csv"), capturesCSV(world), force); err != nil {
+	if err := writeBytes(filepath.Join(outputDir, "capture-history.csv"), capturesCSV(world, playerUID), force); err != nil {
 		return err
 	}
-	return writeBytes(filepath.Join(outputDir, "collection.md"), markdown(world, rows), force)
+	return writeBytes(filepath.Join(outputDir, "collection.md"), markdown(world, rows, playerUID), force)
 }
 
 func currentCollection(rows []palRow) []palRow {
@@ -85,9 +97,12 @@ func currentCollection(rows []palRow) []palRow {
 	return collection
 }
 
-func pals(world *sav.World) []palRow {
+func pals(world *sav.World, playerUID string) []palRow {
 	containers := make(map[string]containerOwner, len(world.Players)*2)
 	for _, player := range world.Players {
+		if playerUID != "" && !strings.EqualFold(player.UID, playerUID) {
+			continue
+		}
 		if player.OtomoContainerID != "" {
 			containers[strings.ToLower(player.OtomoContainerID)] = containerOwner{player.UID, "party"}
 		}
@@ -130,11 +145,14 @@ func palsCSV(rows []palRow) []byte {
 	return out.Bytes()
 }
 
-func capturesCSV(world *sav.World) []byte {
+func capturesCSV(world *sav.World, playerUID string) []byte {
 	var out bytes.Buffer
 	w := csv.NewWriter(&out)
 	_ = w.Write([]string{"player_uid", "character_id", "captures"})
 	for _, player := range world.Players {
+		if playerUID != "" && !strings.EqualFold(player.UID, playerUID) {
+			continue
+		}
 		keys := make([]string, 0, len(player.PalCaptureCounts))
 		for key := range player.PalCaptureCounts {
 			keys = append(keys, key)
@@ -148,7 +166,7 @@ func capturesCSV(world *sav.World) []byte {
 	return out.Bytes()
 }
 
-func markdown(world *sav.World, rows []palRow) []byte {
+func markdown(world *sav.World, rows []palRow, playerUID string) []byte {
 	byPlayer := make(map[string][]palRow)
 	for _, row := range rows {
 		if row.Scope == "party" || row.Scope == "palbox" {
@@ -157,9 +175,12 @@ func markdown(world *sav.World, rows []palRow) []byte {
 	}
 	var out strings.Builder
 	out.WriteString("# Palworld collection export\n\n")
-	out.WriteString("Read-only export from the supplied save files. `world.json` contains the complete parsed world view; `pals.csv` contains every decoded Pal.\n\n")
+	out.WriteString("Read-only export from the supplied save files. `pals.csv` contains the selected player's current party and Palbox collection. `world.json` contains the complete parsed world view.\n\n")
 	fmt.Fprintf(&out, "- Players: %d\n- Decoded Pals: %d\n- Guilds: %d\n- Bases: %d\n\n", len(world.Players), len(world.Pals), len(world.Guilds), len(world.Bases))
 	for _, player := range world.Players {
+		if playerUID != "" && !strings.EqualFold(player.UID, playerUID) {
+			continue
+		}
 		current := byPlayer[player.UID]
 		party, palbox := 0, 0
 		unique := map[string]struct{}{}
