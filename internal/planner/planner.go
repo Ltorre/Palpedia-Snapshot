@@ -37,6 +37,7 @@ type FilterOptions struct {
 	FemaleOnly     bool
 	RequiredGender string
 	SortOrder      SortOrder
+	Deduplicate    bool
 }
 
 // PalName returns a player-facing name when it is available.
@@ -111,6 +112,9 @@ func FilterWithOptions(pals []Pal, options FilterOptions) []Pal {
 		}
 		filtered = append(filtered, pal)
 	}
+	if options.Deduplicate {
+		filtered = highestLevelUnique(filtered)
+	}
 	sort.Slice(filtered, func(i, j int) bool {
 		left, right := PalLevel(filtered[i]), PalLevel(filtered[j])
 		if options.SortOrder == SortByLevelAscending && left != right {
@@ -122,6 +126,31 @@ func FilterWithOptions(pals []Pal, options FilterOptions) []Pal {
 		return strings.Join([]string{PalName(filtered[i]), filtered[i].Gender, filtered[i].InstanceID}, "\x00") < strings.Join([]string{PalName(filtered[j]), filtered[j].Gender, filtered[j].InstanceID}, "\x00")
 	})
 	return filtered
+}
+
+func highestLevelUnique(pals []Pal) []Pal {
+	best := make(map[string]Pal, len(pals))
+	for _, pal := range pals {
+		key := strings.Join([]string{strings.ToLower(pal.CharacterID), strings.ToLower(pal.Gender), traitSetKey(pal.Traits)}, "\x00")
+		current, exists := best[key]
+		if !exists || PalLevel(pal) > PalLevel(current) || (PalLevel(pal) == PalLevel(current) && pal.InstanceID < current.InstanceID) {
+			best[key] = pal
+		}
+	}
+	unique := make([]Pal, 0, len(best))
+	for _, pal := range best {
+		unique = append(unique, pal)
+	}
+	return unique
+}
+
+func traitSetKey(traits []string) string {
+	values := make([]string, 0, len(traits))
+	for _, trait := range traits {
+		values = append(values, strings.ToLower(strings.TrimSpace(trait)))
+	}
+	sort.Strings(values)
+	return strings.Join(values, "\x00")
 }
 
 func matches(pal Pal, query string) bool {

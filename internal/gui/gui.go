@@ -34,6 +34,13 @@ const (
 	french  language = "fr"
 )
 
+type themeMode string
+
+const (
+	lightTheme themeMode = "light"
+	darkTheme  themeMode = "dark"
+)
+
 type taskResult struct {
 	kind        string
 	candidates  []SaveCandidate
@@ -51,15 +58,16 @@ type plannerPicker struct {
 }
 
 type screen struct {
-	window   *app.Window
-	explorer *explorer.Explorer
-	theme    *material.Theme
-	version  string
-	language language
+	window    *app.Window
+	explorer  *explorer.Explorer
+	theme     *material.Theme
+	version   string
+	language  language
+	themeMode themeMode
 
 	root, level, output, players, player, compare                                                        widget.Editor
 	advanced                                                                                             widget.Bool
-	englishButton, frenchButton, scanButton                                                              widget.Clickable
+	englishButton, frenchButton, lightButton, darkButton, scanButton                                     widget.Clickable
 	browseButton, outputBrowseButton, compareBrowseButton, playersButton, exportButton, openExportButton widget.Clickable
 	candidates                                                                                           []SaveCandidate
 	candidateButtons                                                                                     []widget.Clickable
@@ -108,13 +116,8 @@ func Run(version string) {
 
 func newScreen(window *app.Window, version string) *screen {
 	theme := material.NewTheme()
-	theme.Palette = material.Palette{
-		Bg:         color.NRGBA{R: 246, G: 248, B: 252, A: 255},
-		Fg:         color.NRGBA{R: 25, G: 32, B: 48, A: 255},
-		ContrastBg: color.NRGBA{R: 93, G: 76, B: 205, A: 255},
-		ContrastFg: color.NRGBA{R: 255, G: 255, B: 255, A: 255},
-	}
-	s := &screen{window: window, explorer: explorer.NewExplorer(window), theme: theme, version: version, language: english, results: make(chan taskResult, 4), list: layout.List{Axis: layout.Vertical}, plannerList: layout.List{Axis: layout.Vertical}}
+	s := &screen{window: window, explorer: explorer.NewExplorer(window), theme: theme, version: version, language: english, themeMode: lightTheme, results: make(chan taskResult, 4), list: layout.List{Axis: layout.Vertical}, plannerList: layout.List{Axis: layout.Vertical}}
+	s.applyTheme(lightTheme)
 	for _, field := range []*widget.Editor{&s.root, &s.level, &s.output, &s.players, &s.player, &s.compare, &s.plannerFilter, &s.target} {
 		field.SingleLine = true
 	}
@@ -125,6 +128,45 @@ func newScreen(window *app.Window, version string) *screen {
 	s.lastExportDir = latestExportDir(s.output.Text())
 	s.startScan()
 	return s
+}
+
+func (s *screen) applyTheme(mode themeMode) {
+	s.themeMode = mode
+	if mode == darkTheme {
+		s.theme.Palette = material.Palette{Bg: color.NRGBA{R: 22, G: 25, B: 34, A: 255}, Fg: color.NRGBA{R: 237, G: 239, B: 247, A: 255}, ContrastBg: color.NRGBA{R: 150, G: 130, B: 255, A: 255}, ContrastFg: color.NRGBA{R: 20, G: 18, B: 30, A: 255}}
+		return
+	}
+	s.theme.Palette = material.Palette{Bg: color.NRGBA{R: 246, G: 248, B: 252, A: 255}, Fg: color.NRGBA{R: 25, G: 32, B: 48, A: 255}, ContrastBg: color.NRGBA{R: 93, G: 76, B: 205, A: 255}, ContrastFg: color.NRGBA{R: 255, G: 255, B: 255, A: 255}}
+}
+
+func (s *screen) isDark() bool { return s.themeMode == darkTheme }
+
+func (s *screen) primaryText() color.NRGBA {
+	if s.isDark() {
+		return color.NRGBA{R: 237, G: 239, B: 247, A: 255}
+	}
+	return color.NRGBA{R: 43, G: 49, B: 70, A: 255}
+}
+
+func (s *screen) mutedText() color.NRGBA {
+	if s.isDark() {
+		return color.NRGBA{R: 174, G: 181, B: 202, A: 255}
+	}
+	return color.NRGBA{R: 91, G: 98, B: 117, A: 255}
+}
+
+func (s *screen) surface() color.NRGBA {
+	if s.isDark() {
+		return color.NRGBA{R: 43, G: 48, B: 64, A: 255}
+	}
+	return color.NRGBA{R: 232, G: 235, B: 250, A: 255}
+}
+
+func (s *screen) border() color.NRGBA {
+	if s.isDark() {
+		return color.NRGBA{R: 92, G: 101, B: 130, A: 255}
+	}
+	return color.NRGBA{R: 173, G: 178, B: 207, A: 255}
 }
 
 func (s *screen) handle(gtx layout.Context) {
@@ -177,6 +219,12 @@ handled:
 	}
 	if s.frenchButton.Clicked(gtx) {
 		s.language = french
+	}
+	if s.lightButton.Clicked(gtx) {
+		s.applyTheme(lightTheme)
+	}
+	if s.darkButton.Clicked(gtx) {
+		s.applyTheme(darkTheme)
 	}
 	if s.scanButton.Clicked(gtx) && !s.busy {
 		s.startScan()
@@ -563,22 +611,36 @@ func (s *screen) header(gtx layout.Context) layout.Dimensions {
 			return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
 				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 					l := material.H4(s.theme, s.t("title"))
-					l.Color = color.NRGBA{R: 60, G: 48, B: 140, A: 255}
+					l.Color = s.theme.Palette.ContrastBg
 					return l.Layout(gtx)
 				}),
 				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 					l := material.Body2(s.theme, fmt.Sprintf("%s · %s", s.t("subtitle"), s.version))
-					l.Color = color.NRGBA{R: 85, G: 91, B: 110, A: 255}
+					l.Color = s.mutedText()
 					return l.Layout(gtx)
 				}),
 			)
 		}),
 		layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-			return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+			return layout.Flex{Axis: layout.Vertical, Alignment: layout.End}.Layout(gtx,
 				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-					return s.languageButton(gtx, &s.englishButton, "EN", s.language == english)
-				}), layout.Rigid(spacer(6)), layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-					return s.languageButton(gtx, &s.frenchButton, "FR", s.language == french)
+					return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+						layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+							return s.languageButton(gtx, &s.englishButton, "EN", s.language == english)
+						}), layout.Rigid(spacer(6)), layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+							return s.languageButton(gtx, &s.frenchButton, "FR", s.language == french)
+						}),
+					)
+				}),
+				layout.Rigid(spacer(6)),
+				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+					return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+						layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+							return s.languageButton(gtx, &s.lightButton, s.t("theme_light"), s.themeMode == lightTheme)
+						}), layout.Rigid(spacer(6)), layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+							return s.languageButton(gtx, &s.darkButton, s.t("theme_dark"), s.themeMode == darkTheme)
+						}),
+					)
 				}),
 			)
 		}),
@@ -588,7 +650,7 @@ func (s *screen) header(gtx layout.Context) layout.Dimensions {
 func (s *screen) languageButton(gtx layout.Context, button *widget.Clickable, label string, active bool) layout.Dimensions {
 	style := material.Button(s.theme, button, label)
 	if !active {
-		style.Background, style.Color = color.NRGBA{R: 224, G: 226, B: 236, A: 255}, color.NRGBA{R: 63, G: 67, B: 85, A: 255}
+		style.Background, style.Color = s.surface(), s.primaryText()
 	}
 	return style.Layout(gtx)
 }
@@ -623,7 +685,7 @@ func (s *screen) candidatesList(gtx layout.Context) layout.Dimensions {
 				candidate := s.candidates[index]
 				label := fmt.Sprintf("%s  ·  %s", filepath.Base(candidate.WorldDir), candidate.UpdatedAt.Local().Format("2006-01-02 15:04"))
 				style := material.Button(s.theme, &s.candidateButtons[index], label)
-				style.Background, style.Color = color.NRGBA{R: 232, G: 235, B: 250, A: 255}, color.NRGBA{R: 48, G: 54, B: 82, A: 255}
+				style.Background, style.Color = s.surface(), s.primaryText()
 				return layout.Inset{Bottom: unit.Dp(5)}.Layout(gtx, style.Layout)
 			})
 		}),
@@ -665,6 +727,7 @@ func (s *screen) exportSection(gtx layout.Context) layout.Dimensions {
 		children = append(children, layout.Rigid(spacer(12)), layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 			button := material.Button(s.theme, &s.exportButton, s.t("export_button"))
 			button.Background = color.NRGBA{R: 32, G: 125, B: 104, A: 255}
+			button.Color = color.NRGBA{R: 255, G: 255, B: 255, A: 255}
 			return button.Layout(gtx)
 		}))
 		if s.lastExportDir != "" {
@@ -686,6 +749,7 @@ func (s *screen) plannerSection(gtx layout.Context) layout.Dimensions {
 			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 				button := material.Button(s.theme, &s.plannerRefreshButton, s.t("planner_refresh"))
 				button.Background = color.NRGBA{R: 46, G: 103, B: 171, A: 255}
+				button.Color = color.NRGBA{R: 255, G: 255, B: 255, A: 255}
 				return button.Layout(gtx)
 			}),
 		}
@@ -704,11 +768,12 @@ func (s *screen) plannerSection(gtx layout.Context) layout.Dimensions {
 			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 				button := material.Button(s.theme, &s.routeButton, s.t("planner_find_route"))
 				button.Background = color.NRGBA{R: 32, G: 125, B: 104, A: 255}
+				button.Color = color.NRGBA{R: 255, G: 255, B: 255, A: 255}
 				return button.Layout(gtx)
 			}),
 		)
 		if s.plannerRoute != "" {
-			children = append(children, layout.Rigid(spacer(5)), layout.Rigid(s.note(s.plannerRoute, color.NRGBA{R: 20, G: 88, B: 72, A: 255})))
+			children = append(children, layout.Rigid(spacer(5)), layout.Rigid(s.note(s.plannerRoute, s.primaryText())))
 		}
 		children = append(children,
 			layout.Rigid(spacer(16)),
@@ -719,11 +784,12 @@ func (s *screen) plannerSection(gtx layout.Context) layout.Dimensions {
 			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 				button := material.Button(s.theme, &s.pairButton, s.t("planner_calculate_pair"))
 				button.Background = color.NRGBA{R: 127, G: 83, B: 187, A: 255}
+				button.Color = color.NRGBA{R: 255, G: 255, B: 255, A: 255}
 				return button.Layout(gtx)
 			}),
 		)
 		if s.plannerPairResult != "" {
-			children = append(children, layout.Rigid(spacer(5)), layout.Rigid(s.note(s.plannerPairResult, color.NRGBA{R: 58, G: 48, B: 132, A: 255})))
+			children = append(children, layout.Rigid(spacer(5)), layout.Rigid(s.note(s.plannerPairResult, s.primaryText())))
 		}
 		children = append(children,
 			layout.Rigid(spacer(8)),
@@ -778,13 +844,13 @@ func (s *screen) plannerSection(gtx layout.Context) layout.Dimensions {
 
 func (s *screen) plannerFreshness(gtx layout.Context) layout.Dimensions {
 	if s.plannerLoadedAt.IsZero() {
-		return s.note(s.t("planner_not_loaded"), color.NRGBA{R: 91, G: 98, B: 117, A: 255})(gtx)
+		return s.note(s.t("planner_not_loaded"), s.mutedText())(gtx)
 	}
 	message := fmt.Sprintf(s.t("planner_freshness"), len(s.plannerPals), s.plannerLoadedAt.Local().Format("2006-01-02 15:04"), s.plannerSaveModified.Local().Format("2006-01-02 15:04"))
 	if s.lastExportDir != "" {
 		message += "\n" + fmt.Sprintf(s.t("planner_last_export"), filepath.Base(s.lastExportDir))
 	}
-	return s.note(message, color.NRGBA{R: 39, G: 91, B: 76, A: 255})(gtx)
+	return s.note(message, s.primaryText())(gtx)
 }
 
 func (s *screen) plannerTargetSuggestions(gtx layout.Context) layout.Dimensions {
@@ -819,7 +885,7 @@ func suggestionChildren(s *screen, suggestions []breeding.Suggestion) []layout.F
 		}
 		children = append(children, layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 			style := material.Button(s.theme, button, label)
-			style.Background, style.Color = color.NRGBA{R: 232, G: 235, B: 250, A: 255}, color.NRGBA{R: 48, G: 54, B: 82, A: 255}
+			style.Background, style.Color = s.surface(), s.primaryText()
 			return layout.Inset{Bottom: unit.Dp(4)}.Layout(gtx, style.Layout)
 		}))
 	}
@@ -827,7 +893,7 @@ func suggestionChildren(s *screen, suggestions []breeding.Suggestion) []layout.F
 }
 
 func (s *screen) plannerPalsList(gtx layout.Context) layout.Dimensions {
-	visible := planner.FilterWithOptions(s.plannerPals, planner.FilterOptions{
+	filters := planner.FilterOptions{
 		Query:          s.plannerFilter.Text(),
 		GoldOnly:       s.plannerGold.Value,
 		DiamondOnly:    s.plannerDiamond.Value,
@@ -835,13 +901,15 @@ func (s *screen) plannerPalsList(gtx layout.Context) layout.Dimensions {
 		FemaleOnly:     s.plannerFemale.Value,
 		RequiredGender: s.plannerRequiredGender(),
 		SortOrder:      s.plannerSort,
-	})
-	total := len(visible)
+	}
+	total := len(planner.FilterWithOptions(s.plannerPals, filters))
+	filters.Deduplicate = true
+	visible := planner.FilterWithOptions(s.plannerPals, filters)
 	if len(visible) == 0 {
 		return s.caption("planner_no_matches")(gtx)
 	}
 	return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
-		layout.Rigid(s.note(fmt.Sprintf(s.t("planner_showing"), len(visible), total), color.NRGBA{R: 91, G: 98, B: 117, A: 255})),
+		layout.Rigid(s.note(fmt.Sprintf(s.t("planner_showing"), len(visible), total), s.mutedText())),
 		layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 			maxHeight := gtx.Dp(unit.Dp(320))
 			if gtx.Constraints.Max.Y > maxHeight {
@@ -852,7 +920,7 @@ func (s *screen) plannerPalsList(gtx layout.Context) layout.Dimensions {
 				picker := s.plannerPicker(pal)
 				return layout.Inset{Bottom: unit.Dp(5)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 					return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
-						layout.Flexed(1, s.note(plannerPalLabel(pal), color.NRGBA{R: 48, G: 54, B: 82, A: 255})),
+						layout.Flexed(1, s.note(plannerPalLabel(pal), s.primaryText())),
 						layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 							if strings.EqualFold(pal.Gender, "male") {
 								return material.Button(s.theme, &picker.male, s.t("planner_choose_male")).Layout(gtx)
@@ -882,7 +950,7 @@ func (s *screen) plannerRequiredGender() string {
 func (s *screen) plannerSortButton(gtx layout.Context, button *widget.Clickable, label string, active bool) layout.Dimensions {
 	style := material.Button(s.theme, button, label)
 	if !active {
-		style.Background, style.Color = color.NRGBA{R: 224, G: 226, B: 236, A: 255}, color.NRGBA{R: 63, G: 67, B: 85, A: 255}
+		style.Background, style.Color = s.surface(), s.primaryText()
 	}
 	return style.Layout(gtx)
 }
@@ -917,15 +985,15 @@ func (s *screen) plannerParentCards(gtx layout.Context) layout.Dimensions {
 }
 
 func (s *screen) plannerParentCard(gtx layout.Context, title, value string) layout.Dimensions {
-	return widget.Border{Color: color.NRGBA{R: 173, G: 178, B: 207, A: 255}, CornerRadius: unit.Dp(6), Width: unit.Dp(1)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+	return widget.Border{Color: s.border(), CornerRadius: unit.Dp(6), Width: unit.Dp(1)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 		return layout.Inset{Top: unit.Dp(8), Bottom: unit.Dp(8), Left: unit.Dp(10), Right: unit.Dp(10)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 			return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
 				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 					label := material.Caption(s.theme, title)
-					label.Color = color.NRGBA{R: 91, G: 98, B: 117, A: 255}
+					label.Color = s.mutedText()
 					return label.Layout(gtx)
 				}),
-				layout.Rigid(s.note(value, color.NRGBA{R: 48, G: 54, B: 82, A: 255})),
+				layout.Rigid(s.note(value, s.primaryText())),
 			)
 		})
 	})
@@ -952,7 +1020,7 @@ func (s *screen) playersList(gtx layout.Context) layout.Dimensions {
 			return list.Layout(gtx, len(s.playersFound), func(gtx layout.Context, index int) layout.Dimensions {
 				player := s.playersFound[index]
 				style := material.Button(s.theme, &s.playerButtons[index], fmt.Sprintf("%s  ·  Lv. %d", player.Nickname, player.Level))
-				style.Background, style.Color = color.NRGBA{R: 232, G: 235, B: 250, A: 255}, color.NRGBA{R: 48, G: 54, B: 82, A: 255}
+				style.Background, style.Color = s.surface(), s.primaryText()
 				return layout.Inset{Bottom: unit.Dp(5)}.Layout(gtx, style.Layout)
 			})
 		}),
@@ -967,7 +1035,7 @@ func (s *screen) statusSection(gtx layout.Context) layout.Dimensions {
 	if s.statusError {
 		label.Color = color.NRGBA{R: 180, G: 43, B: 43, A: 255}
 	} else {
-		label.Color = color.NRGBA{R: 22, G: 104, B: 83, A: 255}
+		label.Color = s.primaryText()
 	}
 	return layout.Inset{Top: unit.Dp(4), Bottom: unit.Dp(8)}.Layout(gtx, label.Layout)
 }
@@ -983,7 +1051,7 @@ func (s *screen) editor(editor *widget.Editor, hint string) layout.Widget {
 func (s *screen) caption(key string) layout.Widget {
 	return func(gtx layout.Context) layout.Dimensions {
 		label := material.Caption(s.theme, s.t(key))
-		label.Color = color.NRGBA{R: 91, G: 98, B: 117, A: 255}
+		label.Color = s.mutedText()
 		label.WrapPolicy = text.WrapWords
 		return label.Layout(gtx)
 	}
@@ -1002,7 +1070,7 @@ func section(gtx layout.Context, theme *material.Theme, title string, content la
 	return layout.Inset{Top: unit.Dp(8), Bottom: unit.Dp(8)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 			label := material.H6(theme, title)
-			label.Color = color.NRGBA{R: 43, G: 49, B: 70, A: 255}
+			label.Color = theme.Palette.Fg
 			return label.Layout(gtx)
 		}), layout.Rigid(spacer(6)), layout.Rigid(content))
 	})
@@ -1024,6 +1092,10 @@ var translations = map[language]map[string]string{
 }
 
 func init() {
+	translations[english]["theme_light"] = "Light"
+	translations[english]["theme_dark"] = "Dark"
+	translations[french]["theme_light"] = "Clair"
+	translations[french]["theme_dark"] = "Sombre"
 	translations[english]["notebooklm_files"] = "Create your own notebook at notebook.google.com. First upload the 31 reference Markdown files from palpedia-snapshot-notebooklm-reference.zip, then add: collection.md, pals.csv, capture-history.csv, palpedia-progress.md, breeding-candidates.md, breeding-rules.md, breeding-direct-pairs.csv, and collection-diff.md when comparing. Do not add world.json."
 	translations[french]["notebooklm_files"] = "Créez votre propre notebook sur notebook.google.com. Importez d’abord les 31 fichiers Markdown de référence depuis palpedia-snapshot-notebooklm-reference.zip, puis ajoutez : collection.md, pals.csv, capture-history.csv, palpedia-progress.md, breeding-candidates.md, breeding-rules.md, breeding-direct-pairs.csv et collection-diff.md lors d’une comparaison. Ne pas ajouter world.json."
 	translations[english]["planner_title"] = "3. Breeding planner"
@@ -1049,7 +1121,7 @@ func init() {
 	translations[english]["planner_opposite_male"] = "Choose a male parent for the selected female."
 	translations[english]["planner_opposite_female"] = "Choose a female parent for the selected male."
 	translations[english]["planner_no_matches"] = "No loaded Pals match these filters."
-	translations[english]["planner_showing"] = "Showing %d of %d matching Pal(s). Scroll this list to browse the collection."
+	translations[english]["planner_showing"] = "Showing %d highest-level unique Pal(s) from %d matching Pal(s). Scroll this list to browse the collection."
 	translations[english]["planner_choose_male"] = "Choose male"
 	translations[english]["planner_choose_female"] = "Choose female"
 	translations[english]["planner_no_parent"] = "Not selected"
@@ -1098,7 +1170,7 @@ func init() {
 	translations[french]["planner_opposite_male"] = "Choisissez un parent mâle pour la femelle sélectionnée."
 	translations[french]["planner_opposite_female"] = "Choisissez un parent femelle pour le mâle sélectionné."
 	translations[french]["planner_no_matches"] = "Aucun Pal chargé ne correspond à ces filtres."
-	translations[french]["planner_showing"] = "%d Pal(s) affiché(s) sur %d correspondant(s). Faites défiler cette liste pour parcourir la collection."
+	translations[french]["planner_showing"] = "%d Pal(s) unique(s) au niveau le plus élevé affiché(s) parmi %d correspondant(s). Faites défiler cette liste pour parcourir la collection."
 	translations[french]["planner_choose_male"] = "Choisir le mâle"
 	translations[french]["planner_choose_female"] = "Choisir la femelle"
 	translations[french]["planner_no_parent"] = "Non sélectionné"

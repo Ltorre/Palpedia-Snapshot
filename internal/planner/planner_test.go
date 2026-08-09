@@ -48,6 +48,24 @@ func TestFilterOptionsSexAndLevelSort(t *testing.T) {
 	}
 }
 
+func TestFilterOptionsKeepsHighestEquivalentPal(t *testing.T) {
+	pals := []Pal{
+		{InstanceID: "lower", CharacterID: "SheepBall", Gender: "male", Level: 12, Traits: []string{"TraitA", "TraitB"}},
+		{InstanceID: "higher", CharacterID: "SheepBall", Gender: "male", Level: 30, Traits: []string{"TraitB", "TraitA"}},
+		{InstanceID: "different-sex", CharacterID: "SheepBall", Gender: "female", Level: 40, Traits: []string{"TraitA", "TraitB"}},
+		{InstanceID: "different-trait", CharacterID: "SheepBall", Gender: "male", Level: 40, Traits: []string{"TraitA"}},
+	}
+	got := FilterWithOptions(pals, FilterOptions{Deduplicate: true})
+	if len(got) != 3 {
+		t.Fatalf("deduplicated Pals = %#v, want 3", got)
+	}
+	for _, pal := range got {
+		if pal.InstanceID == "lower" {
+			t.Fatalf("lower-level equivalent Pal was retained: %#v", got)
+		}
+	}
+}
+
 func TestShortestPathReturnsOwnedAndBreedingTargets(t *testing.T) {
 	rules, err := breeding.Default()
 	if err != nil {
