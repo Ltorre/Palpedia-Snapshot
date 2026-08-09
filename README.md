@@ -1,0 +1,41 @@
+# Palworld Save Scrap
+
+Small read-only Windows CLI for exporting a Palworld `Level.sav` and its player saves.
+
+It writes four files to a directory you choose:
+
+- `collection.md` — player collection summary and current party/Palbox Pals
+- `pals.csv` — every decoded Pal, including base and world Pals
+- `capture-history.csv` — per-player Paldeck capture counts
+- `world.json` — complete typed export: players, Pals, guilds, bases, and parser diagnostics
+
+The application never modifies save files. It refuses to place its output inside the save directory.
+
+## Windows build
+
+Install Go, then run:
+
+```powershell
+go build -o palworld-save-scrap.exe .\cmd\palworld-save-scrap
+```
+
+## Export
+
+```powershell
+.\palworld-save-scrap.exe `
+  --level "D:\path\to\Level.sav" `
+  --output "D:\path\to\export" `
+  --oodle-lib "D:\path\to\oo2core_9_win64.dll"
+```
+
+`Level.sav` must have its matching `Players` directory beside it, unless you pass `--players-dir` explicitly. `--output` is mandatory and must be outside the save directory. Use `--force` only to replace files in an existing export directory.
+
+Modern saves use Oodle compression. For those saves, pass the absolute path to `oo2core_9_win64.dll` from your own Palworld installation. The DLL is not included, downloaded, copied, or changed by this project.
+
+## Safety and scope
+
+- Reads `Level.sav`, optional `LevelMeta.sav`, and player `.sav` files only.
+- Makes no network requests at runtime.
+- Exports game-internal `CharacterID` values exactly as stored; it does not guess localized Pal names.
+
+The parser is based on the Apache-2.0 Palhelm save parser. See [NOTICE](NOTICE).

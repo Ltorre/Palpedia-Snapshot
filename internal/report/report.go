@@ -1,0 +1,215 @@
+package report
+
+import (
+	"bytes"
+	"encoding/csv"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"sort"
+	"strconv"
+	"strings"
+
+	"github.com/Ltorre/palworld-save-scrap/internal/sav"
+)
+
+type palRow struct {
+	Scope      string
+	PlayerUID  string
+	InstanceID string
+	Character  string
+	Level      int32
+	Gender     string
+	Rank       string
+	OwnerUID   string
+	BaseID     string
+	Slot       int
+}
+
+func ValidateOutputDirectory(levelPath, outputDir string, force bool) error {
+	levelDir := filepath.Dir(levelPath)
+	rel, err := filepath.Rel(levelDir, outputDir)
+	if err != nil {
+		return err
+	}
+	if rel == "." || (rel != ".." && !strings.HasPrefix(rel, ".."+string(os.PathSeparator))) {
+		return fmt.Errorf("output directory must be outside the save directory")
+	}
+	if st, err := os.Stat(outputDir); err == nil {
+		if !st.IsDir() {
+			return fmt.Errorf("output path is not a directory: %s", outputDir)
+		}
+		entries, readErr := os.ReadDir(outputDir)
+		if readErr != nil {
+			return readErr
+		}
+		if len(entries) > 0 && !force {
+			return fmt.Errorf("output directory is not empty; choose another directory or use --force")
+		}
+	} else if !os.IsNotExist(err) {
+		return err
+	}
+	return nil
+}
+
+func Write(outputDir string, world *sav.World, force bool) error {
+	if err := os.MkdirAll(outputDir, 0o755); err != nil {
+		return err
+	}
+	worldJSON, err := json.MarshalIndent(world, "", "  ")
+	if err != nil {
+		return err
+	}
+	rows := pals(world)
+	if err := writeBytes(filepath.Join(outputDir, "world.json"), append(worldJSON, '\n'), force); err != nil {
+		return err
+	}
+	if err := writeBytes(filepath.Join(outputDir, "pals.csv"), palsCSV(rows), force); err != nil {
+		return err
+	}
+	if err := writeBytes(filepath.Join(outputDir, "capture-history.csv"), capturesCSV(world), force); err != nil {
+		return err
+	}
+	return writeBytes(filepath.Join(outputDir, "collection.md"), markdown(world, rows), force)
+}
+
+func pals(world *sav.World) []palRow {
+	containers := make(map[string]containerOwner, len(world.Players)*2)
+	for _, player := range world.Players {
+		if player.OtomoContainerID != "" {
+			containers[strings.ToLower(player.OtomoContainerID)] = containerOwner{player.UID, "party"}
+		}
+		if player.PalStorageContainerID != "" {
+			containers[strings.ToLower(player.PalStorageContainerID)] = containerOwner{player.UID, "palbox"}
+		}
+	}
+	rows := make([]palRow, 0, len(world.Pals))
+	for _, pal := range world.Pals {
+		scope, playerUID := "unassigned", ""
+		if owner, ok := containers[strings.ToLower(pal.ContainerID)]; ok {
+			scope, playerUID = owner.scope, owner.playerUID
+		} else if pal.BaseID != "" {
+			scope = "base"
+		} else if pal.ContainerID == "" {
+			scope = "world"
+		}
+		rank := ""
+		if pal.Rank != nil {
+			rank = strconv.Itoa(*pal.Rank)
+		}
+		rows = append(rows, palRow{scope, playerUID, pal.InstanceID, pal.CharacterID, pal.Level, pal.Gender, rank, pal.OwnerUID, pal.BaseID, pal.SlotIndex})
+	}
+	sort.Slice(rows, func(i, j int) bool {
+		return strings.Join([]string{rows[i].PlayerUID, rows[i].Scope, rows[i].Character, rows[i].InstanceID}, "\x00") < strings.Join([]string{rows[j].PlayerUID, rows[j].Scope, rows[j].Character, rows[j].InstanceID}, "\x00")
+	})
+	return rows
+}
+
+type containerOwner struct{ playerUID, scope string }
+
+func palsCSV(rows []palRow) []byte {
+	var out bytes.Buffer
+	w := csv.NewWriter(&out)
+	_ = w.Write([]string{"scope", "player_uid", "instance_id", "character_id", "level", "gender", "rank", "owner_uid", "base_id", "slot"})
+	for _, row := range rows {
+		_ = w.Write([]string{row.Scope, row.PlayerUID, row.InstanceID, row.Character, strconv.Itoa(int(row.Level)), row.Gender, row.Rank, row.OwnerUID, row.BaseID, strconv.Itoa(row.Slot)})
+	}
+	w.Flush()
+	return out.Bytes()
+}
+
+func capturesCSV(world *sav.World) []byte {
+	var out bytes.Buffer
+	w := csv.NewWriter(&out)
+	_ = w.Write([]string{"player_uid", "character_id", "captures"})
+	for _, player := range world.Players {
+		keys := make([]string, 0, len(player.PalCaptureCounts))
+		for key := range player.PalCaptureCounts {
+			keys = append(keys, key)
+		}
+		sort.Strings(keys)
+		for _, key := range keys {
+			_ = w.Write([]string{player.UID, key, strconv.FormatInt(player.PalCaptureCounts[key], 10)})
+		}
+	}
+	w.Flush()
+	return out.Bytes()
+}
+
+func markdown(world *sav.World, rows []palRow) []byte {
+	byPlayer := make(map[string][]palRow)
+	for _, row := range rows {
+		if row.Scope == "party" || row.Scope == "palbox" {
+			byPlayer[row.PlayerUID] = append(byPlayer[row.PlayerUID], row)
+		}
+	}
+	var out strings.Builder
+	out.WriteString("# Palworld collection export\n\n")
+	out.WriteString("Read-only export from the supplied save files. `world.json` contains the complete parsed world view; `pals.csv` contains every decoded Pal.\n\n")
+	fmt.Fprintf(&out, "- Players: %d\n- Decoded Pals: %d\n- Guilds: %d\n- Bases: %d\n\n", len(world.Players), len(world.Pals), len(world.Guilds), len(world.Bases))
+	for _, player := range world.Players {
+		current := byPlayer[player.UID]
+		party, palbox := 0, 0
+		unique := map[string]struct{}{}
+		for _, row := range current {
+			if row.Scope == "party" {
+				party++
+			} else {
+				palbox++
+			}
+			unique[row.Character] = struct{}{}
+		}
+		name := player.Nickname
+		if name == "" {
+			name = "Unnamed player"
+		}
+		fmt.Fprintf(&out, "## %s\n\n- UID: `%s`\n- Level: %d\n- Current party: %d\n- Current Palbox: %d\n- Current species: %d\n", name, player.UID, player.Level, party, palbox, len(unique))
+		if player.UniquePalsCaptured != nil {
+			fmt.Fprintf(&out, "- Paldeck species captured: %d\n", *player.UniquePalsCaptured)
+		}
+		if player.CaptureTotal != nil {
+			fmt.Fprintf(&out, "- Lifetime captures: %d\n", *player.CaptureTotal)
+		}
+		out.WriteString("\n| Storage | Pal | Level | Gender | Rank | Slot |\n| --- | --- | ---: | --- | ---: | ---: |\n")
+		for _, row := range current {
+			fmt.Fprintf(&out, "| %s | %s | %d | %s | %s | %d |\n", row.Scope, row.Character, row.Level, row.Gender, row.Rank, row.Slot)
+		}
+		if len(current) == 0 {
+			out.WriteString("| - | No party or Palbox Pals identified | | | | |\n")
+		}
+		out.WriteByte('\n')
+	}
+	return []byte(out.String())
+}
+
+func writeBytes(path string, data []byte, force bool) error {
+	if _, err := os.Stat(path); err == nil {
+		if !force {
+			return fmt.Errorf("refusing to overwrite %s without --force", filepath.Base(path))
+		}
+	} else if err != nil && !os.IsNotExist(err) {
+		return err
+	}
+	tmp, err := os.CreateTemp(filepath.Dir(path), ".palworld-save-scrap-*")
+	if err != nil {
+		return err
+	}
+	tmpPath := tmp.Name()
+	defer os.Remove(tmpPath)
+	if _, err = tmp.Write(data); err == nil {
+		err = tmp.Chmod(0o644)
+	}
+	if closeErr := tmp.Close(); err == nil {
+		err = closeErr
+	}
+	if err != nil {
+		return err
+	}
+	if force {
+		if err := os.Remove(path); err != nil && !os.IsNotExist(err) {
+			return err
+		}
+	}
+	return os.Rename(tmpPath, path)
+}
