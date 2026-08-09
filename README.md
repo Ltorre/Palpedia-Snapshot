@@ -29,6 +29,14 @@ Each release includes a standalone, source-ready release note describing its exp
 
 ## Export
 
+For a typical Steam installation, local worlds are under:
+
+```text
+C:\Users\<WindowsUser>\AppData\Local\Pal\Saved\SaveGames\<SteamID>\<WorldID>\Level.sav
+```
+
+`<WorldID>` is the world folder containing both `Level.sav` and the matching `Players` directory. The executable does not search this location automatically; pass the exact `Level.sav` you want to inspect.
+
 ```powershell
 .\palworld-save-scrap.exe `
   --level "D:\path\to\Level.sav" `
