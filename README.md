@@ -25,6 +25,8 @@ Official Windows binaries are attached to each GitHub release. Check a binary wi
 .\palworld-save-scrap-windows-amd64.exe --version
 ```
 
+Each release includes a standalone, source-ready release note describing its export format, use, and safety limits.
+
 ## Export
 
 ```powershell
