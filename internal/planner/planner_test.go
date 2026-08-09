@@ -44,3 +44,20 @@ func TestShortestPathReturnsOwnedAndBreedingTargets(t *testing.T) {
 		t.Fatalf("path = %#v, err = %v", path, err)
 	}
 }
+
+func TestBreedingSpeedHelpers(t *testing.T) {
+	helpers := BreedingSpeedHelpers([]Pal{
+		{InstanceID: "ordinary", CharacterID: "SheepBall", Traits: []string{"CraftSpeed_up2"}},
+		{InstanceID: "farm", CharacterID: "Chikipi", Traits: []string{"Test_PalEgg_HatchingSpeed_Up"}},
+		{InstanceID: "base", CharacterID: "Lamball", Traits: []string{"MutationPal_Babysitter"}},
+	})
+	if len(helpers) != 2 {
+		t.Fatalf("got %d helpers, want 2", len(helpers))
+	}
+	if helpers[0].TraitID != "MutationPal_Babysitter" || helpers[0].Pal.InstanceID != "base" {
+		t.Fatalf("first helper = %#v, want Babysitter Pal", helpers[0])
+	}
+	if helpers[1].TraitID != "Test_PalEgg_HatchingSpeed_Up" || helpers[1].Pal.InstanceID != "farm" {
+		t.Fatalf("second helper = %#v, want Philanthropist Pal", helpers[1])
+	}
+}

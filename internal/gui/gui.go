@@ -434,6 +434,22 @@ func (s *screen) calculateRoute() {
 			fmt.Fprintf(&out, "\n%d. %s + %s → %s (%s)", index+1, step.ParentA, step.ParentB, step.Child, step.Rule)
 		}
 	}
+	if path.Generations > 2 {
+		out.WriteString("\n\n" + s.t("planner_speed_title"))
+		helpers := planner.BreedingSpeedHelpers(s.plannerPals)
+		if len(helpers) == 0 {
+			out.WriteString("\n" + s.t("planner_speed_none"))
+		}
+		for _, helper := range helpers {
+			label := plannerPalLabel(helper.Pal)
+			switch helper.TraitID {
+			case "MutationPal_Babysitter":
+				fmt.Fprintf(&out, "\n• "+s.t("planner_speed_babysitter"), label)
+			case "Test_PalEgg_HatchingSpeed_Up":
+				fmt.Fprintf(&out, "\n• "+s.t("planner_speed_philanthropist"), label)
+			}
+		}
+	}
 	out.WriteString("\n" + s.t("planner_route_caveat"))
 	s.plannerRoute, s.statusError, s.status = out.String(), false, s.t("planner_route_ready")
 }
@@ -903,6 +919,10 @@ func init() {
 	translations[english]["planner_target_required"] = "Enter a target Pal Character ID."
 	translations[english]["planner_route_title"] = "Route to %s · %d breeding generation(s)"
 	translations[english]["planner_already_owned"] = "Already owned in the loaded collection; no breeding step is required."
+	translations[english]["planner_speed_title"] = "Speed up this long route"
+	translations[english]["planner_speed_none"] = "No Philanthropist or Babysitter Pal was found in the loaded party/Palbox collection."
+	translations[english]["planner_speed_philanthropist"] = "%s — assign to the Breeding Farm: Philanthropist increases that Pal's breeding speed by 100%."
+	translations[english]["planner_speed_babysitter"] = "%s — keep at the base: Babysitter improves Breeding Farm egg production and incubation speed by 30%."
 	translations[english]["planner_route_caveat"] = "This is a species route. Passive inheritance and egg-gender RNG are not guaranteed; breed extra eggs when a later step needs a specific sex."
 	translations[english]["planner_route_ready"] = "Quickest breeding route calculated."
 
@@ -939,6 +959,10 @@ func init() {
 	translations[french]["planner_target_required"] = "Entrez un Character ID de Pal cible."
 	translations[french]["planner_route_title"] = "Chemin vers %s · %d génération(s) d’élevage"
 	translations[french]["planner_already_owned"] = "Déjà possédé dans la collection chargée ; aucune étape d’élevage n’est nécessaire."
+	translations[french]["planner_speed_title"] = "Accélérer ce long chemin"
+	translations[french]["planner_speed_none"] = "Aucun Pal Philanthropist ou Babysitter n’a été trouvé dans la collection chargée (équipe/Palbox)."
+	translations[french]["planner_speed_philanthropist"] = "%s — assignez-le à la Ferme d’élevage : Philanthropist augmente sa vitesse d’élevage de 100 %."
+	translations[french]["planner_speed_babysitter"] = "%s — gardez-le dans la base : Babysitter augmente de 30 %% la production d’œufs et la vitesse d’incubation de la Ferme d’élevage."
 	translations[french]["planner_route_caveat"] = "C’est un chemin d’espèces. L’héritage des traits et le hasard du sexe des œufs ne sont pas garantis ; produisez des œufs supplémentaires lorsqu’une étape suivante demande un sexe précis."
 	translations[french]["planner_route_ready"] = "Chemin d’élevage le plus rapide calculé."
 }
