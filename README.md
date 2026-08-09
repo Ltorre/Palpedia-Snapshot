@@ -23,10 +23,12 @@ The `v3.0.0-rc1` branch adds an in-app, read-only breeding planner. After select
 
 The planner can:
 
-- filter current Pals by Pal name, raw trait ID, or known trait name;
+- browse every matching Pal in a scrollable collection list and search by the player-facing Pal name, raw game ID, or known trait name;
 - restrict the view to bundled gold (rank 3) or diamond (rank 4) passive-trait catalogs, including Philanthropist, Babysitter, and Demon God;
 - select a real male and female Pal, keeping their individual traits visible, then calculate the exact offspring species; and
-- calculate a textual route to a target Character ID using the fewest sequential breeding generations from the loaded male/female collection.
+- calculate a textual route to a target Pal name or Character ID using the fewest sequential breeding generations from the loaded male/female collection.
+
+The planner translates all 299 bundled game IDs into their Palpedia-facing names: for example, `BOSS_GrassMammoth` displays as **Mammorest**. It still accepts raw IDs when useful.
 
 For a route longer than two generations, it also identifies the Philanthropist and Babysitter Pals in the loaded collection and explains how to use them to speed up the breeding farm.
 

@@ -13,9 +13,18 @@ import (
 type Pal struct {
 	InstanceID  string
 	CharacterID string
+	DisplayName string
 	Gender      string
 	Level       int32
 	Traits      []string
+}
+
+// PalName returns a player-facing name when it is available.
+func PalName(pal Pal) string {
+	if strings.TrimSpace(pal.DisplayName) != "" {
+		return pal.DisplayName
+	}
+	return pal.CharacterID
 }
 
 // PairResult describes the exact outcome for two selected Pals.
@@ -57,13 +66,13 @@ func Filter(pals []Pal, query string, goldOnly, diamondOnly bool) []Pal {
 		filtered = append(filtered, pal)
 	}
 	sort.Slice(filtered, func(i, j int) bool {
-		return strings.Join([]string{filtered[i].CharacterID, filtered[i].Gender, filtered[i].InstanceID}, "\x00") < strings.Join([]string{filtered[j].CharacterID, filtered[j].Gender, filtered[j].InstanceID}, "\x00")
+		return strings.Join([]string{PalName(filtered[i]), filtered[i].Gender, filtered[i].InstanceID}, "\x00") < strings.Join([]string{PalName(filtered[j]), filtered[j].Gender, filtered[j].InstanceID}, "\x00")
 	})
 	return filtered
 }
 
 func matches(pal Pal, query string) bool {
-	if strings.Contains(strings.ToLower(pal.CharacterID), query) || strings.Contains(strings.ToLower(pal.Gender), query) {
+	if strings.Contains(strings.ToLower(PalName(pal)), query) || strings.Contains(strings.ToLower(pal.CharacterID), query) || strings.Contains(strings.ToLower(pal.Gender), query) {
 		return true
 	}
 	for _, trait := range pal.Traits {

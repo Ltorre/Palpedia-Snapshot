@@ -25,6 +25,13 @@ func TestResolvePairAndTraitFilters(t *testing.T) {
 	}
 }
 
+func TestFilterMatchesPlayerFacingName(t *testing.T) {
+	pals := []Pal{{CharacterID: "BOSS_GrassMammoth", DisplayName: "Mammorest"}}
+	if got := Filter(pals, "mammorest", false, false); len(got) != 1 {
+		t.Fatalf("display-name filter = %#v", got)
+	}
+}
+
 func TestShortestPathReturnsOwnedAndBreedingTargets(t *testing.T) {
 	rules, err := breeding.Default()
 	if err != nil {

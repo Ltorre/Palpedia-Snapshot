@@ -65,7 +65,7 @@ type screen struct {
 	candidateButtons                                                                                     []widget.Clickable
 	playersFound                                                                                         []sav.Player
 	playerButtons                                                                                        []widget.Clickable
-	list                                                                                                 layout.List
+	list, plannerList                                                                                    layout.List
 	results                                                                                              chan taskResult
 	busy                                                                                                 bool
 	status                                                                                               string
@@ -112,7 +112,7 @@ func newScreen(window *app.Window, version string) *screen {
 		ContrastBg: color.NRGBA{R: 93, G: 76, B: 205, A: 255},
 		ContrastFg: color.NRGBA{R: 255, G: 255, B: 255, A: 255},
 	}
-	s := &screen{window: window, explorer: explorer.NewExplorer(window), theme: theme, version: version, language: english, results: make(chan taskResult, 4), list: layout.List{Axis: layout.Vertical}}
+	s := &screen{window: window, explorer: explorer.NewExplorer(window), theme: theme, version: version, language: english, results: make(chan taskResult, 4), list: layout.List{Axis: layout.Vertical}, plannerList: layout.List{Axis: layout.Vertical}}
 	for _, field := range []*widget.Editor{&s.root, &s.level, &s.output, &s.players, &s.player, &s.compare, &s.plannerFilter, &s.target} {
 		field.SingleLine = true
 	}
@@ -351,7 +351,12 @@ func (s *screen) startPlannerRefresh() {
 		}
 		var pals []planner.Pal
 		if err == nil {
-			pals = plannerCollection(world, playerUID)
+			rules, ruleErr := breeding.Default()
+			if ruleErr != nil {
+				err = ruleErr
+			} else {
+				pals = plannerCollection(world, playerUID, rules)
+			}
 		}
 		var updatedAt time.Time
 		if info, statErr := os.Stat(levelPath); statErr == nil {
@@ -366,7 +371,7 @@ func (s *screen) startPlannerRefresh() {
 	}()
 }
 
-func plannerCollection(world *sav.World, playerUID string) []planner.Pal {
+func plannerCollection(world *sav.World, playerUID string, rules *breeding.Rules) []planner.Pal {
 	containers := make(map[string]bool, len(world.Players)*2)
 	for _, player := range world.Players {
 		if playerUID != "" && !strings.EqualFold(player.UID, playerUID) {
@@ -380,7 +385,7 @@ func plannerCollection(world *sav.World, playerUID string) []planner.Pal {
 		if !containers[strings.ToLower(pal.ContainerID)] {
 			continue
 		}
-		pals = append(pals, planner.Pal{InstanceID: pal.InstanceID, CharacterID: pal.CharacterID, Gender: pal.Gender, Level: pal.Level, Traits: append([]string(nil), pal.PassiveSkillIDs...)})
+		pals = append(pals, planner.Pal{InstanceID: pal.InstanceID, CharacterID: pal.CharacterID, DisplayName: rules.DisplayName(pal.CharacterID), Gender: pal.Gender, Level: pal.Level, Traits: append([]string(nil), pal.PassiveSkillIDs...)})
 	}
 	return pals
 }
@@ -396,7 +401,7 @@ func (s *screen) calculatePair() {
 		if resolveErr != nil {
 			err = resolveErr
 		} else {
-			s.plannerPairResult = fmt.Sprintf(s.t("planner_pair_result"), result.Child, result.Rule, result.TargetRank)
+			s.plannerPairResult = fmt.Sprintf(s.t("planner_pair_result"), rules.DisplayName(result.Child), result.Rule, result.TargetRank)
 			s.statusError, s.status = false, s.t("planner_pair_ready")
 		}
 	}
@@ -426,12 +431,12 @@ func (s *screen) calculateRoute() {
 		return
 	}
 	var out strings.Builder
-	fmt.Fprintf(&out, s.t("planner_route_title"), path.Target, path.Generations)
+	fmt.Fprintf(&out, s.t("planner_route_title"), rules.DisplayName(path.Target), path.Generations)
 	if len(path.Steps) == 0 {
 		out.WriteString("\n" + s.t("planner_already_owned"))
 	} else {
 		for index, step := range path.Steps {
-			fmt.Fprintf(&out, "\n%d. %s + %s → %s (%s)", index+1, step.ParentA, step.ParentB, step.Child, step.Rule)
+			fmt.Fprintf(&out, "\n%d. %s + %s → %s (%s)", index+1, rules.DisplayName(step.ParentA), rules.DisplayName(step.ParentB), rules.DisplayName(step.Child), step.Rule)
 		}
 	}
 	if path.Generations > 2 {
@@ -740,15 +745,14 @@ func (s *screen) plannerPalsList(gtx layout.Context) layout.Dimensions {
 	if len(visible) == 0 {
 		return s.caption("planner_no_matches")(gtx)
 	}
-	const limit = 40
-	if len(visible) > limit {
-		visible = visible[:limit]
-	}
 	return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
 		layout.Rigid(s.note(fmt.Sprintf(s.t("planner_showing"), len(visible), total), color.NRGBA{R: 91, G: 98, B: 117, A: 255})),
 		layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-			list := layout.List{Axis: layout.Vertical}
-			return list.Layout(gtx, len(visible), func(gtx layout.Context, index int) layout.Dimensions {
+			maxHeight := gtx.Dp(unit.Dp(320))
+			if gtx.Constraints.Max.Y > maxHeight {
+				gtx.Constraints.Max.Y = maxHeight
+			}
+			return s.plannerList.Layout(gtx, len(visible), func(gtx layout.Context, index int) layout.Dimensions {
 				pal := visible[index]
 				picker := s.plannerPicker(pal)
 				return layout.Inset{Bottom: unit.Dp(5)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
@@ -796,7 +800,7 @@ func plannerPalLabel(pal planner.Pal) string {
 	if traits == "" {
 		traits = "—"
 	}
-	return fmt.Sprintf("%s · Lv. %d · %s · %s", pal.CharacterID, pal.Level, pal.Gender, traits)
+	return fmt.Sprintf("%s · Lv. %d · %s · %s", planner.PalName(pal), pal.Level, pal.Gender, traits)
 }
 
 func (s *screen) playersList(gtx layout.Context) layout.Dimensions {
@@ -898,12 +902,12 @@ func init() {
 	translations[english]["planner_loaded"] = "Loaded %d current Pals into the breeding planner."
 	translations[english]["planner_empty"] = "No current party or Palbox Pals are loaded. Update the planner from a selected save."
 	translations[english]["planner_pick_title"] = "Pick real parents"
-	translations[english]["planner_filter_help"] = "Search by Pal, raw trait ID, or known trait name. Gold is rank 3; diamond is rank 4. If both are checked, either tier is included."
-	translations[english]["planner_filter"] = "Filter Pals or traits"
+	translations[english]["planner_filter_help"] = "Search a Pal name (for example Mammorest), a raw game ID, or a passive trait. Gold is rank 3; diamond is rank 4. If both are checked, either tier is included."
+	translations[english]["planner_filter"] = "Search Pal name or trait"
 	translations[english]["planner_gold"] = "Gold traits (rank 3)"
 	translations[english]["planner_diamond"] = "Diamond traits (rank 4)"
 	translations[english]["planner_no_matches"] = "No loaded Pals match these filters."
-	translations[english]["planner_showing"] = "Showing %d of %d matching Pals (refine the filter to see more)."
+	translations[english]["planner_showing"] = "Showing %d of %d matching Pal(s). Scroll this list to browse the collection."
 	translations[english]["planner_choose_male"] = "Choose male"
 	translations[english]["planner_choose_female"] = "Choose female"
 	translations[english]["planner_no_parent"] = "Not selected"
@@ -913,8 +917,8 @@ func init() {
 	translations[english]["planner_pair_result"] = "Exact child: %s · rule: %s · generic target rank: %d"
 	translations[english]["planner_pair_ready"] = "Exact breeding outcome calculated."
 	translations[english]["planner_route_section"] = "Find the quickest target route"
-	translations[english]["planner_route_help"] = "Enter a Pal Character ID, for example Anubis, SheepBall, or PinkCat. The route uses the fewest sequential breeding generations from your current male/female collection."
-	translations[english]["planner_target"] = "Target Pal Character ID"
+	translations[english]["planner_route_help"] = "Enter a Pal name such as Anubis or Mammorest. Game Character IDs such as SheepBall or PinkCat also work. The route uses the fewest sequential breeding generations from your current male/female collection."
+	translations[english]["planner_target"] = "Target Pal name or Character ID"
 	translations[english]["planner_find_route"] = "Find quickest breeding route"
 	translations[english]["planner_target_required"] = "Enter a target Pal Character ID."
 	translations[english]["planner_route_title"] = "Route to %s · %d breeding generation(s)"
@@ -938,12 +942,12 @@ func init() {
 	translations[french]["planner_loaded"] = "%d Pals actuels chargés dans le planificateur."
 	translations[french]["planner_empty"] = "Aucun Pal de l’équipe ou du Palbox n’est chargé. Mettez à jour depuis une sauvegarde sélectionnée."
 	translations[french]["planner_pick_title"] = "Choisir les vrais parents"
-	translations[french]["planner_filter_help"] = "Recherchez un Pal, un identifiant de trait ou un nom de trait connu. Or = rang 3 ; diamant = rang 4. Avec les deux cochés, les deux rangs sont inclus."
-	translations[french]["planner_filter"] = "Filtrer les Pals ou traits"
+	translations[french]["planner_filter_help"] = "Recherchez un nom de Pal (par exemple Mammorest), un identifiant du jeu ou un trait passif. Or = rang 3 ; diamant = rang 4. Avec les deux cochés, les deux rangs sont inclus."
+	translations[french]["planner_filter"] = "Rechercher un Pal ou trait"
 	translations[french]["planner_gold"] = "Traits or (rang 3)"
 	translations[french]["planner_diamond"] = "Traits diamant (rang 4)"
 	translations[french]["planner_no_matches"] = "Aucun Pal chargé ne correspond à ces filtres."
-	translations[french]["planner_showing"] = "%d Pals affichés sur %d correspondant(s) (affinez le filtre pour en voir plus)."
+	translations[french]["planner_showing"] = "%d Pal(s) affiché(s) sur %d correspondant(s). Faites défiler cette liste pour parcourir la collection."
 	translations[french]["planner_choose_male"] = "Choisir le mâle"
 	translations[french]["planner_choose_female"] = "Choisir la femelle"
 	translations[french]["planner_no_parent"] = "Non sélectionné"
@@ -953,8 +957,8 @@ func init() {
 	translations[french]["planner_pair_result"] = "Enfant exact : %s · règle : %s · rang cible générique : %d"
 	translations[french]["planner_pair_ready"] = "Résultat exact de l’élevage calculé."
 	translations[french]["planner_route_section"] = "Trouver le chemin le plus rapide"
-	translations[french]["planner_route_help"] = "Entrez un Character ID de Pal, par exemple Anubis, SheepBall ou PinkCat. Le chemin utilise le moins de générations d’élevage consécutives depuis votre collection mâle/femelle."
-	translations[french]["planner_target"] = "Character ID du Pal cible"
+	translations[french]["planner_route_help"] = "Entrez un nom de Pal comme Anubis ou Mammorest. Les Character IDs du jeu, comme SheepBall ou PinkCat, fonctionnent aussi. Le chemin utilise le moins de générations d’élevage consécutives depuis votre collection mâle/femelle."
+	translations[french]["planner_target"] = "Nom ou Character ID du Pal cible"
 	translations[french]["planner_find_route"] = "Trouver le chemin le plus rapide"
 	translations[french]["planner_target_required"] = "Entrez un Character ID de Pal cible."
 	translations[french]["planner_route_title"] = "Chemin vers %s · %d génération(s) d’élevage"

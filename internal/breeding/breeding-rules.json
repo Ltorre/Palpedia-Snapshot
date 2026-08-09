@@ -6,7 +6,8 @@
       "rank": 2720,
       "priority": 272000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Melpaca"
     },
     {
       "id": "amaterasuwolf",
@@ -14,7 +15,8 @@
       "rank": 1670,
       "priority": 167000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Kitsun"
     },
     {
       "id": "amaterasuwolf_dark",
@@ -22,7 +24,8 @@
       "rank": 800,
       "priority": 80000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Kitsun Noct"
     },
     {
       "id": "anubis",
@@ -30,7 +33,8 @@
       "rank": 480,
       "priority": 48000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Anubis"
     },
     {
       "id": "badcatgirl",
@@ -38,7 +42,8 @@
       "rank": 1250,
       "priority": 125000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Nyafia"
     },
     {
       "id": "baphomet",
@@ -46,7 +51,8 @@
       "rank": 1470,
       "priority": 147000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Incineram"
     },
     {
       "id": "baphomet_dark",
@@ -54,7 +60,8 @@
       "rank": 1310,
       "priority": 131000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Incineram Noct"
     },
     {
       "id": "bastet",
@@ -62,7 +69,8 @@
       "rank": 3040,
       "priority": 304000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Mau"
     },
     {
       "id": "bastet_ice",
@@ -70,7 +78,8 @@
       "rank": 2750,
       "priority": 275000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Mau Cryst"
     },
     {
       "id": "berrygoat",
@@ -78,7 +87,8 @@
       "rank": 2610,
       "priority": 261000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Caprity"
     },
     {
       "id": "berrygoat_dark",
@@ -86,7 +96,8 @@
       "rank": 1940,
       "priority": 194000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Caprity Noct"
     },
     {
       "id": "birddragon",
@@ -94,7 +105,8 @@
       "rank": 1650,
       "priority": 165000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Vanwyrm"
     },
     {
       "id": "birddragon_ice",
@@ -102,7 +114,8 @@
       "rank": 1430,
       "priority": 143000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Vanwyrm Cryst"
     },
     {
       "id": "blackcentaur",
@@ -110,7 +123,8 @@
       "rank": 190,
       "priority": 19000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Necromus"
     },
     {
       "id": "blackgriffon",
@@ -118,7 +132,8 @@
       "rank": 550,
       "priority": 55000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Shadowbeak"
     },
     {
       "id": "blackmetaldragon",
@@ -126,7 +141,8 @@
       "rank": 490,
       "priority": 49000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Astegon"
     },
     {
       "id": "blackpuppy",
@@ -134,7 +150,8 @@
       "rank": 1760,
       "priority": 176000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Smokie"
     },
     {
       "id": "blackpuppy_ice",
@@ -142,7 +159,8 @@
       "rank": 1610,
       "priority": 161000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Smokie Cryst"
     },
     {
       "id": "blueberryfairy",
@@ -150,7 +168,8 @@
       "rank": 1390,
       "priority": 139000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Prunelia"
     },
     {
       "id": "bluedragon",
@@ -158,7 +177,8 @@
       "rank": 1830,
       "priority": 183000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Azurobe"
     },
     {
       "id": "bluedragon_ice",
@@ -166,7 +186,8 @@
       "rank": 1220,
       "priority": 578,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Azurobe Cryst"
     },
     {
       "id": "blueplatypus",
@@ -174,7 +195,8 @@
       "rank": 2980,
       "priority": 298000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Fuack"
     },
     {
       "id": "blueplatypus_fire",
@@ -182,7 +204,8 @@
       "rank": 2300,
       "priority": 575,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Fuack Ignis"
     },
     {
       "id": "blueskydragon",
@@ -190,7 +213,8 @@
       "rank": 40,
       "priority": 4000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Shaolong"
     },
     {
       "id": "bluethunderhorse",
@@ -198,7 +222,8 @@
       "rank": 420,
       "priority": 42000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Azurmane"
     },
     {
       "id": "boar",
@@ -206,7 +231,8 @@
       "rank": 2880,
       "priority": 288000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Rushoar"
     },
     {
       "id": "brownrabbit",
@@ -214,7 +240,8 @@
       "rank": 1680,
       "priority": 168000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Lapiron"
     },
     {
       "id": "cactusdoll",
@@ -222,7 +249,8 @@
       "rank": 2420,
       "priority": 242000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Needoll"
     },
     {
       "id": "cactusdoll_dark",
@@ -230,7 +258,8 @@
       "rank": 1580,
       "priority": 158000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Needoll Noct"
     },
     {
       "id": "candleghost",
@@ -238,7 +267,8 @@
       "rank": 980,
       "priority": 98000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Sootseer"
     },
     {
       "id": "captainpenguin",
@@ -246,7 +276,8 @@
       "rank": 2070,
       "priority": 207000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Penking"
     },
     {
       "id": "captainpenguin_black",
@@ -254,7 +285,8 @@
       "rank": 1850,
       "priority": 573,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Penking Lux"
     },
     {
       "id": "carbunclo",
@@ -262,7 +294,8 @@
       "rank": 3020,
       "priority": 302000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Lifmunk"
     },
     {
       "id": "catbat",
@@ -270,7 +303,8 @@
       "rank": 2340,
       "priority": 234000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Tombat"
     },
     {
       "id": "catmage",
@@ -278,7 +312,8 @@
       "rank": 2040,
       "priority": 204000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Katress"
     },
     {
       "id": "catmage_fire",
@@ -286,7 +321,8 @@
       "rank": 1800,
       "priority": 180000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Katress Ignis"
     },
     {
       "id": "catvampire",
@@ -294,7 +330,8 @@
       "rank": 1570,
       "priority": 157000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Felbat"
     },
     {
       "id": "chickenpal",
@@ -302,7 +339,8 @@
       "rank": 3080,
       "priority": 308000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Chikipi"
     },
     {
       "id": "clionetwins",
@@ -310,7 +348,8 @@
       "rank": 2520,
       "priority": 252000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Amione"
     },
     {
       "id": "cloverfairy",
@@ -318,7 +357,8 @@
       "rank": 2970,
       "priority": 297000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Clovee"
     },
     {
       "id": "clownrabbit",
@@ -326,7 +366,8 @@
       "rank": 520,
       "priority": 52000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Dupin"
     },
     {
       "id": "colorfulbird",
@@ -334,7 +375,8 @@
       "rank": 2730,
       "priority": 273000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Tocotoco"
     },
     {
       "id": "cowpal",
@@ -342,7 +384,8 @@
       "rank": 2800,
       "priority": 280000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Mozzarina"
     },
     {
       "id": "cubeturtle",
@@ -350,7 +393,8 @@
       "rank": 790,
       "priority": 79000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Tetroise"
     },
     {
       "id": "cubeturtle_neutral",
@@ -358,7 +402,8 @@
       "rank": 200,
       "priority": 20000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Tetroise Primo"
     },
     {
       "id": "cutebutterfly",
@@ -366,7 +411,8 @@
       "rank": 2620,
       "priority": 262000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Cinnamoth"
     },
     {
       "id": "cutefox",
@@ -374,7 +420,8 @@
       "rank": 3060,
       "priority": 306000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Vixy"
     },
     {
       "id": "cutemole",
@@ -382,7 +429,8 @@
       "rank": 2790,
       "priority": 279000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Fuddler"
     },
     {
       "id": "dandeliongirl",
@@ -390,7 +438,8 @@
       "rank": 2000,
       "priority": 200000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Souffline"
     },
     {
       "id": "darkalien",
@@ -398,7 +447,8 @@
       "rank": 1820,
       "priority": 182000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Xenovader"
     },
     {
       "id": "darkcrow",
@@ -406,7 +456,8 @@
       "rank": 2370,
       "priority": 237000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Cawgnito"
     },
     {
       "id": "darkflamefox",
@@ -414,7 +465,8 @@
       "rank": 1010,
       "priority": 101000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Majex"
     },
     {
       "id": "darkmechadragon",
@@ -422,7 +474,8 @@
       "rank": 400,
       "priority": 40000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Xenolord"
     },
     {
       "id": "darkscorpion",
@@ -430,7 +483,8 @@
       "rank": 1120,
       "priority": 112000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Menasting"
     },
     {
       "id": "darkscorpion_ground",
@@ -438,7 +492,8 @@
       "rank": 640,
       "priority": 64000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Menasting Terra"
     },
     {
       "id": "deer",
@@ -446,7 +501,8 @@
       "rank": 2710,
       "priority": 271000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Eikthyrdeer"
     },
     {
       "id": "deer_ground",
@@ -454,7 +510,8 @@
       "rank": 2580,
       "priority": 258000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Eikthyrdeer Terra"
     },
     {
       "id": "domearmordragon",
@@ -462,7 +519,8 @@
       "rank": 30,
       "priority": 3000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Aegidron"
     },
     {
       "id": "dreamdemon",
@@ -470,7 +528,8 @@
       "rank": 2910,
       "priority": 291000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Daedream"
     },
     {
       "id": "drillgame",
@@ -478,7 +537,8 @@
       "rank": 1550,
       "priority": 155000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Digtoise"
     },
     {
       "id": "eagle",
@@ -486,7 +546,8 @@
       "rank": 2570,
       "priority": 257000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Galeclaw"
     },
     {
       "id": "eleccat",
@@ -494,7 +555,8 @@
       "rank": 3010,
       "priority": 301000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Sparkit"
     },
     {
       "id": "eleclizard",
@@ -502,7 +564,8 @@
       "rank": 1750,
       "priority": 175000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Slowatt"
     },
     {
       "id": "elecpanda",
@@ -510,7 +573,8 @@
       "rank": 1020,
       "priority": 102000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Grizzbolt"
     },
     {
       "id": "elecpomeranian",
@@ -518,7 +582,8 @@
       "rank": 2360,
       "priority": 236000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Puffolt"
     },
     {
       "id": "elecsnail",
@@ -526,7 +591,8 @@
       "rank": 1780,
       "priority": 178000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Snock"
     },
     {
       "id": "elecsnail_ground",
@@ -534,7 +600,8 @@
       "rank": 1500,
       "priority": 150000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Snock Lux"
     },
     {
       "id": "fairydragon",
@@ -542,7 +609,8 @@
       "rank": 2280,
       "priority": 228000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Elphidran"
     },
     {
       "id": "fairydragon_water",
@@ -550,7 +618,8 @@
       "rank": 1640,
       "priority": 164000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Elphidran Aqua"
     },
     {
       "id": "featherostrich",
@@ -558,7 +627,8 @@
       "rank": 2210,
       "priority": 221000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Dazemu"
     },
     {
       "id": "fengyundeeper",
@@ -566,7 +636,8 @@
       "rank": 1960,
       "priority": 196000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Fenglope"
     },
     {
       "id": "fengyundeeper_electric",
@@ -574,7 +645,8 @@
       "rank": 900,
       "priority": 90000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Fenglope Lux"
     },
     {
       "id": "firekirin",
@@ -582,7 +654,8 @@
       "rank": 1980,
       "priority": 198000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Pyrin"
     },
     {
       "id": "firekirin_dark",
@@ -590,7 +663,8 @@
       "rank": 1870,
       "priority": 187000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Pyrin Noct"
     },
     {
       "id": "flamebambi",
@@ -598,7 +672,8 @@
       "rank": 2870,
       "priority": 287000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Rooby"
     },
     {
       "id": "flamebuffalo",
@@ -606,7 +681,8 @@
       "rank": 2320,
       "priority": 232000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Arsox"
     },
     {
       "id": "flowerdinosaur",
@@ -614,7 +690,8 @@
       "rank": 2100,
       "priority": 210000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Dinossom"
     },
     {
       "id": "flowerdinosaur_electric",
@@ -622,7 +699,8 @@
       "rank": 1890,
       "priority": 189000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Dinossom Lux"
     },
     {
       "id": "flowerdoll",
@@ -630,7 +708,8 @@
       "rank": 1720,
       "priority": 172000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Petallia"
     },
     {
       "id": "flowerdoll_fire",
@@ -638,7 +717,8 @@
       "rank": 820,
       "priority": 82000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Petallia Ignis"
     },
     {
       "id": "flowerprince",
@@ -646,7 +726,8 @@
       "rank": 60,
       "priority": 6000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Dandilord"
     },
     {
       "id": "flowerrabbit",
@@ -654,7 +735,8 @@
       "rank": 2660,
       "priority": 266000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Flopie"
     },
     {
       "id": "fluffybird",
@@ -662,7 +744,8 @@
       "rank": 2480,
       "priority": 248000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Muffly"
     },
     {
       "id": "flyingmanta",
@@ -670,7 +753,8 @@
       "rank": 2740,
       "priority": 274000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Celaray"
     },
     {
       "id": "flyingmanta_thunder",
@@ -678,7 +762,8 @@
       "rank": 2380,
       "priority": 574,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Celaray Lux"
     },
     {
       "id": "foxexorcist",
@@ -686,7 +771,8 @@
       "rank": 390,
       "priority": 39000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Flaracle"
     },
     {
       "id": "foxmage",
@@ -694,7 +780,8 @@
       "rank": 2080,
       "priority": 208000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Wixen"
     },
     {
       "id": "foxmage_dark",
@@ -702,7 +789,8 @@
       "rank": 1490,
       "priority": 149000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Wixen Noct"
     },
     {
       "id": "ganesha",
@@ -710,7 +798,8 @@
       "rank": 3070,
       "priority": 307000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Teafant"
     },
     {
       "id": "garm",
@@ -718,7 +807,8 @@
       "rank": 2680,
       "priority": 268000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Direhowl"
     },
     {
       "id": "ghostanglerfish",
@@ -726,7 +816,8 @@
       "rank": 880,
       "priority": 88000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Ghangler"
     },
     {
       "id": "ghostanglerfish_fire",
@@ -734,7 +825,8 @@
       "rank": 720,
       "priority": 72000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Ghangler Ignis"
     },
     {
       "id": "ghostbeast",
@@ -742,7 +834,8 @@
       "rank": 1710,
       "priority": 171000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Maraith"
     },
     {
       "id": "ghostblackcat",
@@ -750,7 +843,8 @@
       "rank": 2250,
       "priority": 225000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Wispaw"
     },
     {
       "id": "ghostdragon",
@@ -758,7 +852,8 @@
       "rank": 300,
       "priority": 30000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Eidrolon"
     },
     {
       "id": "ghostdragon_fire",
@@ -766,7 +861,8 @@
       "rank": 140,
       "priority": 14000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Eidrolon Ignis"
     },
     {
       "id": "ghostrabbit",
@@ -774,7 +870,8 @@
       "rank": 1230,
       "priority": 123000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Nitemary"
     },
     {
       "id": "ghostrabbit_grass",
@@ -782,7 +879,8 @@
       "rank": 1320,
       "priority": 132000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Nitemary Botan"
     },
     {
       "id": "goldenhorse",
@@ -790,7 +888,8 @@
       "rank": 730,
       "priority": 73000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Gildane"
     },
     {
       "id": "gorilla",
@@ -798,7 +897,8 @@
       "rank": 2140,
       "priority": 214000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Gorirat"
     },
     {
       "id": "gorilla_ground",
@@ -806,7 +906,8 @@
       "rank": 1880,
       "priority": 188000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Gorirat Terra"
     },
     {
       "id": "grassgolem",
@@ -814,7 +915,8 @@
       "rank": 510,
       "priority": 51000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Dualith"
     },
     {
       "id": "grassgolem_dark",
@@ -822,7 +924,8 @@
       "rank": 250,
       "priority": 25000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Dualith Noct"
     },
     {
       "id": "grassmammoth",
@@ -830,7 +933,8 @@
       "rank": 1340,
       "priority": 134000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Mammorest"
     },
     {
       "id": "grassmammoth_ice",
@@ -838,7 +942,8 @@
       "rank": 1070,
       "priority": 107000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Mammorest Cryst"
     },
     {
       "id": "grassminotaur",
@@ -846,7 +951,8 @@
       "rank": 2020,
       "priority": 202000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Elgrove"
     },
     {
       "id": "grassminotaur_ice",
@@ -854,7 +960,8 @@
       "rank": 440,
       "priority": 44000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Elgrove Cryst"
     },
     {
       "id": "grasspanda",
@@ -862,7 +969,8 @@
       "rank": 2060,
       "priority": 206000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Mossanda"
     },
     {
       "id": "grasspanda_electric",
@@ -870,7 +978,8 @@
       "rank": 1440,
       "priority": 144000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Mossanda Lux"
     },
     {
       "id": "grassrabbitman",
@@ -878,7 +987,8 @@
       "rank": 1160,
       "priority": 116000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Verdash"
     },
     {
       "id": "grimgirl",
@@ -886,7 +996,8 @@
       "rank": 780,
       "priority": 78000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Splatterina"
     },
     {
       "id": "guardiandog",
@@ -894,7 +1005,8 @@
       "rank": 2230,
       "priority": 223000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Yakumo"
     },
     {
       "id": "hadesbird",
@@ -902,7 +1014,8 @@
       "rank": 1130,
       "priority": 113000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Helzephyr"
     },
     {
       "id": "hadesbird_electric",
@@ -910,7 +1023,8 @@
       "rank": 960,
       "priority": 96000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Helzephyr Lux"
     },
     {
       "id": "hawkbird",
@@ -918,7 +1032,8 @@
       "rank": 2560,
       "priority": 256000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Nitewing"
     },
     {
       "id": "hedgehog",
@@ -926,7 +1041,8 @@
       "rank": 3030,
       "priority": 303000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Jolthog"
     },
     {
       "id": "hedgehog_ice",
@@ -934,7 +1050,8 @@
       "rank": 2850,
       "priority": 285000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Jolthog Cryst"
     },
     {
       "id": "herculesbeetle",
@@ -942,7 +1059,8 @@
       "rank": 1280,
       "priority": 128000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Warsect"
     },
     {
       "id": "herculesbeetle_ground",
@@ -950,7 +1068,8 @@
       "rank": 630,
       "priority": 63000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Warsect Terra"
     },
     {
       "id": "hoodghost",
@@ -958,7 +1077,8 @@
       "rank": 1770,
       "priority": 177000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Hoodle"
     },
     {
       "id": "horus",
@@ -966,7 +1086,8 @@
       "rank": 500,
       "priority": 50000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Faleris"
     },
     {
       "id": "horus_water",
@@ -974,7 +1095,8 @@
       "rank": 450,
       "priority": 45000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Faleris Aqua"
     },
     {
       "id": "icecrocodile",
@@ -982,7 +1104,8 @@
       "rank": 2130,
       "priority": 213000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Munchill"
     },
     {
       "id": "icedeer",
@@ -990,7 +1113,8 @@
       "rank": 1930,
       "priority": 193000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Reindrix"
     },
     {
       "id": "icefox",
@@ -998,7 +1122,8 @@
       "rank": 1970,
       "priority": 197000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Foxcicle"
     },
     {
       "id": "icehorse",
@@ -1006,7 +1131,8 @@
       "rank": 150,
       "priority": 15000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Frostallion"
     },
     {
       "id": "icehorse_dark",
@@ -1014,7 +1140,8 @@
       "rank": 110,
       "priority": 11000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Frostallion Noct"
     },
     {
       "id": "icenarwhal",
@@ -1022,7 +1149,8 @@
       "rank": 710,
       "priority": 71000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Whalaska"
     },
     {
       "id": "icenarwhal_fire",
@@ -1030,7 +1158,8 @@
       "rank": 370,
       "priority": 37000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Whalaska Ignis"
     },
     {
       "id": "iceseal",
@@ -1038,7 +1167,8 @@
       "rank": 1660,
       "priority": 166000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Polapup"
     },
     {
       "id": "iceseal_ground",
@@ -1046,7 +1176,8 @@
       "rank": 1100,
       "priority": 110000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Polapup Terra"
     },
     {
       "id": "icewitch",
@@ -1054,7 +1185,8 @@
       "rank": 1260,
       "priority": 126000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Icelyn"
     },
     {
       "id": "jellyfishfairy",
@@ -1062,7 +1194,8 @@
       "rank": 2650,
       "priority": 265000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Jelliette"
     },
     {
       "id": "jellyfishghost",
@@ -1070,7 +1203,8 @@
       "rank": 2590,
       "priority": 259000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Jellroy"
     },
     {
       "id": "jetdragon",
@@ -1078,7 +1212,8 @@
       "rank": 70,
       "priority": 7000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Jetragon"
     },
     {
       "id": "kabukiman",
@@ -1086,7 +1221,8 @@
       "rank": 290,
       "priority": 29000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Renjishi"
     },
     {
       "id": "kelpie",
@@ -1094,7 +1230,8 @@
       "rank": 2810,
       "priority": 281000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Kelpsea"
     },
     {
       "id": "kelpie_fire",
@@ -1102,7 +1239,8 @@
       "rank": 2470,
       "priority": 247000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Kelpsea Ignis"
     },
     {
       "id": "kendofrog",
@@ -1110,7 +1248,8 @@
       "rank": 2600,
       "priority": 260000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Croajiro"
     },
     {
       "id": "kendofrog_dark",
@@ -1118,7 +1257,8 @@
       "rank": 1860,
       "priority": 186000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Croajiro Noct"
     },
     {
       "id": "kingalpaca",
@@ -1126,7 +1266,8 @@
       "rank": 2220,
       "priority": 222000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Kingpaca"
     },
     {
       "id": "kingalpaca_ice",
@@ -1134,7 +1275,8 @@
       "rank": 1530,
       "priority": 153000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Kingpaca Cryst"
     },
     {
       "id": "kingbahamut",
@@ -1142,7 +1284,8 @@
       "rank": 410,
       "priority": 41000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Blazamut"
     },
     {
       "id": "kingbahamut_dragon",
@@ -1150,7 +1293,8 @@
       "rank": 100,
       "priority": 10000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Blazamut Ryu"
     },
     {
       "id": "kingsunfish",
@@ -1158,7 +1302,8 @@
       "rank": 1370,
       "priority": 137000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Solmora"
     },
     {
       "id": "kingsunfish_thunder",
@@ -1166,7 +1311,8 @@
       "rank": 1000,
       "priority": 100000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Solmora Lux"
     },
     {
       "id": "kingwhale",
@@ -1174,7 +1320,8 @@
       "rank": 20,
       "priority": 2000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Panthalus"
     },
     {
       "id": "kirin",
@@ -1182,7 +1329,8 @@
       "rank": 2270,
       "priority": 227000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Univolt"
     },
     {
       "id": "kirin_ice",
@@ -1190,7 +1338,8 @@
       "rank": 540,
       "priority": 54000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Univolt Cryst"
     },
     {
       "id": "kitsunebi",
@@ -1198,7 +1347,8 @@
       "rank": 2990,
       "priority": 299000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Foxparks"
     },
     {
       "id": "kitsunebi_ice",
@@ -1206,7 +1356,8 @@
       "rank": 2500,
       "priority": 250000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Foxparks Cryst"
     },
     {
       "id": "lanternbutler",
@@ -1214,7 +1365,8 @@
       "rank": 890,
       "priority": 89000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Loomen"
     },
     {
       "id": "lavagirl",
@@ -1222,7 +1374,8 @@
       "rank": 2700,
       "priority": 270000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Flambelle"
     },
     {
       "id": "lazycatfish",
@@ -1230,7 +1383,8 @@
       "rank": 2290,
       "priority": 229000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Dumud"
     },
     {
       "id": "lazycatfish_gold",
@@ -1238,7 +1392,8 @@
       "rank": 1620,
       "priority": 576,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Dumud Gild"
     },
     {
       "id": "lazydragon",
@@ -1246,7 +1401,8 @@
       "rank": 1090,
       "priority": 109000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Relaxaurus"
     },
     {
       "id": "lazydragon_electric",
@@ -1254,7 +1410,8 @@
       "rank": 770,
       "priority": 77000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Relaxaurus Lux"
     },
     {
       "id": "leafmomonga",
@@ -1262,7 +1419,8 @@
       "rank": 2630,
       "priority": 263000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Herbil"
     },
     {
       "id": "leafprincess",
@@ -1270,7 +1428,8 @@
       "rank": 1990,
       "priority": 199000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Lullu"
     },
     {
       "id": "legenddeer",
@@ -1278,7 +1437,8 @@
       "rank": 90,
       "priority": 9000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Hartalis"
     },
     {
       "id": "lilyqueen",
@@ -1286,7 +1446,8 @@
       "rank": 240,
       "priority": 24000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Lyleen"
     },
     {
       "id": "lilyqueen_dark",
@@ -1294,7 +1455,8 @@
       "rank": 220,
       "priority": 22000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Lyleen Noct"
     },
     {
       "id": "littlebriarrose",
@@ -1302,7 +1464,8 @@
       "rank": 2690,
       "priority": 269000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Bristla"
     },
     {
       "id": "lizardman",
@@ -1310,7 +1473,8 @@
       "rank": 2670,
       "priority": 267000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Leezpunk"
     },
     {
       "id": "lizardman_fire",
@@ -1318,7 +1482,8 @@
       "rank": 2640,
       "priority": 264000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Leezpunk Ignis"
     },
     {
       "id": "longcat",
@@ -1326,7 +1491,8 @@
       "rank": 1900,
       "priority": 190000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Valentail"
     },
     {
       "id": "lotusdragon",
@@ -1334,7 +1500,8 @@
       "rank": 230,
       "priority": 23000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Ophydia"
     },
     {
       "id": "manticore",
@@ -1342,7 +1509,8 @@
       "rank": 1360,
       "priority": 136000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Blazehowl"
     },
     {
       "id": "manticore_dark",
@@ -1350,7 +1518,8 @@
       "rank": 1270,
       "priority": 127000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Blazehowl Noct"
     },
     {
       "id": "mimicdog",
@@ -1358,7 +1527,8 @@
       "rank": 1740,
       "priority": 174000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Mimog"
     },
     {
       "id": "monkey",
@@ -1366,7 +1536,8 @@
       "rank": 2900,
       "priority": 290000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Tanzee"
     },
     {
       "id": "monkey_fire",
@@ -1374,7 +1545,8 @@
       "rank": 2830,
       "priority": 283000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Tanzee Ignis"
     },
     {
       "id": "monochromequeen",
@@ -1382,7 +1554,8 @@
       "rank": 280,
       "priority": 28000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Solenne"
     },
     {
       "id": "moonchild",
@@ -1390,7 +1563,8 @@
       "rank": 1180,
       "priority": 118000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Wistella"
     },
     {
       "id": "moonqueen",
@@ -1398,7 +1572,8 @@
       "rank": 360,
       "priority": 36000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Selyne"
     },
     {
       "id": "mopbaby",
@@ -1406,7 +1581,8 @@
       "rank": 2840,
       "priority": 284000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Swee"
     },
     {
       "id": "mopking",
@@ -1414,7 +1590,8 @@
       "rank": 2150,
       "priority": 215000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Sweepa"
     },
     {
       "id": "mothman",
@@ -1422,7 +1599,8 @@
       "rank": 80,
       "priority": 8000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Silvance"
     },
     {
       "id": "mummypal",
@@ -1430,7 +1608,8 @@
       "rank": 1170,
       "priority": 117000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Gildra"
     },
     {
       "id": "mushroomdragon",
@@ -1438,7 +1617,8 @@
       "rank": 1520,
       "priority": 152000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Shroomer"
     },
     {
       "id": "mushroomdragon_dark",
@@ -1446,7 +1626,8 @@
       "rank": 1450,
       "priority": 145000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Shroomer Noct"
     },
     {
       "id": "mushroomlady",
@@ -1454,7 +1635,8 @@
       "rank": 760,
       "priority": 76000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Mycora"
     },
     {
       "id": "mutant",
@@ -1462,7 +1644,8 @@
       "rank": 2010,
       "priority": 201000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Lunaris"
     },
     {
       "id": "mysterymask",
@@ -1470,7 +1653,8 @@
       "rank": 1140,
       "priority": 114000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Omascul"
     },
     {
       "id": "naughtycat",
@@ -1478,7 +1662,8 @@
       "rank": 2120,
       "priority": 212000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Grintale"
     },
     {
       "id": "negativekoala",
@@ -1486,7 +1671,8 @@
       "rank": 3000,
       "priority": 300000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Depresso"
     },
     {
       "id": "negativeoctopus",
@@ -1494,7 +1680,8 @@
       "rank": 2770,
       "priority": 277000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Killamari"
     },
     {
       "id": "negativeoctopus_neutral",
@@ -1502,7 +1689,8 @@
       "rank": 2540,
       "priority": 571,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Killamari Primo"
     },
     {
       "id": "nightbluehorse",
@@ -1510,7 +1698,8 @@
       "rank": 1150,
       "priority": 115000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Starryon"
     },
     {
       "id": "nightbluehorse_neutral",
@@ -1518,7 +1707,8 @@
       "rank": 430,
       "priority": 43000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Starryon Primo"
     },
     {
       "id": "nightfox",
@@ -1526,7 +1716,8 @@
       "rank": 2920,
       "priority": 292000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Nox"
     },
     {
       "id": "nightlady",
@@ -1534,7 +1725,8 @@
       "rank": 620,
       "priority": 62000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Bellanoir"
     },
     {
       "id": "nightlady_dark",
@@ -1542,7 +1734,8 @@
       "rank": 130,
       "priority": 13000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Bellanoir Libero"
     },
     {
       "id": "octopusgirl",
@@ -1550,7 +1743,8 @@
       "rank": 2530,
       "priority": 253000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Gloopie"
     },
     {
       "id": "octopusgirl_neutral",
@@ -1558,7 +1752,8 @@
       "rank": 1630,
       "priority": 163000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Gloopie Primo"
     },
     {
       "id": "onighostgirl",
@@ -1566,7 +1761,8 @@
       "rank": 1540,
       "priority": 154000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Bakemi"
     },
     {
       "id": "pandagirl",
@@ -1574,7 +1770,8 @@
       "rank": 1410,
       "priority": 141000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Leafan"
     },
     {
       "id": "penguin",
@@ -1582,7 +1779,8 @@
       "rank": 2960,
       "priority": 296000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Pengullet"
     },
     {
       "id": "penguin_electric",
@@ -1590,7 +1788,8 @@
       "rank": 2490,
       "priority": 572,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Pengullet Lux"
     },
     {
       "id": "pinkcat",
@@ -1598,7 +1797,8 @@
       "rank": 2760,
       "priority": 276000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Cattiva"
     },
     {
       "id": "pinklizard",
@@ -1606,7 +1806,8 @@
       "rank": 2090,
       "priority": 209000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Lovander"
     },
     {
       "id": "pinkrabbit",
@@ -1614,7 +1815,8 @@
       "rank": 2860,
       "priority": 286000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Ribbuny"
     },
     {
       "id": "pinkrabbit_grass",
@@ -1622,7 +1824,8 @@
       "rank": 2460,
       "priority": 246000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Ribbuny Botan"
     },
     {
       "id": "plantslime",
@@ -1630,7 +1833,8 @@
       "rank": 2950,
       "priority": 295000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Gumoss"
     },
     {
       "id": "plesiosaur",
@@ -1638,7 +1842,8 @@
       "rank": 1030,
       "priority": 103000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Braloha"
     },
     {
       "id": "poseidonorca",
@@ -1646,7 +1851,8 @@
       "rank": 160,
       "priority": 16000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Neptilius"
     },
     {
       "id": "purplespider",
@@ -1654,7 +1860,8 @@
       "rank": 1730,
       "priority": 173000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Tarantriss"
     },
     {
       "id": "queenbee",
@@ -1662,7 +1869,8 @@
       "rank": 1790,
       "priority": 179000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Elizabee"
     },
     {
       "id": "raijindaughter",
@@ -1670,7 +1878,8 @@
       "rank": 2400,
       "priority": 240000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Dazzi"
     },
     {
       "id": "raijindaughter_water",
@@ -1678,7 +1887,8 @@
       "rank": 1910,
       "priority": 191000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Dazzi Noct"
     },
     {
       "id": "redarmorbird",
@@ -1686,7 +1896,8 @@
       "rank": 1050,
       "priority": 105000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Ragnahawk"
     },
     {
       "id": "redflowerbird",
@@ -1694,7 +1905,8 @@
       "rank": 1350,
       "priority": 135000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Tropicaw"
     },
     {
       "id": "robinhood",
@@ -1702,7 +1914,8 @@
       "rank": 2260,
       "priority": 226000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Robinquill"
     },
     {
       "id": "robinhood_ground",
@@ -1710,7 +1923,8 @@
       "rank": 2050,
       "priority": 205000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Robinquill Terra"
     },
     {
       "id": "rockbeast",
@@ -1718,7 +1932,8 @@
       "rank": 1110,
       "priority": 111000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Pierdon"
     },
     {
       "id": "rockbeast_ice",
@@ -1726,7 +1941,8 @@
       "rank": 460,
       "priority": 46000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Pierdon Cryst"
     },
     {
       "id": "ronin",
@@ -1734,7 +1950,8 @@
       "rank": 1560,
       "priority": 156000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Bushi"
     },
     {
       "id": "ronin_dark",
@@ -1742,7 +1959,8 @@
       "rank": 840,
       "priority": 84000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Bushi Noct"
     },
     {
       "id": "saintcentaur",
@@ -1750,7 +1968,8 @@
       "rank": 180,
       "priority": 18000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Paladius"
     },
     {
       "id": "sakurasaurus",
@@ -1758,7 +1977,8 @@
       "rank": 1380,
       "priority": 138000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Broncherry"
     },
     {
       "id": "sakurasaurus_water",
@@ -1766,7 +1986,8 @@
       "rank": 1080,
       "priority": 108000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Broncherry Aqua"
     },
     {
       "id": "samuraidog",
@@ -1774,7 +1995,8 @@
       "rank": 2930,
       "priority": 293000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Pupperai"
     },
     {
       "id": "scorpionman",
@@ -1782,7 +2004,8 @@
       "rank": 1510,
       "priority": 151000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Prixter"
     },
     {
       "id": "scorpionman_electric",
@@ -1790,7 +2013,8 @@
       "rank": 850,
       "priority": 85000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Prixter Lux"
     },
     {
       "id": "sekhmet",
@@ -1798,7 +2022,8 @@
       "rank": 870,
       "priority": 87000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Sekhmet"
     },
     {
       "id": "serpent",
@@ -1806,7 +2031,8 @@
       "rank": 2440,
       "priority": 244000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Surfent"
     },
     {
       "id": "serpent_ground",
@@ -1814,7 +2040,8 @@
       "rank": 1840,
       "priority": 184000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Surfent Terra"
     },
     {
       "id": "sharkkid",
@@ -1822,7 +2049,8 @@
       "rank": 2550,
       "priority": 255000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Gobfin"
     },
     {
       "id": "sharkkid_fire",
@@ -1830,7 +2058,8 @@
       "rank": 2430,
       "priority": 243000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Gobfin Ignis"
     },
     {
       "id": "sheepball",
@@ -1838,7 +2067,8 @@
       "rank": 3050,
       "priority": 305000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Lamball"
     },
     {
       "id": "sifudog",
@@ -1846,7 +2076,8 @@
       "rank": 1460,
       "priority": 146000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Dogen"
     },
     {
       "id": "skydragon",
@@ -1854,7 +2085,8 @@
       "rank": 1210,
       "priority": 121000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Quivern"
     },
     {
       "id": "skydragon_grass",
@@ -1862,7 +2094,8 @@
       "rank": 1300,
       "priority": 130000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Quivern Botan"
     },
     {
       "id": "sleeverabbit",
@@ -1870,7 +2103,8 @@
       "rank": 810,
       "priority": 81000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Lapure"
     },
     {
       "id": "smallarmadillo",
@@ -1878,7 +2112,8 @@
       "rank": 2310,
       "priority": 231000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Kikit"
     },
     {
       "id": "smallyeti",
@@ -1886,7 +2121,8 @@
       "rank": 2390,
       "priority": 239000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Snugloo"
     },
     {
       "id": "snakegirl",
@@ -1894,7 +2130,8 @@
       "rank": 970,
       "priority": 97000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Venusa"
     },
     {
       "id": "snowpeafowl",
@@ -1902,7 +2139,8 @@
       "rank": 860,
       "priority": 86000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Frostplume"
     },
     {
       "id": "snowtigerbeastman",
@@ -1910,7 +2148,8 @@
       "rank": 50,
       "priority": 5000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Bastigor"
     },
     {
       "id": "soldierbee",
@@ -1918,7 +2157,8 @@
       "rank": 2350,
       "priority": 235000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Beegarde"
     },
     {
       "id": "stuffedshark",
@@ -1926,7 +2166,8 @@
       "rank": 2450,
       "priority": 245000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Finsider"
     },
     {
       "id": "stuffedshark_fire",
@@ -1934,7 +2175,8 @@
       "rank": 2240,
       "priority": 581,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Finsider Ignis"
     },
     {
       "id": "sumodog",
@@ -1942,7 +2184,8 @@
       "rank": 1190,
       "priority": 119000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Bulldosu"
     },
     {
       "id": "suzaku",
@@ -1950,7 +2193,8 @@
       "rank": 1200,
       "priority": 120000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Suzaku"
     },
     {
       "id": "suzaku_water",
@@ -1958,7 +2202,8 @@
       "rank": 740,
       "priority": 74000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Suzaku Aqua"
     },
     {
       "id": "sweetssheep",
@@ -1966,7 +2211,8 @@
       "rank": 2820,
       "priority": 282000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Woolipop"
     },
     {
       "id": "sweetssheep_ground",
@@ -1974,7 +2220,8 @@
       "rank": 2030,
       "priority": 203000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Woolipop Terra"
     },
     {
       "id": "swordcutlassfish",
@@ -1982,7 +2229,8 @@
       "rank": 1420,
       "priority": 142000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Skutlass"
     },
     {
       "id": "swordcutlassfish_fire",
@@ -1990,7 +2238,8 @@
       "rank": 1590,
       "priority": 159000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Skutlass Ignis"
     },
     {
       "id": "tentacleturtle",
@@ -1998,7 +2247,8 @@
       "rank": 2410,
       "priority": 241000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Turtacle"
     },
     {
       "id": "tentacleturtle_ground",
@@ -2006,7 +2256,8 @@
       "rank": 1330,
       "priority": 577,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Turtacle Terra"
     },
     {
       "id": "thiefbird",
@@ -2014,7 +2265,8 @@
       "rank": 530,
       "priority": 53000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Roujay"
     },
     {
       "id": "thunderbird",
@@ -2022,7 +2274,8 @@
       "rank": 1690,
       "priority": 169000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Beakon"
     },
     {
       "id": "thunderbird_ice",
@@ -2030,7 +2283,8 @@
       "rank": 580,
       "priority": 58000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Beakon Cryst"
     },
     {
       "id": "thunderdog",
@@ -2038,7 +2292,8 @@
       "rank": 1920,
       "priority": 192000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Rayhound"
     },
     {
       "id": "thunderdog_ice",
@@ -2046,7 +2301,8 @@
       "rank": 1600,
       "priority": 160000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Rayhound Cryst"
     },
     {
       "id": "thunderdragonman",
@@ -2054,7 +2310,8 @@
       "rank": 120,
       "priority": 12000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Orserk"
     },
     {
       "id": "thunderfluffybird",
@@ -2062,7 +2319,8 @@
       "rank": 1400,
       "priority": 140000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Dynamoff"
     },
     {
       "id": "tropicalostrich",
@@ -2070,7 +2328,8 @@
       "rank": 1240,
       "priority": 124000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Palumba"
     },
     {
       "id": "umihebi",
@@ -2078,7 +2337,8 @@
       "rank": 590,
       "priority": 59000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Jormuntide"
     },
     {
       "id": "umihebi_fire",
@@ -2086,7 +2346,8 @@
       "rank": 170,
       "priority": 17000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Jormuntide Ignis"
     },
     {
       "id": "venusflytrap",
@@ -2094,7 +2355,8 @@
       "rank": 1700,
       "priority": 170000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Carnibora"
     },
     {
       "id": "violetfairy",
@@ -2102,7 +2364,8 @@
       "rank": 1480,
       "priority": 148000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Vaelet"
     },
     {
       "id": "volcanicmonster",
@@ -2110,7 +2373,8 @@
       "rank": 1060,
       "priority": 106000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Reptyro"
     },
     {
       "id": "volcanicmonster_ice",
@@ -2118,7 +2382,8 @@
       "rank": 600,
       "priority": 60000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Reptyro Cryst"
     },
     {
       "id": "volcanodragon",
@@ -2126,7 +2391,8 @@
       "rank": 750,
       "priority": 75000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Moldron"
     },
     {
       "id": "volcanodragon_ice",
@@ -2134,7 +2400,8 @@
       "rank": 380,
       "priority": 38000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Moldron Cryst"
     },
     {
       "id": "weaseldragon",
@@ -2142,7 +2409,8 @@
       "rank": 2330,
       "priority": 233000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Chillet"
     },
     {
       "id": "weaseldragon_fire",
@@ -2150,7 +2418,8 @@
       "rank": 1950,
       "priority": 195000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Chillet Ignis"
     },
     {
       "id": "werewolf",
@@ -2158,7 +2427,8 @@
       "rank": 2110,
       "priority": 211000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Loupmoon"
     },
     {
       "id": "werewolf_ice",
@@ -2166,7 +2436,8 @@
       "rank": 1290,
       "priority": 129000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Loupmoon Cryst"
     },
     {
       "id": "whitealiendragon",
@@ -2174,7 +2445,8 @@
       "rank": 990,
       "priority": 99000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Xenogard"
     },
     {
       "id": "whitedeer",
@@ -2182,7 +2454,8 @@
       "rank": 570,
       "priority": 57000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Celesdir"
     },
     {
       "id": "whitedeer_dark",
@@ -2190,7 +2463,8 @@
       "rank": 270,
       "priority": 27000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Celesdir Noct"
     },
     {
       "id": "whitemoth",
@@ -2198,7 +2472,8 @@
       "rank": 1810,
       "priority": 181000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Sibelyx"
     },
     {
       "id": "whitemoth_neutral",
@@ -2206,7 +2481,8 @@
       "rank": 650,
       "priority": 65000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Sibelyx Primo"
     },
     {
       "id": "whiteshielddragon",
@@ -2214,7 +2490,8 @@
       "rank": 560,
       "priority": 56000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Silvegis"
     },
     {
       "id": "whitetiger",
@@ -2222,7 +2499,8 @@
       "rank": 1040,
       "priority": 104000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Cryolinx"
     },
     {
       "id": "whitetiger_ground",
@@ -2230,7 +2508,8 @@
       "rank": 470,
       "priority": 47000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Cryolinx Terra"
     },
     {
       "id": "windchimes",
@@ -2238,7 +2517,8 @@
       "rank": 2780,
       "priority": 278000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Hangyu"
     },
     {
       "id": "windchimes_ice",
@@ -2246,7 +2526,8 @@
       "rank": 2510,
       "priority": 251000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Hangyu Cryst"
     },
     {
       "id": "winggolem",
@@ -2254,7 +2535,8 @@
       "rank": 260,
       "priority": 26000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Knocklem"
     },
     {
       "id": "winggolem_fire",
@@ -2262,7 +2544,8 @@
       "rank": 210,
       "priority": 21000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Knocklem Ignis"
     },
     {
       "id": "wizardowl",
@@ -2270,7 +2553,8 @@
       "rank": 2940,
       "priority": 294000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Hoocrates"
     },
     {
       "id": "woolfox",
@@ -2278,7 +2562,8 @@
       "rank": 2890,
       "priority": 289000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Cremis"
     },
     {
       "id": "worldtreedragon",
@@ -2286,7 +2571,8 @@
       "rank": 10,
       "priority": 1000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Astralym"
     },
     {
       "id": "yakushimaboss001",
@@ -2294,7 +2580,8 @@
       "rank": 3100,
       "priority": 310000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Eye of Cthulhu"
     },
     {
       "id": "yakushimaboss001_small",
@@ -2302,7 +2589,8 @@
       "rank": 3100,
       "priority": 310000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Demon Eye"
     },
     {
       "id": "yakushimamonster001",
@@ -2310,7 +2598,8 @@
       "rank": 3100,
       "priority": 310000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Green Slime"
     },
     {
       "id": "yakushimamonster001_blue",
@@ -2318,7 +2607,8 @@
       "rank": 3100,
       "priority": 310000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Blue Slime"
     },
     {
       "id": "yakushimamonster001_pink",
@@ -2326,7 +2616,8 @@
       "rank": 3100,
       "priority": 310000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Illuminant Slime"
     },
     {
       "id": "yakushimamonster001_purple",
@@ -2334,7 +2625,8 @@
       "rank": 3100,
       "priority": 310000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Purple Slime"
     },
     {
       "id": "yakushimamonster001_rainbow",
@@ -2342,7 +2634,8 @@
       "rank": 3100,
       "priority": 310000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Rainbow Slime"
     },
     {
       "id": "yakushimamonster001_red",
@@ -2350,7 +2643,8 @@
       "rank": 3100,
       "priority": 310000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Red Slime"
     },
     {
       "id": "yakushimamonster002",
@@ -2358,7 +2652,8 @@
       "rank": 3100,
       "priority": 310000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Enchanted Sword"
     },
     {
       "id": "yakushimamonster003",
@@ -2366,7 +2661,8 @@
       "rank": 3100,
       "priority": 310000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Cave Bat"
     },
     {
       "id": "yakushimamonster003_purple",
@@ -2374,7 +2670,8 @@
       "rank": 3100,
       "priority": 310000,
       "ignoreGeneric": true,
-      "boss": false
+      "boss": false,
+      "displayName": "Illuminant Bat"
     },
     {
       "id": "yeti",
@@ -2382,7 +2679,8 @@
       "rank": 830,
       "priority": 83000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Wumpo"
     },
     {
       "id": "yeti_grass",
@@ -2390,7 +2688,8 @@
       "rank": 610,
       "priority": 61000,
       "ignoreGeneric": false,
-      "boss": false
+      "boss": false,
+      "displayName": "Wumpo Botan"
     }
   ],
   "combos": [

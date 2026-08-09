@@ -20,6 +20,7 @@ type dataFile struct {
 type record struct {
 	ID            string `json:"id"`
 	Key           string `json:"key"`
+	DisplayName   string `json:"displayName"`
 	Rank          int    `json:"rank"`
 	Priority      int    `json:"priority"`
 	IgnoreGeneric bool   `json:"ignoreGeneric"`
@@ -69,7 +70,7 @@ func newRules(data dataFile) (*Rules, error) {
 	for _, entry := range data.Records {
 		entry.ID = canonical(entry.ID)
 		entry.Key = strings.TrimSpace(entry.Key)
-		if entry.ID == "" || entry.Key == "" || entry.Rank < 0 || entry.Priority < 0 {
+		if entry.ID == "" || entry.Key == "" || entry.DisplayName == "" || entry.Rank < 0 || entry.Priority < 0 {
 			return nil, fmt.Errorf("invalid breeding record %q", entry.Key)
 		}
 		if _, exists := rules.byID[entry.ID]; exists {
@@ -149,10 +150,23 @@ func pairKey(left, right string) string { return left + "\x00" + right }
 // Key returns the canonical Character ID used by breeding outcomes.
 func (rules *Rules) Key(value string) (string, bool) {
 	entry, ok := rules.byID[canonical(value)]
-	if !ok {
-		return "", false
+	if ok {
+		return entry.Key, true
 	}
-	return entry.Key, true
+	for _, entry := range rules.byID {
+		if strings.EqualFold(entry.DisplayName, strings.TrimSpace(value)) {
+			return entry.Key, true
+		}
+	}
+	return "", false
+}
+
+// DisplayName returns the player-facing Pal name for a save-game Character ID.
+func (rules *Rules) DisplayName(value string) string {
+	if entry, ok := rules.byID[canonical(value)]; ok && entry.DisplayName != "" {
+		return entry.DisplayName
+	}
+	return strings.TrimSpace(value)
 }
 
 // Species returns every Pal Character ID in the bundled breeding dataset.
