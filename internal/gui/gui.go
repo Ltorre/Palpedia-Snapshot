@@ -1063,7 +1063,7 @@ func (s *screen) routeTargetPicker(gtx layout.Context) layout.Dimensions {
 		return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
 			layout.Rigid(s.caption("planner_target_picker_help")),
 			layout.Rigid(spacer(8)),
-			layout.Rigid(s.editor(&s.target, s.t("planner_target"))),
+			layout.Rigid(s.routeTargetInput),
 			layout.Rigid(s.plannerTargetSuggestions),
 			layout.Rigid(spacer(10)),
 			layout.Rigid(s.caption("planner_route_starters_title")),
@@ -1088,6 +1088,25 @@ func (s *screen) routeTargetPicker(gtx layout.Context) layout.Dimensions {
 			}),
 		)
 	})
+}
+
+func (s *screen) routeTargetInput(gtx layout.Context) layout.Dimensions {
+	return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
+		layout.Flexed(0.42, func(gtx layout.Context) layout.Dimensions {
+			label := material.Body1(s.theme, s.t("planner_target"))
+			label.Color = s.primaryText()
+			label.WrapPolicy = text.WrapWords
+			return layout.Inset{Right: unit.Dp(12)}.Layout(gtx, label.Layout)
+		}),
+		layout.Flexed(0.58, func(gtx layout.Context) layout.Dimensions {
+			return widget.Border{Color: s.theme.Palette.ContrastBg, CornerRadius: unit.Dp(6), Width: unit.Dp(2)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+				return layout.Inset{Top: unit.Dp(8), Bottom: unit.Dp(8), Left: unit.Dp(10), Right: unit.Dp(10)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+					gtx.Constraints.Min.Y = gtx.Dp(unit.Dp(28))
+					return s.editor(&s.target, s.t("planner_target_hint"))(gtx)
+				})
+			})
+		}),
+	)
 }
 
 func (s *screen) routeStarterSummary(gtx layout.Context) layout.Dimensions {
@@ -1691,6 +1710,7 @@ func init() {
 	translations[english]["planner_route_all_starters"] = "The route may start from every Pal in your loaded collection."
 	translations[english]["planner_route_filtered_starters"] = "The route starts from %d of %d loaded Pals matching the selected trait tier(s)."
 	translations[english]["planner_target"] = "Target Pal name or Character ID"
+	translations[english]["planner_target_hint"] = "Example: Anubis"
 	translations[english]["planner_target_suggestions"] = "Matching Pals — choose one"
 	translations[english]["planner_find_route"] = "Find quickest breeding route"
 	translations[english]["planner_target_required"] = "Enter a target Pal Character ID."
@@ -1769,6 +1789,7 @@ func init() {
 	translations[french]["planner_route_all_starters"] = "Le chemin peut démarrer avec tous les Pals de votre collection chargée."
 	translations[french]["planner_route_filtered_starters"] = "Le chemin démarre avec %d Pal(s) parmi %d ayant les rangs de traits sélectionnés."
 	translations[french]["planner_target"] = "Nom ou Character ID du Pal cible"
+	translations[french]["planner_target_hint"] = "Exemple : Anubis"
 	translations[french]["planner_target_suggestions"] = "Pals correspondants — choisissez-en un"
 	translations[french]["planner_find_route"] = "Trouver le chemin le plus rapide"
 	translations[french]["planner_target_required"] = "Entrez un Character ID de Pal cible."
