@@ -17,6 +17,19 @@ Add these files from that folder to NotebookLM:
 
 Do **not** add `world.json` to NotebookLM. It is a complete technical export for troubleshooting, not a NotebookLM source.
 
+## Breeding planner preview
+
+The `v3.0.0-rc1` branch adds an in-app, read-only breeding planner. After selecting a `Level.sav`, use **Update planner from selected save** to load current party and Palbox Pals. It shows when the collection was loaded, when the selected save was last modified, and the newest `export_<date time>` folder in the chosen destination.
+
+The planner can:
+
+- filter current Pals by Pal name, raw trait ID, or known trait name;
+- restrict the view to bundled gold (rank 3) or diamond (rank 4) passive-trait catalogs, including Philanthropist and Demon God;
+- select a real male and female Pal, keeping their individual traits visible, then calculate the exact offspring species; and
+- calculate a textual route to a target Character ID using the fewest sequential breeding generations from the loaded male/female collection.
+
+The route is a species plan, not a promise of a specific egg: passive inheritance and egg gender remain game RNG. The UI calls this out so it is suitable for planning, rather than overstating certainty.
+
 The application never modifies save files. It refuses to place its output inside the save directory.
 
 ## Windows build

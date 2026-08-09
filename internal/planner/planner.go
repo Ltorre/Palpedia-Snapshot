@@ -1,0 +1,196 @@
+// Package planner builds local breeding plans from a player's current collection.
+package planner
+
+import (
+	"fmt"
+	"sort"
+	"strings"
+
+	"github.com/Ltorre/palpedia-snapshot/internal/breeding"
+)
+
+// Pal is one player-owned Pal available to the breeding planner.
+type Pal struct {
+	InstanceID  string
+	CharacterID string
+	Gender      string
+	Level       int32
+	Traits      []string
+}
+
+// PairResult describes the exact outcome for two selected Pals.
+type PairResult struct {
+	Child      string
+	Rule       string
+	TargetRank int
+}
+
+// ResolvePair calculates one real male/female pair from the loaded collection.
+func ResolvePair(rules *breeding.Rules, male, female Pal) (PairResult, error) {
+	if !strings.EqualFold(male.Gender, "male") || !strings.EqualFold(female.Gender, "female") {
+		return PairResult{}, fmt.Errorf("choose one male parent and one female parent")
+	}
+	result, ok := rules.Resolve(male.CharacterID, male.Gender, female.CharacterID, female.Gender)
+	if !ok {
+		return PairResult{}, fmt.Errorf("breeding data is unavailable for %q or %q", male.CharacterID, female.CharacterID)
+	}
+	return PairResult{Child: result.Child, Rule: result.Rule, TargetRank: result.TargetRank}, nil
+}
+
+// Filter returns Pals that match text and at least one requested high-tier group.
+func Filter(pals []Pal, query string, goldOnly, diamondOnly bool) []Pal {
+	query = strings.ToLower(strings.TrimSpace(query))
+	filtered := make([]Pal, 0, len(pals))
+	for _, pal := range pals {
+		if goldOnly || diamondOnly {
+			match := false
+			for _, trait := range pal.Traits {
+				match = match || (goldOnly && Tier(trait) == Gold) || (diamondOnly && Tier(trait) == Diamond)
+			}
+			if !match {
+				continue
+			}
+		}
+		if query != "" && !matches(pal, query) {
+			continue
+		}
+		filtered = append(filtered, pal)
+	}
+	sort.Slice(filtered, func(i, j int) bool {
+		return strings.Join([]string{filtered[i].CharacterID, filtered[i].Gender, filtered[i].InstanceID}, "\x00") < strings.Join([]string{filtered[j].CharacterID, filtered[j].Gender, filtered[j].InstanceID}, "\x00")
+	})
+	return filtered
+}
+
+func matches(pal Pal, query string) bool {
+	if strings.Contains(strings.ToLower(pal.CharacterID), query) || strings.Contains(strings.ToLower(pal.Gender), query) {
+		return true
+	}
+	for _, trait := range pal.Traits {
+		if strings.Contains(strings.ToLower(trait), query) || strings.Contains(strings.ToLower(TraitName(trait)), query) {
+			return true
+		}
+	}
+	return false
+}
+
+// Step is one breeding operation in a fastest sequential-generation route.
+type Step struct {
+	Generation int
+	ParentA    string
+	ParentB    string
+	Child      string
+	Rule       string
+}
+
+// Path is a reproducible species route. It does not model passive inheritance or egg RNG.
+type Path struct {
+	Target      string
+	Generations int
+	Steps       []Step
+}
+
+// ShortestPath finds the fewest sequential breeding generations from the collection to target.
+// It assumes an offspring can be bred again as the needed sex; actual egg genders can require retries.
+func ShortestPath(rules *breeding.Rules, pals []Pal, target string) (Path, error) {
+	target, ok := rules.Key(target)
+	if !ok {
+		return Path{}, fmt.Errorf("unknown target Pal %q", target)
+	}
+	species := rules.Species()
+	type state struct {
+		generation int
+		step       *Step
+	}
+	const unreachable = int(^uint(0) >> 1)
+	states := make(map[string][2]state, len(species))
+	for _, name := range species {
+		states[name] = [2]state{{generation: unreachable}, {generation: unreachable}}
+	}
+	for _, pal := range pals {
+		name, known := rules.Key(pal.CharacterID)
+		if !known {
+			continue
+		}
+		entry := states[name]
+		switch strings.ToLower(pal.Gender) {
+		case "male":
+			entry[0] = state{generation: 0}
+		case "female":
+			entry[1] = state{generation: 0}
+		}
+		states[name] = entry
+	}
+	for iteration := 0; iteration < len(species); iteration++ {
+		changed := false
+		for _, male := range species {
+			maleState := states[male][0]
+			if maleState.generation == unreachable {
+				continue
+			}
+			for _, female := range species {
+				femaleState := states[female][1]
+				if femaleState.generation == unreachable {
+					continue
+				}
+				result, resolved := rules.Resolve(male, "male", female, "female")
+				if !resolved {
+					continue
+				}
+				child := result.Child
+				generation := max(maleState.generation, femaleState.generation) + 1
+				step := &Step{Generation: generation, ParentA: male, ParentB: female, Child: child, Rule: result.Rule}
+				entry := states[child]
+				for gender := range entry {
+					if generation < entry[gender].generation || (generation == entry[gender].generation && stepKey(step) < stepKey(entry[gender].step)) {
+						entry[gender] = state{generation: generation, step: step}
+						changed = true
+					}
+				}
+				states[child] = entry
+			}
+		}
+		if !changed {
+			break
+		}
+	}
+	targetState := states[target][0]
+	if states[target][1].generation < targetState.generation {
+		targetState = states[target][1]
+	}
+	if targetState.generation == unreachable {
+		return Path{}, fmt.Errorf("no breeding route from the loaded male/female collection to %s", target)
+	}
+	path := Path{Target: target, Generations: targetState.generation}
+	seen := make(map[string]bool)
+	var add func(*Step)
+	add = func(step *Step) {
+		if step == nil {
+			return
+		}
+		key := stepKey(step)
+		if seen[key] {
+			return
+		}
+		seen[key] = true
+		add(states[step.ParentA][0].step)
+		add(states[step.ParentB][1].step)
+		path.Steps = append(path.Steps, *step)
+	}
+	add(targetState.step)
+	return path, nil
+}
+
+func stepKey(step *Step) string {
+	if step == nil {
+		return ""
+	}
+	return strings.Join([]string{step.ParentA, step.ParentB, step.Child, step.Rule}, "\x00")
+}
+
+func max(left, right int) int {
+	if left > right {
+		return left
+	}
+	return right
+}

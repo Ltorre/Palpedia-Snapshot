@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"image"
 	"image/color"
+	"os"
 	"path/filepath"
 	"sort"
 	"strings"
@@ -20,6 +21,8 @@ import (
 	"gioui.org/widget/material"
 	"gioui.org/x/explorer"
 
+	"github.com/Ltorre/palpedia-snapshot/internal/breeding"
+	"github.com/Ltorre/palpedia-snapshot/internal/planner"
 	"github.com/Ltorre/palpedia-snapshot/internal/report"
 	"github.com/Ltorre/palpedia-snapshot/internal/sav"
 )
@@ -32,12 +35,19 @@ const (
 )
 
 type taskResult struct {
-	kind       string
-	candidates []SaveCandidate
-	players    []sav.Player
-	path       string
-	message    string
-	err        error
+	kind        string
+	candidates  []SaveCandidate
+	players     []sav.Player
+	plannerPals []planner.Pal
+	updatedAt   time.Time
+	path        string
+	message     string
+	err         error
+}
+
+type plannerPicker struct {
+	pal          planner.Pal
+	male, female widget.Clickable
 }
 
 type screen struct {
@@ -61,6 +71,15 @@ type screen struct {
 	status                                                                                               string
 	statusError                                                                                          bool
 	lastExportDir                                                                                        string
+	plannerRefreshButton, pairButton, routeButton                                                        widget.Clickable
+	plannerGold, plannerDiamond                                                                          widget.Bool
+	plannerFilter, target                                                                                widget.Editor
+	plannerPals                                                                                          []planner.Pal
+	plannerPickers                                                                                       map[string]*plannerPicker
+	selectedMale, selectedFemale                                                                         *planner.Pal
+	plannerLoadedAt                                                                                      time.Time
+	plannerSaveModified                                                                                  time.Time
+	plannerPairResult, plannerRoute                                                                      string
 }
 
 func Run(version string) {
@@ -94,11 +113,13 @@ func newScreen(window *app.Window, version string) *screen {
 		ContrastFg: color.NRGBA{R: 255, G: 255, B: 255, A: 255},
 	}
 	s := &screen{window: window, explorer: explorer.NewExplorer(window), theme: theme, version: version, language: english, results: make(chan taskResult, 4), list: layout.List{Axis: layout.Vertical}}
-	for _, field := range []*widget.Editor{&s.root, &s.level, &s.output, &s.players, &s.player, &s.compare} {
+	for _, field := range []*widget.Editor{&s.root, &s.level, &s.output, &s.players, &s.player, &s.compare, &s.plannerFilter, &s.target} {
 		field.SingleLine = true
 	}
+	s.plannerPickers = make(map[string]*plannerPicker)
 	s.root.SetText(DefaultSaveRoot())
 	s.output.SetText(DefaultExportDir())
+	s.lastExportDir = latestExportDir(s.output.Text())
 	s.startScan()
 	return s
 }
@@ -122,6 +143,9 @@ func (s *screen) handle(gtx layout.Context) {
 				s.level.SetText(result.path)
 			case "output-browse":
 				s.output.SetText(result.path)
+				if result.path != "" {
+					s.lastExportDir = latestExportDir(result.path)
+				}
 			case "compare-browse":
 				s.compare.SetText(result.path)
 			case "players":
@@ -130,6 +154,13 @@ func (s *screen) handle(gtx layout.Context) {
 			case "export":
 				if result.err == nil && result.path != "" {
 					s.lastExportDir = result.path
+					s.startPlannerRefresh()
+				}
+			case "planner":
+				if result.err == nil {
+					s.plannerPals, s.plannerLoadedAt, s.plannerSaveModified = result.plannerPals, time.Now(), result.updatedAt
+					s.plannerPickers = make(map[string]*plannerPicker)
+					s.selectedMale, s.selectedFemale, s.plannerPairResult, s.plannerRoute = nil, nil, "", ""
 				}
 			}
 		default:
@@ -162,6 +193,15 @@ handled:
 	if s.exportButton.Clicked(gtx) && !s.busy {
 		s.startExport()
 	}
+	if s.plannerRefreshButton.Clicked(gtx) && !s.busy {
+		s.startPlannerRefresh()
+	}
+	if s.pairButton.Clicked(gtx) {
+		s.calculatePair()
+	}
+	if s.routeButton.Clicked(gtx) {
+		s.calculateRoute()
+	}
 	if s.openExportButton.Clicked(gtx) && s.lastExportDir != "" {
 		if err := openFolder(s.lastExportDir); err != nil {
 			s.statusError, s.status = true, err.Error()
@@ -180,6 +220,16 @@ handled:
 			s.player.SetText(player.UID)
 			s.statusError = false
 			s.status = fmt.Sprintf(s.t("player_selected"), player.Nickname)
+		}
+	}
+	for _, picker := range s.plannerPickers {
+		if picker.male.Clicked(gtx) {
+			pal := picker.pal
+			s.selectedMale, s.plannerPairResult, s.plannerRoute = &pal, "", ""
+		}
+		if picker.female.Clicked(gtx) {
+			pal := picker.pal
+			s.selectedFemale, s.plannerPairResult, s.plannerRoute = &pal, "", ""
 		}
 	}
 }
@@ -286,6 +336,108 @@ func (s *screen) startExport() {
 	}()
 }
 
+func (s *screen) startPlannerRefresh() {
+	levelPath := strings.TrimSpace(s.level.Text())
+	if levelPath == "" {
+		s.statusError, s.status = true, s.t("planner_select_save")
+		return
+	}
+	playersDir, playerUID := strings.TrimSpace(s.players.Text()), strings.TrimSpace(s.player.Text())
+	s.busy, s.statusError, s.status = true, false, s.t("planner_updating")
+	go func() {
+		world, err := loadWorld(levelPath, playersDir)
+		if err == nil && !report.HasPlayer(world, playerUID) {
+			err = fmt.Errorf("player %q was not found", playerUID)
+		}
+		var pals []planner.Pal
+		if err == nil {
+			pals = plannerCollection(world, playerUID)
+		}
+		var updatedAt time.Time
+		if info, statErr := os.Stat(levelPath); statErr == nil {
+			updatedAt = info.ModTime()
+		}
+		message := s.t("planner_ready")
+		if err == nil {
+			message = fmt.Sprintf(s.t("planner_loaded"), len(pals))
+		}
+		s.results <- taskResult{kind: "planner", plannerPals: pals, updatedAt: updatedAt, message: message, err: err}
+		s.window.Invalidate()
+	}()
+}
+
+func plannerCollection(world *sav.World, playerUID string) []planner.Pal {
+	containers := make(map[string]bool, len(world.Players)*2)
+	for _, player := range world.Players {
+		if playerUID != "" && !strings.EqualFold(player.UID, playerUID) {
+			continue
+		}
+		containers[strings.ToLower(player.OtomoContainerID)] = true
+		containers[strings.ToLower(player.PalStorageContainerID)] = true
+	}
+	pals := make([]planner.Pal, 0, len(world.Pals))
+	for _, pal := range world.Pals {
+		if !containers[strings.ToLower(pal.ContainerID)] {
+			continue
+		}
+		pals = append(pals, planner.Pal{InstanceID: pal.InstanceID, CharacterID: pal.CharacterID, Gender: pal.Gender, Level: pal.Level, Traits: append([]string(nil), pal.PassiveSkillIDs...)})
+	}
+	return pals
+}
+
+func (s *screen) calculatePair() {
+	if s.selectedMale == nil || s.selectedFemale == nil {
+		s.statusError, s.status = true, s.t("planner_select_parents")
+		return
+	}
+	rules, err := breeding.Default()
+	if err == nil {
+		result, resolveErr := planner.ResolvePair(rules, *s.selectedMale, *s.selectedFemale)
+		if resolveErr != nil {
+			err = resolveErr
+		} else {
+			s.plannerPairResult = fmt.Sprintf(s.t("planner_pair_result"), result.Child, result.Rule, result.TargetRank)
+			s.statusError, s.status = false, s.t("planner_pair_ready")
+		}
+	}
+	if err != nil {
+		s.statusError, s.status = true, err.Error()
+	}
+}
+
+func (s *screen) calculateRoute() {
+	if len(s.plannerPals) == 0 {
+		s.statusError, s.status = true, s.t("planner_empty")
+		return
+	}
+	target := strings.TrimSpace(s.target.Text())
+	if target == "" {
+		s.statusError, s.status = true, s.t("planner_target_required")
+		return
+	}
+	rules, err := breeding.Default()
+	if err != nil {
+		s.statusError, s.status = true, err.Error()
+		return
+	}
+	path, err := planner.ShortestPath(rules, s.plannerPals, target)
+	if err != nil {
+		s.statusError, s.status = true, err.Error()
+		return
+	}
+	var out strings.Builder
+	fmt.Fprintf(&out, s.t("planner_route_title"), path.Target, path.Generations)
+	if len(path.Steps) == 0 {
+		out.WriteString("\n" + s.t("planner_already_owned"))
+	} else {
+		for index, step := range path.Steps {
+			fmt.Fprintf(&out, "\n%d. %s + %s → %s (%s)", index+1, step.ParentA, step.ParentB, step.Child, step.Rule)
+		}
+	}
+	out.WriteString("\n" + s.t("planner_route_caveat"))
+	s.plannerRoute, s.statusError, s.status = out.String(), false, s.t("planner_route_ready")
+}
+
 func export(levelPath, outputParent, playersDir, playerUID, compareDir string) (string, string, error) {
 	levelPath, err := filepath.Abs(levelPath)
 	if err != nil {
@@ -313,6 +465,25 @@ func export(levelPath, outputParent, playersDir, playerUID, compareDir string) (
 		return "", "", err
 	}
 	return fmt.Sprintf("Exported %d Pals to %s", len(world.Pals), exportDir), exportDir, nil
+}
+
+func latestExportDir(parent string) string {
+	entries, err := os.ReadDir(parent)
+	if err != nil {
+		return ""
+	}
+	var latest string
+	var latestTime time.Time
+	for _, entry := range entries {
+		if !entry.IsDir() || !strings.HasPrefix(entry.Name(), "export_") {
+			continue
+		}
+		info, infoErr := entry.Info()
+		if infoErr == nil && info.ModTime().After(latestTime) {
+			latest, latestTime = filepath.Join(parent, entry.Name()), info.ModTime()
+		}
+	}
+	return latest
 }
 
 func readPlayers(levelPath, playersDir string) ([]sav.Player, error) {
@@ -343,7 +514,7 @@ func (s *screen) layout(gtx layout.Context) layout.Dimensions {
 	return layout.Inset{Top: unit.Dp(18), Bottom: unit.Dp(18), Left: unit.Dp(28), Right: unit.Dp(28)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 		return s.list.Layout(gtx, 1, func(gtx layout.Context, _ int) layout.Dimensions {
 			return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
-				layout.Rigid(s.header), layout.Rigid(spacer(14)), layout.Rigid(s.saveSection), layout.Rigid(spacer(12)), layout.Rigid(s.exportSection), layout.Rigid(spacer(12)), layout.Rigid(s.statusSection),
+				layout.Rigid(s.header), layout.Rigid(spacer(14)), layout.Rigid(s.saveSection), layout.Rigid(spacer(12)), layout.Rigid(s.exportSection), layout.Rigid(spacer(12)), layout.Rigid(s.plannerSection), layout.Rigid(spacer(12)), layout.Rigid(s.statusSection),
 			)
 		})
 	})
@@ -468,6 +639,150 @@ func (s *screen) exportSection(gtx layout.Context) layout.Dimensions {
 	})
 }
 
+func (s *screen) plannerSection(gtx layout.Context) layout.Dimensions {
+	return section(gtx, s.theme, s.t("planner_title"), func(gtx layout.Context) layout.Dimensions {
+		children := []layout.FlexChild{
+			layout.Rigid(s.caption("planner_help")),
+			layout.Rigid(spacer(6)),
+			layout.Rigid(s.plannerFreshness),
+			layout.Rigid(spacer(6)),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				button := material.Button(s.theme, &s.plannerRefreshButton, s.t("planner_refresh"))
+				button.Background = color.NRGBA{R: 46, G: 103, B: 171, A: 255}
+				return button.Layout(gtx)
+			}),
+		}
+		if len(s.plannerPals) == 0 {
+			children = append(children, layout.Rigid(spacer(6)), layout.Rigid(s.caption("planner_empty")))
+			return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
+		}
+		children = append(children,
+			layout.Rigid(spacer(12)),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				return material.Subtitle2(s.theme, s.t("planner_pick_title")).Layout(gtx)
+			}),
+			layout.Rigid(s.caption("planner_filter_help")),
+			layout.Rigid(s.editor(&s.plannerFilter, s.t("planner_filter"))),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return material.CheckBox(s.theme, &s.plannerGold, s.t("planner_gold")).Layout(gtx)
+					}),
+					layout.Rigid(spacer(12)),
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return material.CheckBox(s.theme, &s.plannerDiamond, s.t("planner_diamond")).Layout(gtx)
+					}),
+				)
+			}),
+			layout.Rigid(spacer(4)),
+			layout.Rigid(s.plannerPalsList),
+			layout.Rigid(spacer(8)),
+			layout.Rigid(s.plannerSelection),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				button := material.Button(s.theme, &s.pairButton, s.t("planner_calculate_pair"))
+				button.Background = color.NRGBA{R: 127, G: 83, B: 187, A: 255}
+				return button.Layout(gtx)
+			}),
+		)
+		if s.plannerPairResult != "" {
+			children = append(children, layout.Rigid(spacer(5)), layout.Rigid(s.note(s.plannerPairResult, color.NRGBA{R: 58, G: 48, B: 132, A: 255})))
+		}
+		children = append(children,
+			layout.Rigid(spacer(12)),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				return material.Subtitle2(s.theme, s.t("planner_route_section")).Layout(gtx)
+			}),
+			layout.Rigid(s.caption("planner_route_help")),
+			layout.Rigid(s.editor(&s.target, s.t("planner_target"))),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				button := material.Button(s.theme, &s.routeButton, s.t("planner_find_route"))
+				button.Background = color.NRGBA{R: 32, G: 125, B: 104, A: 255}
+				return button.Layout(gtx)
+			}),
+		)
+		if s.plannerRoute != "" {
+			children = append(children, layout.Rigid(spacer(5)), layout.Rigid(s.note(s.plannerRoute, color.NRGBA{R: 20, G: 88, B: 72, A: 255})))
+		}
+		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
+	})
+}
+
+func (s *screen) plannerFreshness(gtx layout.Context) layout.Dimensions {
+	if s.plannerLoadedAt.IsZero() {
+		return s.note(s.t("planner_not_loaded"), color.NRGBA{R: 91, G: 98, B: 117, A: 255})(gtx)
+	}
+	message := fmt.Sprintf(s.t("planner_freshness"), len(s.plannerPals), s.plannerLoadedAt.Local().Format("2006-01-02 15:04"), s.plannerSaveModified.Local().Format("2006-01-02 15:04"))
+	if s.lastExportDir != "" {
+		message += "\n" + fmt.Sprintf(s.t("planner_last_export"), filepath.Base(s.lastExportDir))
+	}
+	return s.note(message, color.NRGBA{R: 39, G: 91, B: 76, A: 255})(gtx)
+}
+
+func (s *screen) plannerPalsList(gtx layout.Context) layout.Dimensions {
+	visible := planner.Filter(s.plannerPals, s.plannerFilter.Text(), s.plannerGold.Value, s.plannerDiamond.Value)
+	total := len(visible)
+	if len(visible) == 0 {
+		return s.caption("planner_no_matches")(gtx)
+	}
+	const limit = 40
+	if len(visible) > limit {
+		visible = visible[:limit]
+	}
+	return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+		layout.Rigid(s.note(fmt.Sprintf(s.t("planner_showing"), len(visible), total), color.NRGBA{R: 91, G: 98, B: 117, A: 255})),
+		layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+			list := layout.List{Axis: layout.Vertical}
+			return list.Layout(gtx, len(visible), func(gtx layout.Context, index int) layout.Dimensions {
+				pal := visible[index]
+				picker := s.plannerPicker(pal)
+				return layout.Inset{Bottom: unit.Dp(5)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+					return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
+						layout.Flexed(1, s.note(plannerPalLabel(pal), color.NRGBA{R: 48, G: 54, B: 82, A: 255})),
+						layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+							if strings.EqualFold(pal.Gender, "male") {
+								return material.Button(s.theme, &picker.male, s.t("planner_choose_male")).Layout(gtx)
+							}
+							if strings.EqualFold(pal.Gender, "female") {
+								return material.Button(s.theme, &picker.female, s.t("planner_choose_female")).Layout(gtx)
+							}
+							return layout.Dimensions{}
+						}),
+					)
+				})
+			})
+		}),
+	)
+}
+
+func (s *screen) plannerPicker(pal planner.Pal) *plannerPicker {
+	key := strings.Join([]string{pal.InstanceID, pal.CharacterID, pal.Gender}, "\x00")
+	if picker, ok := s.plannerPickers[key]; ok {
+		return picker
+	}
+	picker := &plannerPicker{pal: pal}
+	s.plannerPickers[key] = picker
+	return picker
+}
+
+func (s *screen) plannerSelection(gtx layout.Context) layout.Dimensions {
+	male, female := s.t("planner_no_parent"), s.t("planner_no_parent")
+	if s.selectedMale != nil {
+		male = plannerPalLabel(*s.selectedMale)
+	}
+	if s.selectedFemale != nil {
+		female = plannerPalLabel(*s.selectedFemale)
+	}
+	return s.note(fmt.Sprintf(s.t("planner_selected"), male, female), color.NRGBA{R: 61, G: 67, B: 93, A: 255})(gtx)
+}
+
+func plannerPalLabel(pal planner.Pal) string {
+	traits := planner.TraitSummary(pal.Traits)
+	if traits == "" {
+		traits = "—"
+	}
+	return fmt.Sprintf("%s · Lv. %d · %s · %s", pal.CharacterID, pal.Level, pal.Gender, traits)
+}
+
 func (s *screen) playersList(gtx layout.Context) layout.Dimensions {
 	if len(s.playersFound) == 0 {
 		return layout.Dimensions{}
@@ -518,6 +833,15 @@ func (s *screen) caption(key string) layout.Widget {
 	}
 }
 
+func (s *screen) note(value string, foreground color.NRGBA) layout.Widget {
+	return func(gtx layout.Context) layout.Dimensions {
+		label := material.Body2(s.theme, value)
+		label.Color = foreground
+		label.WrapPolicy = text.WrapWords
+		return label.Layout(gtx)
+	}
+}
+
 func section(gtx layout.Context, theme *material.Theme, title string, content layout.Widget) layout.Dimensions {
 	return layout.Inset{Top: unit.Dp(8), Bottom: unit.Dp(8)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, layout.Rigid(func(gtx layout.Context) layout.Dimensions {
@@ -546,4 +870,75 @@ var translations = map[language]map[string]string{
 func init() {
 	translations[english]["notebooklm_files"] = "Add to NotebookLM: collection.md, pals.csv, capture-history.csv, palpedia-progress.md, breeding-candidates.md, breeding-rules.md, breeding-direct-pairs.csv, and collection-diff.md when comparing. Do not add world.json."
 	translations[french]["notebooklm_files"] = "À ajouter à NotebookLM : collection.md, pals.csv, capture-history.csv, palpedia-progress.md, breeding-candidates.md, breeding-rules.md, breeding-direct-pairs.csv et collection-diff.md lors d’une comparaison. Ne pas ajouter world.json."
+	translations[english]["planner_title"] = "3. Breeding planner"
+	translations[english]["planner_help"] = "Load the selected save to choose actual Pals, calculate an exact pair, or plan the fastest breeding-generation route to a target. This is read-only."
+	translations[english]["planner_not_loaded"] = "No collection is loaded for planning yet."
+	translations[english]["planner_freshness"] = "Planner collection: %d current Pals · loaded %s · selected save last changed %s."
+	translations[english]["planner_last_export"] = "Latest NotebookLM export in the selected folder: %s"
+	translations[english]["planner_refresh"] = "Update planner from selected save"
+	translations[english]["planner_select_save"] = "Select a Level.sav before updating the planner."
+	translations[english]["planner_updating"] = "Reading the selected save for the breeding planner…"
+	translations[english]["planner_ready"] = "Breeding planner is ready."
+	translations[english]["planner_loaded"] = "Loaded %d current Pals into the breeding planner."
+	translations[english]["planner_empty"] = "No current party or Palbox Pals are loaded. Update the planner from a selected save."
+	translations[english]["planner_pick_title"] = "Pick real parents"
+	translations[english]["planner_filter_help"] = "Search by Pal, raw trait ID, or known trait name. Gold is rank 3; diamond is rank 4. If both are checked, either tier is included."
+	translations[english]["planner_filter"] = "Filter Pals or traits"
+	translations[english]["planner_gold"] = "Gold traits (rank 3)"
+	translations[english]["planner_diamond"] = "Diamond traits (rank 4)"
+	translations[english]["planner_no_matches"] = "No loaded Pals match these filters."
+	translations[english]["planner_showing"] = "Showing %d of %d matching Pals (refine the filter to see more)."
+	translations[english]["planner_choose_male"] = "Choose male"
+	translations[english]["planner_choose_female"] = "Choose female"
+	translations[english]["planner_no_parent"] = "Not selected"
+	translations[english]["planner_selected"] = "Male parent: %s\nFemale parent: %s"
+	translations[english]["planner_calculate_pair"] = "Calculate selected pair"
+	translations[english]["planner_select_parents"] = "Choose one male parent and one female parent first."
+	translations[english]["planner_pair_result"] = "Exact child: %s · rule: %s · generic target rank: %d"
+	translations[english]["planner_pair_ready"] = "Exact breeding outcome calculated."
+	translations[english]["planner_route_section"] = "Find the quickest target route"
+	translations[english]["planner_route_help"] = "Enter a Pal Character ID, for example Anubis, SheepBall, or PinkCat. The route uses the fewest sequential breeding generations from your current male/female collection."
+	translations[english]["planner_target"] = "Target Pal Character ID"
+	translations[english]["planner_find_route"] = "Find quickest breeding route"
+	translations[english]["planner_target_required"] = "Enter a target Pal Character ID."
+	translations[english]["planner_route_title"] = "Route to %s · %d breeding generation(s)"
+	translations[english]["planner_already_owned"] = "Already owned in the loaded collection; no breeding step is required."
+	translations[english]["planner_route_caveat"] = "This is a species route. Passive inheritance and egg-gender RNG are not guaranteed; breed extra eggs when a later step needs a specific sex."
+	translations[english]["planner_route_ready"] = "Quickest breeding route calculated."
+
+	translations[french]["planner_title"] = "3. Planificateur d’élevage"
+	translations[french]["planner_help"] = "Chargez la sauvegarde sélectionnée pour choisir vos vrais Pals, calculer une paire exacte ou trouver le chemin le plus rapide vers une cible. Lecture seule."
+	translations[french]["planner_not_loaded"] = "Aucune collection n’est encore chargée pour le planificateur."
+	translations[french]["planner_freshness"] = "Collection du planificateur : %d Pals actuels · chargée à %s · sauvegarde sélectionnée modifiée à %s."
+	translations[french]["planner_last_export"] = "Dernier export NotebookLM du dossier sélectionné : %s"
+	translations[french]["planner_refresh"] = "Mettre à jour depuis la sauvegarde sélectionnée"
+	translations[french]["planner_select_save"] = "Sélectionnez un Level.sav avant de mettre à jour le planificateur."
+	translations[french]["planner_updating"] = "Lecture de la sauvegarde sélectionnée pour le planificateur…"
+	translations[french]["planner_ready"] = "Le planificateur d’élevage est prêt."
+	translations[french]["planner_loaded"] = "%d Pals actuels chargés dans le planificateur."
+	translations[french]["planner_empty"] = "Aucun Pal de l’équipe ou du Palbox n’est chargé. Mettez à jour depuis une sauvegarde sélectionnée."
+	translations[french]["planner_pick_title"] = "Choisir les vrais parents"
+	translations[french]["planner_filter_help"] = "Recherchez un Pal, un identifiant de trait ou un nom de trait connu. Or = rang 3 ; diamant = rang 4. Avec les deux cochés, les deux rangs sont inclus."
+	translations[french]["planner_filter"] = "Filtrer les Pals ou traits"
+	translations[french]["planner_gold"] = "Traits or (rang 3)"
+	translations[french]["planner_diamond"] = "Traits diamant (rang 4)"
+	translations[french]["planner_no_matches"] = "Aucun Pal chargé ne correspond à ces filtres."
+	translations[french]["planner_showing"] = "%d Pals affichés sur %d correspondant(s) (affinez le filtre pour en voir plus)."
+	translations[french]["planner_choose_male"] = "Choisir le mâle"
+	translations[french]["planner_choose_female"] = "Choisir la femelle"
+	translations[french]["planner_no_parent"] = "Non sélectionné"
+	translations[french]["planner_selected"] = "Parent mâle : %s\nParent femelle : %s"
+	translations[french]["planner_calculate_pair"] = "Calculer la paire sélectionnée"
+	translations[french]["planner_select_parents"] = "Choisissez d’abord un parent mâle et un parent femelle."
+	translations[french]["planner_pair_result"] = "Enfant exact : %s · règle : %s · rang cible générique : %d"
+	translations[french]["planner_pair_ready"] = "Résultat exact de l’élevage calculé."
+	translations[french]["planner_route_section"] = "Trouver le chemin le plus rapide"
+	translations[french]["planner_route_help"] = "Entrez un Character ID de Pal, par exemple Anubis, SheepBall ou PinkCat. Le chemin utilise le moins de générations d’élevage consécutives depuis votre collection mâle/femelle."
+	translations[french]["planner_target"] = "Character ID du Pal cible"
+	translations[french]["planner_find_route"] = "Trouver le chemin le plus rapide"
+	translations[french]["planner_target_required"] = "Entrez un Character ID de Pal cible."
+	translations[french]["planner_route_title"] = "Chemin vers %s · %d génération(s) d’élevage"
+	translations[french]["planner_already_owned"] = "Déjà possédé dans la collection chargée ; aucune étape d’élevage n’est nécessaire."
+	translations[french]["planner_route_caveat"] = "C’est un chemin d’espèces. L’héritage des traits et le hasard du sexe des œufs ne sont pas garantis ; produisez des œufs supplémentaires lorsqu’une étape suivante demande un sexe précis."
+	translations[french]["planner_route_ready"] = "Chemin d’élevage le plus rapide calculé."
 }
