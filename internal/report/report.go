@@ -26,6 +26,7 @@ type palRow struct {
 	OwnerUID   string
 	BaseID     string
 	Slot       int
+	Traits     []string
 }
 
 func ValidateOutputDirectory(levelPath, outputDir string, force bool) error {
@@ -88,6 +89,9 @@ func Write(outputDir string, world *sav.World, playerUID, compareDir string, for
 	if err := writeBytes(filepath.Join(outputDir, "palpedia-progress.md"), palpediaProgress(world, collectionRows, playerUID), force); err != nil {
 		return err
 	}
+	if err := writeBytes(filepath.Join(outputDir, "breeding-candidates.md"), breedingCandidates(collectionRows), force); err != nil {
+		return err
+	}
 	if compareDir != "" {
 		diff, err := collectionDiff(world, collectionRows, playerUID, compareDir)
 		if err != nil {
@@ -137,7 +141,7 @@ func pals(world *sav.World, playerUID string) []palRow {
 		if pal.Rank != nil {
 			rank = strconv.Itoa(*pal.Rank)
 		}
-		rows = append(rows, palRow{scope, playerUID, pal.InstanceID, pal.CharacterID, pal.Level, pal.Gender, rank, pal.OwnerUID, pal.BaseID, pal.SlotIndex})
+		rows = append(rows, palRow{scope, playerUID, pal.InstanceID, pal.CharacterID, pal.Level, pal.Gender, rank, pal.OwnerUID, pal.BaseID, pal.SlotIndex, append([]string(nil), pal.PassiveSkillIDs...)})
 	}
 	sort.Slice(rows, func(i, j int) bool {
 		return strings.Join([]string{rows[i].PlayerUID, rows[i].Scope, rows[i].Character, rows[i].InstanceID}, "\x00") < strings.Join([]string{rows[j].PlayerUID, rows[j].Scope, rows[j].Character, rows[j].InstanceID}, "\x00")
@@ -150,9 +154,9 @@ type containerOwner struct{ playerUID, scope string }
 func palsCSV(rows []palRow) []byte {
 	var out bytes.Buffer
 	w := csv.NewWriter(&out)
-	_ = w.Write([]string{"scope", "player_uid", "instance_id", "character_id", "level", "gender", "rank", "owner_uid", "base_id", "slot"})
+	_ = w.Write([]string{"scope", "player_uid", "instance_id", "character_id", "level", "gender", "rank", "passive_traits", "owner_uid", "base_id", "slot"})
 	for _, row := range rows {
-		_ = w.Write([]string{row.Scope, row.PlayerUID, row.InstanceID, row.Character, strconv.Itoa(int(row.Level)), row.Gender, row.Rank, row.OwnerUID, row.BaseID, strconv.Itoa(row.Slot)})
+		_ = w.Write([]string{row.Scope, row.PlayerUID, row.InstanceID, row.Character, strconv.Itoa(int(row.Level)), row.Gender, row.Rank, strings.Join(row.Traits, ";"), row.OwnerUID, row.BaseID, strconv.Itoa(row.Slot)})
 	}
 	w.Flush()
 	return out.Bytes()
@@ -237,6 +241,41 @@ func palpediaProgress(world *sav.World, collection []palRow, playerUID string) [
 		}
 		if len(noLongerOwned) == 0 {
 			out.WriteString("| _None_ | 0 |\n")
+		}
+		out.WriteByte('\n')
+	}
+	return []byte(out.String())
+}
+
+func breedingCandidates(collection []palRow) []byte {
+	byTrait := make(map[string][]palRow)
+	for _, row := range collection {
+		for _, trait := range row.Traits {
+			if trait != "" {
+				byTrait[trait] = append(byTrait[trait], row)
+			}
+		}
+	}
+	traits := make([]string, 0, len(byTrait))
+	for trait := range byTrait {
+		traits = append(traits, trait)
+	}
+	sort.Strings(traits)
+	var out strings.Builder
+	out.WriteString("# Breeding candidates by passive trait\n\n")
+	out.WriteString("This report lists current party and Palbox Pals by their passive skill IDs. Pair it with the passive-skill reference material in NotebookLM to identify traits worth preserving or combining through breeding.\n\n")
+	if len(traits) == 0 {
+		out.WriteString("No passive traits were found on the current collection.\n")
+		return []byte(out.String())
+	}
+	for _, trait := range traits {
+		candidates := byTrait[trait]
+		sort.Slice(candidates, func(i, j int) bool {
+			return strings.Join([]string{candidates[i].Character, candidates[i].Gender, candidates[i].InstanceID}, "\x00") < strings.Join([]string{candidates[j].Character, candidates[j].Gender, candidates[j].InstanceID}, "\x00")
+		})
+		fmt.Fprintf(&out, "## `%s`\n\n| Pal | Gender | Level | Storage | All passive traits |\n| --- | --- | ---: | --- | --- |\n", trait)
+		for _, candidate := range candidates {
+			fmt.Fprintf(&out, "| %s | %s | %d | %s | %s |\n", candidate.Character, candidate.Gender, candidate.Level, candidate.Scope, strings.Join(candidate.Traits, "; "))
 		}
 		out.WriteByte('\n')
 	}
@@ -437,12 +476,12 @@ func markdown(world *sav.World, rows []palRow, playerUID string) []byte {
 		if player.CaptureTotal != nil {
 			fmt.Fprintf(&out, "- Lifetime captures: %d\n", *player.CaptureTotal)
 		}
-		out.WriteString("\n| Storage | Pal | Level | Gender | Rank | Slot |\n| --- | --- | ---: | --- | ---: | ---: |\n")
+		out.WriteString("\n| Storage | Pal | Level | Gender | Rank | Passive traits | Slot |\n| --- | --- | ---: | --- | ---: | --- | ---: |\n")
 		for _, row := range current {
-			fmt.Fprintf(&out, "| %s | %s | %d | %s | %s | %d |\n", row.Scope, row.Character, row.Level, row.Gender, row.Rank, row.Slot)
+			fmt.Fprintf(&out, "| %s | %s | %d | %s | %s | %s | %d |\n", row.Scope, row.Character, row.Level, row.Gender, row.Rank, strings.Join(row.Traits, "; "), row.Slot)
 		}
 		if len(current) == 0 {
-			out.WriteString("| - | No party or Palbox Pals identified | | | | |\n")
+			out.WriteString("| - | No party or Palbox Pals identified | | | | | |\n")
 		}
 		out.WriteByte('\n')
 	}

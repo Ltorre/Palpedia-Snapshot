@@ -27,7 +27,7 @@ func TestWriteCreatesAllExports(t *testing.T) {
 	world := &sav.World{
 		Players: []sav.Player{{UID: "player", Nickname: "Player", OtomoContainerID: "party", PalStorageContainerID: "box", PalCaptureCounts: map[string]int64{"Lamball": 4}}},
 		Pals: []sav.Pal{
-			{CharacterID: "Lamball", ContainerID: "party", Rank: &rank},
+			{CharacterID: "Lamball", ContainerID: "party", Rank: &rank, PassiveSkillIDs: []string{"Philanthropist"}},
 			{CharacterID: "WildPal"},
 		},
 	}
@@ -35,7 +35,7 @@ func TestWriteCreatesAllExports(t *testing.T) {
 	if err := Write(dir, world, "", "", false); err != nil {
 		t.Fatal(err)
 	}
-	for _, name := range []string{"collection.md", "pals.csv", "capture-history.csv", "palpedia-progress.md", "world.json"} {
+	for _, name := range []string{"collection.md", "pals.csv", "capture-history.csv", "palpedia-progress.md", "breeding-candidates.md", "world.json"} {
 		if _, err := os.Stat(filepath.Join(dir, name)); err != nil {
 			t.Fatalf("%s: %v", name, err)
 		}
@@ -47,12 +47,22 @@ func TestWriteCreatesAllExports(t *testing.T) {
 	if strings.Contains(string(csvBytes), "WildPal") {
 		t.Fatal("pals.csv contains a Pal outside the current collection")
 	}
+	if !strings.Contains(string(csvBytes), "passive_traits") || !strings.Contains(string(csvBytes), "Philanthropist") {
+		t.Fatalf("pals.csv does not expose passive traits: %s", csvBytes)
+	}
 	progress, err := os.ReadFile(filepath.Join(dir, "palpedia-progress.md"))
 	if err != nil {
 		t.Fatal(err)
 	}
 	if !strings.Contains(string(progress), "Lamball") || !strings.Contains(string(progress), "Current unique Pal species") {
 		t.Fatalf("unexpected progress report: %s", progress)
+	}
+	breeding, err := os.ReadFile(filepath.Join(dir, "breeding-candidates.md"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(breeding), "Philanthropist") || !strings.Contains(string(breeding), "Lamball") {
+		t.Fatalf("unexpected breeding report: %s", breeding)
 	}
 }
 
