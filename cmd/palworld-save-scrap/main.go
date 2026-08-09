@@ -15,7 +15,7 @@ import (
 var version = "dev"
 
 func main() {
-	var levelPath, outputDir, playersDir, oodleLibrary, playerUID string
+	var levelPath, outputDir, playersDir, oodleLibrary, playerUID, compareDir string
 	var force bool
 	var showVersion bool
 	var listPlayers bool
@@ -27,6 +27,7 @@ func main() {
 	flag.BoolVar(&showVersion, "version", false, "print version")
 	flag.BoolVar(&listPlayers, "list-players", false, "list players found in the save")
 	flag.StringVar(&playerUID, "player", "", "player UID to export; use --list-players to find it")
+	flag.StringVar(&compareDir, "compare", "", "previous export directory to compare with the new export")
 	flag.Parse()
 	if showVersion {
 		fmt.Println(version)
@@ -35,8 +36,8 @@ func main() {
 	if levelPath == "" && flag.NArg() == 1 {
 		levelPath = flag.Arg(0)
 	}
-	if levelPath == "" || (!listPlayers && outputDir == "") || (listPlayers && playerUID != "") {
-		fmt.Fprintln(os.Stderr, "usage: palworld-save-scrap --level <Level.sav> --output <directory> [--player <UID>] [--players-dir <Players>] [--oodle-lib <dll>] [--force]\n       palworld-save-scrap --level <Level.sav> --list-players [--players-dir <Players>] [--oodle-lib <dll>]")
+	if levelPath == "" || (!listPlayers && outputDir == "") || (listPlayers && (playerUID != "" || compareDir != "")) {
+		fmt.Fprintln(os.Stderr, "usage: palworld-save-scrap --level <Level.sav> --output <directory> [--player <UID>] [--compare <previous-export>] [--players-dir <Players>] [--oodle-lib <dll>] [--force]\n       palworld-save-scrap --level <Level.sav> --list-players [--players-dir <Players>] [--oodle-lib <dll>]")
 		os.Exit(2)
 	}
 	if oodleLibrary != "" {
@@ -71,7 +72,7 @@ func main() {
 	if err := report.ValidateOutputDirectory(levelPath, outputDir, force); err != nil {
 		fail(err)
 	}
-	if err := report.Write(outputDir, world, playerUID, force); err != nil {
+	if err := report.Write(outputDir, world, playerUID, compareDir, force); err != nil {
 		fail(err)
 	}
 	if playerUID == "" {

@@ -5,6 +5,7 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"sort"
@@ -65,7 +66,7 @@ func HasPlayer(world *sav.World, playerUID string) bool {
 	return false
 }
 
-func Write(outputDir string, world *sav.World, playerUID string, force bool) error {
+func Write(outputDir string, world *sav.World, playerUID, compareDir string, force bool) error {
 	if err := os.MkdirAll(outputDir, 0o755); err != nil {
 		return err
 	}
@@ -86,6 +87,15 @@ func Write(outputDir string, world *sav.World, playerUID string, force bool) err
 	}
 	if err := writeBytes(filepath.Join(outputDir, "palpedia-progress.md"), palpediaProgress(world, collectionRows, playerUID), force); err != nil {
 		return err
+	}
+	if compareDir != "" {
+		diff, err := collectionDiff(world, collectionRows, playerUID, compareDir)
+		if err != nil {
+			return err
+		}
+		if err := writeBytes(filepath.Join(outputDir, "collection-diff.md"), diff, force); err != nil {
+			return err
+		}
 	}
 	return writeBytes(filepath.Join(outputDir, "collection.md"), markdown(world, rows, playerUID), force)
 }
@@ -240,6 +250,154 @@ func sortedKeys(counts map[string]int) []string {
 	}
 	sort.Strings(keys)
 	return keys
+}
+
+func collectionDiff(world *sav.World, current []palRow, playerUID, compareDir string) ([]byte, error) {
+	previousCollection, err := collectionSnapshot(filepath.Join(compareDir, "pals.csv"), playerUID)
+	if err != nil {
+		return nil, fmt.Errorf("read previous collection: %w", err)
+	}
+	previousCaptures, err := captureSnapshot(filepath.Join(compareDir, "capture-history.csv"), playerUID)
+	if err != nil {
+		return nil, fmt.Errorf("read previous capture history: %w", err)
+	}
+	return snapshotDiffMarkdown(collectionCounts(current), previousCollection, captureCounts(world, playerUID), previousCaptures), nil
+}
+
+func collectionCounts(rows []palRow) map[string]int64 {
+	counts := make(map[string]int64)
+	for _, row := range rows {
+		counts[row.Character]++
+	}
+	return counts
+}
+
+func captureCounts(world *sav.World, playerUID string) map[string]int64 {
+	counts := make(map[string]int64)
+	for _, player := range world.Players {
+		if playerUID != "" && !strings.EqualFold(player.UID, playerUID) {
+			continue
+		}
+		for character, count := range player.PalCaptureCounts {
+			if count > 0 {
+				counts[character] += count
+			}
+		}
+	}
+	return counts
+}
+
+func collectionSnapshot(path, playerUID string) (map[string]int64, error) {
+	rows, err := readCSV(path)
+	if err != nil {
+		return nil, err
+	}
+	counts := make(map[string]int64)
+	for _, row := range rows {
+		if playerUID != "" && !strings.EqualFold(row["player_uid"], playerUID) {
+			continue
+		}
+		if character := row["character_id"]; character != "" {
+			counts[character]++
+		}
+	}
+	return counts, nil
+}
+
+func captureSnapshot(path, playerUID string) (map[string]int64, error) {
+	rows, err := readCSV(path)
+	if err != nil {
+		return nil, err
+	}
+	counts := make(map[string]int64)
+	for _, row := range rows {
+		if playerUID != "" && !strings.EqualFold(row["player_uid"], playerUID) {
+			continue
+		}
+		character := row["character_id"]
+		count, parseErr := strconv.ParseInt(row["captures"], 10, 64)
+		if character == "" || parseErr != nil || count < 0 {
+			return nil, fmt.Errorf("invalid capture-history row for %q", character)
+		}
+		counts[character] += count
+	}
+	return counts, nil
+}
+
+func readCSV(path string) ([]map[string]string, error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+	reader := csv.NewReader(file)
+	header, err := reader.Read()
+	if err != nil {
+		return nil, err
+	}
+	rows := make([]map[string]string, 0)
+	for {
+		record, readErr := reader.Read()
+		if readErr != nil {
+			if readErr == io.EOF {
+				break
+			}
+			return nil, readErr
+		}
+		if len(record) != len(header) {
+			return nil, fmt.Errorf("invalid CSV column count")
+		}
+		row := make(map[string]string, len(header))
+		for index, key := range header {
+			row[key] = record[index]
+		}
+		rows = append(rows, row)
+	}
+	return rows, nil
+}
+
+func snapshotDiffMarkdown(current, previous, currentCaptures, previousCaptures map[string]int64) []byte {
+	var out strings.Builder
+	out.WriteString("# Collection snapshot comparison\n\n")
+	fmt.Fprintf(&out, "- Previous current Pals: %d\n- Current Pals: %d\n- Previous unique species: %d\n- Current unique species: %d\n\n", sumCounts(previous), sumCounts(current), len(previous), len(current))
+	writeCountDiff(&out, "## Added to party or Palbox", current, previous, "Previous Pals", "Current Pals")
+	writeCountDiff(&out, "## No longer in party or Palbox", previous, current, "Current Pals", "Previous Pals")
+	writeCountDiff(&out, "## Paldeck capture gains", currentCaptures, previousCaptures, "Previous captures", "Current captures")
+	return []byte(out.String())
+}
+
+func writeCountDiff(out *strings.Builder, heading string, primary, baseline map[string]int64, baselineLabel, primaryLabel string) {
+	type change struct {
+		character string
+		before    int64
+		after     int64
+		delta     int64
+	}
+	changes := make([]change, 0)
+	for character, after := range primary {
+		before := baseline[character]
+		if after > before {
+			changes = append(changes, change{character, before, after, after - before})
+		}
+	}
+	sort.Slice(changes, func(i, j int) bool { return changes[i].character < changes[j].character })
+	out.WriteString(heading + "\n\n")
+	out.WriteString("| Character ID | " + baselineLabel + " | " + primaryLabel + " | Change |\n| --- | ---: | ---: | ---: |\n")
+	for _, item := range changes {
+		fmt.Fprintf(out, "| %s | %d | %d | +%d |\n", item.character, item.before, item.after, item.delta)
+	}
+	if len(changes) == 0 {
+		fmt.Fprintf(out, "| _None_ | 0 | 0 | 0 |\n")
+	}
+	out.WriteByte('\n')
+}
+
+func sumCounts(counts map[string]int64) int64 {
+	total := int64(0)
+	for _, count := range counts {
+		total += count
+	}
+	return total
 }
 
 func markdown(world *sav.World, rows []palRow, playerUID string) []byte {

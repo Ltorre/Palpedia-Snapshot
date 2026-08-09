@@ -8,6 +8,7 @@ It writes four files to a directory you choose:
 - `pals.csv` — current player-owned Pals in the party or Palbox; this is the NotebookLM collection source
 - `capture-history.csv` — per-player Paldeck capture counts
 - `palpedia-progress.md` — NotebookLM-ready current-collection and capture-history summary
+- `collection-diff.md` — changes since a previous export, generated with `--compare`
 - `world.json` — complete typed export, including players, all decoded Pals, guilds, bases, and parser diagnostics
 
 The application never modifies save files. It refuses to place its output inside the save directory.
@@ -66,6 +67,19 @@ List the player IDs in the save, then use the chosen UID with `--player`:
 ```
 
 With `--player`, `pals.csv`, `capture-history.csv`, and `collection.md` contain only that player's data. `world.json` remains the complete world export.
+
+### Compare two collection snapshots
+
+Point `--compare` at an earlier export directory. The new export will include `collection-diff.md`, showing additions and removals from party/Palbox plus Paldeck capture gains.
+
+```powershell
+.\palworld-save-scrap.exe `
+  --level "D:\path\to\Level.sav" `
+  --output "D:\path\to\new-export" `
+  --compare "D:\path\to\previous-export" `
+  --player "player-uid-from-list" `
+  --oodle-lib "D:\path\to\oo2core_9_win64.dll"
+```
 
 Modern saves use Oodle compression. For those saves, pass the absolute path to `oo2core_9_win64.dll` from your own Palworld installation. The DLL is not included, downloaded, copied, or changed by this project.
 
