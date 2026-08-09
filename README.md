@@ -16,9 +16,13 @@ The application never modifies save files. It refuses to place its output inside
 
 ## Windows build
 
-Install Go, then run:
+Clone the repository with its decoder source, then run the build helper before the Go build:
 
 ```powershell
+git clone --recurse-submodules https://github.com/Ltorre/palworld-save-scrap.git
+cd palworld-save-scrap
+# Run from Git Bash, WSL, or the GitHub Actions Linux runner.
+./scripts/build-ooz-windows.sh
 go build -o palworld-save-scrap.exe .\cmd\palworld-save-scrap
 ```
 
@@ -40,7 +44,7 @@ The `v2.0.0-rc1` branch contains the preview of the graphical Windows app. Open 
 - find `Level.sav` files there, or let you browse for one manually;
 - export to `Documents\Palworld Save Scrap Exports` by default, safely outside your game saves, or let you choose a destination with the folder picker;
 - switch between English and French; and
-- keep shared-world, Oodle, comparison, and overwrite controls under clearly labelled optional advanced options.
+- keep shared-world, comparison, and overwrite controls under clearly labelled optional advanced options.
 
 For a shared world, use **Find players in this save** in the advanced options, then select a player. Leave the Player UID empty to export every player.
 
@@ -65,8 +69,7 @@ C:\Users\<WindowsUser>\AppData\Local\Pal\Saved\SaveGames\<SteamID>\<WorldID>\Lev
 ```powershell
 .\palworld-save-scrap.exe `
   --level "D:\path\to\Level.sav" `
-  --output "D:\path\to\export" `
-  --oodle-lib "D:\path\to\oo2core_9_win64.dll"
+  --output "D:\path\to\export"
 ```
 
 `Level.sav` must have its matching `Players` directory beside it, unless you pass `--players-dir` explicitly. `--output` is mandatory and must be outside the save directory. Use `--force` only to replace files in an existing export directory.
@@ -76,13 +79,12 @@ C:\Users\<WindowsUser>\AppData\Local\Pal\Saved\SaveGames\<SteamID>\<WorldID>\Lev
 List the player IDs in the save, then use the chosen UID with `--player`:
 
 ```powershell
-.\palworld-save-scrap.exe --level "D:\path\to\Level.sav" --list-players --oodle-lib "D:\path\to\oo2core_9_win64.dll"
+.\palworld-save-scrap.exe --level "D:\path\to\Level.sav" --list-players
 
 .\palworld-save-scrap.exe `
   --level "D:\path\to\Level.sav" `
   --output "D:\path\to\personal-export" `
-  --player "player-uid-from-list" `
-  --oodle-lib "D:\path\to\oo2core_9_win64.dll"
+  --player "player-uid-from-list"
 ```
 
 With `--player`, `pals.csv`, `capture-history.csv`, and `collection.md` contain only that player's data. `world.json` remains the complete world export.
@@ -96,18 +98,16 @@ Point `--compare` at an earlier export directory. The new export will include `c
   --level "D:\path\to\Level.sav" `
   --output "D:\path\to\new-export" `
   --compare "D:\path\to\previous-export" `
-  --player "player-uid-from-list" `
-  --oodle-lib "D:\path\to\oo2core_9_win64.dll"
+  --player "player-uid-from-list"
 ```
 
-Modern saves use Oodle compression. The Windows app automatically searches your Steam installation and configured Steam libraries for the game's `oo2core_9_win64.dll`. If it cannot find it, use the optional Oodle DLL field or `--oodle-lib` to select the DLL from your own Palworld installation. The DLL is not included, downloaded, copied, or changed by this project.
-
-When automatic lookup fails in the graphical app, it opens the advanced options and explains the next action. Click **Choose Oodle DLL**, then select `oo2core_9_win64.dll` from `steamapps\common\Palworld\Pal\Binaries\Win64` in the Palworld installation folder.
+Modern `PlM` saves use Oodle compression. The Windows executable includes the open-source Ooz decoder, so no game DLL, Steam installation, or extra path is required. On first use it places a hash-checked decoder helper in the Windows user cache, runs it only against a temporary copy of the compressed data, and removes that temporary data afterwards. It never copies, changes, or writes into game save files.
 
 ## Safety and scope
 
 - Reads `Level.sav`, optional `LevelMeta.sav`, and player `.sav` files only.
 - Makes no network requests at runtime.
+- Bundles the GPLv3 Ooz decoder; the program source and release binaries are distributed under GPLv3. Generated exports and the user's save data are not covered by that license.
 - Exports game-internal `CharacterID` values exactly as stored; it does not guess localized Pal names.
 
-The parser is based on the Apache-2.0 Palhelm save parser. See [NOTICE](NOTICE).
+The parser is based on the Apache-2.0 Palhelm save parser and the embedded decoder is built from the GPLv3 Ooz source. See [NOTICE](NOTICE).

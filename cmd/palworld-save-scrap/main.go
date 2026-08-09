@@ -24,14 +24,13 @@ func main() {
 }
 
 func runCLI() {
-	var levelPath, outputDir, playersDir, oodleLibrary, playerUID, compareDir string
+	var levelPath, outputDir, playersDir, playerUID, compareDir string
 	var force bool
 	var showVersion bool
 	var listPlayers bool
 	flag.StringVar(&levelPath, "level", "", "path to Level.sav")
 	flag.StringVar(&outputDir, "output", "", "empty output directory")
 	flag.StringVar(&playersDir, "players-dir", "", "path to Players directory (defaults to the sibling Players directory)")
-	flag.StringVar(&oodleLibrary, "oodle-lib", "", "absolute path to oo2core_9_win64.dll for PlM saves")
 	flag.BoolVar(&force, "force", false, "allow writing into a non-empty output directory")
 	flag.BoolVar(&showVersion, "version", false, "print version")
 	flag.BoolVar(&listPlayers, "list-players", false, "list players found in the save")
@@ -46,19 +45,9 @@ func runCLI() {
 		levelPath = flag.Arg(0)
 	}
 	if levelPath == "" || (!listPlayers && outputDir == "") || (listPlayers && (playerUID != "" || compareDir != "")) {
-		fmt.Fprintln(os.Stderr, "usage: palworld-save-scrap --level <Level.sav> --output <directory> [--player <UID>] [--compare <previous-export>] [--players-dir <Players>] [--oodle-lib <dll>] [--force]\n       palworld-save-scrap --level <Level.sav> --list-players [--players-dir <Players>] [--oodle-lib <dll>]")
+		fmt.Fprintln(os.Stderr, "usage: palworld-save-scrap --level <Level.sav> --output <directory> [--player <UID>] [--compare <previous-export>] [--players-dir <Players>] [--force]\n       palworld-save-scrap --level <Level.sav> --list-players [--players-dir <Players>]")
 		os.Exit(2)
 	}
-	if oodleLibrary != "" {
-		absolute, err := filepath.Abs(oodleLibrary)
-		if err != nil {
-			fail(err)
-		}
-		if err := os.Setenv("PALWORLD_SCRAP_OODLE_LIB", absolute); err != nil {
-			fail(err)
-		}
-	}
-
 	levelPath, err := filepath.Abs(levelPath)
 	if err != nil {
 		fail(err)

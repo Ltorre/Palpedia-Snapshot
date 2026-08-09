@@ -1,5 +1,11 @@
 Palworld Save Scrap includes a modified copy of the Palhelm save parser
 (https://github.com/8tp/palhelm), licensed under Apache License 2.0.
 
-The Oodle loader is based on go-oodle
-(https://github.com/new-world-tools/go-oodle), licensed under MIT.
+Palworld Save Scrap includes an embedded Windows decoder built from Ooz
+(https://github.com/powzix/ooz), commit 05038060aa68f9187ae9923b2388ca8db40e58d1,
+copyright (C) 2016 Powzix and licensed under GNU GPL version 3 or later.
+
+The Ooz source is included as the third_party/ooz git submodule. The
+scripts/build-ooz-windows.sh script builds the embedded helper from that
+source. This combined project is distributed under GNU GPL version 3; see
+LICENSE.

@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"image"
 	"image/color"
-	"os"
 	"path/filepath"
 	"sort"
 	"strings"
@@ -47,19 +46,19 @@ type screen struct {
 	version  string
 	language language
 
-	root, level, output, players, oodle, player, compare                             widget.Editor
-	advanced, force                                                                  widget.Bool
-	englishButton, frenchButton, scanButton                                          widget.Clickable
-	browseButton, outputBrowseButton, oodleBrowseButton, playersButton, exportButton widget.Clickable
-	candidates                                                                       []SaveCandidate
-	candidateButtons                                                                 []widget.Clickable
-	playersFound                                                                     []sav.Player
-	playerButtons                                                                    []widget.Clickable
-	list                                                                             layout.List
-	results                                                                          chan taskResult
-	busy                                                                             bool
-	status                                                                           string
-	statusError                                                                      bool
+	root, level, output, players, player, compare                 widget.Editor
+	advanced, force                                               widget.Bool
+	englishButton, frenchButton, scanButton                       widget.Clickable
+	browseButton, outputBrowseButton, playersButton, exportButton widget.Clickable
+	candidates                                                    []SaveCandidate
+	candidateButtons                                              []widget.Clickable
+	playersFound                                                  []sav.Player
+	playerButtons                                                 []widget.Clickable
+	list                                                          layout.List
+	results                                                       chan taskResult
+	busy                                                          bool
+	status                                                        string
+	statusError                                                   bool
 }
 
 func Run(version string) {
@@ -93,7 +92,7 @@ func newScreen(window *app.Window, version string) *screen {
 		ContrastFg: color.NRGBA{R: 255, G: 255, B: 255, A: 255},
 	}
 	s := &screen{window: window, explorer: explorer.NewExplorer(window), theme: theme, version: version, language: english, results: make(chan taskResult, 4), list: layout.List{Axis: layout.Vertical}}
-	for _, field := range []*widget.Editor{&s.root, &s.level, &s.output, &s.players, &s.oodle, &s.player, &s.compare} {
+	for _, field := range []*widget.Editor{&s.root, &s.level, &s.output, &s.players, &s.player, &s.compare} {
 		field.SingleLine = true
 	}
 	s.root.SetText(DefaultSaveRoot())
@@ -121,15 +120,9 @@ func (s *screen) handle(gtx layout.Context) {
 				s.level.SetText(result.path)
 			case "output-browse":
 				s.output.SetText(result.path)
-			case "oodle-browse":
-				s.oodle.SetText(result.path)
 			case "players":
 				s.playersFound = result.players
 				s.playerButtons = make([]widget.Clickable, len(result.players))
-			}
-			if result.err != nil && strings.Contains(result.err.Error(), "Oodle DLL was not found automatically") {
-				s.advanced.Value = true
-				s.status = s.t("oodle_not_found")
 			}
 		default:
 			goto handled
@@ -151,9 +144,6 @@ handled:
 	}
 	if s.outputBrowseButton.Clicked(gtx) && !s.busy {
 		s.startOutputBrowse()
-	}
-	if s.oodleBrowseButton.Clicked(gtx) && !s.busy {
-		s.startOodleBrowse()
 	}
 	if s.playersButton.Clicked(gtx) && !s.busy {
 		s.startPlayers()
@@ -223,10 +213,10 @@ func (s *screen) startPlayers() {
 		s.statusError, s.status = true, s.t("select_save_first")
 		return
 	}
-	playersDir, oodleLibrary := strings.TrimSpace(s.players.Text()), strings.TrimSpace(s.oodle.Text())
+	playersDir := strings.TrimSpace(s.players.Text())
 	s.busy, s.statusError, s.status = true, false, s.t("reading_players")
 	go func() {
-		players, err := readPlayers(levelPath, playersDir, oodleLibrary)
+		players, err := readPlayers(levelPath, playersDir)
 		message := s.t("no_players")
 		if err == nil && len(players) > 0 {
 			message = fmt.Sprintf(s.t("players_found"), len(players))
@@ -250,44 +240,23 @@ func (s *screen) startOutputBrowse() {
 	}()
 }
 
-func (s *screen) startOodleBrowse() {
-	s.busy, s.statusError, s.status = true, false, s.t("opening_oodle_browser")
-	go func() {
-		file, err := s.explorer.ChooseFile(".dll")
-		if err != nil {
-			s.results <- taskResult{kind: "oodle-browse", err: err}
-			s.window.Invalidate()
-			return
-		}
-		defer file.Close()
-		named, ok := file.(interface{ Name() string })
-		if !ok {
-			s.results <- taskResult{kind: "oodle-browse", err: fmt.Errorf("selected file path is unavailable")}
-			s.window.Invalidate()
-			return
-		}
-		s.results <- taskResult{kind: "oodle-browse", path: named.Name(), message: s.t("oodle_selected")}
-		s.window.Invalidate()
-	}()
-}
-
 func (s *screen) startExport() {
 	levelPath, outputDir := strings.TrimSpace(s.level.Text()), strings.TrimSpace(s.output.Text())
 	if levelPath == "" || outputDir == "" {
 		s.statusError, s.status = true, s.t("save_and_output_required")
 		return
 	}
-	playersDir, oodleLibrary := strings.TrimSpace(s.players.Text()), strings.TrimSpace(s.oodle.Text())
+	playersDir := strings.TrimSpace(s.players.Text())
 	playerUID, compareDir, force := strings.TrimSpace(s.player.Text()), strings.TrimSpace(s.compare.Text()), s.force.Value
 	s.busy, s.statusError, s.status = true, false, s.t("exporting")
 	go func() {
-		message, err := export(levelPath, outputDir, playersDir, oodleLibrary, playerUID, compareDir, force)
+		message, err := export(levelPath, outputDir, playersDir, playerUID, compareDir, force)
 		s.results <- taskResult{kind: "export", message: message, err: err}
 		s.window.Invalidate()
 	}()
 }
 
-func export(levelPath, outputDir, playersDir, oodleLibrary, playerUID, compareDir string, force bool) (string, error) {
+func export(levelPath, outputDir, playersDir, playerUID, compareDir string, force bool) (string, error) {
 	levelPath, err := filepath.Abs(levelPath)
 	if err != nil {
 		return "", err
@@ -299,7 +268,7 @@ func export(levelPath, outputDir, playersDir, oodleLibrary, playerUID, compareDi
 	if err := report.ValidateOutputDirectory(levelPath, outputDir, force); err != nil {
 		return "", err
 	}
-	world, err := loadWorld(levelPath, playersDir, oodleLibrary)
+	world, err := loadWorld(levelPath, playersDir)
 	if err != nil {
 		return "", err
 	}
@@ -312,8 +281,8 @@ func export(levelPath, outputDir, playersDir, oodleLibrary, playerUID, compareDi
 	return fmt.Sprintf("Exported %d Pals to %s", len(world.Pals), outputDir), nil
 }
 
-func readPlayers(levelPath, playersDir, oodleLibrary string) ([]sav.Player, error) {
-	world, err := loadWorld(levelPath, playersDir, oodleLibrary)
+func readPlayers(levelPath, playersDir string) ([]sav.Player, error) {
+	world, err := loadWorld(levelPath, playersDir)
 	if err != nil {
 		return nil, err
 	}
@@ -324,19 +293,10 @@ func readPlayers(levelPath, playersDir, oodleLibrary string) ([]sav.Player, erro
 	return players, nil
 }
 
-func loadWorld(levelPath, playersDir, oodleLibrary string) (*sav.World, error) {
+func loadWorld(levelPath, playersDir string) (*sav.World, error) {
 	levelPath, err := filepath.Abs(levelPath)
 	if err != nil {
 		return nil, err
-	}
-	if oodleLibrary != "" {
-		absolute, err := filepath.Abs(oodleLibrary)
-		if err != nil {
-			return nil, err
-		}
-		if err := os.Setenv("PALWORLD_SCRAP_OODLE_LIB", absolute); err != nil {
-			return nil, err
-		}
 	}
 	world, err := sav.ParseLevel(levelPath, sav.Options{PlayersDir: playersDir})
 	if err != nil {
@@ -445,10 +405,6 @@ func (s *screen) exportSection(gtx layout.Context) layout.Dimensions {
 			children = append(children,
 				layout.Rigid(s.caption("advanced_help")), layout.Rigid(spacer(6)),
 				layout.Rigid(s.editor(&s.players, s.t("players_directory"))), layout.Rigid(s.caption("players_help")),
-				layout.Rigid(s.editor(&s.oodle, s.t("oodle_library"))), layout.Rigid(s.caption("oodle_help")),
-				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-					return material.Button(s.theme, &s.oodleBrowseButton, s.t("browse_oodle")).Layout(gtx)
-				}),
 				layout.Rigid(spacer(4)), layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 					return material.Button(s.theme, &s.playersButton, s.t("find_players")).Layout(gtx)
 				}), layout.Rigid(s.playersList),
@@ -532,12 +488,7 @@ func spacer(size unit.Dp) layout.Widget {
 	return func(gtx layout.Context) layout.Dimensions { return layout.Dimensions{Size: image.Pt(0, gtx.Dp(size))} }
 }
 
-func (s *screen) t(key string) string {
-	if value, ok := guidanceTranslations[s.language][key]; ok {
-		return value
-	}
-	return translations[s.language][key]
-}
+func (s *screen) t(key string) string { return translations[s.language][key] }
 
 var translations = map[language]map[string]string{
 	english: {
@@ -545,22 +496,5 @@ var translations = map[language]map[string]string{
 	},
 	french: {
 		"title": "Palworld Save Scrap", "subtitle": "Export personnel pour le Palpédia", "find_save": "1. Trouver votre sauvegarde", "save_root": "Dossier de sauvegarde Palworld par défaut", "save_root_help": "Commence dans le dossier Windows standard de Palworld. Vous pouvez le remplacer par tout dossier contenant vos sauvegardes.", "scan": "Chercher les mondes", "browse_level": "Parcourir Level.sav", "selected_level": "Level.sav sélectionné", "no_candidates": "Aucun monde trouvé. Cherchez dans le dossier ou choisissez directement Level.sav.", "detected_worlds": "Mondes détectés", "export": "2. Exporter pour NotebookLM", "output_directory": "Dossier d’export", "browse_output": "Choisir un dossier", "choose_export_folder": "Choisir un dossier d’export", "opening_export_browser": "Ouverture du navigateur de dossiers…", "export_folder_selected": "Dossier d’export sélectionné.", "export_folder_unchanged": "Dossier d’export inchangé.", "output_help": "Obligatoire. Choisissez un dossier avec le bouton ; l’outil écrit uniquement ici, jamais dans le dossier de sauvegarde du jeu.", "advanced_options": "Afficher les options avancées facultatives", "advanced_help": "Laissez ces champs vides pour le fonctionnement normal avec une sauvegarde locale.", "players_directory": "Dossier Players (facultatif)", "players_help": "Nécessaire uniquement si Players n’est pas à côté de Level.sav.", "oodle_library": "Chemin de la DLL Oodle (facultatif)", "oodle_help": "Requis uniquement pour les sauvegardes PlM modernes si la bibliothèque du jeu n’est pas disponible.", "find_players": "Chercher les joueurs de cette sauvegarde", "available_players": "Joueurs disponibles", "select_save_first": "Sélectionnez d’abord un fichier Level.sav.", "reading_players": "Lecture des joueurs de cette sauvegarde…", "no_players": "Aucun joueur trouvé dans cette sauvegarde.", "players_found": "%d joueur(s) trouvé(s). Sélectionnez-en un pour n’exporter que sa collection, ou laissez vide pour tous les joueurs.", "player_selected": "%s sélectionné. Videz le champ UID du joueur pour exporter tous les joueurs.", "player_uid": "UID du joueur (facultatif)", "player_help": "Choisissez un joueur détecté pour n’exporter que sa collection. Laissez vide pour exporter tous les joueurs du monde.", "compare_directory": "Dossier d’export précédent (facultatif)", "compare_help": "Ajoute un rapport collection-diff à partir d’un export antérieur.", "overwrite": "Remplacer les fichiers d’un dossier d’export existant", "overwrite_help": "Facultatif et destructif uniquement pour les anciens exports du dossier de sortie choisi.", "export_button": "Créer l’export NotebookLM", "save_root_required": "Choisissez d’abord un dossier de sauvegarde.", "scanning": "Recherche des mondes Palworld…", "no_saves": "Aucun fichier Level.sav trouvé dans ce dossier.", "saves_found": "%d monde(s) trouvé(s). Sélectionnez-en un ci-dessous.", "opening_browser": "Ouverture du navigateur de fichiers…", "world_selected": "Monde sélectionné. Choisissez un dossier d’export puis créez l’export.", "save_and_output_required": "Sélectionnez un fichier Level.sav et un dossier d’export.", "exporting": "Lecture de la sauvegarde et création de l’export…",
-	},
-}
-
-var guidanceTranslations = map[language]map[string]string{
-	english: {
-		"oodle_help":            "Automatic lookup did not find it. Click Choose Oodle DLL, then select oo2core_9_win64.dll in your Steam library: steamapps\\common\\Palworld\\Pal\\Binaries\\Win64. The app only reads this file.",
-		"browse_oodle":          "Choose Oodle DLL",
-		"opening_oodle_browser": "Opening the Oodle DLL browser…",
-		"oodle_selected":        "Oodle DLL selected. Create the export again.",
-		"oodle_not_found":       "This save needs Palworld's Oodle DLL. Advanced options are now open: click Choose Oodle DLL and select oo2core_9_win64.dll from Palworld\\Pal\\Binaries\\Win64.",
-	},
-	french: {
-		"oodle_help":            "La recherche automatique ne l’a pas trouvée. Cliquez sur Choisir la DLL Oodle, puis sélectionnez oo2core_9_win64.dll dans votre bibliothèque Steam : steamapps\\common\\Palworld\\Pal\\Binaries\\Win64. L’application lit uniquement ce fichier.",
-		"browse_oodle":          "Choisir la DLL Oodle",
-		"opening_oodle_browser": "Ouverture du navigateur de DLL Oodle…",
-		"oodle_selected":        "DLL Oodle sélectionnée. Relancez la création de l’export.",
-		"oodle_not_found":       "Cette sauvegarde a besoin de la DLL Oodle de Palworld. Les options avancées sont ouvertes : cliquez sur Choisir la DLL Oodle et sélectionnez oo2core_9_win64.dll dans Palworld\\Pal\\Binaries\\Win64.",
 	},
 }
