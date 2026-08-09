@@ -7,6 +7,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Ltorre/palpedia-snapshot/internal/breeding"
 	"github.com/Ltorre/palpedia-snapshot/internal/sav"
 )
 
@@ -64,7 +65,7 @@ func TestWriteCreatesAllExports(t *testing.T) {
 	if err := Write(dir, world, "", "", false); err != nil {
 		t.Fatal(err)
 	}
-	for _, name := range []string{"collection.md", "pals.csv", "capture-history.csv", "palpedia-progress.md", "breeding-candidates.md", "world.json"} {
+	for _, name := range []string{"collection.md", "pals.csv", "capture-history.csv", "palpedia-progress.md", "breeding-candidates.md", "breeding-rules.md", "breeding-direct-pairs.csv", "world.json"} {
 		if _, err := os.Stat(filepath.Join(dir, name)); err != nil {
 			t.Fatalf("%s: %v", name, err)
 		}
@@ -92,6 +93,32 @@ func TestWriteCreatesAllExports(t *testing.T) {
 	}
 	if !strings.Contains(string(breeding), "Philanthropist") || !strings.Contains(string(breeding), "Lamball") {
 		t.Fatalf("unexpected breeding report: %s", breeding)
+	}
+	directPairs, err := os.ReadFile(filepath.Join(dir, "breeding-direct-pairs.csv"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(directPairs), "male_parent_character_id") {
+		t.Fatalf("unexpected direct pairs: %s", directPairs)
+	}
+}
+
+func TestBreedingDirectPairsUsesActualMaleAndFemaleCollection(t *testing.T) {
+	rules, err := breeding.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	csv := string(breedingDirectPairsCSV([]palRow{
+		{Character: "SheepBall", Gender: "male"},
+		{Character: "SheepBall", Gender: "male"},
+		{Character: "PinkCat", Gender: "female"},
+		{Character: "PinkCat", Gender: "unknown"},
+	}, rules))
+	if !strings.Contains(csv, "SheepBall,2,PinkCat,1") {
+		t.Fatalf("direct pairs do not contain collection counts: %s", csv)
+	}
+	if strings.Count(csv, "\n") != 2 {
+		t.Fatalf("unexpected direct pair rows: %s", csv)
 	}
 }
 

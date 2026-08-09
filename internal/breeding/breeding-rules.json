@@ -1,0 +1,3652 @@
+{
+  "records": [
+    {
+      "id": "alpaca",
+      "key": "Alpaca",
+      "rank": 2720,
+      "priority": 272000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "amaterasuwolf",
+      "key": "AmaterasuWolf",
+      "rank": 1670,
+      "priority": 167000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "amaterasuwolf_dark",
+      "key": "AmaterasuWolf_Dark",
+      "rank": 800,
+      "priority": 80000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "anubis",
+      "key": "Anubis",
+      "rank": 480,
+      "priority": 48000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "badcatgirl",
+      "key": "BadCatgirl",
+      "rank": 1250,
+      "priority": 125000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "baphomet",
+      "key": "Baphomet",
+      "rank": 1470,
+      "priority": 147000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "baphomet_dark",
+      "key": "Baphomet_Dark",
+      "rank": 1310,
+      "priority": 131000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "bastet",
+      "key": "Bastet",
+      "rank": 3040,
+      "priority": 304000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "bastet_ice",
+      "key": "Bastet_Ice",
+      "rank": 2750,
+      "priority": 275000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "berrygoat",
+      "key": "BerryGoat",
+      "rank": 2610,
+      "priority": 261000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "berrygoat_dark",
+      "key": "BerryGoat_Dark",
+      "rank": 1940,
+      "priority": 194000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "birddragon",
+      "key": "BirdDragon",
+      "rank": 1650,
+      "priority": 165000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "birddragon_ice",
+      "key": "BirdDragon_Ice",
+      "rank": 1430,
+      "priority": 143000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "blackcentaur",
+      "key": "BlackCentaur",
+      "rank": 190,
+      "priority": 19000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "blackgriffon",
+      "key": "BlackGriffon",
+      "rank": 550,
+      "priority": 55000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "blackmetaldragon",
+      "key": "BlackMetalDragon",
+      "rank": 490,
+      "priority": 49000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "blackpuppy",
+      "key": "BlackPuppy",
+      "rank": 1760,
+      "priority": 176000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "blackpuppy_ice",
+      "key": "BlackPuppy_Ice",
+      "rank": 1610,
+      "priority": 161000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "blueberryfairy",
+      "key": "BlueberryFairy",
+      "rank": 1390,
+      "priority": 139000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "bluedragon",
+      "key": "BlueDragon",
+      "rank": 1830,
+      "priority": 183000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "bluedragon_ice",
+      "key": "BlueDragon_Ice",
+      "rank": 1220,
+      "priority": 578,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "blueplatypus",
+      "key": "BluePlatypus",
+      "rank": 2980,
+      "priority": 298000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "blueplatypus_fire",
+      "key": "BluePlatypus_Fire",
+      "rank": 2300,
+      "priority": 575,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "blueskydragon",
+      "key": "BlueSkyDragon",
+      "rank": 40,
+      "priority": 4000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "bluethunderhorse",
+      "key": "BlueThunderHorse",
+      "rank": 420,
+      "priority": 42000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "boar",
+      "key": "Boar",
+      "rank": 2880,
+      "priority": 288000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "brownrabbit",
+      "key": "BrownRabbit",
+      "rank": 1680,
+      "priority": 168000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "cactusdoll",
+      "key": "CactusDoll",
+      "rank": 2420,
+      "priority": 242000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "cactusdoll_dark",
+      "key": "CactusDoll_Dark",
+      "rank": 1580,
+      "priority": 158000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "candleghost",
+      "key": "CandleGhost",
+      "rank": 980,
+      "priority": 98000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "captainpenguin",
+      "key": "CaptainPenguin",
+      "rank": 2070,
+      "priority": 207000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "captainpenguin_black",
+      "key": "CaptainPenguin_Black",
+      "rank": 1850,
+      "priority": 573,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "carbunclo",
+      "key": "Carbunclo",
+      "rank": 3020,
+      "priority": 302000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "catbat",
+      "key": "CatBat",
+      "rank": 2340,
+      "priority": 234000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "catmage",
+      "key": "CatMage",
+      "rank": 2040,
+      "priority": 204000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "catmage_fire",
+      "key": "CatMage_Fire",
+      "rank": 1800,
+      "priority": 180000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "catvampire",
+      "key": "CatVampire",
+      "rank": 1570,
+      "priority": 157000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "chickenpal",
+      "key": "ChickenPal",
+      "rank": 3080,
+      "priority": 308000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "clionetwins",
+      "key": "ClioneTwins",
+      "rank": 2520,
+      "priority": 252000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "cloverfairy",
+      "key": "CloverFairy",
+      "rank": 2970,
+      "priority": 297000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "clownrabbit",
+      "key": "ClownRabbit",
+      "rank": 520,
+      "priority": 52000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "colorfulbird",
+      "key": "ColorfulBird",
+      "rank": 2730,
+      "priority": 273000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "cowpal",
+      "key": "CowPal",
+      "rank": 2800,
+      "priority": 280000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "cubeturtle",
+      "key": "CubeTurtle",
+      "rank": 790,
+      "priority": 79000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "cubeturtle_neutral",
+      "key": "CubeTurtle_Neutral",
+      "rank": 200,
+      "priority": 20000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "cutebutterfly",
+      "key": "CuteButterfly",
+      "rank": 2620,
+      "priority": 262000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "cutefox",
+      "key": "CuteFox",
+      "rank": 3060,
+      "priority": 306000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "cutemole",
+      "key": "CuteMole",
+      "rank": 2790,
+      "priority": 279000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "dandeliongirl",
+      "key": "DandelionGirl",
+      "rank": 2000,
+      "priority": 200000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "darkalien",
+      "key": "DarkAlien",
+      "rank": 1820,
+      "priority": 182000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "darkcrow",
+      "key": "DarkCrow",
+      "rank": 2370,
+      "priority": 237000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "darkflamefox",
+      "key": "DarkFlameFox",
+      "rank": 1010,
+      "priority": 101000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "darkmechadragon",
+      "key": "DarkMechaDragon",
+      "rank": 400,
+      "priority": 40000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "darkscorpion",
+      "key": "DarkScorpion",
+      "rank": 1120,
+      "priority": 112000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "darkscorpion_ground",
+      "key": "DarkScorpion_Ground",
+      "rank": 640,
+      "priority": 64000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "deer",
+      "key": "Deer",
+      "rank": 2710,
+      "priority": 271000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "deer_ground",
+      "key": "Deer_Ground",
+      "rank": 2580,
+      "priority": 258000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "domearmordragon",
+      "key": "DomeArmorDragon",
+      "rank": 30,
+      "priority": 3000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "dreamdemon",
+      "key": "DreamDemon",
+      "rank": 2910,
+      "priority": 291000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "drillgame",
+      "key": "DrillGame",
+      "rank": 1550,
+      "priority": 155000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "eagle",
+      "key": "Eagle",
+      "rank": 2570,
+      "priority": 257000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "eleccat",
+      "key": "ElecCat",
+      "rank": 3010,
+      "priority": 301000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "eleclizard",
+      "key": "ElecLizard",
+      "rank": 1750,
+      "priority": 175000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "elecpanda",
+      "key": "ElecPanda",
+      "rank": 1020,
+      "priority": 102000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "elecpomeranian",
+      "key": "ElecPomeranian",
+      "rank": 2360,
+      "priority": 236000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "elecsnail",
+      "key": "ElecSnail",
+      "rank": 1780,
+      "priority": 178000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "elecsnail_ground",
+      "key": "ElecSnail_Ground",
+      "rank": 1500,
+      "priority": 150000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "fairydragon",
+      "key": "FairyDragon",
+      "rank": 2280,
+      "priority": 228000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "fairydragon_water",
+      "key": "FairyDragon_Water",
+      "rank": 1640,
+      "priority": 164000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "featherostrich",
+      "key": "FeatherOstrich",
+      "rank": 2210,
+      "priority": 221000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "fengyundeeper",
+      "key": "FengyunDeeper",
+      "rank": 1960,
+      "priority": 196000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "fengyundeeper_electric",
+      "key": "FengyunDeeper_Electric",
+      "rank": 900,
+      "priority": 90000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "firekirin",
+      "key": "FireKirin",
+      "rank": 1980,
+      "priority": 198000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "firekirin_dark",
+      "key": "FireKirin_Dark",
+      "rank": 1870,
+      "priority": 187000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "flamebambi",
+      "key": "FlameBambi",
+      "rank": 2870,
+      "priority": 287000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "flamebuffalo",
+      "key": "FlameBuffalo",
+      "rank": 2320,
+      "priority": 232000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "flowerdinosaur",
+      "key": "FlowerDinosaur",
+      "rank": 2100,
+      "priority": 210000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "flowerdinosaur_electric",
+      "key": "FlowerDinosaur_Electric",
+      "rank": 1890,
+      "priority": 189000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "flowerdoll",
+      "key": "FlowerDoll",
+      "rank": 1720,
+      "priority": 172000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "flowerdoll_fire",
+      "key": "FlowerDoll_Fire",
+      "rank": 820,
+      "priority": 82000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "flowerprince",
+      "key": "FlowerPrince",
+      "rank": 60,
+      "priority": 6000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "flowerrabbit",
+      "key": "FlowerRabbit",
+      "rank": 2660,
+      "priority": 266000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "fluffybird",
+      "key": "FluffyBird",
+      "rank": 2480,
+      "priority": 248000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "flyingmanta",
+      "key": "FlyingManta",
+      "rank": 2740,
+      "priority": 274000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "flyingmanta_thunder",
+      "key": "FlyingManta_Thunder",
+      "rank": 2380,
+      "priority": 574,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "foxexorcist",
+      "key": "FoxExorcist",
+      "rank": 390,
+      "priority": 39000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "foxmage",
+      "key": "FoxMage",
+      "rank": 2080,
+      "priority": 208000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "foxmage_dark",
+      "key": "FoxMage_Dark",
+      "rank": 1490,
+      "priority": 149000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "ganesha",
+      "key": "Ganesha",
+      "rank": 3070,
+      "priority": 307000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "garm",
+      "key": "Garm",
+      "rank": 2680,
+      "priority": 268000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "ghostanglerfish",
+      "key": "GhostAnglerfish",
+      "rank": 880,
+      "priority": 88000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "ghostanglerfish_fire",
+      "key": "GhostAnglerfish_Fire",
+      "rank": 720,
+      "priority": 72000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "ghostbeast",
+      "key": "GhostBeast",
+      "rank": 1710,
+      "priority": 171000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "ghostblackcat",
+      "key": "GhostBlackCat",
+      "rank": 2250,
+      "priority": 225000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "ghostdragon",
+      "key": "GhostDragon",
+      "rank": 300,
+      "priority": 30000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "ghostdragon_fire",
+      "key": "GhostDragon_Fire",
+      "rank": 140,
+      "priority": 14000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "ghostrabbit",
+      "key": "GhostRabbit",
+      "rank": 1230,
+      "priority": 123000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "ghostrabbit_grass",
+      "key": "GhostRabbit_Grass",
+      "rank": 1320,
+      "priority": 132000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "goldenhorse",
+      "key": "GoldenHorse",
+      "rank": 730,
+      "priority": 73000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "gorilla",
+      "key": "Gorilla",
+      "rank": 2140,
+      "priority": 214000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "gorilla_ground",
+      "key": "Gorilla_Ground",
+      "rank": 1880,
+      "priority": 188000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "grassgolem",
+      "key": "GrassGolem",
+      "rank": 510,
+      "priority": 51000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "grassgolem_dark",
+      "key": "GrassGolem_Dark",
+      "rank": 250,
+      "priority": 25000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "grassmammoth",
+      "key": "GrassMammoth",
+      "rank": 1340,
+      "priority": 134000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "grassmammoth_ice",
+      "key": "GrassMammoth_Ice",
+      "rank": 1070,
+      "priority": 107000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "grassminotaur",
+      "key": "GrassMinotaur",
+      "rank": 2020,
+      "priority": 202000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "grassminotaur_ice",
+      "key": "GrassMinotaur_Ice",
+      "rank": 440,
+      "priority": 44000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "grasspanda",
+      "key": "GrassPanda",
+      "rank": 2060,
+      "priority": 206000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "grasspanda_electric",
+      "key": "GrassPanda_Electric",
+      "rank": 1440,
+      "priority": 144000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "grassrabbitman",
+      "key": "GrassRabbitMan",
+      "rank": 1160,
+      "priority": 116000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "grimgirl",
+      "key": "GrimGirl",
+      "rank": 780,
+      "priority": 78000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "guardiandog",
+      "key": "GuardianDog",
+      "rank": 2230,
+      "priority": 223000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "hadesbird",
+      "key": "HadesBird",
+      "rank": 1130,
+      "priority": 113000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "hadesbird_electric",
+      "key": "HadesBird_Electric",
+      "rank": 960,
+      "priority": 96000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "hawkbird",
+      "key": "HawkBird",
+      "rank": 2560,
+      "priority": 256000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "hedgehog",
+      "key": "Hedgehog",
+      "rank": 3030,
+      "priority": 303000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "hedgehog_ice",
+      "key": "Hedgehog_Ice",
+      "rank": 2850,
+      "priority": 285000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "herculesbeetle",
+      "key": "HerculesBeetle",
+      "rank": 1280,
+      "priority": 128000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "herculesbeetle_ground",
+      "key": "HerculesBeetle_Ground",
+      "rank": 630,
+      "priority": 63000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "hoodghost",
+      "key": "HoodGhost",
+      "rank": 1770,
+      "priority": 177000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "horus",
+      "key": "Horus",
+      "rank": 500,
+      "priority": 50000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "horus_water",
+      "key": "Horus_Water",
+      "rank": 450,
+      "priority": 45000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "icecrocodile",
+      "key": "IceCrocodile",
+      "rank": 2130,
+      "priority": 213000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "icedeer",
+      "key": "IceDeer",
+      "rank": 1930,
+      "priority": 193000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "icefox",
+      "key": "IceFox",
+      "rank": 1970,
+      "priority": 197000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "icehorse",
+      "key": "IceHorse",
+      "rank": 150,
+      "priority": 15000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "icehorse_dark",
+      "key": "IceHorse_Dark",
+      "rank": 110,
+      "priority": 11000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "icenarwhal",
+      "key": "IceNarwhal",
+      "rank": 710,
+      "priority": 71000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "icenarwhal_fire",
+      "key": "IceNarwhal_Fire",
+      "rank": 370,
+      "priority": 37000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "iceseal",
+      "key": "IceSeal",
+      "rank": 1660,
+      "priority": 166000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "iceseal_ground",
+      "key": "IceSeal_Ground",
+      "rank": 1100,
+      "priority": 110000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "icewitch",
+      "key": "IceWitch",
+      "rank": 1260,
+      "priority": 126000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "jellyfishfairy",
+      "key": "JellyfishFairy",
+      "rank": 2650,
+      "priority": 265000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "jellyfishghost",
+      "key": "JellyfishGhost",
+      "rank": 2590,
+      "priority": 259000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "jetdragon",
+      "key": "JetDragon",
+      "rank": 70,
+      "priority": 7000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "kabukiman",
+      "key": "KabukiMan",
+      "rank": 290,
+      "priority": 29000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "kelpie",
+      "key": "Kelpie",
+      "rank": 2810,
+      "priority": 281000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "kelpie_fire",
+      "key": "Kelpie_Fire",
+      "rank": 2470,
+      "priority": 247000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "kendofrog",
+      "key": "KendoFrog",
+      "rank": 2600,
+      "priority": 260000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "kendofrog_dark",
+      "key": "KendoFrog_Dark",
+      "rank": 1860,
+      "priority": 186000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "kingalpaca",
+      "key": "KingAlpaca",
+      "rank": 2220,
+      "priority": 222000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "kingalpaca_ice",
+      "key": "KingAlpaca_Ice",
+      "rank": 1530,
+      "priority": 153000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "kingbahamut",
+      "key": "KingBahamut",
+      "rank": 410,
+      "priority": 41000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "kingbahamut_dragon",
+      "key": "KingBahamut_Dragon",
+      "rank": 100,
+      "priority": 10000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "kingsunfish",
+      "key": "KingSunfish",
+      "rank": 1370,
+      "priority": 137000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "kingsunfish_thunder",
+      "key": "KingSunfish_Thunder",
+      "rank": 1000,
+      "priority": 100000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "kingwhale",
+      "key": "KingWhale",
+      "rank": 20,
+      "priority": 2000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "kirin",
+      "key": "Kirin",
+      "rank": 2270,
+      "priority": 227000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "kirin_ice",
+      "key": "Kirin_Ice",
+      "rank": 540,
+      "priority": 54000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "kitsunebi",
+      "key": "Kitsunebi",
+      "rank": 2990,
+      "priority": 299000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "kitsunebi_ice",
+      "key": "Kitsunebi_Ice",
+      "rank": 2500,
+      "priority": 250000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "lanternbutler",
+      "key": "LanternButler",
+      "rank": 890,
+      "priority": 89000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "lavagirl",
+      "key": "LavaGirl",
+      "rank": 2700,
+      "priority": 270000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "lazycatfish",
+      "key": "LazyCatfish",
+      "rank": 2290,
+      "priority": 229000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "lazycatfish_gold",
+      "key": "LazyCatfish_Gold",
+      "rank": 1620,
+      "priority": 576,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "lazydragon",
+      "key": "LazyDragon",
+      "rank": 1090,
+      "priority": 109000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "lazydragon_electric",
+      "key": "LazyDragon_Electric",
+      "rank": 770,
+      "priority": 77000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "leafmomonga",
+      "key": "LeafMomonga",
+      "rank": 2630,
+      "priority": 263000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "leafprincess",
+      "key": "LeafPrincess",
+      "rank": 1990,
+      "priority": 199000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "legenddeer",
+      "key": "LegendDeer",
+      "rank": 90,
+      "priority": 9000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "lilyqueen",
+      "key": "LilyQueen",
+      "rank": 240,
+      "priority": 24000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "lilyqueen_dark",
+      "key": "LilyQueen_Dark",
+      "rank": 220,
+      "priority": 22000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "littlebriarrose",
+      "key": "LittleBriarRose",
+      "rank": 2690,
+      "priority": 269000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "lizardman",
+      "key": "LizardMan",
+      "rank": 2670,
+      "priority": 267000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "lizardman_fire",
+      "key": "LizardMan_Fire",
+      "rank": 2640,
+      "priority": 264000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "longcat",
+      "key": "LongCat",
+      "rank": 1900,
+      "priority": 190000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "lotusdragon",
+      "key": "LotusDragon",
+      "rank": 230,
+      "priority": 23000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "manticore",
+      "key": "Manticore",
+      "rank": 1360,
+      "priority": 136000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "manticore_dark",
+      "key": "Manticore_Dark",
+      "rank": 1270,
+      "priority": 127000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "mimicdog",
+      "key": "MimicDog",
+      "rank": 1740,
+      "priority": 174000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "monkey",
+      "key": "Monkey",
+      "rank": 2900,
+      "priority": 290000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "monkey_fire",
+      "key": "Monkey_Fire",
+      "rank": 2830,
+      "priority": 283000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "monochromequeen",
+      "key": "MonochromeQueen",
+      "rank": 280,
+      "priority": 28000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "moonchild",
+      "key": "MoonChild",
+      "rank": 1180,
+      "priority": 118000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "moonqueen",
+      "key": "MoonQueen",
+      "rank": 360,
+      "priority": 36000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "mopbaby",
+      "key": "MopBaby",
+      "rank": 2840,
+      "priority": 284000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "mopking",
+      "key": "MopKing",
+      "rank": 2150,
+      "priority": 215000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "mothman",
+      "key": "Mothman",
+      "rank": 80,
+      "priority": 8000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "mummypal",
+      "key": "MummyPal",
+      "rank": 1170,
+      "priority": 117000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "mushroomdragon",
+      "key": "MushroomDragon",
+      "rank": 1520,
+      "priority": 152000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "mushroomdragon_dark",
+      "key": "MushroomDragon_Dark",
+      "rank": 1450,
+      "priority": 145000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "mushroomlady",
+      "key": "MushroomLady",
+      "rank": 760,
+      "priority": 76000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "mutant",
+      "key": "Mutant",
+      "rank": 2010,
+      "priority": 201000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "mysterymask",
+      "key": "MysteryMask",
+      "rank": 1140,
+      "priority": 114000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "naughtycat",
+      "key": "NaughtyCat",
+      "rank": 2120,
+      "priority": 212000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "negativekoala",
+      "key": "NegativeKoala",
+      "rank": 3000,
+      "priority": 300000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "negativeoctopus",
+      "key": "NegativeOctopus",
+      "rank": 2770,
+      "priority": 277000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "negativeoctopus_neutral",
+      "key": "NegativeOctopus_Neutral",
+      "rank": 2540,
+      "priority": 571,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "nightbluehorse",
+      "key": "NightBlueHorse",
+      "rank": 1150,
+      "priority": 115000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "nightbluehorse_neutral",
+      "key": "NightBlueHorse_Neutral",
+      "rank": 430,
+      "priority": 43000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "nightfox",
+      "key": "NightFox",
+      "rank": 2920,
+      "priority": 292000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "nightlady",
+      "key": "NightLady",
+      "rank": 620,
+      "priority": 62000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "nightlady_dark",
+      "key": "NightLady_Dark",
+      "rank": 130,
+      "priority": 13000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "octopusgirl",
+      "key": "OctopusGirl",
+      "rank": 2530,
+      "priority": 253000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "octopusgirl_neutral",
+      "key": "OctopusGirl_Neutral",
+      "rank": 1630,
+      "priority": 163000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "onighostgirl",
+      "key": "OniGhostGirl",
+      "rank": 1540,
+      "priority": 154000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "pandagirl",
+      "key": "PandaGirl",
+      "rank": 1410,
+      "priority": 141000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "penguin",
+      "key": "Penguin",
+      "rank": 2960,
+      "priority": 296000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "penguin_electric",
+      "key": "Penguin_Electric",
+      "rank": 2490,
+      "priority": 572,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "pinkcat",
+      "key": "PinkCat",
+      "rank": 2760,
+      "priority": 276000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "pinklizard",
+      "key": "PinkLizard",
+      "rank": 2090,
+      "priority": 209000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "pinkrabbit",
+      "key": "PinkRabbit",
+      "rank": 2860,
+      "priority": 286000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "pinkrabbit_grass",
+      "key": "PinkRabbit_Grass",
+      "rank": 2460,
+      "priority": 246000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "plantslime",
+      "key": "PlantSlime",
+      "rank": 2950,
+      "priority": 295000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "plesiosaur",
+      "key": "Plesiosaur",
+      "rank": 1030,
+      "priority": 103000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "poseidonorca",
+      "key": "PoseidonOrca",
+      "rank": 160,
+      "priority": 16000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "purplespider",
+      "key": "PurpleSpider",
+      "rank": 1730,
+      "priority": 173000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "queenbee",
+      "key": "QueenBee",
+      "rank": 1790,
+      "priority": 179000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "raijindaughter",
+      "key": "RaijinDaughter",
+      "rank": 2400,
+      "priority": 240000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "raijindaughter_water",
+      "key": "RaijinDaughter_Water",
+      "rank": 1910,
+      "priority": 191000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "redarmorbird",
+      "key": "RedArmorBird",
+      "rank": 1050,
+      "priority": 105000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "redflowerbird",
+      "key": "RedFlowerBird",
+      "rank": 1350,
+      "priority": 135000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "robinhood",
+      "key": "RobinHood",
+      "rank": 2260,
+      "priority": 226000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "robinhood_ground",
+      "key": "RobinHood_Ground",
+      "rank": 2050,
+      "priority": 205000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "rockbeast",
+      "key": "RockBeast",
+      "rank": 1110,
+      "priority": 111000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "rockbeast_ice",
+      "key": "RockBeast_Ice",
+      "rank": 460,
+      "priority": 46000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "ronin",
+      "key": "Ronin",
+      "rank": 1560,
+      "priority": 156000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "ronin_dark",
+      "key": "Ronin_Dark",
+      "rank": 840,
+      "priority": 84000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "saintcentaur",
+      "key": "SaintCentaur",
+      "rank": 180,
+      "priority": 18000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "sakurasaurus",
+      "key": "SakuraSaurus",
+      "rank": 1380,
+      "priority": 138000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "sakurasaurus_water",
+      "key": "SakuraSaurus_Water",
+      "rank": 1080,
+      "priority": 108000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "samuraidog",
+      "key": "SamuraiDog",
+      "rank": 2930,
+      "priority": 293000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "scorpionman",
+      "key": "ScorpionMan",
+      "rank": 1510,
+      "priority": 151000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "scorpionman_electric",
+      "key": "ScorpionMan_Electric",
+      "rank": 850,
+      "priority": 85000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "sekhmet",
+      "key": "Sekhmet",
+      "rank": 870,
+      "priority": 87000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "serpent",
+      "key": "Serpent",
+      "rank": 2440,
+      "priority": 244000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "serpent_ground",
+      "key": "Serpent_Ground",
+      "rank": 1840,
+      "priority": 184000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "sharkkid",
+      "key": "SharkKid",
+      "rank": 2550,
+      "priority": 255000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "sharkkid_fire",
+      "key": "SharkKid_Fire",
+      "rank": 2430,
+      "priority": 243000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "sheepball",
+      "key": "SheepBall",
+      "rank": 3050,
+      "priority": 305000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "sifudog",
+      "key": "SifuDog",
+      "rank": 1460,
+      "priority": 146000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "skydragon",
+      "key": "SkyDragon",
+      "rank": 1210,
+      "priority": 121000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "skydragon_grass",
+      "key": "SkyDragon_Grass",
+      "rank": 1300,
+      "priority": 130000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "sleeverabbit",
+      "key": "SleeveRabbit",
+      "rank": 810,
+      "priority": 81000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "smallarmadillo",
+      "key": "SmallArmadillo",
+      "rank": 2310,
+      "priority": 231000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "smallyeti",
+      "key": "SmallYeti",
+      "rank": 2390,
+      "priority": 239000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "snakegirl",
+      "key": "SnakeGirl",
+      "rank": 970,
+      "priority": 97000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "snowpeafowl",
+      "key": "SnowPeafowl",
+      "rank": 860,
+      "priority": 86000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "snowtigerbeastman",
+      "key": "SnowTigerBeastman",
+      "rank": 50,
+      "priority": 5000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "soldierbee",
+      "key": "SoldierBee",
+      "rank": 2350,
+      "priority": 235000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "stuffedshark",
+      "key": "StuffedShark",
+      "rank": 2450,
+      "priority": 245000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "stuffedshark_fire",
+      "key": "StuffedShark_Fire",
+      "rank": 2240,
+      "priority": 581,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "sumodog",
+      "key": "SumoDog",
+      "rank": 1190,
+      "priority": 119000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "suzaku",
+      "key": "Suzaku",
+      "rank": 1200,
+      "priority": 120000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "suzaku_water",
+      "key": "Suzaku_Water",
+      "rank": 740,
+      "priority": 74000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "sweetssheep",
+      "key": "SweetsSheep",
+      "rank": 2820,
+      "priority": 282000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "sweetssheep_ground",
+      "key": "SweetsSheep_Ground",
+      "rank": 2030,
+      "priority": 203000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "swordcutlassfish",
+      "key": "SwordCutlassfish",
+      "rank": 1420,
+      "priority": 142000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "swordcutlassfish_fire",
+      "key": "SwordCutlassfish_Fire",
+      "rank": 1590,
+      "priority": 159000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "tentacleturtle",
+      "key": "TentacleTurtle",
+      "rank": 2410,
+      "priority": 241000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "tentacleturtle_ground",
+      "key": "TentacleTurtle_Ground",
+      "rank": 1330,
+      "priority": 577,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "thiefbird",
+      "key": "ThiefBird",
+      "rank": 530,
+      "priority": 53000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "thunderbird",
+      "key": "ThunderBird",
+      "rank": 1690,
+      "priority": 169000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "thunderbird_ice",
+      "key": "ThunderBird_Ice",
+      "rank": 580,
+      "priority": 58000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "thunderdog",
+      "key": "ThunderDog",
+      "rank": 1920,
+      "priority": 192000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "thunderdog_ice",
+      "key": "ThunderDog_Ice",
+      "rank": 1600,
+      "priority": 160000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "thunderdragonman",
+      "key": "ThunderDragonMan",
+      "rank": 120,
+      "priority": 12000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "thunderfluffybird",
+      "key": "ThunderFluffyBird",
+      "rank": 1400,
+      "priority": 140000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "tropicalostrich",
+      "key": "TropicalOstrich",
+      "rank": 1240,
+      "priority": 124000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "umihebi",
+      "key": "Umihebi",
+      "rank": 590,
+      "priority": 59000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "umihebi_fire",
+      "key": "Umihebi_Fire",
+      "rank": 170,
+      "priority": 17000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "venusflytrap",
+      "key": "VenusFlytrap",
+      "rank": 1700,
+      "priority": 170000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "violetfairy",
+      "key": "VioletFairy",
+      "rank": 1480,
+      "priority": 148000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "volcanicmonster",
+      "key": "VolcanicMonster",
+      "rank": 1060,
+      "priority": 106000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "volcanicmonster_ice",
+      "key": "VolcanicMonster_Ice",
+      "rank": 600,
+      "priority": 60000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "volcanodragon",
+      "key": "VolcanoDragon",
+      "rank": 750,
+      "priority": 75000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "volcanodragon_ice",
+      "key": "VolcanoDragon_Ice",
+      "rank": 380,
+      "priority": 38000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "weaseldragon",
+      "key": "WeaselDragon",
+      "rank": 2330,
+      "priority": 233000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "weaseldragon_fire",
+      "key": "WeaselDragon_Fire",
+      "rank": 1950,
+      "priority": 195000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "werewolf",
+      "key": "Werewolf",
+      "rank": 2110,
+      "priority": 211000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "werewolf_ice",
+      "key": "Werewolf_Ice",
+      "rank": 1290,
+      "priority": 129000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "whitealiendragon",
+      "key": "WhiteAlienDragon",
+      "rank": 990,
+      "priority": 99000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "whitedeer",
+      "key": "WhiteDeer",
+      "rank": 570,
+      "priority": 57000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "whitedeer_dark",
+      "key": "WhiteDeer_Dark",
+      "rank": 270,
+      "priority": 27000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "whitemoth",
+      "key": "WhiteMoth",
+      "rank": 1810,
+      "priority": 181000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "whitemoth_neutral",
+      "key": "WhiteMoth_Neutral",
+      "rank": 650,
+      "priority": 65000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "whiteshielddragon",
+      "key": "WhiteShieldDragon",
+      "rank": 560,
+      "priority": 56000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "whitetiger",
+      "key": "WhiteTiger",
+      "rank": 1040,
+      "priority": 104000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "whitetiger_ground",
+      "key": "WhiteTiger_Ground",
+      "rank": 470,
+      "priority": 47000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "windchimes",
+      "key": "WindChimes",
+      "rank": 2780,
+      "priority": 278000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "windchimes_ice",
+      "key": "WindChimes_Ice",
+      "rank": 2510,
+      "priority": 251000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "winggolem",
+      "key": "WingGolem",
+      "rank": 260,
+      "priority": 26000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "winggolem_fire",
+      "key": "WingGolem_Fire",
+      "rank": 210,
+      "priority": 21000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "wizardowl",
+      "key": "WizardOwl",
+      "rank": 2940,
+      "priority": 294000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "woolfox",
+      "key": "WoolFox",
+      "rank": 2890,
+      "priority": 289000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "worldtreedragon",
+      "key": "WorldTreeDragon",
+      "rank": 10,
+      "priority": 1000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "yakushimaboss001",
+      "key": "YakushimaBoss001",
+      "rank": 3100,
+      "priority": 310000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "yakushimaboss001_small",
+      "key": "YakushimaBoss001_Small",
+      "rank": 3100,
+      "priority": 310000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "yakushimamonster001",
+      "key": "YakushimaMonster001",
+      "rank": 3100,
+      "priority": 310000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "yakushimamonster001_blue",
+      "key": "YakushimaMonster001_Blue",
+      "rank": 3100,
+      "priority": 310000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "yakushimamonster001_pink",
+      "key": "YakushimaMonster001_Pink",
+      "rank": 3100,
+      "priority": 310000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "yakushimamonster001_purple",
+      "key": "YakushimaMonster001_Purple",
+      "rank": 3100,
+      "priority": 310000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "yakushimamonster001_rainbow",
+      "key": "YakushimaMonster001_Rainbow",
+      "rank": 3100,
+      "priority": 310000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "yakushimamonster001_red",
+      "key": "YakushimaMonster001_Red",
+      "rank": 3100,
+      "priority": 310000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "yakushimamonster002",
+      "key": "YakushimaMonster002",
+      "rank": 3100,
+      "priority": 310000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "yakushimamonster003",
+      "key": "YakushimaMonster003",
+      "rank": 3100,
+      "priority": 310000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "yakushimamonster003_purple",
+      "key": "YakushimaMonster003_Purple",
+      "rank": 3100,
+      "priority": 310000,
+      "ignoreGeneric": true,
+      "boss": false
+    },
+    {
+      "id": "yeti",
+      "key": "Yeti",
+      "rank": 830,
+      "priority": 83000,
+      "ignoreGeneric": false,
+      "boss": false
+    },
+    {
+      "id": "yeti_grass",
+      "key": "Yeti_Grass",
+      "rank": 610,
+      "priority": 61000,
+      "ignoreGeneric": false,
+      "boss": false
+    }
+  ],
+  "combos": [
+    {
+      "a": "amaterasuwolf",
+      "b": "badcatgirl",
+      "child": "amaterasuwolf_dark"
+    },
+    {
+      "a": "amaterasuwolf_dark",
+      "b": "amaterasuwolf_dark",
+      "child": "amaterasuwolf_dark"
+    },
+    {
+      "a": "whitedeer",
+      "b": "amaterasuwolf_dark",
+      "child": "whitedeer_dark"
+    },
+    {
+      "a": "baphomet",
+      "b": "ghostbeast",
+      "child": "baphomet_dark"
+    },
+    {
+      "a": "baphomet_dark",
+      "b": "baphomet_dark",
+      "child": "baphomet_dark"
+    },
+    {
+      "a": "bastet",
+      "b": "penguin",
+      "child": "bastet_ice"
+    },
+    {
+      "a": "bastet_ice",
+      "b": "bastet_ice",
+      "child": "bastet_ice"
+    },
+    {
+      "a": "berrygoat",
+      "b": "purplespider",
+      "child": "berrygoat_dark"
+    },
+    {
+      "a": "berrygoat_dark",
+      "b": "berrygoat_dark",
+      "child": "berrygoat_dark"
+    },
+    {
+      "a": "birddragon",
+      "b": "icefox",
+      "child": "birddragon_ice"
+    },
+    {
+      "a": "birddragon_ice",
+      "b": "birddragon_ice",
+      "child": "birddragon_ice"
+    },
+    {
+      "a": "blackcentaur",
+      "b": "blackcentaur",
+      "child": "blackcentaur"
+    },
+    {
+      "a": "blackgriffon",
+      "b": "blackgriffon",
+      "child": "blackgriffon"
+    },
+    {
+      "a": "blackpuppy",
+      "b": "icecrocodile",
+      "child": "blackpuppy_ice"
+    },
+    {
+      "a": "blackpuppy_ice",
+      "b": "blackpuppy_ice",
+      "child": "blackpuppy_ice"
+    },
+    {
+      "a": "cactusdoll",
+      "b": "blueberryfairy",
+      "child": "cactusdoll_dark"
+    },
+    {
+      "a": "bluedragon",
+      "b": "snowpeafowl",
+      "child": "bluedragon_ice"
+    },
+    {
+      "a": "bluedragon_ice",
+      "b": "bluedragon_ice",
+      "child": "bluedragon_ice"
+    },
+    {
+      "a": "sakurasaurus",
+      "b": "blueplatypus",
+      "child": "sakurasaurus_water"
+    },
+    {
+      "a": "blueplatypus",
+      "b": "lavagirl",
+      "child": "blueplatypus_fire"
+    },
+    {
+      "a": "blueplatypus_fire",
+      "b": "blueplatypus_fire",
+      "child": "blueplatypus_fire"
+    },
+    {
+      "a": "blueskydragon",
+      "b": "blueskydragon",
+      "child": "blueskydragon"
+    },
+    {
+      "a": "fengyundeeper",
+      "b": "bluethunderhorse",
+      "child": "fengyundeeper_electric"
+    },
+    {
+      "a": "cactusdoll_dark",
+      "b": "cactusdoll_dark",
+      "child": "cactusdoll_dark"
+    },
+    {
+      "a": "ronin",
+      "b": "candleghost",
+      "child": "ronin_dark"
+    },
+    {
+      "a": "ghostanglerfish",
+      "b": "candleghost",
+      "child": "ghostanglerfish_fire"
+    },
+    {
+      "a": "grassgolem",
+      "b": "candleghost",
+      "child": "grassgolem_dark"
+    },
+    {
+      "a": "captainpenguin",
+      "b": "thunderdog",
+      "child": "captainpenguin_black"
+    },
+    {
+      "a": "captainpenguin_black",
+      "b": "captainpenguin_black",
+      "child": "captainpenguin_black"
+    },
+    {
+      "a": "firekirin",
+      "b": "catmage",
+      "child": "firekirin_dark"
+    },
+    {
+      "a": "catmage",
+      "b": "foxmage",
+      "child": "foxmage_dark",
+      "ga": "M",
+      "gb": "F"
+    },
+    {
+      "a": "catmage",
+      "b": "foxmage",
+      "child": "catmage_fire",
+      "ga": "F",
+      "gb": "M"
+    },
+    {
+      "a": "catmage_fire",
+      "b": "catmage_fire",
+      "child": "catmage_fire"
+    },
+    {
+      "a": "manticore",
+      "b": "catvampire",
+      "child": "manticore_dark"
+    },
+    {
+      "a": "cubeturtle",
+      "b": "whitedeer",
+      "child": "cubeturtle_neutral"
+    },
+    {
+      "a": "cubeturtle_neutral",
+      "b": "cubeturtle_neutral",
+      "child": "cubeturtle_neutral"
+    },
+    {
+      "a": "robinhood",
+      "b": "cutemole",
+      "child": "robinhood_ground"
+    },
+    {
+      "a": "darkalien",
+      "b": "darkalien",
+      "child": "darkalien"
+    },
+    {
+      "a": "darkmechadragon",
+      "b": "darkmechadragon",
+      "child": "darkmechadragon"
+    },
+    {
+      "a": "lilyqueen",
+      "b": "darkscorpion",
+      "child": "lilyqueen_dark"
+    },
+    {
+      "a": "darkscorpion",
+      "b": "winggolem",
+      "child": "darkscorpion_ground"
+    },
+    {
+      "a": "darkscorpion_ground",
+      "b": "darkscorpion_ground",
+      "child": "darkscorpion_ground"
+    },
+    {
+      "a": "deer",
+      "b": "windchimes",
+      "child": "deer_ground"
+    },
+    {
+      "a": "deer_ground",
+      "b": "deer_ground",
+      "child": "deer_ground"
+    },
+    {
+      "a": "goldenhorse",
+      "b": "deer_ground",
+      "child": "whitedeer"
+    },
+    {
+      "a": "lazycatfish",
+      "b": "deer_ground",
+      "child": "lazycatfish_gold"
+    },
+    {
+      "a": "herculesbeetle",
+      "b": "drillgame",
+      "child": "herculesbeetle_ground"
+    },
+    {
+      "a": "tentacleturtle",
+      "b": "drillgame",
+      "child": "tentacleturtle_ground"
+    },
+    {
+      "a": "lazydragon",
+      "b": "eleccat",
+      "child": "lazydragon_electric"
+    },
+    {
+      "a": "penguin",
+      "b": "eleccat",
+      "child": "penguin_electric"
+    },
+    {
+      "a": "kingsunfish",
+      "b": "eleclizard",
+      "child": "kingsunfish_thunder"
+    },
+    {
+      "a": "grasspanda",
+      "b": "elecpanda",
+      "child": "grasspanda_electric"
+    },
+    {
+      "a": "elecpanda",
+      "b": "elecpanda",
+      "child": "elecpanda"
+    },
+    {
+      "a": "elecsnail",
+      "b": "tentacleturtle_ground",
+      "child": "elecsnail_ground"
+    },
+    {
+      "a": "elecsnail_ground",
+      "b": "elecsnail_ground",
+      "child": "elecsnail_ground"
+    },
+    {
+      "a": "fairydragon",
+      "b": "serpent",
+      "child": "fairydragon_water"
+    },
+    {
+      "a": "fairydragon_water",
+      "b": "fairydragon_water",
+      "child": "fairydragon_water"
+    },
+    {
+      "a": "whitetiger",
+      "b": "featherostrich",
+      "child": "whitetiger_ground"
+    },
+    {
+      "a": "fengyundeeper_electric",
+      "b": "fengyundeeper_electric",
+      "child": "fengyundeeper_electric"
+    },
+    {
+      "a": "firekirin_dark",
+      "b": "firekirin_dark",
+      "child": "firekirin_dark"
+    },
+    {
+      "a": "sharkkid",
+      "b": "flamebambi",
+      "child": "sharkkid_fire"
+    },
+    {
+      "a": "weaseldragon",
+      "b": "flamebuffalo",
+      "child": "weaseldragon_fire"
+    },
+    {
+      "a": "flowerdinosaur",
+      "b": "thunderdog",
+      "child": "flowerdinosaur_electric"
+    },
+    {
+      "a": "flowerdinosaur_electric",
+      "b": "flowerdinosaur_electric",
+      "child": "flowerdinosaur_electric"
+    },
+    {
+      "a": "ghostrabbit",
+      "b": "flowerdoll",
+      "child": "ghostrabbit_grass"
+    },
+    {
+      "a": "flowerdoll",
+      "b": "ronin",
+      "child": "flowerdoll_fire"
+    },
+    {
+      "a": "flowerdoll_fire",
+      "b": "flowerdoll_fire",
+      "child": "flowerdoll_fire"
+    },
+    {
+      "a": "flowerprince",
+      "b": "flowerprince",
+      "child": "flowerprince"
+    },
+    {
+      "a": "flyingmanta",
+      "b": "kirin",
+      "child": "flyingmanta_thunder"
+    },
+    {
+      "a": "flyingmanta_thunder",
+      "b": "flyingmanta_thunder",
+      "child": "flyingmanta_thunder"
+    },
+    {
+      "a": "foxmage_dark",
+      "b": "foxmage_dark",
+      "child": "foxmage_dark"
+    },
+    {
+      "a": "ghostanglerfish_fire",
+      "b": "ghostanglerfish_fire",
+      "child": "ghostanglerfish_fire"
+    },
+    {
+      "a": "ghostdragon",
+      "b": "suzaku",
+      "child": "ghostdragon_fire"
+    },
+    {
+      "a": "ghostdragon_fire",
+      "b": "ghostdragon_fire",
+      "child": "ghostdragon_fire"
+    },
+    {
+      "a": "ghostrabbit_grass",
+      "b": "ghostrabbit_grass",
+      "child": "ghostrabbit_grass"
+    },
+    {
+      "a": "gorilla",
+      "b": "smallarmadillo",
+      "child": "gorilla_ground"
+    },
+    {
+      "a": "gorilla_ground",
+      "b": "gorilla_ground",
+      "child": "gorilla_ground"
+    },
+    {
+      "a": "grassgolem_dark",
+      "b": "grassgolem_dark",
+      "child": "grassgolem_dark"
+    },
+    {
+      "a": "grassmammoth",
+      "b": "yeti",
+      "child": "grassmammoth_ice"
+    },
+    {
+      "a": "grassmammoth_ice",
+      "b": "grassmammoth_ice",
+      "child": "grassmammoth_ice"
+    },
+    {
+      "a": "grassminotaur",
+      "b": "rockbeast_ice",
+      "child": "grassminotaur_ice"
+    },
+    {
+      "a": "grassminotaur_ice",
+      "b": "grassminotaur_ice",
+      "child": "grassminotaur_ice"
+    },
+    {
+      "a": "grasspanda_electric",
+      "b": "grasspanda_electric",
+      "child": "grasspanda_electric"
+    },
+    {
+      "a": "icehorse",
+      "b": "hadesbird",
+      "child": "icehorse_dark"
+    },
+    {
+      "a": "hadesbird",
+      "b": "thunderbird",
+      "child": "hadesbird_electric"
+    },
+    {
+      "a": "hadesbird_electric",
+      "b": "hadesbird_electric",
+      "child": "hadesbird_electric"
+    },
+    {
+      "a": "scorpionman",
+      "b": "hadesbird_electric",
+      "child": "scorpionman_electric"
+    },
+    {
+      "a": "hedgehog",
+      "b": "penguin",
+      "child": "hedgehog_ice"
+    },
+    {
+      "a": "hedgehog_ice",
+      "b": "hedgehog_ice",
+      "child": "hedgehog_ice"
+    },
+    {
+      "a": "herculesbeetle_ground",
+      "b": "herculesbeetle_ground",
+      "child": "herculesbeetle_ground"
+    },
+    {
+      "a": "horus",
+      "b": "horus",
+      "child": "horus"
+    },
+    {
+      "a": "horus",
+      "b": "umihebi",
+      "child": "horus_water"
+    },
+    {
+      "a": "horus_water",
+      "b": "horus_water",
+      "child": "horus_water"
+    },
+    {
+      "a": "kingalpaca",
+      "b": "icedeer",
+      "child": "kingalpaca_ice"
+    },
+    {
+      "a": "volcanicmonster",
+      "b": "icefox",
+      "child": "volcanicmonster_ice"
+    },
+    {
+      "a": "kitsunebi",
+      "b": "icefox",
+      "child": "kitsunebi_ice"
+    },
+    {
+      "a": "thunderdog",
+      "b": "icefox",
+      "child": "thunderdog_ice"
+    },
+    {
+      "a": "icehorse",
+      "b": "icehorse",
+      "child": "icehorse"
+    },
+    {
+      "a": "icehorse_dark",
+      "b": "icehorse_dark",
+      "child": "icehorse_dark"
+    },
+    {
+      "a": "icenarwhal",
+      "b": "weaseldragon_fire",
+      "child": "icenarwhal_fire"
+    },
+    {
+      "a": "icenarwhal_fire",
+      "b": "icenarwhal_fire",
+      "child": "icenarwhal_fire"
+    },
+    {
+      "a": "iceseal",
+      "b": "serpent_ground",
+      "child": "iceseal_ground"
+    },
+    {
+      "a": "iceseal_ground",
+      "b": "iceseal_ground",
+      "child": "iceseal_ground"
+    },
+    {
+      "a": "jetdragon",
+      "b": "jetdragon",
+      "child": "jetdragon"
+    },
+    {
+      "a": "kendofrog",
+      "b": "ronin_dark",
+      "child": "kendofrog_dark"
+    },
+    {
+      "a": "kendofrog_dark",
+      "b": "kendofrog_dark",
+      "child": "kendofrog_dark"
+    },
+    {
+      "a": "kingalpaca_ice",
+      "b": "kingalpaca_ice",
+      "child": "kingalpaca_ice"
+    },
+    {
+      "a": "kingbahamut_dragon",
+      "b": "kingbahamut_dragon",
+      "child": "kingbahamut_dragon"
+    },
+    {
+      "a": "kingsunfish_thunder",
+      "b": "kingsunfish_thunder",
+      "child": "kingsunfish_thunder"
+    },
+    {
+      "a": "kirin",
+      "b": "snowpeafowl",
+      "child": "kirin_ice"
+    },
+    {
+      "a": "kirin_ice",
+      "b": "kirin_ice",
+      "child": "kirin_ice"
+    },
+    {
+      "a": "kitsunebi_ice",
+      "b": "kitsunebi_ice",
+      "child": "kitsunebi_ice"
+    },
+    {
+      "a": "lizardman",
+      "b": "lavagirl",
+      "child": "lizardman_fire"
+    },
+    {
+      "a": "monkey",
+      "b": "lavagirl",
+      "child": "monkey_fire"
+    },
+    {
+      "a": "serpent",
+      "b": "lazycatfish",
+      "child": "serpent_ground"
+    },
+    {
+      "a": "lazycatfish_gold",
+      "b": "lazycatfish_gold",
+      "child": "lazycatfish_gold"
+    },
+    {
+      "a": "lazydragon_electric",
+      "b": "lazydragon_electric",
+      "child": "lazydragon_electric"
+    },
+    {
+      "a": "skydragon",
+      "b": "leafprincess",
+      "child": "skydragon_grass"
+    },
+    {
+      "a": "legenddeer",
+      "b": "legenddeer",
+      "child": "legenddeer"
+    },
+    {
+      "a": "lilyqueen",
+      "b": "lilyqueen",
+      "child": "lilyqueen"
+    },
+    {
+      "a": "lilyqueen_dark",
+      "b": "lilyqueen_dark",
+      "child": "lilyqueen_dark"
+    },
+    {
+      "a": "pinkrabbit",
+      "b": "littlebriarrose",
+      "child": "pinkrabbit_grass"
+    },
+    {
+      "a": "lizardman_fire",
+      "b": "lizardman_fire",
+      "child": "lizardman_fire"
+    },
+    {
+      "a": "octopusgirl",
+      "b": "longcat",
+      "child": "octopusgirl_neutral"
+    },
+    {
+      "a": "umihebi",
+      "b": "manticore",
+      "child": "umihebi_fire"
+    },
+    {
+      "a": "manticore_dark",
+      "b": "manticore_dark",
+      "child": "manticore_dark"
+    },
+    {
+      "a": "mimicdog",
+      "b": "mimicdog",
+      "child": "mimicdog"
+    },
+    {
+      "a": "monkey_fire",
+      "b": "monkey_fire",
+      "child": "monkey_fire"
+    },
+    {
+      "a": "moonqueen",
+      "b": "moonqueen",
+      "child": "moonqueen"
+    },
+    {
+      "a": "windchimes",
+      "b": "mopbaby",
+      "child": "windchimes_ice"
+    },
+    {
+      "a": "werewolf",
+      "b": "mopking",
+      "child": "werewolf_ice"
+    },
+    {
+      "a": "mothman",
+      "b": "mothman",
+      "child": "mothman"
+    },
+    {
+      "a": "raijindaughter",
+      "b": "mysterymask",
+      "child": "raijindaughter_water"
+    },
+    {
+      "a": "negativeoctopus",
+      "b": "pinkrabbit",
+      "child": "negativeoctopus_neutral"
+    },
+    {
+      "a": "negativeoctopus_neutral",
+      "b": "negativeoctopus_neutral",
+      "child": "negativeoctopus_neutral"
+    },
+    {
+      "a": "nightbluehorse",
+      "b": "whitedeer",
+      "child": "nightbluehorse_neutral"
+    },
+    {
+      "a": "nightbluehorse_neutral",
+      "b": "nightbluehorse_neutral",
+      "child": "nightbluehorse_neutral"
+    },
+    {
+      "a": "nightlady",
+      "b": "nightlady",
+      "child": "nightlady"
+    },
+    {
+      "a": "nightlady",
+      "b": "nightlady_dark",
+      "child": "nightlady"
+    },
+    {
+      "a": "nightlady_dark",
+      "b": "nightlady_dark",
+      "child": "nightlady_dark"
+    },
+    {
+      "a": "octopusgirl_neutral",
+      "b": "octopusgirl_neutral",
+      "child": "octopusgirl_neutral"
+    },
+    {
+      "a": "penguin_electric",
+      "b": "penguin_electric",
+      "child": "penguin_electric"
+    },
+    {
+      "a": "pinkrabbit_grass",
+      "b": "pinkrabbit_grass",
+      "child": "pinkrabbit_grass"
+    },
+    {
+      "a": "poseidonorca",
+      "b": "poseidonorca",
+      "child": "poseidonorca"
+    },
+    {
+      "a": "raijindaughter_water",
+      "b": "raijindaughter_water",
+      "child": "raijindaughter_water"
+    },
+    {
+      "a": "winggolem",
+      "b": "redarmorbird",
+      "child": "winggolem_fire"
+    },
+    {
+      "a": "robinhood_ground",
+      "b": "robinhood_ground",
+      "child": "robinhood_ground"
+    },
+    {
+      "a": "rockbeast",
+      "b": "yeti",
+      "child": "rockbeast_ice"
+    },
+    {
+      "a": "rockbeast_ice",
+      "b": "rockbeast_ice",
+      "child": "rockbeast_ice"
+    },
+    {
+      "a": "ronin_dark",
+      "b": "ronin_dark",
+      "child": "ronin_dark"
+    },
+    {
+      "a": "saintcentaur",
+      "b": "saintcentaur",
+      "child": "saintcentaur"
+    },
+    {
+      "a": "sakurasaurus_water",
+      "b": "sakurasaurus_water",
+      "child": "sakurasaurus_water"
+    },
+    {
+      "a": "scorpionman_electric",
+      "b": "scorpionman_electric",
+      "child": "scorpionman_electric"
+    },
+    {
+      "a": "serpent_ground",
+      "b": "serpent_ground",
+      "child": "serpent_ground"
+    },
+    {
+      "a": "sharkkid_fire",
+      "b": "sharkkid_fire",
+      "child": "sharkkid_fire"
+    },
+    {
+      "a": "stuffedshark",
+      "b": "sharkkid_fire",
+      "child": "stuffedshark_fire"
+    },
+    {
+      "a": "swordcutlassfish",
+      "b": "sharkkid_fire",
+      "child": "swordcutlassfish_fire"
+    },
+    {
+      "a": "skydragon_grass",
+      "b": "skydragon_grass",
+      "child": "skydragon_grass"
+    },
+    {
+      "a": "whitemoth",
+      "b": "sleeverabbit",
+      "child": "whitemoth_neutral"
+    },
+    {
+      "a": "sweetssheep",
+      "b": "smallarmadillo",
+      "child": "sweetssheep_ground"
+    },
+    {
+      "a": "thunderbird",
+      "b": "snowpeafowl",
+      "child": "thunderbird_ice"
+    },
+    {
+      "a": "snowtigerbeastman",
+      "b": "snowtigerbeastman",
+      "child": "snowtigerbeastman"
+    },
+    {
+      "a": "stuffedshark_fire",
+      "b": "stuffedshark_fire",
+      "child": "stuffedshark_fire"
+    },
+    {
+      "a": "suzaku",
+      "b": "umihebi",
+      "child": "suzaku_water"
+    },
+    {
+      "a": "suzaku_water",
+      "b": "suzaku_water",
+      "child": "suzaku_water"
+    },
+    {
+      "a": "sweetssheep_ground",
+      "b": "sweetssheep_ground",
+      "child": "sweetssheep_ground"
+    },
+    {
+      "a": "swordcutlassfish_fire",
+      "b": "swordcutlassfish_fire",
+      "child": "swordcutlassfish_fire"
+    },
+    {
+      "a": "tentacleturtle_ground",
+      "b": "tentacleturtle_ground",
+      "child": "tentacleturtle_ground"
+    },
+    {
+      "a": "thunderbird_ice",
+      "b": "thunderbird_ice",
+      "child": "thunderbird_ice"
+    },
+    {
+      "a": "thunderdog_ice",
+      "b": "thunderdog_ice",
+      "child": "thunderdog_ice"
+    },
+    {
+      "a": "thunderdragonman",
+      "b": "thunderdragonman",
+      "child": "thunderdragonman"
+    },
+    {
+      "a": "umihebi_fire",
+      "b": "umihebi_fire",
+      "child": "umihebi_fire"
+    },
+    {
+      "a": "volcanicmonster_ice",
+      "b": "volcanicmonster_ice",
+      "child": "volcanicmonster_ice"
+    },
+    {
+      "a": "volcanodragon",
+      "b": "volcanicmonster_ice",
+      "child": "volcanodragon_ice"
+    },
+    {
+      "a": "volcanodragon_ice",
+      "b": "volcanodragon_ice",
+      "child": "volcanodragon_ice"
+    },
+    {
+      "a": "weaseldragon_fire",
+      "b": "weaseldragon_fire",
+      "child": "weaseldragon_fire"
+    },
+    {
+      "a": "werewolf_ice",
+      "b": "werewolf_ice",
+      "child": "werewolf_ice"
+    },
+    {
+      "a": "whitealiendragon",
+      "b": "whitealiendragon",
+      "child": "whitealiendragon"
+    },
+    {
+      "a": "whitedeer",
+      "b": "whitedeer",
+      "child": "whitedeer"
+    },
+    {
+      "a": "whitedeer_dark",
+      "b": "whitedeer_dark",
+      "child": "whitedeer_dark"
+    },
+    {
+      "a": "whitemoth_neutral",
+      "b": "whitemoth_neutral",
+      "child": "whitemoth_neutral"
+    },
+    {
+      "a": "whitetiger_ground",
+      "b": "whitetiger_ground",
+      "child": "whitetiger_ground"
+    },
+    {
+      "a": "windchimes_ice",
+      "b": "windchimes_ice",
+      "child": "windchimes_ice"
+    },
+    {
+      "a": "winggolem_fire",
+      "b": "winggolem_fire",
+      "child": "winggolem_fire"
+    },
+    {
+      "a": "yakushimamonster001",
+      "b": "yakushimaboss001",
+      "child": "yakushimaboss001"
+    },
+    {
+      "a": "yakushimamonster001_blue",
+      "b": "yakushimaboss001",
+      "child": "yakushimaboss001"
+    },
+    {
+      "a": "yakushimamonster001_red",
+      "b": "yakushimaboss001",
+      "child": "yakushimaboss001"
+    },
+    {
+      "a": "yakushimamonster001_purple",
+      "b": "yakushimaboss001",
+      "child": "yakushimaboss001"
+    },
+    {
+      "a": "yakushimamonster001_pink",
+      "b": "yakushimaboss001",
+      "child": "yakushimaboss001"
+    },
+    {
+      "a": "yakushimamonster001_rainbow",
+      "b": "yakushimaboss001",
+      "child": "yakushimaboss001"
+    },
+    {
+      "a": "yakushimamonster002",
+      "b": "yakushimaboss001",
+      "child": "yakushimaboss001"
+    },
+    {
+      "a": "yakushimamonster003",
+      "b": "yakushimaboss001",
+      "child": "yakushimaboss001"
+    },
+    {
+      "a": "yakushimamonster003_purple",
+      "b": "yakushimaboss001",
+      "child": "yakushimaboss001"
+    },
+    {
+      "a": "yakushimaboss001",
+      "b": "yakushimaboss001",
+      "child": "yakushimaboss001"
+    },
+    {
+      "a": "yakushimaboss001",
+      "b": "yakushimaboss001_small",
+      "child": "yakushimaboss001"
+    },
+    {
+      "a": "yakushimamonster001",
+      "b": "yakushimaboss001_small",
+      "child": "yakushimaboss001_small"
+    },
+    {
+      "a": "yakushimamonster001_blue",
+      "b": "yakushimaboss001_small",
+      "child": "yakushimaboss001_small"
+    },
+    {
+      "a": "yakushimamonster001_red",
+      "b": "yakushimaboss001_small",
+      "child": "yakushimaboss001_small"
+    },
+    {
+      "a": "yakushimamonster001_purple",
+      "b": "yakushimaboss001_small",
+      "child": "yakushimaboss001_small"
+    },
+    {
+      "a": "yakushimamonster001_pink",
+      "b": "yakushimaboss001_small",
+      "child": "yakushimaboss001_small"
+    },
+    {
+      "a": "yakushimamonster001_rainbow",
+      "b": "yakushimaboss001_small",
+      "child": "yakushimaboss001_small"
+    },
+    {
+      "a": "yakushimamonster002",
+      "b": "yakushimaboss001_small",
+      "child": "yakushimaboss001_small"
+    },
+    {
+      "a": "yakushimamonster003",
+      "b": "yakushimaboss001_small",
+      "child": "yakushimaboss001_small"
+    },
+    {
+      "a": "yakushimamonster003_purple",
+      "b": "yakushimaboss001_small",
+      "child": "yakushimaboss001_small"
+    },
+    {
+      "a": "yakushimaboss001_small",
+      "b": "yakushimaboss001_small",
+      "child": "yakushimaboss001_small"
+    },
+    {
+      "a": "yakushimamonster001",
+      "b": "yakushimamonster001",
+      "child": "yakushimamonster001"
+    },
+    {
+      "a": "yakushimamonster001",
+      "b": "yakushimamonster001_blue",
+      "child": "yakushimamonster001_blue"
+    },
+    {
+      "a": "yakushimamonster001",
+      "b": "yakushimamonster001_red",
+      "child": "yakushimamonster001_red"
+    },
+    {
+      "a": "yakushimamonster001",
+      "b": "yakushimamonster001_purple",
+      "child": "yakushimamonster001_purple"
+    },
+    {
+      "a": "yakushimamonster001",
+      "b": "yakushimamonster001_pink",
+      "child": "yakushimamonster001_pink"
+    },
+    {
+      "a": "yakushimamonster001",
+      "b": "yakushimamonster001_rainbow",
+      "child": "yakushimamonster001_rainbow"
+    },
+    {
+      "a": "yakushimamonster001",
+      "b": "yakushimamonster002",
+      "child": "yakushimamonster002"
+    },
+    {
+      "a": "yakushimamonster001",
+      "b": "yakushimamonster003",
+      "child": "yakushimamonster001_rainbow"
+    },
+    {
+      "a": "yakushimamonster001",
+      "b": "yakushimamonster003_purple",
+      "child": "yakushimamonster001_rainbow"
+    },
+    {
+      "a": "yakushimamonster001_blue",
+      "b": "yakushimamonster001_blue",
+      "child": "yakushimamonster001_blue"
+    },
+    {
+      "a": "yakushimamonster001_blue",
+      "b": "yakushimamonster001_red",
+      "child": "yakushimamonster001_purple"
+    },
+    {
+      "a": "yakushimamonster001_blue",
+      "b": "yakushimamonster001_purple",
+      "child": "yakushimamonster001_purple"
+    },
+    {
+      "a": "yakushimamonster001_blue",
+      "b": "yakushimamonster001_pink",
+      "child": "yakushimamonster001_pink"
+    },
+    {
+      "a": "yakushimamonster001_blue",
+      "b": "yakushimamonster001_rainbow",
+      "child": "yakushimamonster001_rainbow"
+    },
+    {
+      "a": "yakushimamonster001_blue",
+      "b": "yakushimamonster002",
+      "child": "yakushimamonster002"
+    },
+    {
+      "a": "yakushimamonster001_blue",
+      "b": "yakushimamonster003",
+      "child": "yakushimamonster001_rainbow"
+    },
+    {
+      "a": "yakushimamonster001_blue",
+      "b": "yakushimamonster003_purple",
+      "child": "yakushimamonster001_rainbow"
+    },
+    {
+      "a": "yakushimamonster001_red",
+      "b": "yakushimamonster001_pink",
+      "child": "yakushimamonster001_pink"
+    },
+    {
+      "a": "yakushimamonster001_purple",
+      "b": "yakushimamonster001_pink",
+      "child": "yakushimamonster001_pink"
+    },
+    {
+      "a": "yakushimamonster001_pink",
+      "b": "yakushimamonster001_pink",
+      "child": "yakushimamonster001_pink"
+    },
+    {
+      "a": "yakushimamonster001_pink",
+      "b": "yakushimamonster001_rainbow",
+      "child": "yakushimamonster001_rainbow"
+    },
+    {
+      "a": "yakushimamonster001_pink",
+      "b": "yakushimamonster002",
+      "child": "yakushimamonster002"
+    },
+    {
+      "a": "yakushimamonster001_pink",
+      "b": "yakushimamonster003",
+      "child": "yakushimamonster001_rainbow"
+    },
+    {
+      "a": "yakushimamonster001_pink",
+      "b": "yakushimamonster003_purple",
+      "child": "yakushimamonster001_rainbow"
+    },
+    {
+      "a": "yakushimamonster001_red",
+      "b": "yakushimamonster001_purple",
+      "child": "yakushimamonster001_purple"
+    },
+    {
+      "a": "yakushimamonster001_purple",
+      "b": "yakushimamonster001_purple",
+      "child": "yakushimamonster001_purple"
+    },
+    {
+      "a": "yakushimamonster001_purple",
+      "b": "yakushimamonster001_rainbow",
+      "child": "yakushimamonster001_rainbow"
+    },
+    {
+      "a": "yakushimamonster001_purple",
+      "b": "yakushimamonster002",
+      "child": "yakushimamonster002"
+    },
+    {
+      "a": "yakushimamonster001_purple",
+      "b": "yakushimamonster003",
+      "child": "yakushimamonster003_purple"
+    },
+    {
+      "a": "yakushimamonster001_purple",
+      "b": "yakushimamonster003_purple",
+      "child": "yakushimamonster003_purple"
+    },
+    {
+      "a": "yakushimamonster001_red",
+      "b": "yakushimamonster001_rainbow",
+      "child": "yakushimamonster001_rainbow"
+    },
+    {
+      "a": "yakushimamonster001_red",
+      "b": "yakushimamonster003",
+      "child": "yakushimamonster001_rainbow"
+    },
+    {
+      "a": "yakushimamonster001_red",
+      "b": "yakushimamonster003_purple",
+      "child": "yakushimamonster001_rainbow"
+    },
+    {
+      "a": "yakushimamonster001_rainbow",
+      "b": "yakushimamonster001_rainbow",
+      "child": "yakushimamonster001_rainbow"
+    },
+    {
+      "a": "yakushimamonster001_rainbow",
+      "b": "yakushimamonster002",
+      "child": "yakushimamonster001_rainbow"
+    },
+    {
+      "a": "yakushimamonster001_rainbow",
+      "b": "yakushimamonster003",
+      "child": "yakushimamonster001_rainbow"
+    },
+    {
+      "a": "yakushimamonster001_rainbow",
+      "b": "yakushimamonster003_purple",
+      "child": "yakushimamonster001_rainbow"
+    },
+    {
+      "a": "yakushimamonster001_red",
+      "b": "yakushimamonster001_red",
+      "child": "yakushimamonster001_red"
+    },
+    {
+      "a": "yakushimamonster001_red",
+      "b": "yakushimamonster002",
+      "child": "yakushimamonster002"
+    },
+    {
+      "a": "yakushimamonster002",
+      "b": "yakushimamonster002",
+      "child": "yakushimamonster002"
+    },
+    {
+      "a": "yakushimamonster002",
+      "b": "yakushimamonster003",
+      "child": "yakushimamonster002"
+    },
+    {
+      "a": "yakushimamonster002",
+      "b": "yakushimamonster003_purple",
+      "child": "yakushimamonster002"
+    },
+    {
+      "a": "yakushimamonster003",
+      "b": "yakushimamonster003",
+      "child": "yakushimamonster003"
+    },
+    {
+      "a": "yakushimamonster003",
+      "b": "yakushimamonster003_purple",
+      "child": "yakushimamonster003_purple"
+    },
+    {
+      "a": "yakushimamonster003_purple",
+      "b": "yakushimamonster003_purple",
+      "child": "yakushimamonster003_purple"
+    }
+  ]
+}

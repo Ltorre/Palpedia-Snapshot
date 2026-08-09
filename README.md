@@ -11,6 +11,8 @@ Add these files from that folder to NotebookLM:
 - `capture-history.csv` — per-player Paldeck capture counts
 - `palpedia-progress.md` — NotebookLM-ready current-collection and capture-history summary
 - `breeding-candidates.md` — current Pals grouped by passive trait for breeding planning
+- `breeding-rules.md` — exact child-species rule, so NotebookLM does not infer a median-based outcome
+- `breeding-direct-pairs.csv` — exact child species for every currently possible male/female species pair
 - `collection-diff.md` — changes since a previous export, generated with `--compare` (only when comparing)
 
 Do **not** add `world.json` to NotebookLM. It is a complete technical export for troubleshooting, not a NotebookLM source.
@@ -39,7 +41,7 @@ Each release includes a standalone, source-ready release note describing its exp
 
 ## Graphical interface
 
-The `v2.0.0-rc1` branch contains the preview of the graphical Windows app. Open the executable without arguments and it will:
+Open the Windows executable without arguments and it will:
 
 ![Palpedia Snapshot GUI preview](docs/gui-preview.svg)
 
@@ -56,7 +58,7 @@ The export parent directory may be on another drive, such as `I:\Palworld export
 
 ## NotebookLM template
 
-Duplicate the shared [Palworld Palpedia NotebookLM template](https://notebook.google.com/notebook/fec4f41d-1c32-4b8d-975c-a0fbe3f7eba1), then add the generated `pals.csv`, `palpedia-progress.md`, and `breeding-candidates.md` as your personal collection sources. The notebook can use them to identify gaps in your Palpedia, propose efficient next captures, and find breeding parents carrying useful passive traits.
+Duplicate the shared [Palworld Palpedia NotebookLM template](https://notebook.google.com/notebook/fec4f41d-1c32-4b8d-975c-a0fbe3f7eba1), then add every generated file except `world.json` as your personal collection sources. In particular, add `breeding-rules.md` and `breeding-direct-pairs.csv`: they give NotebookLM the exact breeding result for your currently possible male/female pairs instead of asking it to infer the game’s rule.
 
 `passive_traits` contains the game’s exact passive-skill IDs. This keeps the export reliable across game updates; NotebookLM can interpret their effects from its passive-skills reference source.
 

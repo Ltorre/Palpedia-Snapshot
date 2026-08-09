@@ -13,6 +13,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Ltorre/palpedia-snapshot/internal/breeding"
 	"github.com/Ltorre/palpedia-snapshot/internal/sav"
 )
 
@@ -120,6 +121,16 @@ func Write(outputDir string, world *sav.World, playerUID, compareDir string, for
 		return err
 	}
 	if err := writeBytes(filepath.Join(outputDir, "breeding-candidates.md"), breedingCandidates(collectionRows), force); err != nil {
+		return err
+	}
+	rules, err := breeding.Default()
+	if err != nil {
+		return err
+	}
+	if err := writeBytes(filepath.Join(outputDir, "breeding-rules.md"), breedingRulesMarkdown(), force); err != nil {
+		return err
+	}
+	if err := writeBytes(filepath.Join(outputDir, "breeding-direct-pairs.csv"), breedingDirectPairsCSV(collectionRows, rules), force); err != nil {
 		return err
 	}
 	if compareDir != "" {
@@ -310,6 +321,80 @@ func breedingCandidates(collection []palRow) []byte {
 		out.WriteByte('\n')
 	}
 	return []byte(out.String())
+}
+
+func breedingRulesMarkdown() []byte {
+	return []byte(`# Exact breeding outcome rules
+
+Use ` + "`breeding-direct-pairs.csv`" + ` for the calculated result of every currently possible male/female species pair in this collection. Do not calculate an offspring by taking a median of Pal names, levels, ranks, or passive traits.
+
+- A special parent combination takes precedence. Two special combinations also depend on parent gender.
+- Otherwise the target breeding rank is ` + "`floor((parent A rank + parent B rank + 1) / 2)`" + `. The child is the non-special Pal whose rank is closest to that target. If two candidates are equally close, the game rule prefers the higher tie-break priority.
+- The same Pal species breeds into itself unless an earlier special-combination rule applies.
+- Passive traits do not change the child species. Use ` + "`pals.csv`" + ` and ` + "`breeding-candidates.md`" + ` to choose individual parents whose traits are worth preserving.
+
+The bundled rule snapshot was derived on 2026-08-09 from the public [Palworld.gg breeding calculator](https://palworld.gg/breeding-calculator). It contains factual Character IDs and breeding-rule fields only; the application never contacts that site. Game updates can change breeding data, so use the Palpedia Snapshot release matching your current game version when available.
+`)
+}
+
+func breedingDirectPairsCSV(collection []palRow, rules *breeding.Rules) []byte {
+	males := uniqueBreedableSpecies(collection, "male")
+	females := uniqueBreedableSpecies(collection, "female")
+	var out bytes.Buffer
+	w := csv.NewWriter(&out)
+	_ = w.Write([]string{"male_parent_character_id", "male_count", "female_parent_character_id", "female_count", "child_character_id", "outcome_rule", "male_breeding_rank", "female_breeding_rank", "target_breeding_rank"})
+	for _, male := range sortedBreedableSpecies(males) {
+		for _, female := range sortedBreedableSpecies(females) {
+			outcome, ok := rules.Resolve(male.character, "male", female.character, "female")
+			if !ok {
+				continue
+			}
+			_ = w.Write([]string{
+				male.character,
+				strconv.Itoa(male.count),
+				female.character,
+				strconv.Itoa(female.count),
+				outcome.Child,
+				outcome.Rule,
+				strconv.Itoa(outcome.ParentARank),
+				strconv.Itoa(outcome.ParentBRank),
+				strconv.Itoa(outcome.TargetRank),
+			})
+		}
+	}
+	w.Flush()
+	return out.Bytes()
+}
+
+type breedableSpecies struct {
+	character string
+	count     int
+}
+
+func uniqueBreedableSpecies(collection []palRow, gender string) map[string]breedableSpecies {
+	result := make(map[string]breedableSpecies)
+	for _, row := range collection {
+		if !strings.EqualFold(row.Gender, gender) || row.Character == "" {
+			continue
+		}
+		key := strings.ToLower(row.Character)
+		entry := result[key]
+		if entry.character == "" {
+			entry.character = row.Character
+		}
+		entry.count++
+		result[key] = entry
+	}
+	return result
+}
+
+func sortedBreedableSpecies(species map[string]breedableSpecies) []breedableSpecies {
+	result := make([]breedableSpecies, 0, len(species))
+	for _, item := range species {
+		result = append(result, item)
+	}
+	sort.Slice(result, func(i, j int) bool { return result[i].character < result[j].character })
+	return result
 }
 
 func sortedKeys(counts map[string]int) []string {
