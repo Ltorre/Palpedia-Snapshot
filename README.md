@@ -102,6 +102,8 @@ Point `--compare` at an earlier export directory. The new export will include `c
 
 Modern saves use Oodle compression. The Windows app automatically searches your Steam installation and configured Steam libraries for the game's `oo2core_9_win64.dll`. If it cannot find it, use the optional Oodle DLL field or `--oodle-lib` to select the DLL from your own Palworld installation. The DLL is not included, downloaded, copied, or changed by this project.
 
+When automatic lookup fails in the graphical app, it opens the advanced options and explains the next action. Click **Choose Oodle DLL**, then select `oo2core_9_win64.dll` from `steamapps\common\Palworld\Pal\Binaries\Win64` in the Palworld installation folder.
+
 ## Safety and scope
 
 - Reads `Level.sav`, optional `LevelMeta.sav`, and player `.sav` files only.
