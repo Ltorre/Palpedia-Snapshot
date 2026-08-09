@@ -84,6 +84,9 @@ func Write(outputDir string, world *sav.World, playerUID string, force bool) err
 	if err := writeBytes(filepath.Join(outputDir, "capture-history.csv"), capturesCSV(world, playerUID), force); err != nil {
 		return err
 	}
+	if err := writeBytes(filepath.Join(outputDir, "palpedia-progress.md"), palpediaProgress(world, collectionRows, playerUID), force); err != nil {
+		return err
+	}
 	return writeBytes(filepath.Join(outputDir, "collection.md"), markdown(world, rows, playerUID), force)
 }
 
@@ -164,6 +167,79 @@ func capturesCSV(world *sav.World, playerUID string) []byte {
 	}
 	w.Flush()
 	return out.Bytes()
+}
+
+func palpediaProgress(world *sav.World, collection []palRow, playerUID string) []byte {
+	byPlayer := make(map[string][]palRow)
+	for _, row := range collection {
+		byPlayer[row.PlayerUID] = append(byPlayer[row.PlayerUID], row)
+	}
+	var out strings.Builder
+	out.WriteString("# Palpedia progress\n\n")
+	out.WriteString("This is a read-only snapshot of current owned Pals and the Paldeck capture records stored in the selected player's save. Add this file and `pals.csv` to the shared NotebookLM template to identify the best next captures.\n\n")
+	for _, player := range world.Players {
+		if playerUID != "" && !strings.EqualFold(player.UID, playerUID) {
+			continue
+		}
+		owned := make(map[string]int)
+		for _, row := range byPlayer[player.UID] {
+			owned[row.Character]++
+		}
+		captureCount := make(map[string]int64)
+		captures := int64(0)
+		for character, count := range player.PalCaptureCounts {
+			if count > 0 {
+				captureCount[character] = count
+				captures += count
+			}
+		}
+		name := player.Nickname
+		if name == "" {
+			name = "Unnamed player"
+		}
+		fmt.Fprintf(&out, "## %s\n\n- Player UID: `%s`\n- Current unique Pal species: %d\n- Paldeck capture-record species: %d\n- Captures recorded: %d\n", name, player.UID, len(owned), len(captureCount), captures)
+		if player.UniquePalsCaptured != nil {
+			fmt.Fprintf(&out, "- Game-reported captured species: %d\n", *player.UniquePalsCaptured)
+		}
+		if player.CaptureTotal != nil {
+			fmt.Fprintf(&out, "- Game-reported lifetime captures: %d\n", *player.CaptureTotal)
+		}
+
+		characters := sortedKeys(owned)
+		out.WriteString("\n### Currently owned species\n\n| Character ID | Current Pals | Captures recorded |\n| --- | ---: | ---: |\n")
+		for _, character := range characters {
+			fmt.Fprintf(&out, "| %s | %d | %d |\n", character, owned[character], captureCount[character])
+		}
+		if len(characters) == 0 {
+			out.WriteString("| _No party or Palbox Pals found_ | 0 | 0 |\n")
+		}
+
+		noLongerOwned := make([]string, 0)
+		for character := range captureCount {
+			if owned[character] == 0 {
+				noLongerOwned = append(noLongerOwned, character)
+			}
+		}
+		sort.Strings(noLongerOwned)
+		out.WriteString("\n### Captured but not currently in party or Palbox\n\n| Character ID | Captures recorded |\n| --- | ---: |\n")
+		for _, character := range noLongerOwned {
+			fmt.Fprintf(&out, "| %s | %d |\n", character, captureCount[character])
+		}
+		if len(noLongerOwned) == 0 {
+			out.WriteString("| _None_ | 0 |\n")
+		}
+		out.WriteByte('\n')
+	}
+	return []byte(out.String())
+}
+
+func sortedKeys(counts map[string]int) []string {
+	keys := make([]string, 0, len(counts))
+	for key := range counts {
+		keys = append(keys, key)
+	}
+	sort.Strings(keys)
+	return keys
 }
 
 func markdown(world *sav.World, rows []palRow, playerUID string) []byte {

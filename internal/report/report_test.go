@@ -35,7 +35,7 @@ func TestWriteCreatesAllExports(t *testing.T) {
 	if err := Write(dir, world, "", false); err != nil {
 		t.Fatal(err)
 	}
-	for _, name := range []string{"collection.md", "pals.csv", "capture-history.csv", "world.json"} {
+	for _, name := range []string{"collection.md", "pals.csv", "capture-history.csv", "palpedia-progress.md", "world.json"} {
 		if _, err := os.Stat(filepath.Join(dir, name)); err != nil {
 			t.Fatalf("%s: %v", name, err)
 		}
@@ -46,6 +46,13 @@ func TestWriteCreatesAllExports(t *testing.T) {
 	}
 	if strings.Contains(string(csvBytes), "WildPal") {
 		t.Fatal("pals.csv contains a Pal outside the current collection")
+	}
+	progress, err := os.ReadFile(filepath.Join(dir, "palpedia-progress.md"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(progress), "Lamball") || !strings.Contains(string(progress), "Current unique Pal species") {
+		t.Fatalf("unexpected progress report: %s", progress)
 	}
 }
 
