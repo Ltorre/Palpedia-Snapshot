@@ -272,6 +272,25 @@ func ShortestPath(rules *breeding.Rules, pals []Pal, target string) (Path, error
 	return path, nil
 }
 
+// ShortestPathAsIfUnowned finds a route after removing already-owned copies of
+// the target from the starting collection. It is useful when planning passive
+// inheritance into a species the player already owns.
+func ShortestPathAsIfUnowned(rules *breeding.Rules, pals []Pal, target string) (Path, error) {
+	targetKey, ok := rules.Key(target)
+	if !ok {
+		return Path{}, fmt.Errorf("unknown target Pal %q", target)
+	}
+	withoutTarget := make([]Pal, 0, len(pals))
+	for _, pal := range pals {
+		palKey, known := rules.Key(pal.CharacterID)
+		if known && palKey == targetKey {
+			continue
+		}
+		withoutTarget = append(withoutTarget, pal)
+	}
+	return ShortestPath(rules, withoutTarget, targetKey)
+}
+
 func stepKey(step *Step) string {
 	if step == nil {
 		return ""

@@ -76,6 +76,26 @@ func TestShortestPathReturnsOwnedAndBreedingTargets(t *testing.T) {
 	if err != nil || owned.Generations != 0 || len(owned.Steps) != 0 {
 		t.Fatalf("owned path = %#v, err = %v", owned, err)
 	}
+	var inheritanceParents []Pal
+	for _, male := range rules.Species() {
+		for _, female := range rules.Species() {
+			result, ok := rules.Resolve(male, "male", female, "female")
+			if ok && result.Child == "SheepBall" && male != "SheepBall" && female != "SheepBall" {
+				inheritanceParents = []Pal{{CharacterID: "SheepBall", Gender: "male"}, {CharacterID: male, Gender: "male"}, {CharacterID: female, Gender: "female"}}
+				break
+			}
+		}
+		if len(inheritanceParents) > 0 {
+			break
+		}
+	}
+	if len(inheritanceParents) == 0 {
+		t.Fatal("no non-SheepBall parents found for inheritance-route test")
+	}
+	asIfUnowned, err := ShortestPathAsIfUnowned(rules, inheritanceParents, "SheepBall")
+	if err != nil || asIfUnowned.Generations != 1 || len(asIfUnowned.Steps) != 1 {
+		t.Fatalf("as-if-unowned path = %#v, err = %v", asIfUnowned, err)
+	}
 	target, err := ResolvePair(rules, pals[0], pals[1])
 	if err != nil {
 		t.Fatal(err)

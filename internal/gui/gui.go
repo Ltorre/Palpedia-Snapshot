@@ -103,7 +103,7 @@ type screen struct {
 	selectedMale, selectedFemale                                                                           *planner.Pal
 	plannerLoadedAt                                                                                        time.Time
 	plannerSaveModified                                                                                    time.Time
-	plannerPairResult, plannerRoute                                                                        string
+	plannerPairResult, plannerRoute, plannerRouteNotice                                                    string
 }
 
 func Run(version string) {
@@ -225,7 +225,7 @@ func (s *screen) handle(gtx layout.Context) {
 				if result.err == nil {
 					s.plannerPals, s.plannerLoadedAt, s.plannerSaveModified = result.plannerPals, time.Now(), result.updatedAt
 					s.plannerPickers = make(map[string]*plannerPicker)
-					s.selectedMale, s.selectedFemale, s.plannerPairResult, s.plannerRoute = nil, nil, "", ""
+					s.selectedMale, s.selectedFemale, s.plannerPairResult, s.plannerRoute, s.plannerRouteNotice = nil, nil, "", "", ""
 				}
 			}
 		default:
@@ -322,12 +322,12 @@ handled:
 	for _, picker := range s.plannerPickers {
 		if picker.male.Clicked(gtx) {
 			pal := picker.pal
-			s.selectedMale, s.plannerPairResult, s.plannerRoute = &pal, "", ""
+			s.selectedMale, s.plannerPairResult, s.plannerRoute, s.plannerRouteNotice = &pal, "", "", ""
 			s.plannerMale.Value, s.plannerFemale.Value = false, true
 		}
 		if picker.female.Clicked(gtx) {
 			pal := picker.pal
-			s.selectedFemale, s.plannerPairResult, s.plannerRoute = &pal, "", ""
+			s.selectedFemale, s.plannerPairResult, s.plannerRoute, s.plannerRouteNotice = &pal, "", "", ""
 			s.plannerMale.Value, s.plannerFemale.Value = true, false
 		}
 	}
@@ -335,6 +335,7 @@ handled:
 		if button.Clicked(gtx) {
 			if rules, err := breeding.Default(); err == nil {
 				s.target.SetText(rules.DisplayName(characterID))
+				s.plannerRoute, s.plannerRouteNotice = "", ""
 			}
 		}
 	}
@@ -537,19 +538,25 @@ func (s *screen) calculateRoute() {
 		s.statusError, s.status = true, err.Error()
 		return
 	}
+	s.plannerRoute, s.plannerRouteNotice = "", ""
 	path, err := planner.ShortestPath(rules, s.plannerPals, target)
 	if err != nil {
 		s.statusError, s.status = true, err.Error()
 		return
 	}
+	if path.Generations == 0 {
+		s.plannerRouteNotice = fmt.Sprintf(s.t("planner_already_owned_inheritance"), rules.DisplayName(path.Target))
+		path, err = planner.ShortestPathAsIfUnowned(rules, s.plannerPals, path.Target)
+		if err != nil {
+			s.plannerRoute = s.t("planner_inheritance_no_route") + "\n" + s.t("planner_route_caveat")
+			s.statusError, s.status = false, s.t("planner_route_ready")
+			return
+		}
+	}
 	var out strings.Builder
 	fmt.Fprintf(&out, s.t("planner_route_title"), rules.DisplayName(path.Target), path.Generations)
-	if len(path.Steps) == 0 {
-		out.WriteString("\n" + s.t("planner_already_owned"))
-	} else {
-		for index, step := range path.Steps {
-			fmt.Fprintf(&out, "\n%d. %s + %s → %s (%s)", index+1, rules.DisplayName(step.ParentA), rules.DisplayName(step.ParentB), rules.DisplayName(step.Child), step.Rule)
-		}
+	for index, step := range path.Steps {
+		fmt.Fprintf(&out, "\n%d. %s + %s → %s (%s)", index+1, rules.DisplayName(step.ParentA), rules.DisplayName(step.ParentB), rules.DisplayName(step.Child), step.Rule)
 	}
 	if path.Generations > 2 {
 		out.WriteString("\n\n" + s.t("planner_speed_title"))
@@ -964,8 +971,23 @@ func (s *screen) quickestRouteSection(gtx layout.Context) layout.Dimensions {
 		}
 		children = append(children,
 			layout.Rigid(spacer(12)),
+			layout.Rigid(s.routeTargetPicker),
+		)
+		if s.plannerRoute != "" {
+			children = append(children, layout.Rigid(spacer(12)), layout.Rigid(s.routeResultCard))
+		}
+		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
+	})
+}
+
+func (s *screen) routeTargetPicker(gtx layout.Context) layout.Dimensions {
+	return s.outlinedCard(gtx, s.t("planner_target_picker"), func(gtx layout.Context) layout.Dimensions {
+		return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+			layout.Rigid(s.caption("planner_target_picker_help")),
+			layout.Rigid(spacer(8)),
 			layout.Rigid(s.editor(&s.target, s.t("planner_target"))),
 			layout.Rigid(s.plannerTargetSuggestions),
+			layout.Rigid(spacer(8)),
 			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 				button := material.Button(s.theme, &s.routeButton, s.t("planner_find_route"))
 				button.Background = color.NRGBA{R: 32, G: 125, B: 104, A: 255}
@@ -973,11 +995,50 @@ func (s *screen) quickestRouteSection(gtx layout.Context) layout.Dimensions {
 				return button.Layout(gtx)
 			}),
 		)
-		if s.plannerRoute != "" {
-			children = append(children, layout.Rigid(spacer(8)), layout.Rigid(s.note(s.plannerRoute, s.primaryText())))
+	})
+}
+
+func (s *screen) routeResultCard(gtx layout.Context) layout.Dimensions {
+	return s.outlinedCard(gtx, s.t("planner_route_result"), func(gtx layout.Context) layout.Dimensions {
+		children := make([]layout.FlexChild, 0, 3)
+		if s.plannerRouteNotice != "" {
+			children = append(children, layout.Rigid(s.note(s.plannerRouteNotice, s.routeNoticeColor())), layout.Rigid(spacer(8)))
 		}
+		children = append(children, layout.Rigid(s.routeBody(s.plannerRoute)))
 		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
 	})
+}
+
+func (s *screen) outlinedCard(gtx layout.Context, title string, content layout.Widget) layout.Dimensions {
+	return widget.Border{Color: s.border(), CornerRadius: unit.Dp(8), Width: unit.Dp(1)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+		return layout.Inset{Top: unit.Dp(12), Bottom: unit.Dp(12), Left: unit.Dp(14), Right: unit.Dp(14)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+			return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+					label := material.H6(s.theme, title)
+					label.Color = s.primaryText()
+					return label.Layout(gtx)
+				}),
+				layout.Rigid(spacer(8)),
+				layout.Rigid(content),
+			)
+		})
+	})
+}
+
+func (s *screen) routeBody(value string) layout.Widget {
+	return func(gtx layout.Context) layout.Dimensions {
+		label := material.Body1(s.theme, value)
+		label.Color = s.primaryText()
+		label.WrapPolicy = text.WrapWords
+		return label.Layout(gtx)
+	}
+}
+
+func (s *screen) routeNoticeColor() color.NRGBA {
+	if s.isDark() {
+		return color.NRGBA{R: 111, G: 226, B: 172, A: 255}
+	}
+	return color.NRGBA{R: 20, G: 132, B: 85, A: 255}
 }
 
 func (s *screen) plannerFreshness(gtx layout.Context) layout.Dimensions {
@@ -1024,7 +1085,9 @@ func suggestionChildren(s *screen, suggestions []breeding.Suggestion) []layout.F
 		children = append(children, layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 			style := material.Button(s.theme, button, label)
 			style.Background, style.Color = s.surface(), s.primaryText()
-			return layout.Inset{Bottom: unit.Dp(4)}.Layout(gtx, style.Layout)
+			return layout.Inset{Top: unit.Dp(4)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+				return widget.Border{Color: s.border(), CornerRadius: unit.Dp(5), Width: unit.Dp(1)}.Layout(gtx, style.Layout)
+			})
 		}))
 	}
 	return children
@@ -1356,12 +1419,17 @@ func init() {
 	translations[english]["planner_pair_ready"] = "Exact breeding outcome calculated."
 	translations[english]["planner_route_section"] = "Find the quickest target route"
 	translations[english]["planner_route_help"] = "Enter a Pal name such as Anubis or Mammorest. Game Character IDs such as SheepBall or PinkCat also work. The route uses the fewest sequential breeding generations from your current male/female collection."
+	translations[english]["planner_target_picker"] = "Choose the Pal you want to breed"
+	translations[english]["planner_target_picker_help"] = "Start typing to find a Pal by its Palpedia name. Select a matching suggestion to avoid spelling or internal-ID mistakes."
 	translations[english]["planner_target"] = "Target Pal name or Character ID"
 	translations[english]["planner_target_suggestions"] = "Matching Pals — choose one"
 	translations[english]["planner_find_route"] = "Find quickest breeding route"
 	translations[english]["planner_target_required"] = "Enter a target Pal Character ID."
+	translations[english]["planner_route_result"] = "Your breeding route"
 	translations[english]["planner_route_title"] = "Route to %s · %d breeding generation(s)"
 	translations[english]["planner_already_owned"] = "Already owned in the loaded collection; no breeding step is required."
+	translations[english]["planner_already_owned_inheritance"] = "You already own %s. The route below deliberately ignores those copies, so you can breed a new one for passive-trait inheritance."
+	translations[english]["planner_inheritance_no_route"] = "No route could be formed without using your existing target Pal. Keep the target you own, or add more male/female Pals to the collection and refresh."
 	translations[english]["planner_speed_title"] = "Speed up this long route"
 	translations[english]["planner_speed_none"] = "No Philanthropist or Babysitter Pal was found in the loaded party/Palbox collection."
 	translations[english]["planner_speed_philanthropist"] = "%s — assign to the Breeding Farm: Philanthropist increases that Pal's breeding speed by 100%."
@@ -1406,12 +1474,17 @@ func init() {
 	translations[french]["planner_pair_ready"] = "Résultat exact de l’élevage calculé."
 	translations[french]["planner_route_section"] = "Trouver le chemin le plus rapide"
 	translations[french]["planner_route_help"] = "Entrez un nom de Pal comme Anubis ou Mammorest. Les Character IDs du jeu, comme SheepBall ou PinkCat, fonctionnent aussi. Le chemin utilise le moins de générations d’élevage consécutives depuis votre collection mâle/femelle."
+	translations[french]["planner_target_picker"] = "Choisir le Pal à obtenir"
+	translations[french]["planner_target_picker_help"] = "Commencez à écrire pour rechercher un Pal par son nom du Palpédia. Sélectionnez une suggestion pour éviter les erreurs d’orthographe ou d’identifiant interne."
 	translations[french]["planner_target"] = "Nom ou Character ID du Pal cible"
 	translations[french]["planner_target_suggestions"] = "Pals correspondants — choisissez-en un"
 	translations[french]["planner_find_route"] = "Trouver le chemin le plus rapide"
 	translations[french]["planner_target_required"] = "Entrez un Character ID de Pal cible."
+	translations[french]["planner_route_result"] = "Votre chemin d’élevage"
 	translations[french]["planner_route_title"] = "Chemin vers %s · %d génération(s) d’élevage"
 	translations[french]["planner_already_owned"] = "Déjà possédé dans la collection chargée ; aucune étape d’élevage n’est nécessaire."
+	translations[french]["planner_already_owned_inheritance"] = "Vous possédez déjà %s. Le chemin ci-dessous ignore volontairement ces exemplaires afin d’en élever un nouveau pour l’héritage des traits passifs."
+	translations[french]["planner_inheritance_no_route"] = "Aucun chemin n’a pu être formé sans utiliser le Pal cible que vous possédez. Gardez cet exemplaire, ou ajoutez des Pals mâles/femelles à la collection puis actualisez-la."
 	translations[french]["planner_speed_title"] = "Accélérer ce long chemin"
 	translations[french]["planner_speed_none"] = "Aucun Pal Philanthropist ou Babysitter n’a été trouvé dans la collection chargée (équipe/Palbox)."
 	translations[french]["planner_speed_philanthropist"] = "%s — assignez-le à la Ferme d’élevage : Philanthropist augmente sa vitesse d’élevage de 100 %."
