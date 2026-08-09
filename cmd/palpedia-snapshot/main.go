@@ -9,9 +9,9 @@ import (
 	"sort"
 	"time"
 
-	"github.com/Ltorre/palworld-save-scrap/internal/gui"
-	"github.com/Ltorre/palworld-save-scrap/internal/report"
-	"github.com/Ltorre/palworld-save-scrap/internal/sav"
+	"github.com/Ltorre/palpedia-snapshot/internal/gui"
+	"github.com/Ltorre/palpedia-snapshot/internal/report"
+	"github.com/Ltorre/palpedia-snapshot/internal/sav"
 )
 
 var version = "dev"
@@ -44,7 +44,7 @@ func runCLI() {
 		levelPath = flag.Arg(0)
 	}
 	if levelPath == "" || (!listPlayers && outputDir == "") || (listPlayers && (playerUID != "" || compareDir != "")) {
-		fmt.Fprintln(os.Stderr, "usage: palworld-save-scrap --level <Level.sav> --output <parent-directory> [--player <UID>] [--compare <previous-export>] [--players-dir <Players>]\n       palworld-save-scrap --level <Level.sav> --list-players [--players-dir <Players>]")
+		fmt.Fprintln(os.Stderr, "usage: palpedia-snapshot --level <Level.sav> --output <parent-directory> [--player <UID>] [--compare <previous-export>] [--players-dir <Players>]\n       palpedia-snapshot --level <Level.sav> --list-players [--players-dir <Players>]")
 		os.Exit(2)
 	}
 	levelPath, err := filepath.Abs(levelPath)

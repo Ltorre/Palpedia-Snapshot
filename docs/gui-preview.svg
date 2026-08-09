@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-label="Palworld Save Scrap graphical interface preview">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-label="Palpedia Snapshot graphical interface preview">
   <rect width="1200" height="760" fill="#e9ecf4"/>
   <rect x="70" y="44" width="1060" height="670" rx="20" fill="#f8f9fd" stroke="#d4d8e5" stroke-width="2"/>
   <rect x="70" y="44" width="1060" height="42" rx="20" fill="#343246"/>
   <circle cx="98" cy="65" r="7" fill="#f07b78"/><circle cx="122" cy="65" r="7" fill="#f5c36a"/><circle cx="146" cy="65" r="7" fill="#7fcf9c"/>
-  <text x="106" y="142" fill="#3c308c" font-family="Segoe UI, Arial, sans-serif" font-size="31" font-weight="700">Palworld Save Scrap</text>
+  <text x="106" y="142" fill="#3c308c" font-family="Segoe UI, Arial, sans-serif" font-size="31" font-weight="700">Palpedia Snapshot</text>
   <text x="106" y="171" fill="#62697f" font-family="Segoe UI, Arial, sans-serif" font-size="16">Personal Palpedia export · v2.0.0-rc1</text>
   <rect x="990" y="112" width="50" height="34" rx="8" fill="#5d4ccd"/><text x="1004" y="135" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700">EN</text>
   <rect x="1048" y="112" width="50" height="34" rx="8" fill="#e0e2ec"/><text x="1063" y="135" fill="#3f4355" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700">FR</text>
@@ -14,7 +14,7 @@
   <rect x="244" y="321" width="158" height="39" rx="8" fill="#e8ebfa"/><text x="261" y="346" fill="#303652" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700">Browse Level.sav</text>
   <text x="106" y="400" fill="#2b3146" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">2. Export for NotebookLM</text>
   <text x="106" y="426" fill="#667087" font-family="Segoe UI, Arial, sans-serif" font-size="14">Choose where the personal export is written. Your save folder is never changed.</text>
-  <rect x="106" y="442" width="760" height="43" rx="8" fill="white" stroke="#cbd1df"/><text x="121" y="469" fill="#4c5367" font-family="Consolas, monospace" font-size="14">C:UsersPlayerDocumentsPalworld Save Scrap Exports</text>
+  <rect x="106" y="442" width="760" height="43" rx="8" fill="white" stroke="#cbd1df"/><text x="121" y="469" fill="#4c5367" font-family="Consolas, monospace" font-size="14">C:UsersPlayerDocumentsPalpedia Snapshot Exports</text>
   <rect x="880" y="442" width="218" height="43" rx="8" fill="#5d4ccd"/><text x="927" y="469" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700">Choose folder</text>
   <rect x="106" y="503" width="24" height="24" rx="5" fill="white" stroke="#8590a8" stroke-width="2"/><text x="142" y="521" fill="#31384d" font-family="Segoe UI, Arial, sans-serif" font-size="15">Show optional advanced options</text>
   <rect x="106" y="560" width="246" height="46" rx="8" fill="#207d68"/><text x="138" y="589" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700">Create NotebookLM export</text>

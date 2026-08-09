@@ -75,5 +75,5 @@ func DefaultExportDir() string {
 	if err != nil {
 		return ""
 	}
-	return filepath.Join(home, "Documents", "Palworld Save Scrap Exports")
+	return filepath.Join(home, "Documents", "Palpedia Snapshot Exports")
 }

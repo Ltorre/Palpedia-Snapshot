@@ -23,7 +23,7 @@ func oodleDecompress(src []byte, rawLen int) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	workDir, err := os.MkdirTemp("", "palworld-save-scrap-oodle-")
+	workDir, err := os.MkdirTemp("", "palpedia-snapshot-oodle-")
 	if err != nil {
 		return nil, fmt.Errorf("sav: create Oodle work directory: %w", err)
 	}
@@ -53,7 +53,7 @@ func oozHelperPath() (string, error) {
 		return "", fmt.Errorf("sav: find Oodle cache directory: %w", err)
 	}
 	digest := sha256.Sum256(oozWindowsBinary)
-	path := filepath.Join(cacheDir, "Palworld Save Scrap", fmt.Sprintf("ooz-%x.exe", digest[:8]))
+	path := filepath.Join(cacheDir, "Palpedia Snapshot", fmt.Sprintf("ooz-%x.exe", digest[:8]))
 	if data, err := os.ReadFile(path); err == nil && sha256.Sum256(data) == digest {
 		return path, nil
 	}

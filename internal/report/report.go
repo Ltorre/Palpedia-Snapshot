@@ -13,7 +13,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Ltorre/palworld-save-scrap/internal/sav"
+	"github.com/Ltorre/palpedia-snapshot/internal/sav"
 )
 
 type palRow struct {
@@ -526,7 +526,7 @@ func writeBytes(path string, data []byte, force bool) error {
 	} else if err != nil && !os.IsNotExist(err) {
 		return err
 	}
-	tmp, err := os.CreateTemp(filepath.Dir(path), ".palworld-save-scrap-*")
+	tmp, err := os.CreateTemp(filepath.Dir(path), ".palpedia-snapshot-*")
 	if err != nil {
 		return err
 	}

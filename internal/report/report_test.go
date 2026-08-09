@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Ltorre/palworld-save-scrap/internal/sav"
+	"github.com/Ltorre/palpedia-snapshot/internal/sav"
 )
 
 func TestPalsClassifiesPlayerContainers(t *testing.T) {

@@ -1,4 +1,4 @@
-module github.com/Ltorre/palworld-save-scrap
+module github.com/Ltorre/palpedia-snapshot
 
 go 1.26.0
 

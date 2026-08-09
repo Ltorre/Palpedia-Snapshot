@@ -1,4 +1,4 @@
-# Palworld Save Scrap
+# Palpedia Snapshot
 
 Read-only Windows app for exporting a Palworld `Level.sav` and its player saves. Run the executable normally to open the graphical interface; the command-line mode remains available when arguments are supplied.
 
@@ -22,17 +22,17 @@ The application never modifies save files. It refuses to place its output inside
 Clone the repository with its decoder source, then run the build helper before the Go build:
 
 ```powershell
-git clone --recurse-submodules https://github.com/Ltorre/palworld-save-scrap.git
-cd palworld-save-scrap
+git clone --recurse-submodules https://github.com/Ltorre/palpedia-snapshot.git
+cd palpedia-snapshot
 # Run from Git Bash, WSL, or the GitHub Actions Linux runner.
 ./scripts/build-ooz-windows.sh
-go build -o palworld-save-scrap.exe .\cmd\palworld-save-scrap
+go build -o palpedia-snapshot.exe .\cmd\palpedia-snapshot
 ```
 
 Official Windows binaries are attached to each GitHub release. Check a binary with:
 
 ```powershell
-.\palworld-save-scrap-windows-amd64.exe --version
+.\palpedia-snapshot-windows-amd64.exe --version
 ```
 
 Each release includes a standalone, source-ready release note describing its export format, use, and safety limits.
@@ -41,11 +41,11 @@ Each release includes a standalone, source-ready release note describing its exp
 
 The `v2.0.0-rc1` branch contains the preview of the graphical Windows app. Open the executable without arguments and it will:
 
-![Palworld Save Scrap GUI preview](docs/gui-preview.svg)
+![Palpedia Snapshot GUI preview](docs/gui-preview.svg)
 
 - start at the standard save location, `C:\Users\<WindowsUser>\AppData\Local\Pal\Saved\SaveGames`;
 - find `Level.sav` files there, or let you browse for one manually;
-- export to a new timestamped folder inside `Documents\Palworld Save Scrap Exports` by default, safely outside your game saves, or let you choose a parent destination with the folder picker;
+- export to a new timestamped folder inside `Documents\Palpedia Snapshot Exports` by default, safely outside your game saves, or let you choose a parent destination with the folder picker;
 - offer **Open export folder in Explorer** after a successful export, ready for drag-and-drop into NotebookLM;
 - switch between English and French; and
 - keep shared-world and comparison controls under clearly labelled optional advanced options.
@@ -71,7 +71,7 @@ C:\Users\<WindowsUser>\AppData\Local\Pal\Saved\SaveGames\<SteamID>\<WorldID>\Lev
 `<WorldID>` is the world folder containing both `Level.sav` and the matching `Players` directory. The graphical interface searches this location automatically; in command-line mode, pass the exact `Level.sav` you want to inspect.
 
 ```powershell
-.\palworld-save-scrap.exe `
+.\palpedia-snapshot.exe `
   --level "D:\path\to\Level.sav" `
   --output "D:\path\to\export"
 ```
@@ -83,9 +83,9 @@ C:\Users\<WindowsUser>\AppData\Local\Pal\Saved\SaveGames\<SteamID>\<WorldID>\Lev
 List the player IDs in the save, then use the chosen UID with `--player`:
 
 ```powershell
-.\palworld-save-scrap.exe --level "D:\path\to\Level.sav" --list-players
+.\palpedia-snapshot.exe --level "D:\path\to\Level.sav" --list-players
 
-.\palworld-save-scrap.exe `
+.\palpedia-snapshot.exe `
   --level "D:\path\to\Level.sav" `
   --output "D:\path\to\personal-export" `
   --player "player-uid-from-list"
@@ -98,7 +98,7 @@ With `--player`, `pals.csv`, `capture-history.csv`, and `collection.md` contain 
 Point `--compare` at an earlier export directory. The new export will include `collection-diff.md`, showing additions and removals from party/Palbox plus Paldeck capture gains.
 
 ```powershell
-.\palworld-save-scrap.exe `
+.\palpedia-snapshot.exe `
   --level "D:\path\to\Level.sav" `
   --output "D:\path\to\new-export" `
   --compare "D:\path\to\previous-export" `
