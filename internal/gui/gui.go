@@ -47,19 +47,19 @@ type screen struct {
 	version  string
 	language language
 
-	root, level, output, players, oodle, player, compare widget.Editor
-	advanced, force                                      widget.Bool
-	englishButton, frenchButton, scanButton              widget.Clickable
-	browseButton, playersButton, exportButton            widget.Clickable
-	candidates                                           []SaveCandidate
-	candidateButtons                                     []widget.Clickable
-	playersFound                                         []sav.Player
-	playerButtons                                        []widget.Clickable
-	list                                                 layout.List
-	results                                              chan taskResult
-	busy                                                 bool
-	status                                               string
-	statusError                                          bool
+	root, level, output, players, oodle, player, compare          widget.Editor
+	advanced, force                                               widget.Bool
+	englishButton, frenchButton, scanButton                       widget.Clickable
+	browseButton, outputBrowseButton, playersButton, exportButton widget.Clickable
+	candidates                                                    []SaveCandidate
+	candidateButtons                                              []widget.Clickable
+	playersFound                                                  []sav.Player
+	playerButtons                                                 []widget.Clickable
+	list                                                          layout.List
+	results                                                       chan taskResult
+	busy                                                          bool
+	status                                                        string
+	statusError                                                   bool
 }
 
 func Run(version string) {
@@ -119,6 +119,8 @@ func (s *screen) handle(gtx layout.Context) {
 				s.candidateButtons = make([]widget.Clickable, len(result.candidates))
 			case "browse":
 				s.level.SetText(result.path)
+			case "output-browse":
+				s.output.SetText(result.path)
 			case "players":
 				s.playersFound = result.players
 				s.playerButtons = make([]widget.Clickable, len(result.players))
@@ -140,6 +142,9 @@ handled:
 	}
 	if s.browseButton.Clicked(gtx) && !s.busy {
 		s.startBrowse()
+	}
+	if s.outputBrowseButton.Clicked(gtx) && !s.busy {
+		s.startOutputBrowse()
 	}
 	if s.playersButton.Clicked(gtx) && !s.busy {
 		s.startPlayers()
@@ -218,6 +223,20 @@ func (s *screen) startPlayers() {
 			message = fmt.Sprintf(s.t("players_found"), len(players))
 		}
 		s.results <- taskResult{kind: "players", players: players, message: message, err: err}
+		s.window.Invalidate()
+	}()
+}
+
+func (s *screen) startOutputBrowse() {
+	s.busy, s.statusError, s.status = true, false, s.t("opening_export_browser")
+	go func() {
+		path, err := chooseFolder(s.t("choose_export_folder"))
+		if err == errFolderSelectionAborted {
+			s.results <- taskResult{kind: "output-browse", message: s.t("export_folder_unchanged")}
+			s.window.Invalidate()
+			return
+		}
+		s.results <- taskResult{kind: "output-browse", path: path, message: s.t("export_folder_selected"), err: err}
 		s.window.Invalidate()
 	}()
 }
@@ -381,7 +400,15 @@ func (s *screen) candidatesList(gtx layout.Context) layout.Dimensions {
 
 func (s *screen) exportSection(gtx layout.Context) layout.Dimensions {
 	return section(gtx, s.theme, s.t("export"), func(gtx layout.Context) layout.Dimensions {
-		children := []layout.FlexChild{layout.Rigid(s.caption("output_help")), layout.Rigid(spacer(6)), layout.Rigid(s.editor(&s.output, s.t("output_directory"))), layout.Rigid(spacer(10)), layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+		children := []layout.FlexChild{layout.Rigid(s.caption("output_help")), layout.Rigid(spacer(6)), layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+			return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
+				layout.Flexed(1, s.editor(&s.output, s.t("output_directory"))),
+				layout.Rigid(spacer(8)),
+				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+					return material.Button(s.theme, &s.outputBrowseButton, s.t("browse_output")).Layout(gtx)
+				}),
+			)
+		}), layout.Rigid(spacer(10)), layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 			return material.CheckBox(s.theme, &s.advanced, s.t("advanced_options")).Layout(gtx)
 		})}
 		if s.advanced.Value {
@@ -476,9 +503,9 @@ func (s *screen) t(key string) string { return translations[s.language][key] }
 
 var translations = map[language]map[string]string{
 	english: {
-		"title": "Palworld Save Scrap", "subtitle": "Personal Palpedia export", "find_save": "1. Find your save", "save_root": "Default Palworld save folder", "save_root_help": "Starts at the standard Windows Palworld save location. You may replace it with any folder containing your saves.", "scan": "Find worlds", "browse_level": "Browse for Level.sav", "selected_level": "Selected Level.sav", "no_candidates": "No world found yet. Scan the folder or browse directly to Level.sav.", "detected_worlds": "Detected worlds", "export": "2. Export for NotebookLM", "output_directory": "Export directory", "output_help": "Required. The tool writes only here and never inside your game save folder.", "advanced_options": "Show optional advanced options", "advanced_help": "Leave these fields empty for the normal local-save workflow.", "players_directory": "Players directory (optional)", "players_help": "Only needed when Players is not beside Level.sav.", "oodle_library": "Oodle DLL path (optional)", "oodle_help": "Required only for modern PlM saves when automatic game-library loading is unavailable.", "find_players": "Find players in this save", "available_players": "Available players", "select_save_first": "Select a Level.sav file first.", "reading_players": "Reading the players in this save…", "no_players": "No players were found in this save.", "players_found": "%d player(s) found. Select one to export only that player, or leave it empty for everyone.", "player_selected": "%s selected. Clear the Player UID field to export all players.", "player_uid": "Player UID (optional)", "player_help": "Choose a detected player to export only their collection. Leave empty to export every player in the world.", "compare_directory": "Previous export directory (optional)", "compare_help": "Adds a collection-diff report using an earlier export.", "overwrite": "Replace files in an existing export directory", "overwrite_help": "Optional and destructive only for previous export files in the chosen output directory.", "export_button": "Create NotebookLM export", "save_root_required": "Choose a save folder first.", "scanning": "Scanning for Palworld worlds…", "no_saves": "No Level.sav file was found in this folder.", "saves_found": "%d world(s) found. Select one below.", "opening_browser": "Opening the file browser…", "world_selected": "World selected. Choose an export directory and create the export.", "save_and_output_required": "Select a Level.sav file and an export directory.", "exporting": "Reading the save and creating your export…",
+		"title": "Palworld Save Scrap", "subtitle": "Personal Palpedia export", "find_save": "1. Find your save", "save_root": "Default Palworld save folder", "save_root_help": "Starts at the standard Windows Palworld save location. You may replace it with any folder containing your saves.", "scan": "Find worlds", "browse_level": "Browse for Level.sav", "selected_level": "Selected Level.sav", "no_candidates": "No world found yet. Scan the folder or browse directly to Level.sav.", "detected_worlds": "Detected worlds", "export": "2. Export for NotebookLM", "output_directory": "Export directory", "browse_output": "Choose folder", "choose_export_folder": "Choose an export folder", "opening_export_browser": "Opening the folder browser…", "export_folder_selected": "Export folder selected.", "export_folder_unchanged": "Export folder unchanged.", "output_help": "Required. Choose a folder with the button; the tool writes only here and never inside your game save folder.", "advanced_options": "Show optional advanced options", "advanced_help": "Leave these fields empty for the normal local-save workflow.", "players_directory": "Players directory (optional)", "players_help": "Only needed when Players is not beside Level.sav.", "oodle_library": "Oodle DLL path (optional)", "oodle_help": "Required only for modern PlM saves when automatic game-library loading is unavailable.", "find_players": "Find players in this save", "available_players": "Available players", "select_save_first": "Select a Level.sav file first.", "reading_players": "Reading the players in this save…", "no_players": "No players were found in this save.", "players_found": "%d player(s) found. Select one to export only that player, or leave it empty for everyone.", "player_selected": "%s selected. Clear the Player UID field to export all players.", "player_uid": "Player UID (optional)", "player_help": "Choose a detected player to export only their collection. Leave empty to export every player in the world.", "compare_directory": "Previous export directory (optional)", "compare_help": "Adds a collection-diff report using an earlier export.", "overwrite": "Replace files in an existing export directory", "overwrite_help": "Optional and destructive only for previous export files in the chosen output directory.", "export_button": "Create NotebookLM export", "save_root_required": "Choose a save folder first.", "scanning": "Scanning for Palworld worlds…", "no_saves": "No Level.sav file was found in this folder.", "saves_found": "%d world(s) found. Select one below.", "opening_browser": "Opening the file browser…", "world_selected": "World selected. Choose an export directory and create the export.", "save_and_output_required": "Select a Level.sav file and an export directory.", "exporting": "Reading the save and creating your export…",
 	},
 	french: {
-		"title": "Palworld Save Scrap", "subtitle": "Export personnel pour le Palpédia", "find_save": "1. Trouver votre sauvegarde", "save_root": "Dossier de sauvegarde Palworld par défaut", "save_root_help": "Commence dans le dossier Windows standard de Palworld. Vous pouvez le remplacer par tout dossier contenant vos sauvegardes.", "scan": "Chercher les mondes", "browse_level": "Parcourir Level.sav", "selected_level": "Level.sav sélectionné", "no_candidates": "Aucun monde trouvé. Cherchez dans le dossier ou choisissez directement Level.sav.", "detected_worlds": "Mondes détectés", "export": "2. Exporter pour NotebookLM", "output_directory": "Dossier d’export", "output_help": "Obligatoire. L’outil écrit uniquement ici, jamais dans le dossier de sauvegarde du jeu.", "advanced_options": "Afficher les options avancées facultatives", "advanced_help": "Laissez ces champs vides pour le fonctionnement normal avec une sauvegarde locale.", "players_directory": "Dossier Players (facultatif)", "players_help": "Nécessaire uniquement si Players n’est pas à côté de Level.sav.", "oodle_library": "Chemin de la DLL Oodle (facultatif)", "oodle_help": "Requis uniquement pour les sauvegardes PlM modernes si la bibliothèque du jeu n’est pas disponible.", "find_players": "Chercher les joueurs de cette sauvegarde", "available_players": "Joueurs disponibles", "select_save_first": "Sélectionnez d’abord un fichier Level.sav.", "reading_players": "Lecture des joueurs de cette sauvegarde…", "no_players": "Aucun joueur trouvé dans cette sauvegarde.", "players_found": "%d joueur(s) trouvé(s). Sélectionnez-en un pour n’exporter que sa collection, ou laissez vide pour tous les joueurs.", "player_selected": "%s sélectionné. Videz le champ UID du joueur pour exporter tous les joueurs.", "player_uid": "UID du joueur (facultatif)", "player_help": "Choisissez un joueur détecté pour n’exporter que sa collection. Laissez vide pour exporter tous les joueurs du monde.", "compare_directory": "Dossier d’export précédent (facultatif)", "compare_help": "Ajoute un rapport collection-diff à partir d’un export antérieur.", "overwrite": "Remplacer les fichiers d’un dossier d’export existant", "overwrite_help": "Facultatif et destructif uniquement pour les anciens exports du dossier de sortie choisi.", "export_button": "Créer l’export NotebookLM", "save_root_required": "Choisissez d’abord un dossier de sauvegarde.", "scanning": "Recherche des mondes Palworld…", "no_saves": "Aucun fichier Level.sav trouvé dans ce dossier.", "saves_found": "%d monde(s) trouvé(s). Sélectionnez-en un ci-dessous.", "opening_browser": "Ouverture du navigateur de fichiers…", "world_selected": "Monde sélectionné. Choisissez un dossier d’export puis créez l’export.", "save_and_output_required": "Sélectionnez un fichier Level.sav et un dossier d’export.", "exporting": "Lecture de la sauvegarde et création de l’export…",
+		"title": "Palworld Save Scrap", "subtitle": "Export personnel pour le Palpédia", "find_save": "1. Trouver votre sauvegarde", "save_root": "Dossier de sauvegarde Palworld par défaut", "save_root_help": "Commence dans le dossier Windows standard de Palworld. Vous pouvez le remplacer par tout dossier contenant vos sauvegardes.", "scan": "Chercher les mondes", "browse_level": "Parcourir Level.sav", "selected_level": "Level.sav sélectionné", "no_candidates": "Aucun monde trouvé. Cherchez dans le dossier ou choisissez directement Level.sav.", "detected_worlds": "Mondes détectés", "export": "2. Exporter pour NotebookLM", "output_directory": "Dossier d’export", "browse_output": "Choisir un dossier", "choose_export_folder": "Choisir un dossier d’export", "opening_export_browser": "Ouverture du navigateur de dossiers…", "export_folder_selected": "Dossier d’export sélectionné.", "export_folder_unchanged": "Dossier d’export inchangé.", "output_help": "Obligatoire. Choisissez un dossier avec le bouton ; l’outil écrit uniquement ici, jamais dans le dossier de sauvegarde du jeu.", "advanced_options": "Afficher les options avancées facultatives", "advanced_help": "Laissez ces champs vides pour le fonctionnement normal avec une sauvegarde locale.", "players_directory": "Dossier Players (facultatif)", "players_help": "Nécessaire uniquement si Players n’est pas à côté de Level.sav.", "oodle_library": "Chemin de la DLL Oodle (facultatif)", "oodle_help": "Requis uniquement pour les sauvegardes PlM modernes si la bibliothèque du jeu n’est pas disponible.", "find_players": "Chercher les joueurs de cette sauvegarde", "available_players": "Joueurs disponibles", "select_save_first": "Sélectionnez d’abord un fichier Level.sav.", "reading_players": "Lecture des joueurs de cette sauvegarde…", "no_players": "Aucun joueur trouvé dans cette sauvegarde.", "players_found": "%d joueur(s) trouvé(s). Sélectionnez-en un pour n’exporter que sa collection, ou laissez vide pour tous les joueurs.", "player_selected": "%s sélectionné. Videz le champ UID du joueur pour exporter tous les joueurs.", "player_uid": "UID du joueur (facultatif)", "player_help": "Choisissez un joueur détecté pour n’exporter que sa collection. Laissez vide pour exporter tous les joueurs du monde.", "compare_directory": "Dossier d’export précédent (facultatif)", "compare_help": "Ajoute un rapport collection-diff à partir d’un export antérieur.", "overwrite": "Remplacer les fichiers d’un dossier d’export existant", "overwrite_help": "Facultatif et destructif uniquement pour les anciens exports du dossier de sortie choisi.", "export_button": "Créer l’export NotebookLM", "save_root_required": "Choisissez d’abord un dossier de sauvegarde.", "scanning": "Recherche des mondes Palworld…", "no_saves": "Aucun fichier Level.sav trouvé dans ce dossier.", "saves_found": "%d monde(s) trouvé(s). Sélectionnez-en un ci-dessous.", "opening_browser": "Ouverture du navigateur de fichiers…", "world_selected": "Monde sélectionné. Choisissez un dossier d’export puis créez l’export.", "save_and_output_required": "Sélectionnez un fichier Level.sav et un dossier d’export.", "exporting": "Lecture de la sauvegarde et création de l’export…",
 	},
 }

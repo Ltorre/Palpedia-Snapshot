@@ -34,9 +34,11 @@ Each release includes a standalone, source-ready release note describing its exp
 
 The `v2.0.0-rc1` branch contains the preview of the graphical Windows app. Open the executable without arguments and it will:
 
+![Palworld Save Scrap GUI preview](docs/gui-preview.svg)
+
 - start at the standard save location, `C:\Users\<WindowsUser>\AppData\Local\Pal\Saved\SaveGames`;
 - find `Level.sav` files there, or let you browse for one manually;
-- export to `Documents\Palworld Save Scrap Exports` by default, safely outside your game saves;
+- export to `Documents\Palworld Save Scrap Exports` by default, safely outside your game saves, or let you choose a destination with the folder picker;
 - switch between English and French; and
 - keep shared-world, Oodle, comparison, and overwrite controls under clearly labelled optional advanced options.
 
