@@ -44,7 +44,7 @@ cd palpedia-snapshot
 go build -o palpedia-snapshot.exe .\cmd\palpedia-snapshot
 ```
 
-Official Windows binaries are attached to each GitHub release. Check a binary with:
+Official GitHub releases attach both the Windows binary and `palpedia-snapshot-notebooklm-reference.zip`, the 31-file NotebookLM corpus. Check a binary with:
 
 ```powershell
 .\palpedia-snapshot-windows-amd64.exe --version
@@ -69,11 +69,18 @@ For a shared world, use **Find players in this save** in the advanced options, t
 
 The export parent directory may be on another drive, such as `I:\Palworld export`; a different Windows volume is always outside the game save location. Keep prior `export_<date time>` folders there and select one with **Choose previous export** when creating a comparison.
 
-## NotebookLM template
+## Create your own NotebookLM notebook
 
-Duplicate the shared [Palworld Palpedia NotebookLM template](https://notebook.google.com/notebook/fec4f41d-1c32-4b8d-975c-a0fbe3f7eba1), then add every generated file except `world.json` as your personal collection sources. In particular, add `breeding-rules.md` and `breeding-direct-pairs.csv`: they give NotebookLM the exact breeding result for your currently possible male/female pairs instead of asking it to infer the game’s rule.
+Palpedia Snapshot ships the whole [Palworld reference corpus](notebooklm/palworld-reference): 31 compact Markdown sources covering 299 Pals, skills, items, equipment, structures, technology, map, tools, tier lists, and breeding context. There is no shared public notebook to duplicate.
 
-`passive_traits` contains the game’s exact passive-skill IDs. This keeps the export reliable across game updates; NotebookLM can interpret their effects from its passive-skills reference source.
+1. Open [NotebookLM](https://notebook.google.com/) and sign in with your own Google account.
+2. Create a notebook, then add all 31 Markdown files in `notebooklm/palworld-reference`.
+3. Create a fresh Palpedia Snapshot export and add every personal file from its `export_<date time>` folder except `world.json`.
+4. Ask questions that name both the personal files and relevant reference sources. For breeding, include `breeding-rules.md`, `breeding-direct-pairs.csv`, and `breeding-candidates.md` so NotebookLM uses the exact result instead of inferring a median.
+
+The corpus plus all eight optional personal export files totals 39 sources, leaving room in a 50-source notebook. When a new save export is created, replace the old personal export files in NotebookLM with the newest set. See the dedicated [NotebookLM setup guide](notebooklm/README.md) for file lists, refresh instructions, and prompts.
+
+`passive_traits` contains the game’s exact passive-skill IDs. This keeps the export reliable across game updates; the bundled corpus maps the relevant reference information while raw IDs remain available for precise filtering.
 
 ## Export
 

@@ -1,0 +1,173 @@
+# Passive skills
+
+## Source
+
+- URL: https://palworld.gg/passive-skills
+- Retrieved: 2026-08-08
+- This note is a factual, reorganized reference. Consult the source for live updates and full prose.
+
+Structured records captured from the site's bundled English data: 163.
+
+- **Demon’s Hand** — rank: 5 | source: worldtree | effect: Work Speed +90%\r\nSAN dreceases +15.0% faster\r\nWorld Tree harvestables won't vanish when approached.
+- **Dimensional Leap** — rank: 5 | source: worldtree | effect: Movement Speed +50%\r\nIncreases Hunger depletion rate by +15.0%\r\nWorld Tree resources will not vanish when approached.
+- **God of Destruction** — rank: 5 | source: worldtree | effect: Attack +40%\r\nDefense +20%\r\nMax Health -50%\r\nWorld Tree resources will not vanish when approached.
+- **Hermit Sage** — rank: 5 | source: worldtree | effect: SAN depletion rate -50.0%\r\nWork Speed -20%\r\nWorld Tree resources will not vanish when approached.
+- **Sanctified Meat Shield** — rank: 5 | source: worldtree | effect: Defense +50%\r\nAttack -30%\r\nWorld Tree resources will not vanish when approached.
+- **Twin-Edged Holy Blade** — rank: 5 | source: worldtree | effect: Attack +50%\r\nDefense -30%\r\nWorld Tree resources will not vanish when approached.
+- **World Tree Seedbed** — rank: 5 | source: worldtree | effect: Decrease Hunger depletion rate by +50.0%\r\nHP -20%\r\nWorld Tree resources will not vanish when approached.
+- **Babysitter** — rank: 4 | source: mutation | effect: While at a base, increases egg production speed by +30% and incubation speed by +30% for Pals assigned to a Breeding Farm.
+- **Demon God** — rank: 4 | source: pal | effect: Attack +30%\nDefense +5%
+- **Diamond Body** — rank: 4 | source: pal | effect: Defense +30%\r\nImmune to Flinch\r\nImmune to Knockback
+- **Eternal Engine** — rank: 4 | source: pal | effect: Max stamina +75%\r\n*This effect is only valid for rideable pals.
+- **Eternal Flame** — rank: 4 | source: pal | effect: 30% increase to Fire attack damage.\r\n30% increase to Lightning attack damage.
+- **Heart of the Immovable King** — rank: 4 | source: pal | effect: SAN drops +20.0% slower.
+- **Heavily Armored** — rank: 4 | source: mutation | effect: Immune to Explosion Damage
+- **Idiosyncratic** — rank: 4 | source: mutation | effect: Pal and Player Auto Health Regeneration Rate +50%\r\nDefense +25%\r\nImmune to Poison Damage\r\nImmune to Burn Damage
+- **Immortality** — rank: 4 | source: mutation | effect: Life Steal +5%\r\nPal Auto Health Regeneration Rate +100%\r\nAttack +15%
+- **Invader** — rank: 4 | source: pal | effect: 30% increase in Dark attack damage.\r\n30% increase in Dragon attack damage.
+- **King of the Waves** — rank: 4 | source: pal | effect: 50% increase movement speed on water.
+- **Lavish Hospitality** — rank: 4 | source: pal | effect: Your Dropped Items + 100%
+- **Legend** — rank: 4 | source: pal | effect: Attack +20%\r\nDefense +20%\r\nMovement Speed increases 20%
+- **Lightfooted** — rank: 4 | source: pal | effect: Mounted Jump Count +1
+- **Lucky** — rank: 4 | source: rare | effect: Attack +15%\nDefense +15%\nWork Speed +20%
+- **Lunker** — rank: 4 | source: pal | effect: 20% increase to Water attack damage \r\n20% increase to Ice attack damage \r\n20% increase to defense.
+- **Mastery of Fasting** — rank: 4 | source: pal | effect: Hunger decreases +20.0% slower.
+- **Ranch Master** — rank: 4 | source: pal | effect: Farming's Work Suitability +2
+- **Remarkable Craftsmanship** — rank: 4 | source: pal | effect: Work Speed +75%
+- **Savior** — rank: 4 | source: pal | effect: 30% increase in Neutral attack damage.\r\n30% increase in Grass attack damage.
+- **Siren of the Void** — rank: 4 | source: pal | effect: 30% increase in Dark attack damage.\r\n30% increase in Ice attack damage.
+- **Skymarcher** — rank: 4 | source: mutation | effect: Mounted Jump Count +2
+- **Swift** — rank: 4 | source: pal | effect: 30% increase to movement speed.
+- **Vampiric** — rank: 4 | source: pal | effect: Absorbs a portion of the damage dealt to restore Health. \r\nDoes not sleep at night and continues to work.
+- **Ace Swimmer** — rank: 3 | source: pal | effect: 40% increase movement speed on water.
+- **Artisan** — rank: 3 | source: pal | effect: Work Speed +50%
+- **Burly Body** — rank: 3 | source: pal | effect: Defense +20%\r\nImmune to Flinch
+- **Celestial Emperor** — rank: 3 | source: pal | effect: 30% increase in Neutral attack damage.
+- **Diet Lover** — rank: 3 | source: pal | effect: Hunger decreases +15.0% slower.
+- **Divine Dragon** — rank: 3 | source: pal | effect: 30% increase in Dragon attack damage.
+- **Earth Emperor** — rank: 3 | source: pal | effect: 30% increase in Earth attack damage.
+- **Farmhand** — rank: 3 | source: pal | effect: Farming's Work Suitability +1
+- **Ferocious** — rank: 3 | source: pal | effect: Attack +20%
+- **Flame Emperor** — rank: 3 | source: pal | effect: 30% increase in Fire attack damage.
+- **Healing Coach** — rank: 3 | source: pal | effect: Player Auto Health Regeneration Rate +5%
+- **Ice Emperor** — rank: 3 | source: pal | effect: 30% increase in Ice attack damage.
+- **Infinite Stamina** — rank: 3 | source: pal | effect: Max stamina +50%\r\n*This effect is only valid for rideable pals.
+- **Logging Foreman** — rank: 3 | source: pal | effect: 25% increase in Player Logging Efficiency.
+- **Lord of Lightning** — rank: 3 | source: pal | effect: 30% increase in Lightning attack damage.
+- **Lord of the Sea** — rank: 3 | source: pal | effect: 30% increase in Water attack damage.
+- **Lord of the Underworld** — rank: 3 | source: pal | effect: 30% increase in Dark attack damage.
+- **Mine Foreman** — rank: 3 | source: pal | effect: 25% increase in Player Mining Efficiency.
+- **Motivational Leader** — rank: 3 | source: pal | effect: 25% increase in Player Work Speed.
+- **Noble** — rank: 3 | source: pal | effect: Increases the value of items when sold by +5%
+- **Philanthropist** — rank: 3 | source: pal | effect: When assigned to a Breeding Farm, breeding speed is increased by 100%.
+- **Reload Master** — rank: 3 | source: pal | effect: Player Reload Speed +4%
+- **Runner** — rank: 3 | source: pal | effect: 20% increase to movement speed.
+- **Serenity** — rank: 3 | source: pal | effect: Active skill cooldown reduction 30%\r\nAttack +10%
+- **Service-Minded** — rank: 3 | source: pal | effect: Your Dropped Items + 50%
+- **Spirit Emperor** — rank: 3 | source: pal | effect: 30% increase in Grass attack damage.
+- **Stronghold Strategist** — rank: 3 | source: pal | effect: 10% increase in Player Defense.
+- **Vanguard** — rank: 3 | source: pal | effect: 10% increase in Player Attack.
+- **Wellness Watcher** — rank: 3 | source: pal | effect: Player Stamina Consumption -5.0%
+- **Workaholic** — rank: 3 | source: pal | effect: SAN drops +15.0% slower.
+- **Heavyweight** — rank: 2 | source: pal | effect: Defense +20%\r\nImmune to Knockback
+- **Musclehead** — rank: 2 | source: pal | effect: Attack +30%\nWork Speed -50%
+- **Abnormal** — rank: 1 | source: pal | effect: 10% decrease in incoming Neutral damage.
+- **Aerial Dash +1** — rank: 1 | source: gear | effect: Aerial Dash +1
+- **Aerial Dash +2** — rank: 1 | source: gear | effect: Aerial Dash +2
+- **Aerial Dash +3** — rank: 1 | source: gear | effect: Aerial Dash +3
+- **Aerial Dash +4** — rank: 1 | source: gear | effect: Aerial Dash +4
+- **Aggressive** — rank: 1 | source: pal | effect: Attack +10%\nDefense -10%
+- **Blood of the Dragon** — rank: 1 | source: pal | effect: 10% increase in Dragon attack damage.
+- **Botanical Barrier** — rank: 1 | source: pal | effect: 10% decrease in incoming Grass damage.
+- **Brave** — rank: 1 | source: pal | effect: Attack +10%
+- **Capacitor** — rank: 1 | source: pal | effect: 10% increase in Lightning attack damage.
+- **Capture Strength +1** — rank: 1 | source: gear
+- **Capture Strength +2** — rank: 1 | source: gear
+- **Capture Strength +3** — rank: 1 | source: gear
+- **Capture Strength +4** — rank: 1 | source: gear
+- **Capture Strength +5** — rank: 1 | source: gear
+- **Capture Strength +6** — rank: 1 | source: gear
+- **Cheery** — rank: 1 | source: pal | effect: 10% decrease in incoming Dark damage.
+- **Coldblooded** — rank: 1 | source: pal | effect: 10% increase in Ice attack damage.
+- **Conceited** — rank: 1 | source: pal | effect: Work Speed +10%\nDefense -10%
+- **Dainty Eater** — rank: 1 | source: pal | effect: Hunger decreases +10.0% slower.
+- **Dark Damage Enhancement (Large)** — rank: 1 | source: gear | effect: Dark Attack +3%
+- **Dark Damage Enhancement (Medium)** — rank: 1 | source: gear | effect: Dark Attack +2%
+- **Dark Damage Enhancement (Small)** — rank: 1 | source: gear | effect: Dark Attack +1%
+- **Dragon Damage Enhancement (Large)** — rank: 1 | source: gear | effect: Dragon Attack +3%
+- **Dragon Damage Enhancement (Medium)** — rank: 1 | source: gear | effect: Dragon Attack +2%
+- **Dragon Damage Enhancement (Small)** — rank: 1 | source: gear | effect: Dragon Attack +1%
+- **Dragonkiller** — rank: 1 | source: pal | effect: 10% decrease in incoming Dragon damage.
+- **Earthquake Resistant** — rank: 1 | source: pal | effect: 10% decrease in incoming Earth damage.
+- **Electric Damage Enhancement (Large)** — rank: 1 | source: gear | effect: Electric Attack +3%
+- **Electric Damage Enhancement (Medium)** — rank: 1 | source: gear | effect: Electric Attack +2%
+- **Electric Damage Enhancement (Small)** — rank: 1 | source: gear | effect: Electric Attack +1%
+- **Fine Furs** — rank: 1 | source: pal | effect: Increases the value of items when sold by +3%
+- **Fire Damage Enhancement (Large)** — rank: 1 | source: gear | effect: Fire Attack +3%
+- **Fire Damage Enhancement (Medium)** — rank: 1 | source: gear | effect: Fire Attack +2%
+- **Fire Damage Enhancement (Small)** — rank: 1 | source: gear | effect: Fire Attack +1%
+- **Fit as a Fiddle** — rank: 1 | source: pal | effect: Max stamina +25%\r\n*This effect is only valid for rideable pals.
+- **Fragrant Foliage** — rank: 1 | source: pal | effect: 10% increase in Grass attack damage.
+- **Grass Damage Enhancement (Large)** — rank: 1 | source: gear | effect: Grass Attack +3%
+- **Grass Damage Enhancement (Medium)** — rank: 1 | source: gear | effect: Grass Attack +2%
+- **Grass Damage Enhancement (Small)** — rank: 1 | source: gear | effect: Grass Attack +1%
+- **Ground Damage Enhancement (Large)** — rank: 1 | source: gear | effect: Ground Attack +3%
+- **Ground Damage Enhancement (Medium)** — rank: 1 | source: gear | effect: Ground Attack +2%
+- **Ground Damage Enhancement (Small)** — rank: 1 | source: gear | effect: Ground Attack +1%
+- **Hard Skin** — rank: 1 | source: pal | effect: Defense +10%
+- **Heated Body** — rank: 1 | source: pal | effect: 10% decrease in incoming Ice damage.
+- **Hooligan** — rank: 1 | source: pal | effect: Attack +15%\nWork Speed -10%
+- **Hydromaniac** — rank: 1 | source: pal | effect: 10% increase in Water attack damage.
+- **Ice Damage Enhancement (Large)** — rank: 1 | source: gear | effect: Ice Attack +3%
+- **Ice Damage Enhancement (Medium)** — rank: 1 | source: gear | effect: Ice Attack +2%
+- **Ice Damage Enhancement (Small)** — rank: 1 | source: gear | effect: Ice Attack +1%
+- **Impatient** — rank: 1 | source: pal | effect: Active skill cooldown reduction 15%
+- **Insomnia** — rank: 1 | source: pal | effect: Does not sleep and continues to work even at night.
+- **Insulated Body** — rank: 1 | source: pal | effect: 10% decrease in incoming Lightning damage.
+- **Jump Count Increase +1** — rank: 1 | source: gear | effect: Jump Count Increase +1
+- **Jump Count Increase +2** — rank: 1 | source: gear | effect: Jump Count Increase +2
+- **Jump Count Increase +3** — rank: 1 | source: gear | effect: Jump Count Increase +3
+- **Jump Power Boost** — rank: 1 | source: gear | effect: Jump Power Boost
+- **Masochist** — rank: 1 | source: pal | effect: Defense +15%\nAttack -15%
+- **Neutral Damage Enhancement (Large)** — rank: 1 | source: gear | effect: Neutral Attack +3%
+- **Neutral Damage Enhancement (Medium)** — rank: 1 | source: gear | effect: Neutral Attack +2%
+- **Neutral Damage Enhancement (Small)** — rank: 1 | source: gear | effect: Neutral Attack +1%
+- **Nimble** — rank: 1 | source: pal | effect: 10% increase to movement speed.
+- **Otherworldly Cells** — rank: 1 | source: pal | effect: Attack +10%\r\nFire damage reduction 15%\r\nLightning damage reduction 15%
+- **Positive Thinker** — rank: 1 | source: pal | effect: SAN drops +10.0% slower.
+- **Power of Gaia** — rank: 1 | source: pal | effect: 10% increase in Earth attack damage.
+- **Pyromaniac** — rank: 1 | source: pal | effect: 10% increase in Fire attack damage.
+- **Sadist** — rank: 1 | source: pal | effect: Attack +15%\nDefense -15%
+- **Serious** — rank: 1 | source: pal | effect: Work Speed +20%
+- **Sleek Stroke** — rank: 1 | source: pal | effect: 30% increase movement speed on water.
+- **Sphere Curve +1** — rank: 1 | source: gear
+- **Sphere Homing** — rank: 1 | source: gear
+- **Sphere Range +1** — rank: 1 | source: gear
+- **Sphere Range +2** — rank: 1 | source: gear
+- **Sphere Slider** — rank: 1 | source: gear
+- **Sphere Weight +1** — rank: 1 | source: gear
+- **Spirit of Zen** — rank: 1 | source: pal | effect: 10% increase in Neutral attack damage.
+- **Suntan Lover** — rank: 1 | source: pal | effect: 10% decrease in incoming Fire damage.
+- **Veil of Darkness** — rank: 1 | source: pal | effect: 10% increase in Dark attack damage.
+- **Water Damage Enhancement (Large)** — rank: 1 | source: gear | effect: Water Attack +3%
+- **Water Damage Enhancement (Medium)** — rank: 1 | source: gear | effect: Water Attack +2%
+- **Water Damage Enhancement (Small)** — rank: 1 | source: gear | effect: Water Attack +1%
+- **Waterproof** — rank: 1 | source: pal | effect: 10% decrease in incoming Water damage.
+- **Work Slave** — rank: 1 | source: pal | effect: Work Speed +30%\nAttack -30%
+- **en Text** — rank: 1 | source: gear | effect: Health +5%
+- **en Text** — rank: 1 | source: gear | effect: Melee +5%
+- **Clumsy** — rank: -1 | source: pal | effect: Work Speed -10%
+- **Coward** — rank: -1 | source: pal | effect: Attack -10%
+- **Downtrodden** — rank: -1 | source: pal | effect: Defense -10%
+- **Easygoing** — rank: -1 | source: pal | effect: Active skill cooldown extension -15%
+- **Glutton** — rank: -1 | source: pal | effect: Hunger decreases +10.0% faster.
+- **Mercy Hit** — rank: -1 | source: pal | effect: Pacifist.\r\nWill not reduce the target's Health below 1.
+- **Night Owl** — rank: -1 | source: pal | effect: Tends to nap through the day, due to being nocturnal.
+- **Shabby** — rank: -1 | source: pal | effect: Decrease the value of items when sold by -10%
+- **Sickly** — rank: -1 | source: pal | effect: Max Stamina -25%\r\n*This effect is only valid for rideable pals.
+- **Unstable** — rank: -1 | source: pal | effect: SAN drops +10.0% faster.
+- **Bottomless Stomach** — rank: -2 | source: pal | effect: Hunger decreases +15.0% faster.
+- **Destructive** — rank: -2 | source: pal | effect: SAN drops +15.0% faster.
+- **Brittle** — rank: -3 | source: pal | effect: Defense -20%
+- **Pacifist** — rank: -3 | source: pal | effect: Attack -20%
+- **Slacker** — rank: -3 | source: pal | effect: Work Speed -30%

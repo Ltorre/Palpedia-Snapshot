@@ -868,8 +868,8 @@ var translations = map[language]map[string]string{
 }
 
 func init() {
-	translations[english]["notebooklm_files"] = "Add to NotebookLM: collection.md, pals.csv, capture-history.csv, palpedia-progress.md, breeding-candidates.md, breeding-rules.md, breeding-direct-pairs.csv, and collection-diff.md when comparing. Do not add world.json."
-	translations[french]["notebooklm_files"] = "À ajouter à NotebookLM : collection.md, pals.csv, capture-history.csv, palpedia-progress.md, breeding-candidates.md, breeding-rules.md, breeding-direct-pairs.csv et collection-diff.md lors d’une comparaison. Ne pas ajouter world.json."
+	translations[english]["notebooklm_files"] = "Create your own notebook at notebook.google.com. First upload the 31 reference Markdown files from palpedia-snapshot-notebooklm-reference.zip, then add: collection.md, pals.csv, capture-history.csv, palpedia-progress.md, breeding-candidates.md, breeding-rules.md, breeding-direct-pairs.csv, and collection-diff.md when comparing. Do not add world.json."
+	translations[french]["notebooklm_files"] = "Créez votre propre notebook sur notebook.google.com. Importez d’abord les 31 fichiers Markdown de référence depuis palpedia-snapshot-notebooklm-reference.zip, puis ajoutez : collection.md, pals.csv, capture-history.csv, palpedia-progress.md, breeding-candidates.md, breeding-rules.md, breeding-direct-pairs.csv et collection-diff.md lors d’une comparaison. Ne pas ajouter world.json."
 	translations[english]["planner_title"] = "3. Breeding planner"
 	translations[english]["planner_help"] = "Load the selected save to choose actual Pals, calculate an exact pair, or plan the fastest breeding-generation route to a target. This is read-only."
 	translations[english]["planner_not_loaded"] = "No collection is loaded for planning yet."
