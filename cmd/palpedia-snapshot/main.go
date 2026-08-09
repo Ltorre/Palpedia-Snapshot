@@ -7,23 +7,30 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"time"
 
-	"github.com/Ltorre/palworld-save-scrap/internal/report"
-	"github.com/Ltorre/palworld-save-scrap/internal/sav"
+	"github.com/Ltorre/palpedia-snapshot/internal/gui"
+	"github.com/Ltorre/palpedia-snapshot/internal/report"
+	"github.com/Ltorre/palpedia-snapshot/internal/sav"
 )
 
 var version = "dev"
 
 func main() {
-	var levelPath, outputDir, playersDir, oodleLibrary, playerUID, compareDir string
-	var force bool
+	if len(os.Args) == 1 {
+		gui.Run(version)
+		return
+	}
+	runCLI()
+}
+
+func runCLI() {
+	var levelPath, outputDir, playersDir, playerUID, compareDir string
 	var showVersion bool
 	var listPlayers bool
 	flag.StringVar(&levelPath, "level", "", "path to Level.sav")
-	flag.StringVar(&outputDir, "output", "", "empty output directory")
+	flag.StringVar(&outputDir, "output", "", "parent directory for timestamped exports")
 	flag.StringVar(&playersDir, "players-dir", "", "path to Players directory (defaults to the sibling Players directory)")
-	flag.StringVar(&oodleLibrary, "oodle-lib", "", "absolute path to oo2core_9_win64.dll for PlM saves")
-	flag.BoolVar(&force, "force", false, "allow writing into a non-empty output directory")
 	flag.BoolVar(&showVersion, "version", false, "print version")
 	flag.BoolVar(&listPlayers, "list-players", false, "list players found in the save")
 	flag.StringVar(&playerUID, "player", "", "player UID to export; use --list-players to find it")
@@ -37,19 +44,9 @@ func main() {
 		levelPath = flag.Arg(0)
 	}
 	if levelPath == "" || (!listPlayers && outputDir == "") || (listPlayers && (playerUID != "" || compareDir != "")) {
-		fmt.Fprintln(os.Stderr, "usage: palworld-save-scrap --level <Level.sav> --output <directory> [--player <UID>] [--compare <previous-export>] [--players-dir <Players>] [--oodle-lib <dll>] [--force]\n       palworld-save-scrap --level <Level.sav> --list-players [--players-dir <Players>] [--oodle-lib <dll>]")
+		fmt.Fprintln(os.Stderr, "usage: palpedia-snapshot --level <Level.sav> --output <parent-directory> [--player <UID>] [--compare <previous-export>] [--players-dir <Players>]\n       palpedia-snapshot --level <Level.sav> --list-players [--players-dir <Players>]")
 		os.Exit(2)
 	}
-	if oodleLibrary != "" {
-		absolute, err := filepath.Abs(oodleLibrary)
-		if err != nil {
-			fail(err)
-		}
-		if err := os.Setenv("PALWORLD_SCRAP_OODLE_LIB", absolute); err != nil {
-			fail(err)
-		}
-	}
-
 	levelPath, err := filepath.Abs(levelPath)
 	if err != nil {
 		fail(err)
@@ -69,16 +66,20 @@ func main() {
 	if err != nil {
 		fail(err)
 	}
-	if err := report.ValidateOutputDirectory(levelPath, outputDir, force); err != nil {
+	if err := report.ValidateOutputParent(levelPath, outputDir); err != nil {
 		fail(err)
 	}
-	if err := report.Write(outputDir, world, playerUID, compareDir, force); err != nil {
+	exportDir, err := report.CreateExportDirectory(outputDir, time.Now())
+	if err != nil {
+		fail(err)
+	}
+	if err := report.Write(exportDir, world, playerUID, compareDir, false); err != nil {
 		fail(err)
 	}
 	if playerUID == "" {
-		fmt.Printf("Exported %d players and %d Pals to %s\n", len(world.Players), len(world.Pals), outputDir)
+		fmt.Printf("Exported %d players and %d Pals to %s\n", len(world.Players), len(world.Pals), exportDir)
 	} else {
-		fmt.Printf("Exported player %s to %s\n", playerUID, outputDir)
+		fmt.Printf("Exported player %s to %s\n", playerUID, exportDir)
 	}
 }
 

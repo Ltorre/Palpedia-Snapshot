@@ -1,0 +1,3 @@
+[submodule "powzix-ooz"]
+	path = third_party/ooz
+	url = https://github.com/powzix/ooz.git

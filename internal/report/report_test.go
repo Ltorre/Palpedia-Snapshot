@@ -5,8 +5,9 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 
-	"github.com/Ltorre/palworld-save-scrap/internal/sav"
+	"github.com/Ltorre/palpedia-snapshot/internal/sav"
 )
 
 func TestPalsClassifiesPlayerContainers(t *testing.T) {
@@ -19,6 +20,34 @@ func TestPalsClassifiesPlayerContainers(t *testing.T) {
 	got := []string{rows[0].Scope, rows[1].Scope, rows[2].Scope}
 	if strings.Join(got, ",") != "base,palbox,party" {
 		t.Fatalf("scopes = %v", got)
+	}
+}
+
+func TestOnDifferentVolumes(t *testing.T) {
+	if !onDifferentVolumes(`C:\Users\Player\Save\Level.sav`, `I:\Palworld export`) {
+		t.Fatal("different Windows drives should be treated as separate locations")
+	}
+	if onDifferentVolumes(`C:\Users\Player\Save`, `c:\Exports`) {
+		t.Fatal("drive letters should be compared case-insensitively")
+	}
+}
+
+func TestCreateExportDirectoryUsesReadableTimestampAndKeepsSnapshots(t *testing.T) {
+	parent := filepath.Join(t.TempDir(), "exports")
+	timestamp := time.Date(2026, time.August, 9, 18, 42, 0, 0, time.Local)
+	first, err := CreateExportDirectory(parent, timestamp)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if filepath.Base(first) != "export_08-09-2026 18-42" {
+		t.Fatalf("first export directory = %q", first)
+	}
+	second, err := CreateExportDirectory(parent, timestamp)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if filepath.Base(second) != "export_08-09-2026 18-42 (2)" {
+		t.Fatalf("second export directory = %q", second)
 	}
 }
 

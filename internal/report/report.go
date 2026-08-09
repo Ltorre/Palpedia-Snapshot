@@ -11,8 +11,9 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"time"
 
-	"github.com/Ltorre/palworld-save-scrap/internal/sav"
+	"github.com/Ltorre/palpedia-snapshot/internal/sav"
 )
 
 type palRow struct {
@@ -29,30 +30,59 @@ type palRow struct {
 	Traits     []string
 }
 
-func ValidateOutputDirectory(levelPath, outputDir string, force bool) error {
+func ValidateOutputParent(levelPath, outputDir string) error {
 	levelDir := filepath.Dir(levelPath)
-	rel, err := filepath.Rel(levelDir, outputDir)
-	if err != nil {
-		return err
-	}
-	if rel == "." || (rel != ".." && !strings.HasPrefix(rel, ".."+string(os.PathSeparator))) {
-		return fmt.Errorf("output directory must be outside the save directory")
+	if !onDifferentVolumes(levelDir, outputDir) {
+		rel, err := filepath.Rel(levelDir, outputDir)
+		if err != nil {
+			return err
+		}
+		if rel == "." || (rel != ".." && !strings.HasPrefix(rel, ".."+string(os.PathSeparator))) {
+			return fmt.Errorf("output directory must be outside the save directory")
+		}
 	}
 	if st, err := os.Stat(outputDir); err == nil {
 		if !st.IsDir() {
 			return fmt.Errorf("output path is not a directory: %s", outputDir)
 		}
-		entries, readErr := os.ReadDir(outputDir)
-		if readErr != nil {
-			return readErr
-		}
-		if len(entries) > 0 && !force {
-			return fmt.Errorf("output directory is not empty; choose another directory or use --force")
-		}
 	} else if !os.IsNotExist(err) {
 		return err
 	}
 	return nil
+}
+
+func CreateExportDirectory(parent string, timestamp time.Time) (string, error) {
+	if err := os.MkdirAll(parent, 0o755); err != nil {
+		return "", err
+	}
+	base := "export_" + timestamp.Local().Format("01-02-2006 15-04")
+	for suffix := 1; ; suffix++ {
+		name := base
+		if suffix > 1 {
+			name = fmt.Sprintf("%s (%d)", base, suffix)
+		}
+		path := filepath.Join(parent, name)
+		if err := os.Mkdir(path, 0o755); err == nil {
+			return path, nil
+		} else if !os.IsExist(err) {
+			return "", err
+		}
+	}
+}
+
+func onDifferentVolumes(left, right string) bool {
+	leftVolume, rightVolume := volumeName(left), volumeName(right)
+	return leftVolume != "" && rightVolume != "" && !strings.EqualFold(leftVolume, rightVolume)
+}
+
+func volumeName(path string) string {
+	if volume := filepath.VolumeName(path); volume != "" {
+		return volume
+	}
+	if len(path) >= 2 && path[1] == ':' && ((path[0] >= 'A' && path[0] <= 'Z') || (path[0] >= 'a' && path[0] <= 'z')) {
+		return path[:2]
+	}
+	return ""
 }
 
 func HasPlayer(world *sav.World, playerUID string) bool {
@@ -496,7 +526,7 @@ func writeBytes(path string, data []byte, force bool) error {
 	} else if err != nil && !os.IsNotExist(err) {
 		return err
 	}
-	tmp, err := os.CreateTemp(filepath.Dir(path), ".palworld-save-scrap-*")
+	tmp, err := os.CreateTemp(filepath.Dir(path), ".palpedia-snapshot-*")
 	if err != nil {
 		return err
 	}

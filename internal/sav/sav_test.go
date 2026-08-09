@@ -4,35 +4,16 @@ import (
 	"bytes"
 	"os"
 	"path/filepath"
+	"runtime"
 	"testing"
 )
 
-// oodleLibAvailable reports whether the proprietary Oodle runtime is present
-// locally. It is never redistributed with the source, so on a clean checkout
-// (and in CI) it is absent and the tests that decompress real .sav fixtures
-// skip instead of failing. Set it up in TestMain by pointing PALHELM_OODLE_LIB
-// at the on-disk copy when it exists.
-var oodleLibAvailable bool
-
-func TestMain(m *testing.M) {
-	lib, err := filepath.Abs(filepath.Join("..", "..", "data", oodleLibrary))
-	if err != nil {
-		panic(err)
-	}
-	if _, statErr := os.Stat(lib); statErr == nil {
-		_ = os.Setenv("PALHELM_OODLE_LIB", lib)
-		oodleLibAvailable = true
-	}
-	code := m.Run()
-	os.Exit(code)
-}
-
-// requireOodle skips a test when the Oodle runtime is unavailable, so that
-// clones without the proprietary library (including CI) stay green.
+// requireOodle skips native Oodle fixture tests outside Windows. The released
+// application targets Windows and embeds the open decoder there.
 func requireOodle(t *testing.T) {
 	t.Helper()
-	if !oodleLibAvailable {
-		t.Skip("Oodle runtime not present; set up backend/data/" + oodleLibrary + " to run save-decompression tests")
+	if runtime.GOOS != "windows" {
+		t.Skip("Oodle fixture tests require the Windows build")
 	}
 }
 
@@ -93,8 +74,8 @@ func TestParseLevelMeta(t *testing.T) {
 }
 
 func BenchmarkParseLevel(b *testing.B) {
-	if !oodleLibAvailable {
-		b.Skip("Oodle runtime not present; set up backend/data/" + oodleLibrary + " to run this benchmark")
+	if runtime.GOOS != "windows" {
+		b.Skip("Oodle fixture benchmark requires the Windows build")
 	}
 	path := filepath.Join("testdata", "Level.sav")
 	// Set-up decompression once so the benchmark measures steady-state parsing.
