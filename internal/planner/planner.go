@@ -184,7 +184,7 @@ type Path struct {
 // ShortestPath finds the fewest sequential breeding generations from the collection to target.
 // It assumes an offspring can be bred again as the needed sex; actual egg genders can require retries.
 func ShortestPath(rules *breeding.Rules, pals []Pal, target string) (Path, error) {
-	return shortestPath(rules, pals, target, nil)
+	return shortestPath(rules, pals, target, nil, nil)
 }
 
 // ShortestPathAvoidingSpecies finds a route that never uses the listed species
@@ -195,16 +195,37 @@ func ShortestPathAvoidingSpecies(rules *breeding.Rules, pals []Pal, target strin
 	if !ok {
 		return Path{}, fmt.Errorf("unknown target Pal %q", target)
 	}
-	allowed := make(map[string]bool, len(excluded))
+	excludedKeys := make(map[string]bool, len(excluded))
 	for species := range excluded {
 		if key, known := rules.Key(species); known && key != targetKey {
-			allowed[key] = true
+			excludedKeys[key] = true
 		}
 	}
-	return shortestPath(rules, pals, targetKey, allowed)
+	return shortestPath(rules, pals, targetKey, excludedKeys, nil)
 }
 
-func shortestPath(rules *breeding.Rules, pals []Pal, target string, excluded map[string]bool) (Path, error) {
+// ShortestPathWithOmittedInitialSpecies forces the listed species to be bred
+// again by omitting them only from the starting collection. They remain valid
+// intermediate results, unlike species passed to ShortestPathAvoidingSpecies.
+func ShortestPathWithOmittedInitialSpecies(rules *breeding.Rules, pals []Pal, target string, omittedInitial, excluded map[string]bool) (Path, error) {
+	targetKey, ok := rules.Key(target)
+	if !ok {
+		return Path{}, fmt.Errorf("unknown target Pal %q", target)
+	}
+	return shortestPath(rules, pals, targetKey, normalizedSpecies(rules, excluded, targetKey), normalizedSpecies(rules, omittedInitial, ""))
+}
+
+func normalizedSpecies(rules *breeding.Rules, values map[string]bool, keep string) map[string]bool {
+	keys := make(map[string]bool, len(values))
+	for species := range values {
+		if key, known := rules.Key(species); known && key != keep {
+			keys[key] = true
+		}
+	}
+	return keys
+}
+
+func shortestPath(rules *breeding.Rules, pals []Pal, target string, excluded, omittedInitial map[string]bool) (Path, error) {
 	target, ok := rules.Key(target)
 	if !ok {
 		return Path{}, fmt.Errorf("unknown target Pal %q", target)
@@ -221,7 +242,7 @@ func shortestPath(rules *breeding.Rules, pals []Pal, target string, excluded map
 	}
 	for _, pal := range pals {
 		name, known := rules.Key(pal.CharacterID)
-		if !known || excluded[name] {
+		if !known || excluded[name] || omittedInitial[name] {
 			continue
 		}
 		entry := states[name]
@@ -316,15 +337,7 @@ func ShortestPathAsIfUnownedAvoidingSpecies(rules *breeding.Rules, pals []Pal, t
 	if !ok {
 		return Path{}, fmt.Errorf("unknown target Pal %q", target)
 	}
-	withoutTarget := make([]Pal, 0, len(pals))
-	for _, pal := range pals {
-		palKey, known := rules.Key(pal.CharacterID)
-		if known && palKey == targetKey {
-			continue
-		}
-		withoutTarget = append(withoutTarget, pal)
-	}
-	return ShortestPathAvoidingSpecies(rules, withoutTarget, targetKey, excluded)
+	return ShortestPathWithOmittedInitialSpecies(rules, pals, targetKey, map[string]bool{targetKey: true}, excluded)
 }
 
 func stepKey(step *Step) string {

@@ -94,6 +94,7 @@ type screen struct {
 	activeView                                                                                                 workspaceView
 	plannerRefreshButton, pairButton, routeButton, routeResetButton, plannerSortLevelAsc, plannerSortLevelDesc widget.Clickable
 	plannerGold, plannerDiamond, plannerMale, plannerFemale                                                    widget.Bool
+	routeGold, routeDiamond                                                                                    widget.Bool
 	plannerSort                                                                                                planner.SortOrder
 	plannerFilter, target                                                                                      widget.Editor
 	plannerPals                                                                                                []planner.Pal
@@ -101,7 +102,9 @@ type screen struct {
 	targetSuggestionButtons                                                                                    map[string]*widget.Clickable
 	traitHovers                                                                                                map[string]*widget.Clickable
 	routeAvoidButtons                                                                                          map[string]*widget.Clickable
+	routeRebreedButtons                                                                                        map[string]*widget.Clickable
 	routeExcluded                                                                                              map[string]bool
+	routeRebreed                                                                                               map[string]bool
 	selectedMale, selectedFemale                                                                               *planner.Pal
 	plannerLoadedAt                                                                                            time.Time
 	plannerSaveModified                                                                                        time.Time
@@ -142,7 +145,9 @@ func newScreen(window *app.Window, version string) *screen {
 	s.targetSuggestionButtons = make(map[string]*widget.Clickable)
 	s.traitHovers = make(map[string]*widget.Clickable)
 	s.routeAvoidButtons = make(map[string]*widget.Clickable)
+	s.routeRebreedButtons = make(map[string]*widget.Clickable)
 	s.routeExcluded = make(map[string]bool)
+	s.routeRebreed = make(map[string]bool)
 	s.root.SetText(DefaultSaveRoot())
 	s.output.SetText(DefaultExportDir())
 	s.lastExportDir = latestExportDir(s.output.Text())
@@ -305,6 +310,8 @@ handled:
 	}
 	if s.routeResetButton.Clicked(gtx) {
 		s.routeExcluded = make(map[string]bool)
+		s.routeRebreed = make(map[string]bool)
+		s.routeGold.Value, s.routeDiamond.Value = false, false
 		s.calculateRoute()
 	}
 	if s.openExportButton.Clicked(gtx) && s.lastExportDir != "" {
@@ -354,6 +361,14 @@ handled:
 	for species, button := range s.routeAvoidButtons {
 		if button.Clicked(gtx) {
 			s.routeExcluded[species] = true
+			delete(s.routeRebreed, species)
+			s.calculateRoute()
+		}
+	}
+	for species, button := range s.routeRebreedButtons {
+		if button.Clicked(gtx) {
+			s.routeRebreed[species] = true
+			delete(s.routeExcluded, species)
 			s.calculateRoute()
 		}
 	}
@@ -363,6 +378,8 @@ func (s *screen) clearRoute() {
 	s.plannerRoute, s.plannerRouteNotice, s.plannerRouteTarget, s.plannerRoutePath = "", "", "", nil
 	s.routeExcluded = make(map[string]bool)
 	s.routeAvoidButtons = make(map[string]*widget.Clickable)
+	s.routeRebreed = make(map[string]bool)
+	s.routeRebreedButtons = make(map[string]*widget.Clickable)
 }
 
 func (s *screen) ensurePlannerLoaded() {
@@ -570,23 +587,35 @@ func (s *screen) calculateRoute() {
 	}
 	if s.plannerRouteTarget != "" && s.plannerRouteTarget != targetKey {
 		s.routeExcluded = make(map[string]bool)
+		s.routeRebreed = make(map[string]bool)
 	}
 	s.plannerRouteTarget = targetKey
-	ownedPath, err := planner.ShortestPath(rules, s.plannerPals, targetKey)
+	startingPals := s.routeStartingPals()
+	ownedPath, err := planner.ShortestPath(rules, startingPals, targetKey)
 	if err != nil {
-		s.statusError, s.status = true, err.Error()
+		if len(startingPals) < len(s.plannerPals) {
+			s.plannerRoute = s.t("planner_route_trait_no_route") + "\n" + s.t("planner_route_caveat")
+			s.statusError, s.status = false, s.t("planner_route_ready")
+			return
+		}
+		s.plannerRoute = s.t("planner_route_no_route") + "\n" + s.t("planner_route_caveat")
+		s.statusError, s.status = false, s.t("planner_route_ready")
 		return
 	}
-	path := ownedPath
+	omittedInitial := make(map[string]bool, len(s.routeRebreed)+1)
+	for species := range s.routeRebreed {
+		omittedInitial[species] = true
+	}
 	if ownedPath.Generations == 0 {
 		s.plannerRouteNotice = fmt.Sprintf(s.t("planner_already_owned_inheritance"), rules.DisplayName(ownedPath.Target))
-		path, err = planner.ShortestPathAsIfUnownedAvoidingSpecies(rules, s.plannerPals, ownedPath.Target, s.routeExcluded)
-	} else {
-		path, err = planner.ShortestPathAvoidingSpecies(rules, s.plannerPals, targetKey, s.routeExcluded)
+		omittedInitial[ownedPath.Target] = true
 	}
+	path, err := planner.ShortestPathWithOmittedInitialSpecies(rules, startingPals, targetKey, omittedInitial, s.routeExcluded)
 	if err != nil {
 		if len(s.routeExcluded) > 0 {
 			s.plannerRoute = s.t("planner_route_exclusion_no_route") + "\n" + s.t("planner_route_caveat")
+		} else if len(s.routeRebreed) > 0 {
+			s.plannerRoute = s.t("planner_route_rebreed_no_route") + "\n" + s.t("planner_route_caveat")
 		} else if s.plannerRouteNotice != "" {
 			s.plannerRoute = s.t("planner_inheritance_no_route") + "\n" + s.t("planner_route_caveat")
 		} else {
@@ -618,6 +647,13 @@ func (s *screen) calculateRoute() {
 	}
 	out.WriteString(s.t("planner_route_caveat"))
 	s.plannerRoute, s.statusError, s.status = out.String(), false, s.t("planner_route_ready")
+}
+
+func (s *screen) routeStartingPals() []planner.Pal {
+	if !s.routeGold.Value && !s.routeDiamond.Value {
+		return s.plannerPals
+	}
+	return planner.FilterWithOptions(s.plannerPals, planner.FilterOptions{GoldOnly: s.routeGold.Value, DiamondOnly: s.routeDiamond.Value})
 }
 
 func export(levelPath, outputParent, playersDir, playerUID, compareDir string) (string, string, error) {
@@ -1029,6 +1065,20 @@ func (s *screen) routeTargetPicker(gtx layout.Context) layout.Dimensions {
 			layout.Rigid(spacer(8)),
 			layout.Rigid(s.editor(&s.target, s.t("planner_target"))),
 			layout.Rigid(s.plannerTargetSuggestions),
+			layout.Rigid(spacer(10)),
+			layout.Rigid(s.caption("planner_route_starters_title")),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return material.CheckBox(s.theme, &s.routeGold, s.t("planner_route_gold")).Layout(gtx)
+					}),
+					layout.Rigid(spacer(12)),
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return material.CheckBox(s.theme, &s.routeDiamond, s.t("planner_route_diamond")).Layout(gtx)
+					}),
+				)
+			}),
+			layout.Rigid(s.routeStarterSummary),
 			layout.Rigid(spacer(8)),
 			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 				button := material.Button(s.theme, &s.routeButton, s.t("planner_find_route"))
@@ -1038,6 +1088,13 @@ func (s *screen) routeTargetPicker(gtx layout.Context) layout.Dimensions {
 			}),
 		)
 	})
+}
+
+func (s *screen) routeStarterSummary(gtx layout.Context) layout.Dimensions {
+	if !s.routeGold.Value && !s.routeDiamond.Value {
+		return s.caption("planner_route_all_starters")(gtx)
+	}
+	return s.note(fmt.Sprintf(s.t("planner_route_filtered_starters"), len(s.routeStartingPals()), len(s.plannerPals)), s.mutedText())(gtx)
 }
 
 func (s *screen) routeResultCard(gtx layout.Context) layout.Dimensions {
@@ -1063,6 +1120,9 @@ func (s *screen) routeResultCard(gtx layout.Context) layout.Dimensions {
 		}
 		if len(s.routeExcluded) > 0 {
 			children = append(children, layout.Rigid(s.routeExclusions), layout.Rigid(spacer(10)))
+		}
+		if len(s.routeRebreed) > 0 {
+			children = append(children, layout.Rigid(s.routeRebreeds), layout.Rigid(spacer(10)))
 		}
 		children = append(children, layout.Rigid(s.routeBody(s.plannerRoute)))
 		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
@@ -1129,22 +1189,34 @@ func (s *screen) routeSpeciesCard(gtx layout.Context, rules *breeding.Rules, spe
 				layout.Rigid(s.note(rules.DisplayName(species), s.primaryText())),
 			}
 			if clickable {
-				children = append(children, layout.Rigid(s.caption("planner_route_avoid_hint")))
+				children = append(children,
+					layout.Rigid(spacer(6)),
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+							layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+								return s.routeTreeAction(gtx, s.routeAvoidButton(species), s.t("planner_route_avoid"), false)
+							}),
+							layout.Rigid(spacer(6)),
+							layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+								return s.routeTreeAction(gtx, s.routeRebreedButton(species), s.t("planner_route_rebreed"), true)
+							}),
+						)
+					}),
+				)
 			}
 			return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
 		})
 	}
 	border := widget.Border{Color: s.border(), CornerRadius: unit.Dp(6), Width: unit.Dp(1)}
-	if !clickable {
-		return border.Layout(gtx, content)
+	return border.Layout(gtx, content)
+}
+
+func (s *screen) routeTreeAction(gtx layout.Context, button *widget.Clickable, label string, primary bool) layout.Dimensions {
+	style := material.Button(s.theme, button, label)
+	if !primary {
+		style.Background, style.Color = s.surface(), s.primaryText()
 	}
-	button := s.routeAvoidButton(species)
-	if button.Hovered() {
-		border.Color = s.theme.Palette.ContrastBg
-	}
-	return button.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
-		return border.Layout(gtx, content)
-	})
+	return style.Layout(gtx)
 }
 
 func (s *screen) routeAvoidButton(species string) *widget.Clickable {
@@ -1153,6 +1225,15 @@ func (s *screen) routeAvoidButton(species string) *widget.Clickable {
 	}
 	button := new(widget.Clickable)
 	s.routeAvoidButtons[species] = button
+	return button
+}
+
+func (s *screen) routeRebreedButton(species string) *widget.Clickable {
+	if button, ok := s.routeRebreedButtons[species]; ok {
+		return button
+	}
+	button := new(widget.Clickable)
+	s.routeRebreedButtons[species] = button
 	return button
 }
 
@@ -1173,6 +1254,19 @@ func (s *screen) routeExclusions(gtx layout.Context) layout.Dimensions {
 			return s.languageButton(gtx, &s.routeResetButton, s.t("planner_route_reset"), false)
 		}),
 	)
+}
+
+func (s *screen) routeRebreeds(gtx layout.Context) layout.Dimensions {
+	rules, err := breeding.Default()
+	if err != nil {
+		return layout.Dimensions{}
+	}
+	species := make([]string, 0, len(s.routeRebreed))
+	for name := range s.routeRebreed {
+		species = append(species, rules.DisplayName(name))
+	}
+	sort.Strings(species)
+	return s.note(fmt.Sprintf(s.t("planner_route_rebreeding"), strings.Join(species, ", ")), s.routeNoticeColor())(gtx)
 }
 
 func (s *screen) outlinedCard(gtx layout.Context, title string, content layout.Widget) layout.Dimensions {
@@ -1591,6 +1685,11 @@ func init() {
 	translations[english]["planner_route_help"] = "Enter a Pal name such as Anubis or Mammorest. Game Character IDs such as SheepBall or PinkCat also work. The route uses the fewest sequential breeding generations from your current male/female collection."
 	translations[english]["planner_target_picker"] = "Choose the Pal you want to breed"
 	translations[english]["planner_target_picker_help"] = "Start typing to find a Pal by its Palpedia name. Select a matching suggestion to avoid spelling or internal-ID mistakes."
+	translations[english]["planner_route_starters_title"] = "Optional: only start from high-tier trait Pals"
+	translations[english]["planner_route_gold"] = "Gold traits"
+	translations[english]["planner_route_diamond"] = "Diamond traits"
+	translations[english]["planner_route_all_starters"] = "The route may start from every Pal in your loaded collection."
+	translations[english]["planner_route_filtered_starters"] = "The route starts from %d of %d loaded Pals matching the selected trait tier(s)."
 	translations[english]["planner_target"] = "Target Pal name or Character ID"
 	translations[english]["planner_target_suggestions"] = "Matching Pals — choose one"
 	translations[english]["planner_find_route"] = "Find quickest breeding route"
@@ -1606,13 +1705,18 @@ func init() {
 	translations[english]["planner_route_female_parent"] = "Female parent"
 	translations[english]["planner_route_breed_rule"] = "↓ Breed together · %s"
 	translations[english]["planner_route_avoid_hint"] = "Click to avoid this species"
+	translations[english]["planner_route_avoid"] = "Avoid species"
+	translations[english]["planner_route_rebreed"] = "Breed new"
 	translations[english]["planner_route_avoiding"] = "Avoiding this species in the current route: %s"
+	translations[english]["planner_route_rebreeding"] = "Breeding a new copy before continuing: %s"
 	translations[english]["planner_route_reset"] = "Use all Pals again"
 	translations[english]["planner_already_owned"] = "Already owned in the loaded collection; no breeding step is required."
 	translations[english]["planner_already_owned_inheritance"] = "You already own %s. The route below deliberately ignores those copies, so you can breed a new one for passive-trait inheritance."
 	translations[english]["planner_inheritance_no_route"] = "No route could be formed without using your existing target Pal. Keep the target you own, or add more male/female Pals to the collection and refresh."
 	translations[english]["planner_route_no_route"] = "No breeding route could be formed from the current male/female collection. Add more Pals and refresh the collection."
 	translations[english]["planner_route_exclusion_no_route"] = "No route remains with the selected avoided species. Use all Pals again or avoid fewer species."
+	translations[english]["planner_route_rebreed_no_route"] = "No route can breed the selected Pal again from the current starting collection. Use all Pals again or choose fewer Pals to breed anew."
+	translations[english]["planner_route_trait_no_route"] = "No route can start from only the selected high-tier trait Pals. Include more trait tiers or use all Pals again."
 	translations[english]["planner_speed_title"] = "Speed up this long route"
 	translations[english]["planner_speed_none"] = "No Philanthropist or Babysitter Pal was found in the loaded party/Palbox collection."
 	translations[english]["planner_speed_philanthropist"] = "%s — assign to the Breeding Farm: Philanthropist increases that Pal's breeding speed by 100%."
@@ -1659,6 +1763,11 @@ func init() {
 	translations[french]["planner_route_help"] = "Entrez un nom de Pal comme Anubis ou Mammorest. Les Character IDs du jeu, comme SheepBall ou PinkCat, fonctionnent aussi. Le chemin utilise le moins de générations d’élevage consécutives depuis votre collection mâle/femelle."
 	translations[french]["planner_target_picker"] = "Choisir le Pal à obtenir"
 	translations[french]["planner_target_picker_help"] = "Commencez à écrire pour rechercher un Pal par son nom du Palpédia. Sélectionnez une suggestion pour éviter les erreurs d’orthographe ou d’identifiant interne."
+	translations[french]["planner_route_starters_title"] = "Facultatif : démarrer uniquement avec des Pals aux traits élevés"
+	translations[french]["planner_route_gold"] = "Traits or"
+	translations[french]["planner_route_diamond"] = "Traits diamant"
+	translations[french]["planner_route_all_starters"] = "Le chemin peut démarrer avec tous les Pals de votre collection chargée."
+	translations[french]["planner_route_filtered_starters"] = "Le chemin démarre avec %d Pal(s) parmi %d ayant les rangs de traits sélectionnés."
 	translations[french]["planner_target"] = "Nom ou Character ID du Pal cible"
 	translations[french]["planner_target_suggestions"] = "Pals correspondants — choisissez-en un"
 	translations[french]["planner_find_route"] = "Trouver le chemin le plus rapide"
@@ -1674,13 +1783,18 @@ func init() {
 	translations[french]["planner_route_female_parent"] = "Parent femelle"
 	translations[french]["planner_route_breed_rule"] = "↓ Faire se reproduire · %s"
 	translations[french]["planner_route_avoid_hint"] = "Cliquer pour éviter cette espèce"
+	translations[french]["planner_route_avoid"] = "Éviter l’espèce"
+	translations[french]["planner_route_rebreed"] = "Élever un nouveau"
 	translations[french]["planner_route_avoiding"] = "Espèce évitée dans le chemin actuel : %s"
+	translations[french]["planner_route_rebreeding"] = "Élever un nouvel exemplaire avant de continuer : %s"
 	translations[french]["planner_route_reset"] = "Réutiliser tous les Pals"
 	translations[french]["planner_already_owned"] = "Déjà possédé dans la collection chargée ; aucune étape d’élevage n’est nécessaire."
 	translations[french]["planner_already_owned_inheritance"] = "Vous possédez déjà %s. Le chemin ci-dessous ignore volontairement ces exemplaires afin d’en élever un nouveau pour l’héritage des traits passifs."
 	translations[french]["planner_inheritance_no_route"] = "Aucun chemin n’a pu être formé sans utiliser le Pal cible que vous possédez. Gardez cet exemplaire, ou ajoutez des Pals mâles/femelles à la collection puis actualisez-la."
 	translations[french]["planner_route_no_route"] = "Aucun chemin d’élevage n’a pu être formé depuis la collection mâle/femelle actuelle. Ajoutez des Pals puis actualisez la collection."
 	translations[french]["planner_route_exclusion_no_route"] = "Aucun chemin ne reste avec les espèces évitées. Réutilisez tous les Pals ou évitez moins d’espèces."
+	translations[french]["planner_route_rebreed_no_route"] = "Aucun chemin ne peut élever à nouveau le Pal choisi depuis la collection initiale. Réutilisez tous les Pals ou choisissez moins de Pals à élever de nouveau."
+	translations[french]["planner_route_trait_no_route"] = "Aucun chemin ne peut démarrer uniquement avec les Pals aux traits élevés sélectionnés. Incluez plus de rangs de traits ou réutilisez tous les Pals."
 	translations[french]["planner_speed_title"] = "Accélérer ce long chemin"
 	translations[french]["planner_speed_none"] = "Aucun Pal Philanthropist ou Babysitter n’a été trouvé dans la collection chargée (équipe/Palbox)."
 	translations[french]["planner_speed_philanthropist"] = "%s — assignez-le à la Ferme d’élevage : Philanthropist augmente sa vitesse d’élevage de 100 %."
