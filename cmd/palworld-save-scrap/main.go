@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"sort"
 
+	"github.com/Ltorre/palworld-save-scrap/internal/gui"
 	"github.com/Ltorre/palworld-save-scrap/internal/report"
 	"github.com/Ltorre/palworld-save-scrap/internal/sav"
 )
@@ -15,6 +16,14 @@ import (
 var version = "dev"
 
 func main() {
+	if len(os.Args) == 1 {
+		gui.Run(version)
+		return
+	}
+	runCLI()
+}
+
+func runCLI() {
 	var levelPath, outputDir, playersDir, oodleLibrary, playerUID, compareDir string
 	var force bool
 	var showVersion bool

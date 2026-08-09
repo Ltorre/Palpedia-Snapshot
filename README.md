@@ -1,6 +1,6 @@
 # Palworld Save Scrap
 
-Small read-only Windows CLI for exporting a Palworld `Level.sav` and its player saves.
+Read-only Windows app for exporting a Palworld `Level.sav` and its player saves. Run the executable normally to open the graphical interface; the command-line mode remains available when arguments are supplied.
 
 It writes four files to a directory you choose:
 
@@ -30,6 +30,18 @@ Official Windows binaries are attached to each GitHub release. Check a binary wi
 
 Each release includes a standalone, source-ready release note describing its export format, use, and safety limits.
 
+## Graphical interface
+
+The `v2.0.0-rc1` branch contains the preview of the graphical Windows app. Open the executable without arguments and it will:
+
+- start at the standard save location, `C:\Users\<WindowsUser>\AppData\Local\Pal\Saved\SaveGames`;
+- find `Level.sav` files there, or let you browse for one manually;
+- export to `Documents\Palworld Save Scrap Exports` by default, safely outside your game saves;
+- switch between English and French; and
+- keep shared-world, Oodle, comparison, and overwrite controls under clearly labelled optional advanced options.
+
+For a shared world, use **Find players in this save** in the advanced options, then select a player. Leave the Player UID empty to export every player.
+
 ## NotebookLM template
 
 Duplicate the shared [Palworld Palpedia NotebookLM template](https://notebook.google.com/notebook/fec4f41d-1c32-4b8d-975c-a0fbe3f7eba1), then add the generated `pals.csv`, `palpedia-progress.md`, and `breeding-candidates.md` as your personal collection sources. The notebook can use them to identify gaps in your Palpedia, propose efficient next captures, and find breeding parents carrying useful passive traits.
@@ -44,7 +56,7 @@ For a typical Steam installation, local worlds are under:
 C:\Users\<WindowsUser>\AppData\Local\Pal\Saved\SaveGames\<SteamID>\<WorldID>\Level.sav
 ```
 
-`<WorldID>` is the world folder containing both `Level.sav` and the matching `Players` directory. The executable does not search this location automatically; pass the exact `Level.sav` you want to inspect.
+`<WorldID>` is the world folder containing both `Level.sav` and the matching `Players` directory. The graphical interface searches this location automatically; in command-line mode, pass the exact `Level.sav` you want to inspect.
 
 ```powershell
 .\palworld-save-scrap.exe `
