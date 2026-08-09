@@ -19,6 +19,12 @@ Install Go, then run:
 go build -o palworld-save-scrap.exe .\cmd\palworld-save-scrap
 ```
 
+Official Windows binaries are attached to each GitHub release. Check a binary with:
+
+```powershell
+.\palworld-save-scrap-windows-amd64.exe --version
+```
+
 ## Export
 
 ```powershell

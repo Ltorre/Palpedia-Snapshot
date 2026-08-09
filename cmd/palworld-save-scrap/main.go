@@ -11,15 +11,23 @@ import (
 	"github.com/Ltorre/palworld-save-scrap/internal/sav"
 )
 
+var version = "dev"
+
 func main() {
 	var levelPath, outputDir, playersDir, oodleLibrary string
 	var force bool
+	var showVersion bool
 	flag.StringVar(&levelPath, "level", "", "path to Level.sav")
 	flag.StringVar(&outputDir, "output", "", "empty output directory")
 	flag.StringVar(&playersDir, "players-dir", "", "path to Players directory (defaults to the sibling Players directory)")
 	flag.StringVar(&oodleLibrary, "oodle-lib", "", "absolute path to oo2core_9_win64.dll for PlM saves")
 	flag.BoolVar(&force, "force", false, "allow writing into a non-empty output directory")
+	flag.BoolVar(&showVersion, "version", false, "print version")
 	flag.Parse()
+	if showVersion {
+		fmt.Println(version)
+		return
+	}
 	if levelPath == "" && flag.NArg() == 1 {
 		levelPath = flag.Arg(0)
 	}
