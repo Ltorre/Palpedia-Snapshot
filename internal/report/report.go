@@ -11,6 +11,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/Ltorre/palworld-save-scrap/internal/sav"
 )
@@ -29,7 +30,7 @@ type palRow struct {
 	Traits     []string
 }
 
-func ValidateOutputDirectory(levelPath, outputDir string, force bool) error {
+func ValidateOutputParent(levelPath, outputDir string) error {
 	levelDir := filepath.Dir(levelPath)
 	if !onDifferentVolumes(levelDir, outputDir) {
 		rel, err := filepath.Rel(levelDir, outputDir)
@@ -44,17 +45,29 @@ func ValidateOutputDirectory(levelPath, outputDir string, force bool) error {
 		if !st.IsDir() {
 			return fmt.Errorf("output path is not a directory: %s", outputDir)
 		}
-		entries, readErr := os.ReadDir(outputDir)
-		if readErr != nil {
-			return readErr
-		}
-		if len(entries) > 0 && !force {
-			return fmt.Errorf("output directory is not empty; choose another directory or use --force")
-		}
 	} else if !os.IsNotExist(err) {
 		return err
 	}
 	return nil
+}
+
+func CreateExportDirectory(parent string, timestamp time.Time) (string, error) {
+	if err := os.MkdirAll(parent, 0o755); err != nil {
+		return "", err
+	}
+	base := "export_" + timestamp.Local().Format("01-02-2006 15-04")
+	for suffix := 1; ; suffix++ {
+		name := base
+		if suffix > 1 {
+			name = fmt.Sprintf("%s (%d)", base, suffix)
+		}
+		path := filepath.Join(parent, name)
+		if err := os.Mkdir(path, 0o755); err == nil {
+			return path, nil
+		} else if !os.IsExist(err) {
+			return "", err
+		}
+	}
 }
 
 func onDifferentVolumes(left, right string) bool {

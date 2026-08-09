@@ -4,6 +4,7 @@ package gui
 
 import (
 	"errors"
+	"os/exec"
 	"syscall"
 	"unsafe"
 
@@ -57,4 +58,8 @@ func chooseFolder(title string) (string, error) {
 		return "", errors.New("selected folder path is unavailable")
 	}
 	return windows.UTF16ToString(pathUTF16), nil
+}
+
+func openFolder(path string) error {
+	return exec.Command("explorer.exe", path).Start()
 }

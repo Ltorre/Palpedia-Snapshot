@@ -2,15 +2,18 @@
 
 Read-only Windows app for exporting a Palworld `Level.sav` and its player saves. Run the executable normally to open the graphical interface; the command-line mode remains available when arguments are supplied.
 
-It writes four files to a directory you choose:
+Each export creates a separate timestamped folder in the parent directory you choose, for example `export_08-09-2026 18-42`. The minute separator is `-` because Windows does not allow `:` in folder names.
+
+Add these files from that folder to NotebookLM:
 
 - `collection.md` — player collection summary and current party/Palbox Pals
 - `pals.csv` — current player-owned Pals in the party or Palbox, including their passive trait IDs; this is the NotebookLM collection source
 - `capture-history.csv` — per-player Paldeck capture counts
 - `palpedia-progress.md` — NotebookLM-ready current-collection and capture-history summary
 - `breeding-candidates.md` — current Pals grouped by passive trait for breeding planning
-- `collection-diff.md` — changes since a previous export, generated with `--compare`
-- `world.json` — complete typed export, including players, all decoded Pals, guilds, bases, and parser diagnostics
+- `collection-diff.md` — changes since a previous export, generated with `--compare` (only when comparing)
+
+Do **not** add `world.json` to NotebookLM. It is a complete technical export for troubleshooting, not a NotebookLM source.
 
 The application never modifies save files. It refuses to place its output inside the save directory.
 
@@ -42,13 +45,14 @@ The `v2.0.0-rc1` branch contains the preview of the graphical Windows app. Open 
 
 - start at the standard save location, `C:\Users\<WindowsUser>\AppData\Local\Pal\Saved\SaveGames`;
 - find `Level.sav` files there, or let you browse for one manually;
-- export to `Documents\Palworld Save Scrap Exports` by default, safely outside your game saves, or let you choose a destination with the folder picker;
+- export to a new timestamped folder inside `Documents\Palworld Save Scrap Exports` by default, safely outside your game saves, or let you choose a parent destination with the folder picker;
+- offer **Open export folder in Explorer** after a successful export, ready for drag-and-drop into NotebookLM;
 - switch between English and French; and
-- keep shared-world, comparison, and overwrite controls under clearly labelled optional advanced options.
+- keep shared-world and comparison controls under clearly labelled optional advanced options.
 
 For a shared world, use **Find players in this save** in the advanced options, then select a player. Leave the Player UID empty to export every player.
 
-The export directory may be on another drive, such as `I:\Palworld export`; a different Windows volume is always outside the game save location.
+The export parent directory may be on another drive, such as `I:\Palworld export`; a different Windows volume is always outside the game save location. Keep prior `export_<date time>` folders there and select one with **Choose previous export** when creating a comparison.
 
 ## NotebookLM template
 
@@ -72,7 +76,7 @@ C:\Users\<WindowsUser>\AppData\Local\Pal\Saved\SaveGames\<SteamID>\<WorldID>\Lev
   --output "D:\path\to\export"
 ```
 
-`Level.sav` must have its matching `Players` directory beside it, unless you pass `--players-dir` explicitly. `--output` is mandatory and must be outside the save directory. Use `--force` only to replace files in an existing export directory.
+`Level.sav` must have its matching `Players` directory beside it, unless you pass `--players-dir` explicitly. `--output` is mandatory, must be outside the save directory, and is the parent directory for a new `export_<date time>` snapshot. Existing snapshots are never replaced.
 
 ### Shared worlds: export one player's collection
 

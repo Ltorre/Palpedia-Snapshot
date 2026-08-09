@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"time"
 
 	"github.com/Ltorre/palworld-save-scrap/internal/gui"
 	"github.com/Ltorre/palworld-save-scrap/internal/report"
@@ -25,13 +26,11 @@ func main() {
 
 func runCLI() {
 	var levelPath, outputDir, playersDir, playerUID, compareDir string
-	var force bool
 	var showVersion bool
 	var listPlayers bool
 	flag.StringVar(&levelPath, "level", "", "path to Level.sav")
-	flag.StringVar(&outputDir, "output", "", "empty output directory")
+	flag.StringVar(&outputDir, "output", "", "parent directory for timestamped exports")
 	flag.StringVar(&playersDir, "players-dir", "", "path to Players directory (defaults to the sibling Players directory)")
-	flag.BoolVar(&force, "force", false, "allow writing into a non-empty output directory")
 	flag.BoolVar(&showVersion, "version", false, "print version")
 	flag.BoolVar(&listPlayers, "list-players", false, "list players found in the save")
 	flag.StringVar(&playerUID, "player", "", "player UID to export; use --list-players to find it")
@@ -45,7 +44,7 @@ func runCLI() {
 		levelPath = flag.Arg(0)
 	}
 	if levelPath == "" || (!listPlayers && outputDir == "") || (listPlayers && (playerUID != "" || compareDir != "")) {
-		fmt.Fprintln(os.Stderr, "usage: palworld-save-scrap --level <Level.sav> --output <directory> [--player <UID>] [--compare <previous-export>] [--players-dir <Players>] [--force]\n       palworld-save-scrap --level <Level.sav> --list-players [--players-dir <Players>]")
+		fmt.Fprintln(os.Stderr, "usage: palworld-save-scrap --level <Level.sav> --output <parent-directory> [--player <UID>] [--compare <previous-export>] [--players-dir <Players>]\n       palworld-save-scrap --level <Level.sav> --list-players [--players-dir <Players>]")
 		os.Exit(2)
 	}
 	levelPath, err := filepath.Abs(levelPath)
@@ -67,16 +66,20 @@ func runCLI() {
 	if err != nil {
 		fail(err)
 	}
-	if err := report.ValidateOutputDirectory(levelPath, outputDir, force); err != nil {
+	if err := report.ValidateOutputParent(levelPath, outputDir); err != nil {
 		fail(err)
 	}
-	if err := report.Write(outputDir, world, playerUID, compareDir, force); err != nil {
+	exportDir, err := report.CreateExportDirectory(outputDir, time.Now())
+	if err != nil {
+		fail(err)
+	}
+	if err := report.Write(exportDir, world, playerUID, compareDir, false); err != nil {
 		fail(err)
 	}
 	if playerUID == "" {
-		fmt.Printf("Exported %d players and %d Pals to %s\n", len(world.Players), len(world.Pals), outputDir)
+		fmt.Printf("Exported %d players and %d Pals to %s\n", len(world.Players), len(world.Pals), exportDir)
 	} else {
-		fmt.Printf("Exported player %s to %s\n", playerUID, outputDir)
+		fmt.Printf("Exported player %s to %s\n", playerUID, exportDir)
 	}
 }
 
