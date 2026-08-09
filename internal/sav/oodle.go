@@ -10,17 +10,22 @@ import (
 )
 
 var oodleSetup struct {
-	sync.Once
-	err error
+	sync.Mutex
+	ready bool
 }
 
 const oodleLibrary = "oo2core_9_win64.dll"
 
 func oodleDecompress(src []byte, rawLen int) ([]byte, error) {
-	oodleSetup.Do(func() { oodleSetup.err = prepareOodle() })
-	if oodleSetup.err != nil {
-		return nil, oodleSetup.err
+	oodleSetup.Lock()
+	if !oodleSetup.ready {
+		if err := prepareOodle(); err != nil {
+			oodleSetup.Unlock()
+			return nil, err
+		}
+		oodleSetup.ready = true
 	}
+	oodleSetup.Unlock()
 	out, err := oodle.Decompress(src, int64(rawLen))
 	if err != nil {
 		return nil, fmt.Errorf("sav: Oodle decompress: %w", err)
@@ -42,7 +47,10 @@ func prepareOodle() error {
 func resolveOodleLibrary() (string, error) {
 	path := os.Getenv("PALWORLD_SCRAP_OODLE_LIB")
 	if path == "" {
-		return "", fmt.Errorf("sav: PALWORLD_SCRAP_OODLE_LIB is required for Oodle-compressed saves")
+		path = findInstalledOodleLibrary()
+	}
+	if path == "" {
+		return "", fmt.Errorf("sav: Oodle DLL was not found automatically; choose oo2core_9_win64.dll in the optional advanced options")
 	}
 	if !filepath.IsAbs(path) {
 		return "", fmt.Errorf("sav: PALWORLD_SCRAP_OODLE_LIB must be an absolute path: %q", path)

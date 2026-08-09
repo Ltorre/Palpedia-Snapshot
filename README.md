@@ -100,7 +100,7 @@ Point `--compare` at an earlier export directory. The new export will include `c
   --oodle-lib "D:\path\to\oo2core_9_win64.dll"
 ```
 
-Modern saves use Oodle compression. For those saves, pass the absolute path to `oo2core_9_win64.dll` from your own Palworld installation. The DLL is not included, downloaded, copied, or changed by this project.
+Modern saves use Oodle compression. The Windows app automatically searches your Steam installation and configured Steam libraries for the game's `oo2core_9_win64.dll`. If it cannot find it, use the optional Oodle DLL field or `--oodle-lib` to select the DLL from your own Palworld installation. The DLL is not included, downloaded, copied, or changed by this project.
 
 ## Safety and scope
 
