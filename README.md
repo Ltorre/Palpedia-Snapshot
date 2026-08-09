@@ -44,6 +44,8 @@ The `v2.0.0-rc1` branch contains the preview of the graphical Windows app. Open 
 
 For a shared world, use **Find players in this save** in the advanced options, then select a player. Leave the Player UID empty to export every player.
 
+The export directory may be on another drive, such as `I:\Palworld export`; a different Windows volume is always outside the game save location.
+
 ## NotebookLM template
 
 Duplicate the shared [Palworld Palpedia NotebookLM template](https://notebook.google.com/notebook/fec4f41d-1c32-4b8d-975c-a0fbe3f7eba1), then add the generated `pals.csv`, `palpedia-progress.md`, and `breeding-candidates.md` as your personal collection sources. The notebook can use them to identify gaps in your Palpedia, propose efficient next captures, and find breeding parents carrying useful passive traits.

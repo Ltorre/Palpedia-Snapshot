@@ -31,12 +31,14 @@ type palRow struct {
 
 func ValidateOutputDirectory(levelPath, outputDir string, force bool) error {
 	levelDir := filepath.Dir(levelPath)
-	rel, err := filepath.Rel(levelDir, outputDir)
-	if err != nil {
-		return err
-	}
-	if rel == "." || (rel != ".." && !strings.HasPrefix(rel, ".."+string(os.PathSeparator))) {
-		return fmt.Errorf("output directory must be outside the save directory")
+	if !onDifferentVolumes(levelDir, outputDir) {
+		rel, err := filepath.Rel(levelDir, outputDir)
+		if err != nil {
+			return err
+		}
+		if rel == "." || (rel != ".." && !strings.HasPrefix(rel, ".."+string(os.PathSeparator))) {
+			return fmt.Errorf("output directory must be outside the save directory")
+		}
 	}
 	if st, err := os.Stat(outputDir); err == nil {
 		if !st.IsDir() {
@@ -53,6 +55,21 @@ func ValidateOutputDirectory(levelPath, outputDir string, force bool) error {
 		return err
 	}
 	return nil
+}
+
+func onDifferentVolumes(left, right string) bool {
+	leftVolume, rightVolume := volumeName(left), volumeName(right)
+	return leftVolume != "" && rightVolume != "" && !strings.EqualFold(leftVolume, rightVolume)
+}
+
+func volumeName(path string) string {
+	if volume := filepath.VolumeName(path); volume != "" {
+		return volume
+	}
+	if len(path) >= 2 && path[1] == ':' && ((path[0] >= 'A' && path[0] <= 'Z') || (path[0] >= 'a' && path[0] <= 'z')) {
+		return path[:2]
+	}
+	return ""
 }
 
 func HasPlayer(world *sav.World, playerUID string) bool {

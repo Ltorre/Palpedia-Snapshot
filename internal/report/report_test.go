@@ -22,6 +22,15 @@ func TestPalsClassifiesPlayerContainers(t *testing.T) {
 	}
 }
 
+func TestOnDifferentVolumes(t *testing.T) {
+	if !onDifferentVolumes(`C:\Users\Player\Save\Level.sav`, `I:\Palworld export`) {
+		t.Fatal("different Windows drives should be treated as separate locations")
+	}
+	if onDifferentVolumes(`C:\Users\Player\Save`, `c:\Exports`) {
+		t.Fatal("drive letters should be compared case-insensitively")
+	}
+}
+
 func TestWriteCreatesAllExports(t *testing.T) {
 	rank := 2
 	world := &sav.World{
