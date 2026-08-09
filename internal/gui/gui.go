@@ -77,6 +77,7 @@ type screen struct {
 	plannerFilter, target                                                                                widget.Editor
 	plannerPals                                                                                          []planner.Pal
 	plannerPickers                                                                                       map[string]*plannerPicker
+	targetSuggestionButtons                                                                              map[string]*widget.Clickable
 	selectedMale, selectedFemale                                                                         *planner.Pal
 	plannerLoadedAt                                                                                      time.Time
 	plannerSaveModified                                                                                  time.Time
@@ -118,6 +119,7 @@ func newScreen(window *app.Window, version string) *screen {
 		field.SingleLine = true
 	}
 	s.plannerPickers = make(map[string]*plannerPicker)
+	s.targetSuggestionButtons = make(map[string]*widget.Clickable)
 	s.root.SetText(DefaultSaveRoot())
 	s.output.SetText(DefaultExportDir())
 	s.lastExportDir = latestExportDir(s.output.Text())
@@ -237,6 +239,13 @@ handled:
 		if picker.female.Clicked(gtx) {
 			pal := picker.pal
 			s.selectedFemale, s.plannerPairResult, s.plannerRoute = &pal, "", ""
+		}
+	}
+	for characterID, button := range s.targetSuggestionButtons {
+		if button.Clicked(gtx) {
+			if rules, err := breeding.Default(); err == nil {
+				s.target.SetText(rules.DisplayName(characterID))
+			}
 		}
 	}
 }
@@ -687,8 +696,37 @@ func (s *screen) plannerSection(gtx layout.Context) layout.Dimensions {
 		children = append(children,
 			layout.Rigid(spacer(12)),
 			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				return material.Subtitle2(s.theme, s.t("planner_route_section")).Layout(gtx)
+			}),
+			layout.Rigid(s.caption("planner_route_help")),
+			layout.Rigid(s.editor(&s.target, s.t("planner_target"))),
+			layout.Rigid(s.plannerTargetSuggestions),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				button := material.Button(s.theme, &s.routeButton, s.t("planner_find_route"))
+				button.Background = color.NRGBA{R: 32, G: 125, B: 104, A: 255}
+				return button.Layout(gtx)
+			}),
+		)
+		if s.plannerRoute != "" {
+			children = append(children, layout.Rigid(spacer(5)), layout.Rigid(s.note(s.plannerRoute, color.NRGBA{R: 20, G: 88, B: 72, A: 255})))
+		}
+		children = append(children,
+			layout.Rigid(spacer(16)),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 				return material.Subtitle2(s.theme, s.t("planner_pick_title")).Layout(gtx)
 			}),
+			layout.Rigid(s.plannerParentCards),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				button := material.Button(s.theme, &s.pairButton, s.t("planner_calculate_pair"))
+				button.Background = color.NRGBA{R: 127, G: 83, B: 187, A: 255}
+				return button.Layout(gtx)
+			}),
+		)
+		if s.plannerPairResult != "" {
+			children = append(children, layout.Rigid(spacer(5)), layout.Rigid(s.note(s.plannerPairResult, color.NRGBA{R: 58, G: 48, B: 132, A: 255})))
+		}
+		children = append(children,
+			layout.Rigid(spacer(8)),
 			layout.Rigid(s.caption("planner_filter_help")),
 			layout.Rigid(s.editor(&s.plannerFilter, s.t("planner_filter"))),
 			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
@@ -733,33 +771,7 @@ func (s *screen) plannerSection(gtx layout.Context) layout.Dimensions {
 			}),
 			layout.Rigid(spacer(4)),
 			layout.Rigid(s.plannerPalsList),
-			layout.Rigid(spacer(8)),
-			layout.Rigid(s.plannerSelection),
-			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-				button := material.Button(s.theme, &s.pairButton, s.t("planner_calculate_pair"))
-				button.Background = color.NRGBA{R: 127, G: 83, B: 187, A: 255}
-				return button.Layout(gtx)
-			}),
 		)
-		if s.plannerPairResult != "" {
-			children = append(children, layout.Rigid(spacer(5)), layout.Rigid(s.note(s.plannerPairResult, color.NRGBA{R: 58, G: 48, B: 132, A: 255})))
-		}
-		children = append(children,
-			layout.Rigid(spacer(12)),
-			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-				return material.Subtitle2(s.theme, s.t("planner_route_section")).Layout(gtx)
-			}),
-			layout.Rigid(s.caption("planner_route_help")),
-			layout.Rigid(s.editor(&s.target, s.t("planner_target"))),
-			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-				button := material.Button(s.theme, &s.routeButton, s.t("planner_find_route"))
-				button.Background = color.NRGBA{R: 32, G: 125, B: 104, A: 255}
-				return button.Layout(gtx)
-			}),
-		)
-		if s.plannerRoute != "" {
-			children = append(children, layout.Rigid(spacer(5)), layout.Rigid(s.note(s.plannerRoute, color.NRGBA{R: 20, G: 88, B: 72, A: 255})))
-		}
 		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
 	})
 }
@@ -773,6 +785,45 @@ func (s *screen) plannerFreshness(gtx layout.Context) layout.Dimensions {
 		message += "\n" + fmt.Sprintf(s.t("planner_last_export"), filepath.Base(s.lastExportDir))
 	}
 	return s.note(message, color.NRGBA{R: 39, G: 91, B: 76, A: 255})(gtx)
+}
+
+func (s *screen) plannerTargetSuggestions(gtx layout.Context) layout.Dimensions {
+	rules, err := breeding.Default()
+	if err != nil {
+		return layout.Dimensions{}
+	}
+	suggestions := rules.Suggestions(s.target.Text(), 6)
+	if len(suggestions) == 0 {
+		return layout.Dimensions{}
+	}
+	return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+		layout.Rigid(s.caption("planner_target_suggestions")),
+		layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+			return layout.Flex{Axis: layout.Vertical}.Layout(gtx, suggestionChildren(s, suggestions)...)
+		}),
+	)
+}
+
+func suggestionChildren(s *screen, suggestions []breeding.Suggestion) []layout.FlexChild {
+	children := make([]layout.FlexChild, 0, len(suggestions))
+	for _, suggestion := range suggestions {
+		suggestion := suggestion
+		button, ok := s.targetSuggestionButtons[suggestion.CharacterID]
+		if !ok {
+			button = new(widget.Clickable)
+			s.targetSuggestionButtons[suggestion.CharacterID] = button
+		}
+		label := suggestion.DisplayName
+		if suggestion.DisplayName != suggestion.CharacterID {
+			label += " · " + suggestion.CharacterID
+		}
+		children = append(children, layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+			style := material.Button(s.theme, button, label)
+			style.Background, style.Color = color.NRGBA{R: 232, G: 235, B: 250, A: 255}, color.NRGBA{R: 48, G: 54, B: 82, A: 255}
+			return layout.Inset{Bottom: unit.Dp(4)}.Layout(gtx, style.Layout)
+		}))
+	}
+	return children
 }
 
 func (s *screen) plannerPalsList(gtx layout.Context) layout.Dimensions {
@@ -846,7 +897,7 @@ func (s *screen) plannerPicker(pal planner.Pal) *plannerPicker {
 	return picker
 }
 
-func (s *screen) plannerSelection(gtx layout.Context) layout.Dimensions {
+func (s *screen) plannerParentCards(gtx layout.Context) layout.Dimensions {
 	male, female := s.t("planner_no_parent"), s.t("planner_no_parent")
 	if s.selectedMale != nil {
 		male = plannerPalLabel(*s.selectedMale)
@@ -854,7 +905,30 @@ func (s *screen) plannerSelection(gtx layout.Context) layout.Dimensions {
 	if s.selectedFemale != nil {
 		female = plannerPalLabel(*s.selectedFemale)
 	}
-	return s.note(fmt.Sprintf(s.t("planner_selected"), male, female), color.NRGBA{R: 61, G: 67, B: 93, A: 255})(gtx)
+	return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+		layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+			return s.plannerParentCard(gtx, s.t("planner_male_parent"), male)
+		}),
+		layout.Rigid(spacer(8)),
+		layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+			return s.plannerParentCard(gtx, s.t("planner_female_parent"), female)
+		}),
+	)
+}
+
+func (s *screen) plannerParentCard(gtx layout.Context, title, value string) layout.Dimensions {
+	return widget.Border{Color: color.NRGBA{R: 173, G: 178, B: 207, A: 255}, CornerRadius: unit.Dp(6), Width: unit.Dp(1)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+		return layout.Inset{Top: unit.Dp(8), Bottom: unit.Dp(8), Left: unit.Dp(10), Right: unit.Dp(10)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+			return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+					label := material.Caption(s.theme, title)
+					label.Color = color.NRGBA{R: 91, G: 98, B: 117, A: 255}
+					return label.Layout(gtx)
+				}),
+				layout.Rigid(s.note(value, color.NRGBA{R: 48, G: 54, B: 82, A: 255})),
+			)
+		})
+	})
 }
 
 func plannerPalLabel(pal planner.Pal) string {
@@ -979,6 +1053,8 @@ func init() {
 	translations[english]["planner_choose_male"] = "Choose male"
 	translations[english]["planner_choose_female"] = "Choose female"
 	translations[english]["planner_no_parent"] = "Not selected"
+	translations[english]["planner_male_parent"] = "Male parent"
+	translations[english]["planner_female_parent"] = "Female parent"
 	translations[english]["planner_selected"] = "Male parent: %s\nFemale parent: %s"
 	translations[english]["planner_calculate_pair"] = "Calculate selected pair"
 	translations[english]["planner_select_parents"] = "Choose one male parent and one female parent first."
@@ -987,6 +1063,7 @@ func init() {
 	translations[english]["planner_route_section"] = "Find the quickest target route"
 	translations[english]["planner_route_help"] = "Enter a Pal name such as Anubis or Mammorest. Game Character IDs such as SheepBall or PinkCat also work. The route uses the fewest sequential breeding generations from your current male/female collection."
 	translations[english]["planner_target"] = "Target Pal name or Character ID"
+	translations[english]["planner_target_suggestions"] = "Matching Pals — choose one"
 	translations[english]["planner_find_route"] = "Find quickest breeding route"
 	translations[english]["planner_target_required"] = "Enter a target Pal Character ID."
 	translations[english]["planner_route_title"] = "Route to %s · %d breeding generation(s)"
@@ -1025,6 +1102,8 @@ func init() {
 	translations[french]["planner_choose_male"] = "Choisir le mâle"
 	translations[french]["planner_choose_female"] = "Choisir la femelle"
 	translations[french]["planner_no_parent"] = "Non sélectionné"
+	translations[french]["planner_male_parent"] = "Parent mâle"
+	translations[french]["planner_female_parent"] = "Parent femelle"
 	translations[french]["planner_selected"] = "Parent mâle : %s\nParent femelle : %s"
 	translations[french]["planner_calculate_pair"] = "Calculer la paire sélectionnée"
 	translations[french]["planner_select_parents"] = "Choisissez d’abord un parent mâle et un parent femelle."
@@ -1033,6 +1112,7 @@ func init() {
 	translations[french]["planner_route_section"] = "Trouver le chemin le plus rapide"
 	translations[french]["planner_route_help"] = "Entrez un nom de Pal comme Anubis ou Mammorest. Les Character IDs du jeu, comme SheepBall ou PinkCat, fonctionnent aussi. Le chemin utilise le moins de générations d’élevage consécutives depuis votre collection mâle/femelle."
 	translations[french]["planner_target"] = "Nom ou Character ID du Pal cible"
+	translations[french]["planner_target_suggestions"] = "Pals correspondants — choisissez-en un"
 	translations[french]["planner_find_route"] = "Trouver le chemin le plus rapide"
 	translations[french]["planner_target_required"] = "Entrez un Character ID de Pal cible."
 	translations[french]["planner_route_title"] = "Chemin vers %s · %d génération(s) d’élevage"

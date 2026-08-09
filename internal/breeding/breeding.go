@@ -44,6 +44,12 @@ type Result struct {
 	TargetRank  int
 }
 
+// Suggestion is a player-facing Pal name with its matching game Character ID.
+type Suggestion struct {
+	CharacterID string
+	DisplayName string
+}
+
 // Rules is an immutable indexed breeding-rule dataset.
 type Rules struct {
 	byID         map[string]record
@@ -167,6 +173,53 @@ func (rules *Rules) DisplayName(value string) string {
 		return entry.DisplayName
 	}
 	return strings.TrimSpace(value)
+}
+
+// Suggestions returns matching Pals in a useful type-ahead order.
+func (rules *Rules) Suggestions(query string, limit int) []Suggestion {
+	query = strings.ToLower(strings.TrimSpace(query))
+	if query == "" || limit < 1 {
+		return nil
+	}
+	type rankedSuggestion struct {
+		Suggestion
+		rank int
+	}
+	matches := make([]rankedSuggestion, 0)
+	for _, entry := range rules.byID {
+		name, key := strings.ToLower(entry.DisplayName), strings.ToLower(entry.Key)
+		rank := -1
+		switch {
+		case strings.HasPrefix(name, query):
+			rank = 0
+		case strings.HasPrefix(key, query):
+			rank = 1
+		case strings.Contains(name, query):
+			rank = 2
+		case strings.Contains(key, query):
+			rank = 3
+		}
+		if rank >= 0 {
+			matches = append(matches, rankedSuggestion{Suggestion: Suggestion{CharacterID: entry.Key, DisplayName: entry.DisplayName}, rank: rank})
+		}
+	}
+	sort.Slice(matches, func(i, j int) bool {
+		if matches[i].rank != matches[j].rank {
+			return matches[i].rank < matches[j].rank
+		}
+		if matches[i].DisplayName != matches[j].DisplayName {
+			return matches[i].DisplayName < matches[j].DisplayName
+		}
+		return matches[i].CharacterID < matches[j].CharacterID
+	})
+	if len(matches) > limit {
+		matches = matches[:limit]
+	}
+	values := make([]Suggestion, len(matches))
+	for index := range matches {
+		values[index] = matches[index].Suggestion
+	}
+	return values
 }
 
 // Species returns every Pal Character ID in the bundled breeding dataset.

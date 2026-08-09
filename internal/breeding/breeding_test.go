@@ -59,3 +59,14 @@ func TestDefaultUsesPlayerFacingNames(t *testing.T) {
 		t.Fatalf("Key(Mammorest) = %q, %t; want GrassMammoth, true", got, ok)
 	}
 }
+
+func TestSuggestionsPreferPlayerFacingNamePrefix(t *testing.T) {
+	rules, err := Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	suggestions := rules.Suggestions("mamm", 5)
+	if len(suggestions) == 0 || suggestions[0] != (Suggestion{CharacterID: "GrassMammoth", DisplayName: "Mammorest"}) {
+		t.Fatalf("Mammorest suggestions = %#v", suggestions)
+	}
+}

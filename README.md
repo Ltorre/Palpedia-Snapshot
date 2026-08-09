@@ -30,6 +30,8 @@ The planner can:
 
 The planner translates all 299 bundled game IDs into their Palpedia-facing names: for example, `BOSS_GrassMammoth` displays as **Mammorest**. It still accepts raw IDs when useful.
 
+The quickest-route section is above the parent calculator and offers clickable name suggestions as you type. The selected male and female parents remain in dedicated cards above the scrollable Pal list.
+
 For a route longer than two generations, it also identifies the Philanthropist and Babysitter Pals in the loaded collection and explains how to use them to speed up the breeding farm.
 
 The route is a species plan, not a promise of a specific egg: passive inheritance and egg gender remain game RNG. The UI calls this out so it is suitable for planning, rather than overstating certainty.
