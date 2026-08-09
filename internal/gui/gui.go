@@ -15,6 +15,7 @@ import (
 	"gioui.org/app"
 	"gioui.org/layout"
 	"gioui.org/op"
+	"gioui.org/op/paint"
 	"gioui.org/text"
 	"gioui.org/unit"
 	"gioui.org/widget"
@@ -65,31 +66,32 @@ type screen struct {
 	language  language
 	themeMode themeMode
 
-	root, level, output, players, player, compare                                                        widget.Editor
-	advanced                                                                                             widget.Bool
-	englishButton, frenchButton, lightButton, darkButton, scanButton                                     widget.Clickable
-	browseButton, outputBrowseButton, compareBrowseButton, playersButton, exportButton, openExportButton widget.Clickable
-	candidates                                                                                           []SaveCandidate
-	candidateButtons                                                                                     []widget.Clickable
-	playersFound                                                                                         []sav.Player
-	playerButtons                                                                                        []widget.Clickable
-	list, plannerList                                                                                    layout.List
-	results                                                                                              chan taskResult
-	busy                                                                                                 bool
-	status                                                                                               string
-	statusError                                                                                          bool
-	lastExportDir                                                                                        string
-	plannerRefreshButton, pairButton, routeButton, plannerSortLevelAsc, plannerSortLevelDesc             widget.Clickable
-	plannerGold, plannerDiamond, plannerMale, plannerFemale                                              widget.Bool
-	plannerSort                                                                                          planner.SortOrder
-	plannerFilter, target                                                                                widget.Editor
-	plannerPals                                                                                          []planner.Pal
-	plannerPickers                                                                                       map[string]*plannerPicker
-	targetSuggestionButtons                                                                              map[string]*widget.Clickable
-	selectedMale, selectedFemale                                                                         *planner.Pal
-	plannerLoadedAt                                                                                      time.Time
-	plannerSaveModified                                                                                  time.Time
-	plannerPairResult, plannerRoute                                                                      string
+	root, level, output, players, player, compare                                                          widget.Editor
+	advanced                                                                                               widget.Bool
+	englishButton, frenchButton, lightButton, darkButton, scanButton, changeSaveButton, changeExportButton widget.Clickable
+	browseButton, outputBrowseButton, compareBrowseButton, playersButton, exportButton, openExportButton   widget.Clickable
+	candidates                                                                                             []SaveCandidate
+	candidateButtons                                                                                       []widget.Clickable
+	playersFound                                                                                           []sav.Player
+	playerButtons                                                                                          []widget.Clickable
+	list, plannerList                                                                                      layout.List
+	results                                                                                                chan taskResult
+	busy                                                                                                   bool
+	status                                                                                                 string
+	statusError                                                                                            bool
+	lastExportDir                                                                                          string
+	showSaveSetup, showExportSetup                                                                         bool
+	plannerRefreshButton, pairButton, routeButton, plannerSortLevelAsc, plannerSortLevelDesc               widget.Clickable
+	plannerGold, plannerDiamond, plannerMale, plannerFemale                                                widget.Bool
+	plannerSort                                                                                            planner.SortOrder
+	plannerFilter, target                                                                                  widget.Editor
+	plannerPals                                                                                            []planner.Pal
+	plannerPickers                                                                                         map[string]*plannerPicker
+	targetSuggestionButtons                                                                                map[string]*widget.Clickable
+	selectedMale, selectedFemale                                                                           *planner.Pal
+	plannerLoadedAt                                                                                        time.Time
+	plannerSaveModified                                                                                    time.Time
+	plannerPairResult, plannerRoute                                                                        string
 }
 
 func Run(version string) {
@@ -116,7 +118,7 @@ func Run(version string) {
 
 func newScreen(window *app.Window, version string) *screen {
 	theme := material.NewTheme()
-	s := &screen{window: window, explorer: explorer.NewExplorer(window), theme: theme, version: version, language: english, themeMode: lightTheme, results: make(chan taskResult, 4), list: layout.List{Axis: layout.Vertical}, plannerList: layout.List{Axis: layout.Vertical}}
+	s := &screen{window: window, explorer: explorer.NewExplorer(window), theme: theme, version: version, language: english, themeMode: lightTheme, showSaveSetup: true, showExportSetup: true, results: make(chan taskResult, 4), list: layout.List{Axis: layout.Vertical}, plannerList: layout.List{Axis: layout.Vertical}}
 	s.applyTheme(lightTheme)
 	for _, field := range []*widget.Editor{&s.root, &s.level, &s.output, &s.players, &s.player, &s.compare, &s.plannerFilter, &s.target} {
 		field.SingleLine = true
@@ -186,6 +188,7 @@ func (s *screen) handle(gtx layout.Context) {
 				s.candidateButtons = make([]widget.Clickable, len(result.candidates))
 			case "browse":
 				s.level.SetText(result.path)
+				s.showSaveSetup = result.path == ""
 			case "output-browse":
 				s.output.SetText(result.path)
 				if result.path != "" {
@@ -199,6 +202,7 @@ func (s *screen) handle(gtx layout.Context) {
 			case "export":
 				if result.err == nil && result.path != "" {
 					s.lastExportDir = result.path
+					s.showExportSetup = false
 					s.startPlannerRefresh()
 				}
 			case "planner":
@@ -225,6 +229,12 @@ handled:
 	}
 	if s.darkButton.Clicked(gtx) {
 		s.applyTheme(darkTheme)
+	}
+	if s.changeSaveButton.Clicked(gtx) {
+		s.showSaveSetup = true
+	}
+	if s.changeExportButton.Clicked(gtx) {
+		s.showExportSetup = true
 	}
 	if s.scanButton.Clicked(gtx) && !s.busy {
 		s.startScan()
@@ -267,6 +277,7 @@ handled:
 	for index := range s.candidateButtons {
 		if s.candidateButtons[index].Clicked(gtx) {
 			s.level.SetText(s.candidates[index].LevelPath)
+			s.showSaveSetup = false
 			s.statusError = false
 			s.status = s.t("world_selected")
 		}
@@ -283,10 +294,12 @@ handled:
 		if picker.male.Clicked(gtx) {
 			pal := picker.pal
 			s.selectedMale, s.plannerPairResult, s.plannerRoute = &pal, "", ""
+			s.plannerMale.Value, s.plannerFemale.Value = false, true
 		}
 		if picker.female.Clicked(gtx) {
 			pal := picker.pal
 			s.selectedFemale, s.plannerPairResult, s.plannerRoute = &pal, "", ""
+			s.plannerMale.Value, s.plannerFemale.Value = true, false
 		}
 	}
 	for characterID, button := range s.targetSuggestionButtons {
@@ -596,11 +609,23 @@ func loadWorld(levelPath, playersDir string) (*sav.World, error) {
 }
 
 func (s *screen) layout(gtx layout.Context) layout.Dimensions {
+	paint.Fill(gtx.Ops, s.theme.Palette.Bg)
 	return layout.Inset{Top: unit.Dp(18), Bottom: unit.Dp(18), Left: unit.Dp(28), Right: unit.Dp(28)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 		return s.list.Layout(gtx, 1, func(gtx layout.Context, _ int) layout.Dimensions {
-			return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
-				layout.Rigid(s.header), layout.Rigid(spacer(14)), layout.Rigid(s.saveSection), layout.Rigid(spacer(12)), layout.Rigid(s.exportSection), layout.Rigid(spacer(12)), layout.Rigid(s.plannerSection), layout.Rigid(spacer(12)), layout.Rigid(s.statusSection),
-			)
+			children := []layout.FlexChild{layout.Rigid(s.header), layout.Rigid(spacer(14))}
+			if s.showSaveSetup || strings.TrimSpace(s.level.Text()) == "" {
+				children = append(children, layout.Rigid(s.saveSection))
+			} else {
+				children = append(children, layout.Rigid(s.selectedSaveSummary))
+			}
+			children = append(children, layout.Rigid(spacer(12)))
+			if s.showExportSetup {
+				children = append(children, layout.Rigid(s.exportSection))
+			} else {
+				children = append(children, layout.Rigid(s.exportSummary))
+			}
+			children = append(children, layout.Rigid(spacer(12)), layout.Rigid(s.plannerSection), layout.Rigid(spacer(12)), layout.Rigid(s.statusSection))
+			return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
 		})
 	})
 }
@@ -671,6 +696,17 @@ func (s *screen) saveSection(gtx layout.Context) layout.Dimensions {
 	})
 }
 
+func (s *screen) selectedSaveSummary(gtx layout.Context) layout.Dimensions {
+	return section(gtx, s.theme, s.t("selected_save_summary"), func(gtx layout.Context) layout.Dimensions {
+		return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
+			layout.Flexed(1, s.note(filepath.Base(s.level.Text()), s.primaryText())),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				return s.languageButton(gtx, &s.changeSaveButton, s.t("change_save"), false)
+			}),
+		)
+	})
+}
+
 func (s *screen) candidatesList(gtx layout.Context) layout.Dimensions {
 	if len(s.candidates) == 0 {
 		return s.caption("no_candidates")(gtx)
@@ -736,6 +772,17 @@ func (s *screen) exportSection(gtx layout.Context) layout.Dimensions {
 			}))
 		}
 		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
+	})
+}
+
+func (s *screen) exportSummary(gtx layout.Context) layout.Dimensions {
+	return section(gtx, s.theme, s.t("export_summary"), func(gtx layout.Context) layout.Dimensions {
+		return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
+			layout.Flexed(1, s.note(filepath.Base(s.lastExportDir), s.primaryText())),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				return s.languageButton(gtx, &s.changeExportButton, s.t("change_export"), false)
+			}),
+		)
 	})
 }
 
@@ -919,18 +966,22 @@ func (s *screen) plannerPalsList(gtx layout.Context) layout.Dimensions {
 				pal := visible[index]
 				picker := s.plannerPicker(pal)
 				return layout.Inset{Bottom: unit.Dp(5)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
-					return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
-						layout.Flexed(1, s.note(plannerPalLabel(pal), s.primaryText())),
-						layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-							if strings.EqualFold(pal.Gender, "male") {
-								return material.Button(s.theme, &picker.male, s.t("planner_choose_male")).Layout(gtx)
-							}
-							if strings.EqualFold(pal.Gender, "female") {
-								return material.Button(s.theme, &picker.female, s.t("planner_choose_female")).Layout(gtx)
-							}
-							return layout.Dimensions{}
-						}),
-					)
+					return widget.Border{Color: s.border(), CornerRadius: unit.Dp(6), Width: unit.Dp(1)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+						return layout.Inset{Top: unit.Dp(7), Bottom: unit.Dp(7), Left: unit.Dp(10), Right: unit.Dp(10)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+							return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
+								layout.Flexed(1, s.plannerPalDetails(pal)),
+								layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+									if strings.EqualFold(pal.Gender, "male") {
+										return material.Button(s.theme, &picker.male, s.t("planner_choose_male")).Layout(gtx)
+									}
+									if strings.EqualFold(pal.Gender, "female") {
+										return material.Button(s.theme, &picker.female, s.t("planner_choose_female")).Layout(gtx)
+									}
+									return layout.Dimensions{}
+								}),
+							)
+						})
+					})
 				})
 			})
 		}),
@@ -966,45 +1017,84 @@ func (s *screen) plannerPicker(pal planner.Pal) *plannerPicker {
 }
 
 func (s *screen) plannerParentCards(gtx layout.Context) layout.Dimensions {
-	male, female := s.t("planner_no_parent"), s.t("planner_no_parent")
-	if s.selectedMale != nil {
-		male = plannerPalLabel(*s.selectedMale)
-	}
-	if s.selectedFemale != nil {
-		female = plannerPalLabel(*s.selectedFemale)
-	}
 	return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
 		layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
-			return s.plannerParentCard(gtx, s.t("planner_male_parent"), male)
+			return s.plannerParentCard(gtx, s.t("planner_male_parent"), s.selectedMale)
 		}),
 		layout.Rigid(spacer(8)),
 		layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
-			return s.plannerParentCard(gtx, s.t("planner_female_parent"), female)
+			return s.plannerParentCard(gtx, s.t("planner_female_parent"), s.selectedFemale)
 		}),
 	)
 }
 
-func (s *screen) plannerParentCard(gtx layout.Context, title, value string) layout.Dimensions {
+func (s *screen) plannerParentCard(gtx layout.Context, title string, pal *planner.Pal) layout.Dimensions {
 	return widget.Border{Color: s.border(), CornerRadius: unit.Dp(6), Width: unit.Dp(1)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 		return layout.Inset{Top: unit.Dp(8), Bottom: unit.Dp(8), Left: unit.Dp(10), Right: unit.Dp(10)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
-			return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+			children := []layout.FlexChild{
 				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 					label := material.Caption(s.theme, title)
 					label.Color = s.mutedText()
 					return label.Layout(gtx)
 				}),
-				layout.Rigid(s.note(value, s.primaryText())),
-			)
+			}
+			if pal == nil {
+				children = append(children, layout.Rigid(s.note(s.t("planner_no_parent"), s.mutedText())))
+			} else {
+				children = append(children, layout.Rigid(s.plannerPalDetails(*pal)))
+			}
+			return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
 		})
 	})
 }
 
 func plannerPalLabel(pal planner.Pal) string {
-	traits := planner.TraitSummary(pal.Traits)
-	if traits == "" {
-		traits = "—"
+	return fmt.Sprintf("%s · Lv. %d · %s", planner.PalName(pal), planner.PalLevel(pal), pal.Gender)
+}
+
+func (s *screen) plannerPalDetails(pal planner.Pal) layout.Widget {
+	return func(gtx layout.Context) layout.Dimensions {
+		children := []layout.FlexChild{layout.Rigid(s.note(plannerPalLabel(pal), s.primaryText()))}
+		if len(pal.Traits) > 0 {
+			children = append(children, layout.Rigid(s.traitLabels(pal.Traits)))
+		}
+		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
 	}
-	return fmt.Sprintf("%s · Lv. %d · %s · %s", planner.PalName(pal), planner.PalLevel(pal), pal.Gender, traits)
+}
+
+func (s *screen) traitLabels(traits []string) layout.Widget {
+	return func(gtx layout.Context) layout.Dimensions {
+		children := make([]layout.FlexChild, 0, len(traits))
+		for index, trait := range traits {
+			trait := trait
+			children = append(children, layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				label := material.Caption(s.theme, planner.TraitName(trait))
+				label.Color = s.traitColor(trait)
+				if index < len(traits)-1 {
+					return layout.Inset{Right: unit.Dp(8)}.Layout(gtx, label.Layout)
+				}
+				return label.Layout(gtx)
+			}))
+		}
+		return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx, children...)
+	}
+}
+
+func (s *screen) traitColor(trait string) color.NRGBA {
+	switch planner.Tier(trait) {
+	case planner.Gold:
+		if s.isDark() {
+			return color.NRGBA{R: 247, G: 207, B: 93, A: 255}
+		}
+		return color.NRGBA{R: 167, G: 114, B: 0, A: 255}
+	case planner.Diamond:
+		if s.isDark() {
+			return color.NRGBA{R: 111, G: 226, B: 172, A: 255}
+		}
+		return color.NRGBA{R: 20, G: 132, B: 85, A: 255}
+	default:
+		return s.mutedText()
+	}
 }
 
 func (s *screen) playersList(gtx layout.Context) layout.Dimensions {
@@ -1096,6 +1186,14 @@ func init() {
 	translations[english]["theme_dark"] = "Dark"
 	translations[french]["theme_light"] = "Clair"
 	translations[french]["theme_dark"] = "Sombre"
+	translations[english]["selected_save_summary"] = "Selected save"
+	translations[english]["change_save"] = "Change save"
+	translations[english]["export_summary"] = "Latest NotebookLM export"
+	translations[english]["change_export"] = "Edit export"
+	translations[french]["selected_save_summary"] = "Sauvegarde sélectionnée"
+	translations[french]["change_save"] = "Changer de sauvegarde"
+	translations[french]["export_summary"] = "Dernier export NotebookLM"
+	translations[french]["change_export"] = "Modifier l’export"
 	translations[english]["notebooklm_files"] = "Create your own notebook at notebook.google.com. First upload the 31 reference Markdown files from palpedia-snapshot-notebooklm-reference.zip, then add: collection.md, pals.csv, capture-history.csv, palpedia-progress.md, breeding-candidates.md, breeding-rules.md, breeding-direct-pairs.csv, and collection-diff.md when comparing. Do not add world.json."
 	translations[french]["notebooklm_files"] = "Créez votre propre notebook sur notebook.google.com. Importez d’abord les 31 fichiers Markdown de référence depuis palpedia-snapshot-notebooklm-reference.zip, puis ajoutez : collection.md, pals.csv, capture-history.csv, palpedia-progress.md, breeding-candidates.md, breeding-rules.md, breeding-direct-pairs.csv et collection-diff.md lors d’une comparaison. Ne pas ajouter world.json."
 	translations[english]["planner_title"] = "3. Breeding planner"

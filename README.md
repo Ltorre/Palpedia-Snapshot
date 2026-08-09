@@ -30,7 +30,7 @@ The planner can:
 
 The planner translates all 299 bundled game IDs into their Palpedia-facing names: for example, `BOSS_GrassMammoth` displays as **Mammorest**. It still accepts raw IDs when useful.
 
-To keep the picker compact, identical species/sex/passive-trait combinations are represented by only their highest-level Pal. The header also includes a light/dark theme switch.
+To keep the picker compact, identical species/sex/passive-trait combinations are represented by only their highest-level Pal. Gold traits use yellow labels and diamond traits green labels. The header includes a light/dark theme switch, and the selected save/export setup collapses into small summaries that can be reopened when needed.
 
 The quickest-route section is above the parent calculator and offers clickable name suggestions as you type. The selected male and female parents remain in dedicated cards above the scrollable Pal list.
 
