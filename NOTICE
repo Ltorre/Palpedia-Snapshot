@@ -1,0 +1,5 @@
+Palworld Save Scrap includes a modified copy of the Palhelm save parser
+(https://github.com/8tp/palhelm), licensed under Apache License 2.0.
+
+The Oodle loader is based on go-oodle
+(https://github.com/new-world-tools/go-oodle), licensed under MIT.
