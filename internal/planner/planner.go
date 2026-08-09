@@ -184,6 +184,27 @@ type Path struct {
 // ShortestPath finds the fewest sequential breeding generations from the collection to target.
 // It assumes an offspring can be bred again as the needed sex; actual egg genders can require retries.
 func ShortestPath(rules *breeding.Rules, pals []Pal, target string) (Path, error) {
+	return shortestPath(rules, pals, target, nil)
+}
+
+// ShortestPathAvoidingSpecies finds a route that never uses the listed species
+// as a starting parent or a generated intermediate Pal. The target itself is
+// always allowed so callers can request a route to it.
+func ShortestPathAvoidingSpecies(rules *breeding.Rules, pals []Pal, target string, excluded map[string]bool) (Path, error) {
+	targetKey, ok := rules.Key(target)
+	if !ok {
+		return Path{}, fmt.Errorf("unknown target Pal %q", target)
+	}
+	allowed := make(map[string]bool, len(excluded))
+	for species := range excluded {
+		if key, known := rules.Key(species); known && key != targetKey {
+			allowed[key] = true
+		}
+	}
+	return shortestPath(rules, pals, targetKey, allowed)
+}
+
+func shortestPath(rules *breeding.Rules, pals []Pal, target string, excluded map[string]bool) (Path, error) {
 	target, ok := rules.Key(target)
 	if !ok {
 		return Path{}, fmt.Errorf("unknown target Pal %q", target)
@@ -200,7 +221,7 @@ func ShortestPath(rules *breeding.Rules, pals []Pal, target string) (Path, error
 	}
 	for _, pal := range pals {
 		name, known := rules.Key(pal.CharacterID)
-		if !known {
+		if !known || excluded[name] {
 			continue
 		}
 		entry := states[name]
@@ -215,11 +236,17 @@ func ShortestPath(rules *breeding.Rules, pals []Pal, target string) (Path, error
 	for iteration := 0; iteration < len(species); iteration++ {
 		changed := false
 		for _, male := range species {
+			if excluded[male] {
+				continue
+			}
 			maleState := states[male][0]
 			if maleState.generation == unreachable {
 				continue
 			}
 			for _, female := range species {
+				if excluded[female] {
+					continue
+				}
 				femaleState := states[female][1]
 				if femaleState.generation == unreachable {
 					continue
@@ -229,6 +256,9 @@ func ShortestPath(rules *breeding.Rules, pals []Pal, target string) (Path, error
 					continue
 				}
 				child := result.Child
+				if excluded[child] {
+					continue
+				}
 				generation := max(maleState.generation, femaleState.generation) + 1
 				step := &Step{Generation: generation, ParentA: male, ParentB: female, Child: child, Rule: result.Rule}
 				entry := states[child]
@@ -276,6 +306,12 @@ func ShortestPath(rules *breeding.Rules, pals []Pal, target string) (Path, error
 // the target from the starting collection. It is useful when planning passive
 // inheritance into a species the player already owns.
 func ShortestPathAsIfUnowned(rules *breeding.Rules, pals []Pal, target string) (Path, error) {
+	return ShortestPathAsIfUnownedAvoidingSpecies(rules, pals, target, nil)
+}
+
+// ShortestPathAsIfUnownedAvoidingSpecies removes existing copies of the target
+// from the starting collection while also avoiding the selected other species.
+func ShortestPathAsIfUnownedAvoidingSpecies(rules *breeding.Rules, pals []Pal, target string, excluded map[string]bool) (Path, error) {
 	targetKey, ok := rules.Key(target)
 	if !ok {
 		return Path{}, fmt.Errorf("unknown target Pal %q", target)
@@ -288,7 +324,7 @@ func ShortestPathAsIfUnowned(rules *breeding.Rules, pals []Pal, target string) (
 		}
 		withoutTarget = append(withoutTarget, pal)
 	}
-	return ShortestPath(rules, withoutTarget, targetKey)
+	return ShortestPathAvoidingSpecies(rules, withoutTarget, targetKey, excluded)
 }
 
 func stepKey(step *Step) string {

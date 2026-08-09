@@ -75,35 +75,38 @@ type screen struct {
 	language  language
 	themeMode themeMode
 
-	root, level, output, players, player, compare                                                          widget.Editor
-	advanced                                                                                               widget.Bool
-	englishButton, frenchButton, lightButton, darkButton, scanButton, changeSaveButton, changeExportButton widget.Clickable
-	notebookViewButton, plannerViewButton, routeViewButton                                                 widget.Clickable
-	browseButton, outputBrowseButton, compareBrowseButton, playersButton, exportButton, openExportButton   widget.Clickable
-	candidates                                                                                             []SaveCandidate
-	candidateButtons                                                                                       []widget.Clickable
-	playersFound                                                                                           []sav.Player
-	playerButtons                                                                                          []widget.Clickable
-	list, plannerList                                                                                      layout.List
-	results                                                                                                chan taskResult
-	busy                                                                                                   bool
-	status                                                                                                 string
-	statusError                                                                                            bool
-	lastExportDir                                                                                          string
-	showSaveSetup, showExportSetup                                                                         bool
-	activeView                                                                                             workspaceView
-	plannerRefreshButton, pairButton, routeButton, plannerSortLevelAsc, plannerSortLevelDesc               widget.Clickable
-	plannerGold, plannerDiamond, plannerMale, plannerFemale                                                widget.Bool
-	plannerSort                                                                                            planner.SortOrder
-	plannerFilter, target                                                                                  widget.Editor
-	plannerPals                                                                                            []planner.Pal
-	plannerPickers                                                                                         map[string]*plannerPicker
-	targetSuggestionButtons                                                                                map[string]*widget.Clickable
-	traitHovers                                                                                            map[string]*widget.Clickable
-	selectedMale, selectedFemale                                                                           *planner.Pal
-	plannerLoadedAt                                                                                        time.Time
-	plannerSaveModified                                                                                    time.Time
-	plannerPairResult, plannerRoute, plannerRouteNotice                                                    string
+	root, level, output, players, player, compare                                                              widget.Editor
+	advanced                                                                                                   widget.Bool
+	englishButton, frenchButton, lightButton, darkButton, scanButton, changeSaveButton, changeExportButton     widget.Clickable
+	notebookViewButton, plannerViewButton, routeViewButton                                                     widget.Clickable
+	browseButton, outputBrowseButton, compareBrowseButton, playersButton, exportButton, openExportButton       widget.Clickable
+	candidates                                                                                                 []SaveCandidate
+	candidateButtons                                                                                           []widget.Clickable
+	playersFound                                                                                               []sav.Player
+	playerButtons                                                                                              []widget.Clickable
+	list, plannerList                                                                                          layout.List
+	results                                                                                                    chan taskResult
+	busy                                                                                                       bool
+	status                                                                                                     string
+	statusError                                                                                                bool
+	lastExportDir                                                                                              string
+	showSaveSetup, showExportSetup                                                                             bool
+	activeView                                                                                                 workspaceView
+	plannerRefreshButton, pairButton, routeButton, routeResetButton, plannerSortLevelAsc, plannerSortLevelDesc widget.Clickable
+	plannerGold, plannerDiamond, plannerMale, plannerFemale                                                    widget.Bool
+	plannerSort                                                                                                planner.SortOrder
+	plannerFilter, target                                                                                      widget.Editor
+	plannerPals                                                                                                []planner.Pal
+	plannerPickers                                                                                             map[string]*plannerPicker
+	targetSuggestionButtons                                                                                    map[string]*widget.Clickable
+	traitHovers                                                                                                map[string]*widget.Clickable
+	routeAvoidButtons                                                                                          map[string]*widget.Clickable
+	routeExcluded                                                                                              map[string]bool
+	selectedMale, selectedFemale                                                                               *planner.Pal
+	plannerLoadedAt                                                                                            time.Time
+	plannerSaveModified                                                                                        time.Time
+	plannerPairResult, plannerRoute, plannerRouteNotice, plannerRouteTarget                                    string
+	plannerRoutePath                                                                                           *planner.Path
 }
 
 func Run(version string) {
@@ -138,6 +141,8 @@ func newScreen(window *app.Window, version string) *screen {
 	s.plannerPickers = make(map[string]*plannerPicker)
 	s.targetSuggestionButtons = make(map[string]*widget.Clickable)
 	s.traitHovers = make(map[string]*widget.Clickable)
+	s.routeAvoidButtons = make(map[string]*widget.Clickable)
+	s.routeExcluded = make(map[string]bool)
 	s.root.SetText(DefaultSaveRoot())
 	s.output.SetText(DefaultExportDir())
 	s.lastExportDir = latestExportDir(s.output.Text())
@@ -225,7 +230,8 @@ func (s *screen) handle(gtx layout.Context) {
 				if result.err == nil {
 					s.plannerPals, s.plannerLoadedAt, s.plannerSaveModified = result.plannerPals, time.Now(), result.updatedAt
 					s.plannerPickers = make(map[string]*plannerPicker)
-					s.selectedMale, s.selectedFemale, s.plannerPairResult, s.plannerRoute, s.plannerRouteNotice = nil, nil, "", "", ""
+					s.selectedMale, s.selectedFemale, s.plannerPairResult = nil, nil, ""
+					s.clearRoute()
 				}
 			}
 		default:
@@ -297,6 +303,10 @@ handled:
 	if s.routeButton.Clicked(gtx) {
 		s.calculateRoute()
 	}
+	if s.routeResetButton.Clicked(gtx) {
+		s.routeExcluded = make(map[string]bool)
+		s.calculateRoute()
+	}
 	if s.openExportButton.Clicked(gtx) && s.lastExportDir != "" {
 		if err := openFolder(s.lastExportDir); err != nil {
 			s.statusError, s.status = true, err.Error()
@@ -322,12 +332,14 @@ handled:
 	for _, picker := range s.plannerPickers {
 		if picker.male.Clicked(gtx) {
 			pal := picker.pal
-			s.selectedMale, s.plannerPairResult, s.plannerRoute, s.plannerRouteNotice = &pal, "", "", ""
+			s.selectedMale, s.plannerPairResult = &pal, ""
+			s.clearRoute()
 			s.plannerMale.Value, s.plannerFemale.Value = false, true
 		}
 		if picker.female.Clicked(gtx) {
 			pal := picker.pal
-			s.selectedFemale, s.plannerPairResult, s.plannerRoute, s.plannerRouteNotice = &pal, "", "", ""
+			s.selectedFemale, s.plannerPairResult = &pal, ""
+			s.clearRoute()
 			s.plannerMale.Value, s.plannerFemale.Value = true, false
 		}
 	}
@@ -335,10 +347,22 @@ handled:
 		if button.Clicked(gtx) {
 			if rules, err := breeding.Default(); err == nil {
 				s.target.SetText(rules.DisplayName(characterID))
-				s.plannerRoute, s.plannerRouteNotice = "", ""
+				s.clearRoute()
 			}
 		}
 	}
+	for species, button := range s.routeAvoidButtons {
+		if button.Clicked(gtx) {
+			s.routeExcluded[species] = true
+			s.calculateRoute()
+		}
+	}
+}
+
+func (s *screen) clearRoute() {
+	s.plannerRoute, s.plannerRouteNotice, s.plannerRouteTarget, s.plannerRoutePath = "", "", "", nil
+	s.routeExcluded = make(map[string]bool)
+	s.routeAvoidButtons = make(map[string]*widget.Clickable)
 }
 
 func (s *screen) ensurePlannerLoaded() {
@@ -533,33 +557,48 @@ func (s *screen) calculateRoute() {
 		s.statusError, s.status = true, s.t("planner_target_required")
 		return
 	}
+	s.plannerRoute, s.plannerRouteNotice, s.plannerRoutePath = "", "", nil
 	rules, err := breeding.Default()
 	if err != nil {
 		s.statusError, s.status = true, err.Error()
 		return
 	}
-	s.plannerRoute, s.plannerRouteNotice = "", ""
-	path, err := planner.ShortestPath(rules, s.plannerPals, target)
+	targetKey, known := rules.Key(target)
+	if !known {
+		s.statusError, s.status = true, fmt.Sprintf(s.t("planner_target_unknown"), target)
+		return
+	}
+	if s.plannerRouteTarget != "" && s.plannerRouteTarget != targetKey {
+		s.routeExcluded = make(map[string]bool)
+	}
+	s.plannerRouteTarget = targetKey
+	ownedPath, err := planner.ShortestPath(rules, s.plannerPals, targetKey)
 	if err != nil {
 		s.statusError, s.status = true, err.Error()
 		return
 	}
-	if path.Generations == 0 {
-		s.plannerRouteNotice = fmt.Sprintf(s.t("planner_already_owned_inheritance"), rules.DisplayName(path.Target))
-		path, err = planner.ShortestPathAsIfUnowned(rules, s.plannerPals, path.Target)
-		if err != nil {
+	path := ownedPath
+	if ownedPath.Generations == 0 {
+		s.plannerRouteNotice = fmt.Sprintf(s.t("planner_already_owned_inheritance"), rules.DisplayName(ownedPath.Target))
+		path, err = planner.ShortestPathAsIfUnownedAvoidingSpecies(rules, s.plannerPals, ownedPath.Target, s.routeExcluded)
+	} else {
+		path, err = planner.ShortestPathAvoidingSpecies(rules, s.plannerPals, targetKey, s.routeExcluded)
+	}
+	if err != nil {
+		if len(s.routeExcluded) > 0 {
+			s.plannerRoute = s.t("planner_route_exclusion_no_route") + "\n" + s.t("planner_route_caveat")
+		} else if s.plannerRouteNotice != "" {
 			s.plannerRoute = s.t("planner_inheritance_no_route") + "\n" + s.t("planner_route_caveat")
-			s.statusError, s.status = false, s.t("planner_route_ready")
-			return
+		} else {
+			s.plannerRoute = s.t("planner_route_no_route") + "\n" + s.t("planner_route_caveat")
 		}
+		s.statusError, s.status = false, s.t("planner_route_ready")
+		return
 	}
+	s.plannerRoutePath = &path
 	var out strings.Builder
-	fmt.Fprintf(&out, s.t("planner_route_title"), rules.DisplayName(path.Target), path.Generations)
-	for index, step := range path.Steps {
-		fmt.Fprintf(&out, "\n%d. %s + %s → %s (%s)", index+1, rules.DisplayName(step.ParentA), rules.DisplayName(step.ParentB), rules.DisplayName(step.Child), step.Rule)
-	}
 	if path.Generations > 2 {
-		out.WriteString("\n\n" + s.t("planner_speed_title"))
+		out.WriteString(s.t("planner_speed_title"))
 		helpers := planner.BreedingSpeedHelpers(s.plannerPals)
 		if len(helpers) == 0 {
 			out.WriteString("\n" + s.t("planner_speed_none"))
@@ -574,7 +613,10 @@ func (s *screen) calculateRoute() {
 			}
 		}
 	}
-	out.WriteString("\n" + s.t("planner_route_caveat"))
+	if out.Len() > 0 {
+		out.WriteString("\n\n")
+	}
+	out.WriteString(s.t("planner_route_caveat"))
 	s.plannerRoute, s.statusError, s.status = out.String(), false, s.t("planner_route_ready")
 }
 
@@ -999,14 +1041,138 @@ func (s *screen) routeTargetPicker(gtx layout.Context) layout.Dimensions {
 }
 
 func (s *screen) routeResultCard(gtx layout.Context) layout.Dimensions {
-	return s.outlinedCard(gtx, s.t("planner_route_result"), func(gtx layout.Context) layout.Dimensions {
-		children := make([]layout.FlexChild, 0, 3)
+	title := s.t("planner_route_result")
+	if s.plannerRoutePath != nil {
+		if rules, err := breeding.Default(); err == nil {
+			title = fmt.Sprintf(s.t("planner_route_result_to"), rules.DisplayName(s.plannerRoutePath.Target), s.plannerRoutePath.Generations)
+		}
+	}
+	return s.outlinedCard(gtx, title, func(gtx layout.Context) layout.Dimensions {
+		children := make([]layout.FlexChild, 0, 7)
 		if s.plannerRouteNotice != "" {
 			children = append(children, layout.Rigid(s.note(s.plannerRouteNotice, s.routeNoticeColor())), layout.Rigid(spacer(8)))
+		}
+		if s.plannerRoutePath != nil && len(s.plannerRoutePath.Steps) > 0 {
+			children = append(children,
+				layout.Rigid(s.note(s.t("planner_route_tree_title"), s.primaryText())),
+				layout.Rigid(s.caption("planner_route_tree_help")),
+				layout.Rigid(spacer(8)),
+				layout.Rigid(s.routeFamilyTree),
+				layout.Rigid(spacer(10)),
+			)
+		}
+		if len(s.routeExcluded) > 0 {
+			children = append(children, layout.Rigid(s.routeExclusions), layout.Rigid(spacer(10)))
 		}
 		children = append(children, layout.Rigid(s.routeBody(s.plannerRoute)))
 		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
 	})
+}
+
+func (s *screen) routeFamilyTree(gtx layout.Context) layout.Dimensions {
+	if s.plannerRoutePath == nil {
+		return layout.Dimensions{}
+	}
+	rules, err := breeding.Default()
+	if err != nil {
+		return layout.Dimensions{}
+	}
+	steps := make(map[string]planner.Step, len(s.plannerRoutePath.Steps))
+	for _, step := range s.plannerRoutePath.Steps {
+		steps[step.Child] = step
+	}
+	return s.routeTreeNode(gtx, rules, s.plannerRoutePath.Target, s.t("planner_route_target"), steps, make(map[string]bool))
+}
+
+func (s *screen) routeTreeNode(gtx layout.Context, rules *breeding.Rules, species, role string, steps map[string]planner.Step, visiting map[string]bool) layout.Dimensions {
+	step, produced := steps[species]
+	if !produced || visiting[species] {
+		return s.routeSpeciesCard(gtx, rules, species, role)
+	}
+	visiting[species] = true
+	defer delete(visiting, species)
+	return layout.Flex{Axis: layout.Vertical, Alignment: layout.Middle}.Layout(gtx,
+		layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+			return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Start}.Layout(gtx,
+				layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+					return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+						layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+							return s.routeTreeNode(gtx, rules, step.ParentA, s.t("planner_route_male_parent"), steps, visiting)
+						}),
+					)
+				}),
+				layout.Rigid(spacer(10)),
+				layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+					return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+						layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+							return s.routeTreeNode(gtx, rules, step.ParentB, s.t("planner_route_female_parent"), steps, visiting)
+						}),
+					)
+				}),
+			)
+		}),
+		layout.Rigid(spacer(4)),
+		layout.Rigid(s.note(fmt.Sprintf(s.t("planner_route_breed_rule"), step.Rule), s.mutedText())),
+		layout.Rigid(spacer(4)),
+		layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+			return s.routeSpeciesCard(gtx, rules, species, role)
+		}),
+	)
+}
+
+func (s *screen) routeSpeciesCard(gtx layout.Context, rules *breeding.Rules, species, role string) layout.Dimensions {
+	clickable := s.plannerRoutePath != nil && species != s.plannerRoutePath.Target
+	content := func(gtx layout.Context) layout.Dimensions {
+		return layout.Inset{Top: unit.Dp(8), Bottom: unit.Dp(8), Left: unit.Dp(10), Right: unit.Dp(10)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+			children := []layout.FlexChild{
+				layout.Rigid(s.captionValue(role)),
+				layout.Rigid(s.note(rules.DisplayName(species), s.primaryText())),
+			}
+			if clickable {
+				children = append(children, layout.Rigid(s.caption("planner_route_avoid_hint")))
+			}
+			return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
+		})
+	}
+	border := widget.Border{Color: s.border(), CornerRadius: unit.Dp(6), Width: unit.Dp(1)}
+	if !clickable {
+		return border.Layout(gtx, content)
+	}
+	button := s.routeAvoidButton(species)
+	if button.Hovered() {
+		border.Color = s.theme.Palette.ContrastBg
+	}
+	return button.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+		return border.Layout(gtx, content)
+	})
+}
+
+func (s *screen) routeAvoidButton(species string) *widget.Clickable {
+	if button, ok := s.routeAvoidButtons[species]; ok {
+		return button
+	}
+	button := new(widget.Clickable)
+	s.routeAvoidButtons[species] = button
+	return button
+}
+
+func (s *screen) routeExclusions(gtx layout.Context) layout.Dimensions {
+	rules, err := breeding.Default()
+	if err != nil {
+		return layout.Dimensions{}
+	}
+	species := make([]string, 0, len(s.routeExcluded))
+	for name := range s.routeExcluded {
+		species = append(species, rules.DisplayName(name))
+	}
+	sort.Strings(species)
+	return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+		layout.Rigid(s.note(fmt.Sprintf(s.t("planner_route_avoiding"), strings.Join(species, ", ")), s.mutedText())),
+		layout.Rigid(spacer(6)),
+		layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+			return s.languageButton(gtx, &s.routeResetButton, s.t("planner_route_reset"), false)
+		}),
+	)
 }
 
 func (s *screen) outlinedCard(gtx layout.Context, title string, content layout.Widget) layout.Dimensions {
@@ -1317,8 +1483,12 @@ func (s *screen) editor(editor *widget.Editor, hint string) layout.Widget {
 }
 
 func (s *screen) caption(key string) layout.Widget {
+	return s.captionValue(s.t(key))
+}
+
+func (s *screen) captionValue(value string) layout.Widget {
 	return func(gtx layout.Context) layout.Dimensions {
-		label := material.Caption(s.theme, s.t(key))
+		label := material.Caption(s.theme, value)
 		label.Color = s.mutedText()
 		label.WrapPolicy = text.WrapWords
 		return label.Layout(gtx)
@@ -1425,11 +1595,24 @@ func init() {
 	translations[english]["planner_target_suggestions"] = "Matching Pals — choose one"
 	translations[english]["planner_find_route"] = "Find quickest breeding route"
 	translations[english]["planner_target_required"] = "Enter a target Pal Character ID."
+	translations[english]["planner_target_unknown"] = "Unknown target Pal %q. Choose one of the matching suggestions."
 	translations[english]["planner_route_result"] = "Your breeding route"
+	translations[english]["planner_route_result_to"] = "%s · %d breeding generation(s)"
 	translations[english]["planner_route_title"] = "Route to %s · %d breeding generation(s)"
+	translations[english]["planner_route_tree_title"] = "Family tree"
+	translations[english]["planner_route_tree_help"] = "Each pair breeds the Pal directly beneath it. Click any non-target Pal to avoid that species and immediately try a different route."
+	translations[english]["planner_route_target"] = "Target"
+	translations[english]["planner_route_male_parent"] = "Male parent"
+	translations[english]["planner_route_female_parent"] = "Female parent"
+	translations[english]["planner_route_breed_rule"] = "↓ Breed together · %s"
+	translations[english]["planner_route_avoid_hint"] = "Click to avoid this species"
+	translations[english]["planner_route_avoiding"] = "Avoiding this species in the current route: %s"
+	translations[english]["planner_route_reset"] = "Use all Pals again"
 	translations[english]["planner_already_owned"] = "Already owned in the loaded collection; no breeding step is required."
 	translations[english]["planner_already_owned_inheritance"] = "You already own %s. The route below deliberately ignores those copies, so you can breed a new one for passive-trait inheritance."
 	translations[english]["planner_inheritance_no_route"] = "No route could be formed without using your existing target Pal. Keep the target you own, or add more male/female Pals to the collection and refresh."
+	translations[english]["planner_route_no_route"] = "No breeding route could be formed from the current male/female collection. Add more Pals and refresh the collection."
+	translations[english]["planner_route_exclusion_no_route"] = "No route remains with the selected avoided species. Use all Pals again or avoid fewer species."
 	translations[english]["planner_speed_title"] = "Speed up this long route"
 	translations[english]["planner_speed_none"] = "No Philanthropist or Babysitter Pal was found in the loaded party/Palbox collection."
 	translations[english]["planner_speed_philanthropist"] = "%s — assign to the Breeding Farm: Philanthropist increases that Pal's breeding speed by 100%."
@@ -1480,11 +1663,24 @@ func init() {
 	translations[french]["planner_target_suggestions"] = "Pals correspondants — choisissez-en un"
 	translations[french]["planner_find_route"] = "Trouver le chemin le plus rapide"
 	translations[french]["planner_target_required"] = "Entrez un Character ID de Pal cible."
+	translations[french]["planner_target_unknown"] = "Pal cible inconnu %q. Choisissez une des suggestions correspondantes."
 	translations[french]["planner_route_result"] = "Votre chemin d’élevage"
+	translations[french]["planner_route_result_to"] = "%s · %d génération(s) d’élevage"
 	translations[french]["planner_route_title"] = "Chemin vers %s · %d génération(s) d’élevage"
+	translations[french]["planner_route_tree_title"] = "Arbre familial"
+	translations[french]["planner_route_tree_help"] = "Chaque paire donne naissance au Pal affiché juste en dessous. Cliquez un Pal qui n’est pas la cible pour éviter cette espèce et essayer immédiatement un autre chemin."
+	translations[french]["planner_route_target"] = "Cible"
+	translations[french]["planner_route_male_parent"] = "Parent mâle"
+	translations[french]["planner_route_female_parent"] = "Parent femelle"
+	translations[french]["planner_route_breed_rule"] = "↓ Faire se reproduire · %s"
+	translations[french]["planner_route_avoid_hint"] = "Cliquer pour éviter cette espèce"
+	translations[french]["planner_route_avoiding"] = "Espèce évitée dans le chemin actuel : %s"
+	translations[french]["planner_route_reset"] = "Réutiliser tous les Pals"
 	translations[french]["planner_already_owned"] = "Déjà possédé dans la collection chargée ; aucune étape d’élevage n’est nécessaire."
 	translations[french]["planner_already_owned_inheritance"] = "Vous possédez déjà %s. Le chemin ci-dessous ignore volontairement ces exemplaires afin d’en élever un nouveau pour l’héritage des traits passifs."
 	translations[french]["planner_inheritance_no_route"] = "Aucun chemin n’a pu être formé sans utiliser le Pal cible que vous possédez. Gardez cet exemplaire, ou ajoutez des Pals mâles/femelles à la collection puis actualisez-la."
+	translations[french]["planner_route_no_route"] = "Aucun chemin d’élevage n’a pu être formé depuis la collection mâle/femelle actuelle. Ajoutez des Pals puis actualisez la collection."
+	translations[french]["planner_route_exclusion_no_route"] = "Aucun chemin ne reste avec les espèces évitées. Réutilisez tous les Pals ou évitez moins d’espèces."
 	translations[french]["planner_speed_title"] = "Accélérer ce long chemin"
 	translations[french]["planner_speed_none"] = "Aucun Pal Philanthropist ou Babysitter n’a été trouvé dans la collection chargée (équipe/Palbox)."
 	translations[french]["planner_speed_philanthropist"] = "%s — assignez-le à la Ferme d’élevage : Philanthropist augmente sa vitesse d’élevage de 100 %."

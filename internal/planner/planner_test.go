@@ -106,6 +106,37 @@ func TestShortestPathReturnsOwnedAndBreedingTargets(t *testing.T) {
 	}
 }
 
+func TestShortestPathAvoidingSpeciesNeverUsesExcludedPal(t *testing.T) {
+	rules, err := breeding.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	var male, female string
+	for _, candidateMale := range rules.Species() {
+		for _, candidateFemale := range rules.Species() {
+			result, ok := rules.Resolve(candidateMale, "male", candidateFemale, "female")
+			if ok && result.Child == "SheepBall" && candidateMale != "SheepBall" && candidateFemale != "SheepBall" {
+				male, female = candidateMale, candidateFemale
+				break
+			}
+		}
+		if male != "" {
+			break
+		}
+	}
+	if male == "" {
+		t.Fatal("no non-SheepBall parents found for exclusion test")
+	}
+	path, err := ShortestPathAvoidingSpecies(rules, []Pal{{CharacterID: male, Gender: "male"}, {CharacterID: female, Gender: "female"}}, "SheepBall", map[string]bool{male: true})
+	if err == nil {
+		for _, step := range path.Steps {
+			if step.ParentA == male || step.ParentB == male || step.Child == male {
+				t.Fatalf("excluded species %s appears in %#v", male, path)
+			}
+		}
+	}
+}
+
 func TestBreedingSpeedHelpers(t *testing.T) {
 	helpers := BreedingSpeedHelpers([]Pal{
 		{InstanceID: "ordinary", CharacterID: "SheepBall", Traits: []string{"CraftSpeed_up2"}},
