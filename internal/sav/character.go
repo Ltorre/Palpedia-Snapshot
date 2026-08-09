@@ -69,7 +69,7 @@ func characterFromEntry(e mapEntry, stats *ParseStats) (*Player, *Pal, error) {
 		}
 		return p, nil, nil
 	}
-	pal := &Pal{InstanceID: instance, CharacterID: firstString(sp, "CharacterID", "CharacterId", "character_id"), Level: int32(firstInt(sp, "Level")), Exp: firstInt(sp, "Exp"), HP: fixedPointDisplay(firstNumber(sp, "HP", "Hp")), OwnerUID: firstString(sp, "OwnerPlayerUId", "OwnerPlayerUID"), IsLucky: firstBool(sp, "IsRarePal", "IsLucky"), IsBoss: firstBool(sp, "IsBoss"), Talents: map[string]int{}, SlotIndex: -1}
+	pal := &Pal{InstanceID: instance, CharacterID: firstString(sp, "CharacterID", "CharacterId", "character_id"), Level: palLevel(firstInt(sp, "Level")), Exp: firstInt(sp, "Exp"), HP: fixedPointDisplay(firstNumber(sp, "HP", "Hp")), OwnerUID: firstString(sp, "OwnerPlayerUId", "OwnerPlayerUID"), IsLucky: firstBool(sp, "IsRarePal", "IsLucky"), IsBoss: firstBool(sp, "IsBoss"), Talents: map[string]int{}, SlotIndex: -1}
 	pal.Gender = normalizedGender(firstString(sp, "Gender"))
 	pal.PassiveSkillIDs = propertyStringArray(sp, "PassiveSkillList")
 	pal.EquippedSkillIDs = normalizedEnumArray(propertyStringArray(sp, "EquipWaza"), "EPalWazaID::")
@@ -104,6 +104,13 @@ func characterFromEntry(e mapEntry, stats *ParseStats) (*Player, *Pal, error) {
 		pal.Talents = nil
 	}
 	return nil, pal, nil
+}
+
+func palLevel(value int64) int32 {
+	if value < 1 {
+		return 1
+	}
+	return int32(value)
 }
 
 func fixedPointDisplay(value float64) float64 {

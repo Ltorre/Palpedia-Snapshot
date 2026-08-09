@@ -71,8 +71,9 @@ type screen struct {
 	status                                                                                               string
 	statusError                                                                                          bool
 	lastExportDir                                                                                        string
-	plannerRefreshButton, pairButton, routeButton                                                        widget.Clickable
-	plannerGold, plannerDiamond                                                                          widget.Bool
+	plannerRefreshButton, pairButton, routeButton, plannerSortLevelAsc, plannerSortLevelDesc             widget.Clickable
+	plannerGold, plannerDiamond, plannerMale, plannerFemale                                              widget.Bool
+	plannerSort                                                                                          planner.SortOrder
 	plannerFilter, target                                                                                widget.Editor
 	plannerPals                                                                                          []planner.Pal
 	plannerPickers                                                                                       map[string]*plannerPicker
@@ -195,6 +196,12 @@ handled:
 	}
 	if s.plannerRefreshButton.Clicked(gtx) && !s.busy {
 		s.startPlannerRefresh()
+	}
+	if s.plannerSortLevelAsc.Clicked(gtx) {
+		s.plannerSort = planner.SortByLevelAscending
+	}
+	if s.plannerSortLevelDesc.Clicked(gtx) {
+		s.plannerSort = planner.SortByLevelDescending
 	}
 	if s.pairButton.Clicked(gtx) {
 		s.calculatePair()
@@ -695,6 +702,35 @@ func (s *screen) plannerSection(gtx layout.Context) layout.Dimensions {
 					}),
 				)
 			}),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return material.CheckBox(s.theme, &s.plannerMale, s.t("planner_male")).Layout(gtx)
+					}),
+					layout.Rigid(spacer(12)),
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return material.CheckBox(s.theme, &s.plannerFemale, s.t("planner_female")).Layout(gtx)
+					}),
+				)
+			}),
+			layout.Rigid(spacer(4)),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return s.plannerSortButton(gtx, &s.plannerSortLevelAsc, s.t("planner_sort_level_asc"), s.plannerSort == planner.SortByLevelAscending)
+					}),
+					layout.Rigid(spacer(8)),
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return s.plannerSortButton(gtx, &s.plannerSortLevelDesc, s.t("planner_sort_level_desc"), s.plannerSort == planner.SortByLevelDescending)
+					}),
+				)
+			}),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				if gender := s.plannerRequiredGender(); gender != "" {
+					return s.caption("planner_opposite_" + gender)(gtx)
+				}
+				return layout.Dimensions{}
+			}),
 			layout.Rigid(spacer(4)),
 			layout.Rigid(s.plannerPalsList),
 			layout.Rigid(spacer(8)),
@@ -740,7 +776,15 @@ func (s *screen) plannerFreshness(gtx layout.Context) layout.Dimensions {
 }
 
 func (s *screen) plannerPalsList(gtx layout.Context) layout.Dimensions {
-	visible := planner.Filter(s.plannerPals, s.plannerFilter.Text(), s.plannerGold.Value, s.plannerDiamond.Value)
+	visible := planner.FilterWithOptions(s.plannerPals, planner.FilterOptions{
+		Query:          s.plannerFilter.Text(),
+		GoldOnly:       s.plannerGold.Value,
+		DiamondOnly:    s.plannerDiamond.Value,
+		MaleOnly:       s.plannerMale.Value,
+		FemaleOnly:     s.plannerFemale.Value,
+		RequiredGender: s.plannerRequiredGender(),
+		SortOrder:      s.plannerSort,
+	})
 	total := len(visible)
 	if len(visible) == 0 {
 		return s.caption("planner_no_matches")(gtx)
@@ -774,6 +818,24 @@ func (s *screen) plannerPalsList(gtx layout.Context) layout.Dimensions {
 	)
 }
 
+func (s *screen) plannerRequiredGender() string {
+	if s.selectedMale != nil && s.selectedFemale == nil {
+		return "female"
+	}
+	if s.selectedFemale != nil && s.selectedMale == nil {
+		return "male"
+	}
+	return ""
+}
+
+func (s *screen) plannerSortButton(gtx layout.Context, button *widget.Clickable, label string, active bool) layout.Dimensions {
+	style := material.Button(s.theme, button, label)
+	if !active {
+		style.Background, style.Color = color.NRGBA{R: 224, G: 226, B: 236, A: 255}, color.NRGBA{R: 63, G: 67, B: 85, A: 255}
+	}
+	return style.Layout(gtx)
+}
+
 func (s *screen) plannerPicker(pal planner.Pal) *plannerPicker {
 	key := strings.Join([]string{pal.InstanceID, pal.CharacterID, pal.Gender}, "\x00")
 	if picker, ok := s.plannerPickers[key]; ok {
@@ -800,7 +862,7 @@ func plannerPalLabel(pal planner.Pal) string {
 	if traits == "" {
 		traits = "—"
 	}
-	return fmt.Sprintf("%s · Lv. %d · %s · %s", planner.PalName(pal), pal.Level, pal.Gender, traits)
+	return fmt.Sprintf("%s · Lv. %d · %s · %s", planner.PalName(pal), planner.PalLevel(pal), pal.Gender, traits)
 }
 
 func (s *screen) playersList(gtx layout.Context) layout.Dimensions {
@@ -902,10 +964,16 @@ func init() {
 	translations[english]["planner_loaded"] = "Loaded %d current Pals into the breeding planner."
 	translations[english]["planner_empty"] = "No current party or Palbox Pals are loaded. Update the planner from a selected save."
 	translations[english]["planner_pick_title"] = "Pick real parents"
-	translations[english]["planner_filter_help"] = "Search a Pal name (for example Mammorest), a raw game ID, or a passive trait. Gold is rank 3; diamond is rank 4. If both are checked, either tier is included."
+	translations[english]["planner_filter_help"] = "Search a Pal name (for example Mammorest), a raw game ID, or a passive trait. Filter by sex or sort by level when useful. Gold is rank 3; diamond is rank 4. If both are checked, either tier is included."
 	translations[english]["planner_filter"] = "Search Pal name or trait"
 	translations[english]["planner_gold"] = "Gold traits (rank 3)"
 	translations[english]["planner_diamond"] = "Diamond traits (rank 4)"
+	translations[english]["planner_male"] = "Male"
+	translations[english]["planner_female"] = "Female"
+	translations[english]["planner_sort_level_asc"] = "Level ↑"
+	translations[english]["planner_sort_level_desc"] = "Level ↓"
+	translations[english]["planner_opposite_male"] = "Choose a male parent for the selected female."
+	translations[english]["planner_opposite_female"] = "Choose a female parent for the selected male."
 	translations[english]["planner_no_matches"] = "No loaded Pals match these filters."
 	translations[english]["planner_showing"] = "Showing %d of %d matching Pal(s). Scroll this list to browse the collection."
 	translations[english]["planner_choose_male"] = "Choose male"
@@ -942,10 +1010,16 @@ func init() {
 	translations[french]["planner_loaded"] = "%d Pals actuels chargés dans le planificateur."
 	translations[french]["planner_empty"] = "Aucun Pal de l’équipe ou du Palbox n’est chargé. Mettez à jour depuis une sauvegarde sélectionnée."
 	translations[french]["planner_pick_title"] = "Choisir les vrais parents"
-	translations[french]["planner_filter_help"] = "Recherchez un nom de Pal (par exemple Mammorest), un identifiant du jeu ou un trait passif. Or = rang 3 ; diamant = rang 4. Avec les deux cochés, les deux rangs sont inclus."
+	translations[french]["planner_filter_help"] = "Recherchez un nom de Pal (par exemple Mammorest), un identifiant du jeu ou un trait passif. Filtrez par sexe ou triez par niveau si nécessaire. Or = rang 3 ; diamant = rang 4. Avec les deux cochés, les deux rangs sont inclus."
 	translations[french]["planner_filter"] = "Rechercher un Pal ou trait"
 	translations[french]["planner_gold"] = "Traits or (rang 3)"
 	translations[french]["planner_diamond"] = "Traits diamant (rang 4)"
+	translations[french]["planner_male"] = "Mâle"
+	translations[french]["planner_female"] = "Femelle"
+	translations[french]["planner_sort_level_asc"] = "Niveau ↑"
+	translations[french]["planner_sort_level_desc"] = "Niveau ↓"
+	translations[french]["planner_opposite_male"] = "Choisissez un parent mâle pour la femelle sélectionnée."
+	translations[french]["planner_opposite_female"] = "Choisissez un parent femelle pour le mâle sélectionné."
 	translations[french]["planner_no_matches"] = "Aucun Pal chargé ne correspond à ces filtres."
 	translations[french]["planner_showing"] = "%d Pal(s) affiché(s) sur %d correspondant(s). Faites défiler cette liste pour parcourir la collection."
 	translations[french]["planner_choose_male"] = "Choisir le mâle"

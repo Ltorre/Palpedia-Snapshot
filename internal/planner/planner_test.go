@@ -32,6 +32,22 @@ func TestFilterMatchesPlayerFacingName(t *testing.T) {
 	}
 }
 
+func TestFilterOptionsSexAndLevelSort(t *testing.T) {
+	pals := []Pal{
+		{InstanceID: "high", CharacterID: "SheepBall", DisplayName: "Lamball", Gender: "male", Level: 30},
+		{InstanceID: "zero", CharacterID: "PinkCat", DisplayName: "Cattiva", Gender: "female", Level: 0},
+		{InstanceID: "low", CharacterID: "ChickenPal", DisplayName: "Chikipi", Gender: "female", Level: 3},
+	}
+	females := FilterWithOptions(pals, FilterOptions{MaleOnly: false, FemaleOnly: true, SortOrder: SortByLevelAscending})
+	if len(females) != 2 || females[0].InstanceID != "zero" || PalLevel(females[0]) != 1 || females[1].InstanceID != "low" {
+		t.Fatalf("female level order = %#v", females)
+	}
+	opposite := FilterWithOptions(pals, FilterOptions{MaleOnly: true, RequiredGender: "female"})
+	if len(opposite) != 2 || opposite[0].Gender != "female" || opposite[1].Gender != "female" {
+		t.Fatalf("required gender should override manual filter: %#v", opposite)
+	}
+}
+
 func TestShortestPathReturnsOwnedAndBreedingTargets(t *testing.T) {
 	rules, err := breeding.Default()
 	if err != nil {

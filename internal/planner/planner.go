@@ -19,12 +19,40 @@ type Pal struct {
 	Traits      []string
 }
 
+// SortOrder controls the order used when browsing the collection.
+type SortOrder int
+
+const (
+	SortByName SortOrder = iota
+	SortByLevelAscending
+	SortByLevelDescending
+)
+
+// FilterOptions controls collection search, sex filters, and ordering.
+type FilterOptions struct {
+	Query          string
+	GoldOnly       bool
+	DiamondOnly    bool
+	MaleOnly       bool
+	FemaleOnly     bool
+	RequiredGender string
+	SortOrder      SortOrder
+}
+
 // PalName returns a player-facing name when it is available.
 func PalName(pal Pal) string {
 	if strings.TrimSpace(pal.DisplayName) != "" {
 		return pal.DisplayName
 	}
 	return pal.CharacterID
+}
+
+// PalLevel returns the minimum in-game level when a save omits its default level.
+func PalLevel(pal Pal) int32 {
+	if pal.Level < 1 {
+		return 1
+	}
+	return pal.Level
 }
 
 // PairResult describes the exact outcome for two selected Pals.
@@ -48,13 +76,31 @@ func ResolvePair(rules *breeding.Rules, male, female Pal) (PairResult, error) {
 
 // Filter returns Pals that match text and at least one requested high-tier group.
 func Filter(pals []Pal, query string, goldOnly, diamondOnly bool) []Pal {
-	query = strings.ToLower(strings.TrimSpace(query))
+	return FilterWithOptions(pals, FilterOptions{Query: query, GoldOnly: goldOnly, DiamondOnly: diamondOnly})
+}
+
+// FilterWithOptions returns Pals matching the selected browse controls.
+func FilterWithOptions(pals []Pal, options FilterOptions) []Pal {
+	query := strings.ToLower(strings.TrimSpace(options.Query))
+	requiredGender := strings.ToLower(strings.TrimSpace(options.RequiredGender))
 	filtered := make([]Pal, 0, len(pals))
 	for _, pal := range pals {
-		if goldOnly || diamondOnly {
+		gender := strings.ToLower(pal.Gender)
+		if requiredGender != "" && gender != requiredGender {
+			continue
+		}
+		if requiredGender == "" && options.MaleOnly != options.FemaleOnly {
+			if options.MaleOnly && gender != "male" {
+				continue
+			}
+			if options.FemaleOnly && gender != "female" {
+				continue
+			}
+		}
+		if options.GoldOnly || options.DiamondOnly {
 			match := false
 			for _, trait := range pal.Traits {
-				match = match || (goldOnly && Tier(trait) == Gold) || (diamondOnly && Tier(trait) == Diamond)
+				match = match || (options.GoldOnly && Tier(trait) == Gold) || (options.DiamondOnly && Tier(trait) == Diamond)
 			}
 			if !match {
 				continue
@@ -66,6 +112,13 @@ func Filter(pals []Pal, query string, goldOnly, diamondOnly bool) []Pal {
 		filtered = append(filtered, pal)
 	}
 	sort.Slice(filtered, func(i, j int) bool {
+		left, right := PalLevel(filtered[i]), PalLevel(filtered[j])
+		if options.SortOrder == SortByLevelAscending && left != right {
+			return left < right
+		}
+		if options.SortOrder == SortByLevelDescending && left != right {
+			return left > right
+		}
 		return strings.Join([]string{PalName(filtered[i]), filtered[i].Gender, filtered[i].InstanceID}, "\x00") < strings.Join([]string{PalName(filtered[j]), filtered[j].Gender, filtered[j].InstanceID}, "\x00")
 	})
 	return filtered
