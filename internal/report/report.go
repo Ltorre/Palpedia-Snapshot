@@ -231,7 +231,7 @@ func palpediaProgress(world *sav.World, collection []palRow, playerUID string) [
 	}
 	var out strings.Builder
 	out.WriteString("# Palpedia progress\n\n")
-	out.WriteString("This is a read-only snapshot of current owned Pals and the Paldeck capture records stored in the selected player's save. Add this file and `pals.csv` to the shared NotebookLM template to identify the best next captures.\n\n")
+	out.WriteString("This is a read-only snapshot of current owned Pals and the Paldeck capture records stored in the selected player's save. Add this file and `pals.csv` to a NotebookLM notebook in your own Google account, alongside the bundled Palpedia Snapshot reference corpus, to identify the best next captures.\n\n")
 	for _, player := range world.Players {
 		if playerUID != "" && !strings.EqualFold(player.UID, playerUID) {
 			continue

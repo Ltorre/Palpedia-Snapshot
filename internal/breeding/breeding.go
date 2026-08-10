@@ -20,6 +20,7 @@ type dataFile struct {
 type record struct {
 	ID            string `json:"id"`
 	Key           string `json:"key"`
+	DisplayName   string `json:"displayName"`
 	Rank          int    `json:"rank"`
 	Priority      int    `json:"priority"`
 	IgnoreGeneric bool   `json:"ignoreGeneric"`
@@ -43,12 +44,18 @@ type Result struct {
 	TargetRank  int
 }
 
+// Suggestion is a player-facing Pal name with its matching game Character ID.
+type Suggestion struct {
+	CharacterID string
+	DisplayName string
+}
+
 // Rules is an immutable indexed breeding-rule dataset.
 type Rules struct {
-	byID    map[string]record
-	generic []record
-	combos  []combo
-	maxRank int
+	byID         map[string]record
+	generic      []record
+	combosByPair map[string][]combo
+	maxRank      int
 }
 
 // Default loads the versioned rules bundled with this executable.
@@ -61,7 +68,7 @@ func Default() (*Rules, error) {
 }
 
 func newRules(data dataFile) (*Rules, error) {
-	rules := &Rules{byID: make(map[string]record, len(data.Records)), combos: append([]combo(nil), data.Combos...)}
+	rules := &Rules{byID: make(map[string]record, len(data.Records)), combosByPair: make(map[string][]combo), maxRank: 0}
 	specialChildren := make(map[string]struct{})
 	for _, entry := range data.Combos {
 		specialChildren[entry.Child] = struct{}{}
@@ -69,7 +76,7 @@ func newRules(data dataFile) (*Rules, error) {
 	for _, entry := range data.Records {
 		entry.ID = canonical(entry.ID)
 		entry.Key = strings.TrimSpace(entry.Key)
-		if entry.ID == "" || entry.Key == "" || entry.Rank < 0 || entry.Priority < 0 {
+		if entry.ID == "" || entry.Key == "" || entry.DisplayName == "" || entry.Rank < 0 || entry.Priority < 0 {
 			return nil, fmt.Errorf("invalid breeding record %q", entry.Key)
 		}
 		if _, exists := rules.byID[entry.ID]; exists {
@@ -80,7 +87,7 @@ func newRules(data dataFile) (*Rules, error) {
 			rules.maxRank = entry.Rank
 		}
 	}
-	for _, entry := range rules.combos {
+	for _, entry := range data.Combos {
 		if _, ok := rules.byID[canonical(entry.A)]; !ok {
 			return nil, fmt.Errorf("special combination references unknown Pal %q", entry.A)
 		}
@@ -89,6 +96,12 @@ func newRules(data dataFile) (*Rules, error) {
 		}
 		if _, ok := rules.byID[canonical(entry.Child)]; !ok {
 			return nil, fmt.Errorf("special combination references unknown child %q", entry.Child)
+		}
+		key := pairKey(canonical(entry.A), canonical(entry.B))
+		rules.combosByPair[key] = append(rules.combosByPair[key], entry)
+		reverseKey := pairKey(canonical(entry.B), canonical(entry.A))
+		if reverseKey != key {
+			rules.combosByPair[reverseKey] = append(rules.combosByPair[reverseKey], entry)
 		}
 	}
 	for _, entry := range rules.byID {
@@ -118,7 +131,7 @@ func (rules *Rules) Resolve(parentA, genderA, parentB, genderB string) (Result, 
 		return Result{}, false
 	}
 	genderA, genderB = genderCode(genderA), genderCode(genderB)
-	for _, special := range rules.combos {
+	for _, special := range rules.combosByPair[pairKey(a.ID, b.ID)] {
 		if comboMatches(special, a.ID, genderA, b.ID, genderB) || comboMatches(special, b.ID, genderB, a.ID, genderA) {
 			return Result{Child: rules.byID[canonical(special.Child)].Key, Rule: "special", ParentARank: a.Rank, ParentBRank: b.Rank}, true
 		}
@@ -136,6 +149,87 @@ func (rules *Rules) Resolve(parentA, genderA, parentB, genderB string) (Result, 
 		}
 	}
 	return Result{Child: chosen.Key, Rule: "generic", ParentARank: a.Rank, ParentBRank: b.Rank, TargetRank: target}, true
+}
+
+func pairKey(left, right string) string { return left + "\x00" + right }
+
+// Key returns the canonical Character ID used by breeding outcomes.
+func (rules *Rules) Key(value string) (string, bool) {
+	entry, ok := rules.byID[canonical(value)]
+	if ok {
+		return entry.Key, true
+	}
+	for _, entry := range rules.byID {
+		if strings.EqualFold(entry.DisplayName, strings.TrimSpace(value)) {
+			return entry.Key, true
+		}
+	}
+	return "", false
+}
+
+// DisplayName returns the player-facing Pal name for a save-game Character ID.
+func (rules *Rules) DisplayName(value string) string {
+	if entry, ok := rules.byID[canonical(value)]; ok && entry.DisplayName != "" {
+		return entry.DisplayName
+	}
+	return strings.TrimSpace(value)
+}
+
+// Suggestions returns matching Pals in a useful type-ahead order.
+func (rules *Rules) Suggestions(query string, limit int) []Suggestion {
+	query = strings.ToLower(strings.TrimSpace(query))
+	if query == "" || limit < 1 {
+		return nil
+	}
+	type rankedSuggestion struct {
+		Suggestion
+		rank int
+	}
+	matches := make([]rankedSuggestion, 0)
+	for _, entry := range rules.byID {
+		name, key := strings.ToLower(entry.DisplayName), strings.ToLower(entry.Key)
+		rank := -1
+		switch {
+		case strings.HasPrefix(name, query):
+			rank = 0
+		case strings.HasPrefix(key, query):
+			rank = 1
+		case strings.Contains(name, query):
+			rank = 2
+		case strings.Contains(key, query):
+			rank = 3
+		}
+		if rank >= 0 {
+			matches = append(matches, rankedSuggestion{Suggestion: Suggestion{CharacterID: entry.Key, DisplayName: entry.DisplayName}, rank: rank})
+		}
+	}
+	sort.Slice(matches, func(i, j int) bool {
+		if matches[i].rank != matches[j].rank {
+			return matches[i].rank < matches[j].rank
+		}
+		if matches[i].DisplayName != matches[j].DisplayName {
+			return matches[i].DisplayName < matches[j].DisplayName
+		}
+		return matches[i].CharacterID < matches[j].CharacterID
+	})
+	if len(matches) > limit {
+		matches = matches[:limit]
+	}
+	values := make([]Suggestion, len(matches))
+	for index := range matches {
+		values[index] = matches[index].Suggestion
+	}
+	return values
+}
+
+// Species returns every Pal Character ID in the bundled breeding dataset.
+func (rules *Rules) Species() []string {
+	values := make([]string, 0, len(rules.byID))
+	for _, entry := range rules.byID {
+		values = append(values, entry.Key)
+	}
+	sort.Strings(values)
+	return values
 }
 
 func comboMatches(special combo, a, genderA, b, genderB string) bool {

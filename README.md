@@ -17,6 +17,36 @@ Add these files from that folder to NotebookLM:
 
 Do **not** add `world.json` to NotebookLM. It is a complete technical export for troubleshooting, not a NotebookLM source.
 
+## Breeding planner and quickest route
+
+Version 3 adds in-app, read-only planning tools. The app first asks only for a `Level.sav`; after choosing it, select **NotebookLM export**, **Breeding planner**, or **Quickest route**. Only the chosen workspace opens, while the other choices stay available above it. **Change save** reopens the save selector at any time.
+
+The planner can:
+
+- browse every matching Pal in a scrollable collection list; search by player-facing name, raw game ID, or known trait; filter by male/female; and sort by level;
+- restrict the view to bundled gold (rank 3) or diamond (rank 4) passive-trait catalogs, including Philanthropist, Babysitter, and Demon God;
+- select a real male and female Pal, keeping their individual traits visible, then calculate the exact offspring species; and
+- calculate a textual route to a target Pal name or Character ID using the fewest sequential breeding generations from the loaded male/female collection.
+
+The planner translates all 299 bundled game IDs into their Palpedia-facing names: for example, `BOSS_GrassMammoth` displays as **Mammorest**. It still accepts raw IDs when useful.
+
+To keep the picker compact, identical species/sex/passive-trait combinations are represented by only their highest-level Pal. Gold traits use yellow labels and diamond traits green labels. Standard passive IDs are translated too: for example, `CraftSpeed_up1` displays as **Serious** and `PAL_ALLAttack_up1` as **Brave**. Hover any known trait to see its in-game effect. The header includes a light/dark theme switch, and the selected save/export setup collapses into small summaries that can be reopened when needed.
+
+The quickest-route workspace uses dedicated outlined cards for target selection and the final route. It offers clickable name suggestions as you type. Its result is a family tree: each male/female pair sits above the child it breeds. Each non-target node provides two decisions:
+
+- **Avoid species** removes that species from the route entirely and searches for an alternative.
+- **Breed new** removes only the owned copies from the starting collection, then adds that Pal’s own parent branch above the current tree. It does not replace the rest of the route. Use it again on a grandparent to add another earlier generation when you want to improve that Pal’s traits too.
+
+The route is a connected family tree: generations flow from left to right, and each pair of parent lines joins into the Pal it breeds. This keeps multi-step routes legible without having to parse relationship text inside every card.
+
+![Quickest breeding route family tree](docs/quickest-route-tree.svg)
+
+You can also limit the initial route to Pals with gold and/or diamond passive traits, then click **Use all Pals again** to reset every route decision. This lets you steer a species route while deciding which individual passive traits to preserve. If the target is already in the collection, the app clearly says so, then calculates the shortest route while deliberately excluding those copies. This keeps the route useful when breeding a new target to inherit a different set of passive traits. The selected male and female parents remain in dedicated cards above the scrollable Pal list.
+
+For a route longer than two generations, it also identifies the Philanthropist and Babysitter Pals in the loaded collection and explains how to use them to speed up the breeding farm.
+
+The route is a species plan, not a promise of a specific egg: passive inheritance and egg gender remain game RNG. The UI calls this out so it is suitable for planning, rather than overstating certainty.
+
 The application never modifies save files. It refuses to place its output inside the save directory.
 
 ## Windows build
@@ -31,7 +61,7 @@ cd palpedia-snapshot
 go build -o palpedia-snapshot.exe .\cmd\palpedia-snapshot
 ```
 
-Official Windows binaries are attached to each GitHub release. Check a binary with:
+Official GitHub releases attach both the Windows binary and `palpedia-snapshot-notebooklm-reference.zip`, the 31-file NotebookLM corpus. Check a binary with:
 
 ```powershell
 .\palpedia-snapshot-windows-amd64.exe --version
@@ -56,11 +86,18 @@ For a shared world, use **Find players in this save** in the advanced options, t
 
 The export parent directory may be on another drive, such as `I:\Palworld export`; a different Windows volume is always outside the game save location. Keep prior `export_<date time>` folders there and select one with **Choose previous export** when creating a comparison.
 
-## NotebookLM template
+## Create your own NotebookLM notebook
 
-Duplicate the shared [Palworld Palpedia NotebookLM template](https://notebook.google.com/notebook/fec4f41d-1c32-4b8d-975c-a0fbe3f7eba1), then add every generated file except `world.json` as your personal collection sources. In particular, add `breeding-rules.md` and `breeding-direct-pairs.csv`: they give NotebookLM the exact breeding result for your currently possible male/female pairs instead of asking it to infer the game’s rule.
+Palpedia Snapshot ships the whole [Palworld reference corpus](notebooklm/palworld-reference): 31 compact Markdown sources covering 299 Pals, skills, items, equipment, structures, technology, map, tools, tier lists, and breeding context. There is no shared public notebook to duplicate.
 
-`passive_traits` contains the game’s exact passive-skill IDs. This keeps the export reliable across game updates; NotebookLM can interpret their effects from its passive-skills reference source.
+1. Open [NotebookLM](https://notebook.google.com/) and sign in with your own Google account.
+2. Create a notebook, then add all 31 Markdown files in `notebooklm/palworld-reference`.
+3. Create a fresh Palpedia Snapshot export and add every personal file from its `export_<date time>` folder except `world.json`.
+4. Ask questions that name both the personal files and relevant reference sources. For breeding, include `breeding-rules.md`, `breeding-direct-pairs.csv`, and `breeding-candidates.md` so NotebookLM uses the exact result instead of inferring a median.
+
+The corpus plus all eight optional personal export files totals 39 sources, leaving room in a 50-source notebook. When a new save export is created, replace the old personal export files in NotebookLM with the newest set. See the dedicated [NotebookLM setup guide](notebooklm/README.md) for file lists, refresh instructions, and prompts.
+
+`passive_traits` contains the game’s exact passive-skill IDs. This keeps the export reliable across game updates; the bundled corpus maps the relevant reference information while raw IDs remain available for precise filtering.
 
 ## Export
 

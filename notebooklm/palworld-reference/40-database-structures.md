@@ -1,0 +1,504 @@
+# Structures
+
+## Source
+
+- URL: https://palworld.gg/structures
+- Retrieved: 2026-08-08
+- This note is a factual, reorganized reference. Consult the source for live updates and full prose.
+
+Structured records captured from the site's bundled English data: 494.
+
+- **Accumulator** — type: Infrastructure | tech level: 37 | materials: 50 Ingot, 20 Electric Organ, 5 Cryogenic Coolant, 5 Corrosive Solvent
+- **Advanced Chest** — type: Storage | tech level: 59 | materials: 20 Hexolite, 20 Carbon Fiber, 2 Computer
+- **Advanced Medicine Workbench** — type: Product | tech level: 61 | materials: 50 Hexolite, 50 Plasteel, 30 Circuit Board
+- **Advanced Sphere Assembly Line** — type: Product | tech level: 58 | materials: 50 Hexolite, 50 Plasteel, 10 Computer, 10 Bio Battery
+- **Advanced Weapon Assembly Line** — type: Product | tech level: 63 | materials: 50 Coralum Ingot, 10 Thermal Core, 30 Corrosive Solvent
+- **Advanced Workshop** — type: Product | tech level: 62 | materials: 50 Coralum Ingot, 50 Hexolite, 30 Computer, 20 Bio Battery
+- **Aerial Cage** — type: Furniture | materials: 10 Wood, 10 Fiber
+- **Alarm Bell** — type: Defense | tech level: 7 | materials: 5 Paldium Fragment, 20 Stone
+- **Alpha Wave Generator** — type: Other | tech level: 41 | materials: 40 Refined Ingot, 20 Circuit Board, 10 Corrosive Solvent, 20 Paldium Fragment
+- **Ancient Air Conditioner** — type: Infrastructure | materials: 30 Paloxite Ingot, 10 AI Core, 5 Thermal Core, 5 Cryogenic Coolant
+- **Ancient Clinic** — type: Infrastructure | tech level: 73 | materials: 50 Soralite Ingot, 15 Computer, 45 World Tree Holy Water, 10 Ancient Civilization Core
+- **Ancient Corner Roof** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Diagonal Wall** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Farm** — type: Food | tech level: 78 | materials: 50 Paloxite Ingot, 50 World Tree Holy Water, 100 Mythical Wood, 10 Ancient Civilization Core
+- **Ancient Fence** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Foundation** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Furnace** — type: Product | tech level: 66 | materials: 100 Coralum Ingot, 20 Thermal Core, 30 Computer, 10 Ancient Civilization Core
+- **Ancient Hatchery** — type: Pal | tech level: 76 | materials: 100 Paloxite Ingot, 50 AI Core, 30 Ancient Civilization Parts, 20 Ancient Civilization Core
+- **Ancient Hot Spring** — type: Infrastructure | tech level: 76 | materials: 100 Paloxite Ingot, 10 World Tree Holy Water, 20 Thermal Core, 20 Cryogenic Coolant
+- **Ancient Kitchen** — type: Food | tech level: 70 | materials: 80 Soralite Ingot, 30 Thermal Core, 50 Cryogenic Coolant, 10 Ancient Civilization Core
+- **Ancient Material Synthesizer** — type: Product | tech level: 78 | materials: 50 Paloxite Ingot, 10 Ancient Civilization Core
+- **Ancient Monitoring Stand** — type: Pal | tech level: 71 | materials: 100 Soralite Ingot, 5 Ancient Civilization Core
+- **Ancient Pal Bed** — type: Infrastructure | tech level: 73 | materials: 10 Soralite Ingot, 2 World Tree Holy Water, 3 Mythical Wood
+- **Ancient Pal Passage Entrance** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Pillar** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Power Generator** — type: Infrastructure | tech level: 75 | materials: 100 Paloxite Ingot, 200 Electric Organ, 10 Ancient Civilization Core
+- **Ancient Pyramid Roof** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Relic Recycler** — type: Product | tech level: 74 | materials: 50 Paloxite Ingot, 50 Mythical Wood, 30 Ancient Civilization Parts, 20 Ancient Civilization Core
+- **Ancient Roof** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Slanted Roof** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Slanted Triangular Roof** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Slanted Triangular Roof (Inverted)** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Stairs** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Triangular Foundation** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Triangular Roof** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Triangular Wall** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Triangular Wall (Inverted)** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Turret** — type: Defense | materials: 30 Ingot, 10 Nail, 15 Cement
+- **Ancient Wall** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Wall and Door** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Wall and Window** — type: Foundation | tech level: 67 | materials: 2 Soralite Ingot
+- **Ancient Workbench** — type: Product | tech level: 67 | materials: 50 Soralite Ingot, 5 AI Core, 20 Bio Battery
+- **Antique Armchair** — type: Furniture | tech level: 20 | materials: 10 Wood, 2 Cloth, 1 Flame Organ
+- **Antique Bathtub** — type: Furniture | tech level: 16 | materials: 1 Cloth, 20 Stone, 1 Ingot
+- **Antique Bookshelf** — type: Storage | tech level: 10 | materials: 40 Wood, 2 Nail
+- **Antique Braided Basket** — type: Furniture | tech level: 16 | materials: 10 Fiber
+- **Antique Brown Floor Lamp** — type: Light | tech level: 26 | materials: 30 Wood, 3 Electric Organ, 3 Nail
+- **Antique Cabinet** — type: Storage | tech level: 13 | materials: 30 Wood, 10 Fiber
+- **Antique Carpet** — type: Furniture | tech level: 9 | materials: 3 Cloth, 1 Venom Gland
+- **Antique Chest** — type: Storage | tech level: 10 | materials: 30 Wood, 10 Ingot
+- **Antique Couch** — type: Furniture | tech level: 20 | materials: 20 Wood, 3 Cloth, 2 Flame Organ
+- **Antique Curtain** — type: Furniture | tech level: 18 | materials: 10 Wood, 3 Cloth, 1 Ingot
+- **Antique Desk** — type: Furniture | tech level: 14 | materials: 20 Wood, 5 Fiber, 5 Stone
+- **Antique Dresser** — type: Furniture | tech level: 21 | materials: 20 Wooden Board, 20 Fiber, 30 Stone
+- **Antique Globe** — type: Furniture | tech level: 18 | materials: 50 Wood, 1 Ingot
+- **Antique Grandfather Clock** — type: Furniture | tech level: 22 | materials: 30 Wood, 5 Ingot
+- **Antique Green Carpet** — type: Furniture | tech level: 9 | materials: 2 Cloth, 1 High Quality Pal Oil
+- **Antique Green Wooden Chair** — type: Furniture | tech level: 11 | materials: 10 Wood, 1 Venom Gland
+- **Antique Long Cabinet** — type: Storage | tech level: 13 | materials: 40 Wood, 10 Fiber
+- **Antique Long Carpet** — type: Furniture | tech level: 9 | materials: 1 Cloth, 1 Flame Organ
+- **Antique Mirror** — type: Furniture | tech level: 16 | materials: 10 Wood, 8 Stone, 1 Paldium Fragment
+- **Antique Ottoman** — type: Furniture | tech level: 20 | materials: 10 Wood, 1 Cloth, 1 Flame Organ
+- **Antique Oval Mirror** — type: Furniture | tech level: 16 | materials: 10 Wood, 10 Stone, 2 Paldium Fragment
+- **Antique Partition** — type: Furniture | tech level: 16 | materials: 20 Wood
+- **Antique Red Carpet** — type: Furniture | tech level: 9 | materials: 2 Cloth, 1 Flame Organ
+- **Antique Red Floor Lamp** — type: Light | tech level: 26 | materials: 30 Wood, 3 Electric Organ, 3 Nail
+- **Antique Round Table** — type: Furniture | tech level: 14 | materials: 20 Wood, 5 Fiber, 2 Stone
+- **Antique Side Chest** — type: Storage | tech level: 10 | materials: 10 Wood, 3 Ingot
+- **Antique Stool** — type: Furniture | tech level: 11 | materials: 10 Wood
+- **Antique Stove** — type: Furniture | tech level: 18 | materials: 20 Ingot, 5 Charcoal
+- **Antique Toilet** — type: Furniture | tech level: 18 | materials: 10 Wood, 20 Stone, 2 Ingot
+- **Antique Toilet Paper Holder** — type: Furniture | tech level: 18 | materials: 1 Ingot, 3 Fiber
+- **Antique Towel Rack** — type: Furniture | tech level: 16 | materials: 1 Ingot, 2 Cloth
+- **Antique Wall Cabinet** — type: Storage | tech level: 13 | materials: 20 Wood, 5 Stone, 3 Red Berries
+- **Antique Wall Mirror** — type: Furniture | tech level: 16 | materials: 10 Wood, 10 Stone, 2 Paldium Fragment
+- **Antique Wardrobe** — type: Storage | tech level: 10 | materials: 70 Wood, 5 Nail
+- **Antique Washstand** — type: Furniture | tech level: 18 | materials: 30 Wood, 10 Stone, 2 Paldium Fragment, 1 Cloth
+- **Antique Wooden Chair** — type: Furniture | tech level: 11 | materials: 10 Wood
+- **Arcade Game Cabinet** — type: Furniture | tech level: 46 | materials: 30 Ingot
+- **Azure Covenant Banner** — type: Furniture | tech level: 71 | materials: 10 Refined Ingot, 10 Fiber, 20 High Quality Cloth
+- **Azure Covenant Flag** — type: Furniture | tech level: 71 | materials: 20 Refined Ingot, 10 Fiber, 20 High Quality Cloth
+- **Barricade** — type: Furniture | tech level: 49 | materials: 5 Ingot
+- **Bear Trap (Large)** — type: Defense | tech level: 21 | materials: 20 Ingot
+- **Bear Trap (Small)** — type: Defense | tech level: 10 | materials: 5 Ingot
+- **Berry Plantation** — type: Food | tech level: 5 | materials: 3 Berry Seeds, 10 Wood, 10 Stone
+- **Beta Wave Generator** — type: Other | tech level: 46 | materials: 40 Pal Metal Ingot, 30 Circuit Board, 5 Bio Battery
+- **Beware of Eikthyrdeer Sign** — type: Furniture | tech level: 49 | materials: 5 Ingot
+- **Beware of Mammorest Sign** — type: Furniture | tech level: 49 | materials: 5 Ingot
+- **Big Wall Ivy** — type: Furniture | tech level: 7 | materials: 10 Fiber
+- **Blue Metal Barrel** — type: Furniture | tech level: 34 | materials: 10 Ingot, 1 Aquatic Pal Fluids
+- **Bonsai** — type: Furniture | tech level: 55 | materials: 10 Hardwood, 1 Paldium Fragment
+- **Breeding Farm** — type: Pal | tech level: 19 | materials: 10 Wooden Board, 20 Stone, 50 Fiber
+- **Brick Fireplace** — type: Light | tech level: 8 | materials: 30 Wood, 15 Stone
+- **Brothers of the Eternal Pyre Standard** — type: Furniture | tech level: 28 | materials: 20 Ingot, 10 Fiber, 20 Cloth
+- **Brothers of the Eternal Pyre Vertical Banner** — type: Furniture | tech level: 28 | materials: 10 Ingot, 10 Fiber, 20 Cloth
+- **Cable Reel** — type: Furniture | tech level: 37 | materials: 20 Wood, 10 Ingot
+- **Campfire** — type: Food | tech level: 2 | materials: 10 Wood
+- **Carrot Plantation** — type: Food | tech level: 32 | materials: 3 Carrot Seeds, 30 Wood, 20 Stone, 1 Aquatic Pal Fluids
+- **Ceiling Lamp** — type: Light | tech level: 27 | materials: 20 Ingot, 3 Electric Organ, 3 Nail
+- **Ceremonial Candlestick** — type: Light | materials: 5 Ingot, 2 Flame Organ, 2 Charcoal
+- **Chandelier** — type: Light | tech level: 26 | materials: 20 Ingot, 3 Electric Organ, 3 Nail
+- **Claw Machine** — type: Furniture | tech level: 46 | materials: 30 Ingot, 5 Cloth
+- **Clean Corner Roof** — type: Foundation | tech level: 62 | materials: 1 Polymer
+- **Clean Diagonal Wall** — type: Foundation | tech level: 62 | materials: 1 Polymer
+- **Clean Fence** — type: Foundation | tech level: 62 | materials: 2 Polymer
+- **Clean Foundation** — type: Foundation | tech level: 62 | materials: 1 Polymer
+- **Clean Pal Passage Entrance** — type: Foundation | tech level: 62 | materials: 1 Polymer
+- **Clean Pillar** — type: Foundation | tech level: 62 | materials: 1 Polymer
+- **Clean Pyramid Roof** — type: Foundation | tech level: 62 | materials: 1 Polymer
+- **Clean Roof** — type: Foundation | tech level: 62 | materials: 1 Polymer
+- **Clean Slanted Corner Roof (Inverted)** — type: Foundation | tech level: 62 | materials: 1 Polymer
+- **Clean Slanted Roof** — type: Foundation | tech level: 62 | materials: 1 Polymer
+- **Clean Slanted Triangular Roof** — type: Foundation | tech level: 62 | materials: 1 Polymer
+- **Clean Stairs** — type: Foundation | tech level: 62 | materials: 1 Polymer
+- **Clean Triangular Foundation** — type: Foundation | tech level: 62 | materials: 1 Polymer
+- **Clean Triangular Roof** — type: Foundation | tech level: 62 | materials: 1 Polymer
+- **Clean Triangular Wall** — type: Foundation | tech level: 62 | materials: 1 Polymer
+- **Clean Triangular Wall (Inverted)** — type: Foundation | tech level: 62 | materials: 1 Polymer
+- **Clean Wall** — type: Foundation | tech level: 62 | materials: 1 Polymer
+- **Clean Wall and Door** — type: Foundation | tech level: 62 | materials: 1 Polymer
+- **Clean Wall and Window** — type: Foundation | tech level: 62 | materials: 1 Polymer
+- **Clinic** — type: Infrastructure | tech level: 24 | materials: 10 Wooden Board, 20 Cloth, 15 Nail
+- **Cloth Covered Container** — type: Storage | tech level: 23 | materials: 10 Ingot, 15 Wood, 2 Cloth
+- **Coal Quarry** — type: Product | tech level: 37 | materials: 70 Stone, 100 Coal, 30 Paldium Fragment, 10 Ancient Civilization Parts
+- **Cola Vending Machine** — type: Furniture | tech level: 46 | materials: 30 Ingot, 2 Ice Organ
+- **Cold Food Box** — type: Food | tech level: 51 | materials: 20 Pal Metal Ingot, 20 Plasteel, 15 Cryogenic Coolant
+- **Cooking Pot** — type: Food | tech level: 17 | materials: 5 Wooden Board, 15 Ingot, 3 Flame Organ
+- **Cooler** — type: Infrastructure | tech level: 18 | materials: 20 Ingot, 20 Stone, 5 Ice Organ
+- **Cooler Box** — type: Storage | tech level: 13 | materials: 10 Ingot, 10 Stone, 2 Ice Organ
+- **Crude Oil Extractor** — type: Product | tech level: 50 | materials: 250 Pal Metal Ingot, 50 Circuit Board
+- **Crusher** — type: Product | tech level: 8 | materials: 50 Wood, 20 Stone, 10 Paldium Fragment
+- **Cryogenic Crusher** — type: Product | tech level: 54 | materials: 50 Pal Metal Ingot, 30 Plasteel, 25 Cryogenic Coolant, 20 Corrosive Solvent
+- **Deer Scare** — type: Furniture | tech level: 55 | materials: 10 Hardwood, 3 Aquatic Pal Fluids
+- **Dimensional Pal Storage** — type: Pal | tech level: 20 | materials: 20 Ingot, 40 Paldium Fragment, 5 Ancient Civilization Parts
+- **Double Street Lamp** — type: Light | tech level: 46 | materials: 20 Ingot, 3 Electric Organ, 3 Nail
+- **Drafting Table** — type: Product | tech level: 45 | materials: 20 Refined Ingot, 10 High Quality Wooden Board, 30 Charcoal
+- **Earthen Pipe** — type: Furniture | tech level: 37 | materials: 5 Cement
+- **Egg Incubator** — type: Pal | tech level: 10 | materials: 10 Paldium Fragment, 5 Cloth, 30 Stone, 2 Ancient Civilization Parts
+- **Electric Cooler** — type: Infrastructure | tech level: 42 | materials: 30 Refined Ingot, 10 Circuit Board, 10 Cryogenic Coolant
+- **Electric Egg Incubator** — type: Pal | tech level: 36 | materials: 50 Refined Ingot, 15 Circuit Board, 5 Ancient Civilization Parts, 2 Ancient Civilization Core
+- **Electric Furnace** — type: Product | tech level: 44 | materials: 50 Refined Ingot, 4 Bio Battery, 20 Polymer, 10 Cryogenic Coolant
+- **Electric Heater** — type: Infrastructure | tech level: 41 | materials: 30 Refined Ingot, 10 Circuit Board, 5 Cryogenic Coolant, 10 Flame Organ
+- **Electric Kitchen** — type: Food | tech level: 41 | materials: 30 Refined Ingot, 5 Circuit Board, 20 Charcoal, 5 Flame Organ
+- **Electric Medicine Workbench** — type: Product | tech level: 43 | materials: 40 Refined Ingot, 10 Circuit Board, 10 Carbon Fiber
+- **Electric Mine** — type: Defense | tech level: 33 | materials: 5 Ingot, 2 Electric Organ
+- **Electric Pylon** — type: Other | tech level: 48 | materials: 20 Ingot, 2 Bio Battery, 5 Circuit Board
+- **Emergency Exit Ceiling Sign** — type: Furniture | tech level: 47 | materials: 1 Polymer, 1 Electric Organ
+- **Emergency Exit Wall Sign** — type: Furniture | tech level: 47 | materials: 1 Polymer, 1 Electric Organ
+- **Fat Traffic Cone** — type: Furniture | tech level: 48 | materials: 2 Polymer
+- **Faux Bamboo A** — type: Furniture | tech level: 23 | materials: 20 Wood
+- **Faux Bamboo B** — type: Furniture | tech level: 23 | materials: 20 Wood
+- **Faux Bamboo C** — type: Furniture | tech level: 23 | materials: 20 Wood
+- **Faux Bush** — type: Furniture | tech level: 12 | materials: 20 Wood
+- **Faux Cherry Blossoms A** — type: Furniture | tech level: 56 | materials: 20 Hardwood
+- **Faux Cherry Blossoms B** — type: Furniture | tech level: 56 | materials: 20 Hardwood
+- **Faux Cherry Blossoms C** — type: Furniture | tech level: 56 | materials: 20 Hardwood
+- **Faux Crimson Foliage A** — type: Furniture | tech level: 14 | materials: 20 Wood
+- **Faux Crimson Foliage B** — type: Furniture | tech level: 14 | materials: 20 Wood
+- **Faux Crimson Foliage C** — type: Furniture | tech level: 14 | materials: 20 Wood
+- **Faux Desert Greenery A** — type: Furniture | tech level: 37 | materials: 20 Hardwood
+- **Faux Desert Greenery B** — type: Furniture | tech level: 37 | materials: 20 Hardwood
+- **Faux Desert Greenery C** — type: Furniture | tech level: 37 | materials: 20 Hardwood
+- **Faux Flowering Bush A** — type: Furniture | tech level: 23 | materials: 20 Fiber
+- **Faux Flowering Bush B** — type: Furniture | tech level: 23 | materials: 20 Fiber
+- **Faux Golden Bush** — type: Furniture | tech level: 16 | materials: 20 Fiber
+- **Faux Golden Foliage A** — type: Furniture | tech level: 16 | materials: 20 Wood
+- **Faux Golden Foliage B** — type: Furniture | tech level: 16 | materials: 20 Wood
+- **Faux Golden Foliage C** — type: Furniture | tech level: 16 | materials: 20 Wood
+- **Faux Greenery A** — type: Furniture | tech level: 12 | materials: 20 Wood
+- **Faux Greenery B** — type: Furniture | tech level: 12 | materials: 20 Wood
+- **Faux Greenery C** — type: Furniture | tech level: 12 | materials: 20 Wood
+- **Faux Rock** — type: Furniture | tech level: 14 | materials: 20 Stone
+- **Faux Snowy Greenery A** — type: Furniture | tech level: 49 | materials: 20 Hardwood
+- **Faux Snowy Greenery B** — type: Furniture | tech level: 49 | materials: 20 Hardwood
+- **Faux Snowy Greenery C** — type: Furniture | tech level: 49 | materials: 20 Hardwood
+- **Faux Tropical Bush** — type: Furniture | tech level: 27 | materials: 20 Fiber
+- **Faux Tropical Greenery A** — type: Furniture | tech level: 27 | materials: 20 Hardwood
+- **Faux Tropical Greenery B** — type: Furniture | tech level: 27 | materials: 20 Hardwood
+- **Faux Tropical Greenery C** — type: Furniture | tech level: 27 | materials: 20 Hardwood
+- **Faux White Bush** — type: Furniture | tech level: 49 | materials: 20 Fiber
+- **Feed Box** — type: Food | tech level: 4 | materials: 20 Wood
+- **Feybreak Banner** — type: Furniture | tech level: 60 | materials: 10 Refined Ingot, 10 Fiber, 20 High Quality Cloth
+- **Feybreak Flag** — type: Furniture | tech level: 60 | materials: 20 Refined Ingot, 10 Fiber, 20 High Quality Cloth
+- **Fine Bed** — type: Infrastructure | tech level: 28 | materials: 10 Cloth, 50 Wood, 10 Nail, 20 Fiber
+- **Fireplace** — type: Light | tech level: 8 | materials: 15 Wood, 30 Stone
+- **Fishing Pond** — type: Product | tech level: 31 | materials: 15 Wooden Board, 30 Cement, 3 Cryogenic Coolant
+- **Flame Cauldron** — type: Other | tech level: 21 | materials: 20 Ingot, 30 Wood, 5 Flame Organ
+- **Flea Market (Items)** — type: Other | tech level: 22 | materials: 20 Ingot, 4 Wooden Board, 3 Cloth
+- **Flea Market (Pals)** — type: Other | tech level: 22 | materials: 20 Ingot, 4 Wooden Board, 5 Paldium Fragment
+- **Flower Arrangement** — type: Furniture | tech level: 55 | materials: 10 Hardwood, 1 Beautiful Flower
+- **Flower Bed** — type: Other | tech level: 24 | materials: 30 Wood, 50 Stone, 20 Cement, 10 Beautiful Flower
+- **Fluffy Pal Bed** — type: Infrastructure | tech level: 24 | materials: 5 Cloth, 3 Wooden Board, 5 Nail, 10 Fiber
+- **Folding Screen** — type: Furniture | tech level: 55 | materials: 10 Hardwood, 10 Fiber
+- **Free Pal Alliance Flag** — type: Furniture | materials: 10 Wood, 5 Fiber, 10 Cloth
+- **Free Pal Alliance Horizontal Banner** — type: Furniture | materials: 10 Fiber, 10 Cloth
+- **Free Pal Alliance Standard** — type: Furniture | tech level: 20 | materials: 20 Wood, 10 Fiber, 20 Cloth
+- **Free Pal Alliance Vertical Banner** — type: Furniture | tech level: 20 | materials: 10 Ingot, 10 Fiber, 20 Cloth
+- **Frog Chair** — type: Furniture | tech level: 38 | materials: 2 Ingot, 2 Leather
+- **Frostallion Statue** — type: Furniture | tech level: 64 | materials: 100 Stone
+- **Fur rug** — type: Furniture | materials: 1 Wood
+- **Garbage Bag** — type: Furniture | tech level: 37 | materials: 5 Wood, 5 Stone, 5 Fiber
+- **Gigantic Furnace** — type: Product | tech level: 58 | materials: 150 Plasteel, 100 Polymer, 200 Flame Organ, 12 Computer
+- **Glass Corner Roof** — type: Foundation | tech level: 45 | materials: 1 Stone, 2 Paldium Fragment
+- **Glass Diagonal Wall** — type: Foundation | tech level: 45 | materials: 1 Stone, 2 Paldium Fragment
+- **Glass Fence** — type: Foundation | tech level: 45 | materials: 3 Stone, 1 Paldium Fragment
+- **Glass Foundation** — type: Foundation | tech level: 45 | materials: 1 Stone, 2 Paldium Fragment
+- **Glass Pal Passage Entrance** — type: Foundation | tech level: 45 | materials: 1 Stone, 2 Paldium Fragment
+- **Glass Pillar** — type: Foundation | tech level: 45 | materials: 1 Stone, 2 Paldium Fragment
+- **Glass Pyramid Roof** — type: Foundation | tech level: 45 | materials: 1 Stone, 2 Paldium Fragment
+- **Glass Roof** — type: Foundation | tech level: 45 | materials: 1 Stone, 2 Paldium Fragment
+- **Glass Slanted Corner Roof (Inverted)** — type: Foundation | tech level: 45 | materials: 1 Stone, 2 Paldium Fragment
+- **Glass Slanted Roof** — type: Foundation | tech level: 45 | materials: 1 Stone, 2 Paldium Fragment
+- **Glass Slanted Triangular Roof** — type: Foundation | tech level: 45 | materials: 1 Stone, 2 Paldium Fragment
+- **Glass Stairs** — type: Foundation | tech level: 45 | materials: 1 Stone, 2 Paldium Fragment
+- **Glass Triangular Foundation** — type: Foundation | tech level: 45 | materials: 1 Stone, 2 Paldium Fragment
+- **Glass Triangular Roof** — type: Foundation | tech level: 45 | materials: 1 Stone, 2 Paldium Fragment
+- **Glass Triangular Wall** — type: Foundation | tech level: 45 | materials: 1 Stone, 2 Paldium Fragment
+- **Glass Triangular Wall (Inverted)** — type: Foundation | tech level: 45 | materials: 1 Stone, 2 Paldium Fragment
+- **Glass Wall** — type: Foundation | tech level: 45 | materials: 1 Stone, 2 Paldium Fragment
+- **Glass Wall and Door** — type: Foundation | tech level: 45 | materials: 1 Stone, 2 Paldium Fragment
+- **Glass Wall and Window** — type: Foundation | tech level: 45 | materials: 1 Stone, 2 Paldium Fragment
+- **Global Palbox** — type: Pal | tech level: 3 | materials: 3 Paldium Fragment, 5 Wood, 15 Stone
+- **Gold Coin Assembly Line** — type: Product | tech level: 73 | materials: 100 Soralite Ingot, 20 Ancient Civilization Parts, 10 AI Core, 5 Ancient Civilization Core
+- **Grand Piano** — type: Furniture | tech level: 17 | materials: 10 Wooden Board, 20 Fiber, 5 Ingot
+- **Great Eagle Statue** — type: Infrastructure | materials: 5 Paldium Fragment, 10 Stone
+- **Green Metal Barrel** — type: Furniture | tech level: 34 | materials: 10 Ingot, 1 Aquatic Pal Fluids
+- **Guild Chest** — type: Storage | tech level: 41 | materials: 50 Refined Ingot, 100 Paldium Fragment, 10 Ancient Civilization Parts
+- **Hanging Scroll** — type: Furniture | tech level: 55 | materials: 10 Hardwood, 10 Fiber
+- **Hanging Trap** — type: Defense | tech level: 8 | materials: 10 Wood, 5 Stone
+- **Heater** — type: Infrastructure | tech level: 17 | materials: 20 Ingot, 10 Charcoal, 5 Flame Organ
+- **Hexolite Quartz Mine** — type: Product | tech level: 62 | materials: 70 Stone, 100 Hexolite Quartz, 10 Ancient Civilization Parts
+- **High Quality Hot Spring** — type: Infrastructure | tech level: 31 | materials: 50 Stone, 50 Wood, 3 Cryogenic Coolant, 10 Cement
+- **High Quality Monitoring Stand** — type: Pal | tech level: 28 | materials: 100 Ingot, 30 Cement
+- **High-Pressure Crude Oil Extractor** — type: Product | tech level: 51 | materials: 300 Pal Metal Ingot, 50 Circuit Board, 50 Bio Battery, 10 Ancient Civilization Parts
+- **High-Quality Workbench** — type: Product | tech level: 11 | materials: 8 Ingot, 20 Wood, 10 Nail
+- **Horizontal Wall Ivy** — type: Furniture | tech level: 7 | materials: 5 Fiber
+- **Hot Spring** — type: Infrastructure | tech level: 9 | materials: 20 Wood, 15 Stone, 7 Paldium Fragment, 3 Aquatic Pal Fluids
+- **Houseplant** — type: Furniture | tech level: 6 | materials: 10 Wood, 5 Fiber
+- **Houseplant and Chair** — type: Furniture | tech level: 6 | materials: 10 Wood, 5 Fiber
+- **Human-Powered Generator** — type: Infrastructure | tech level: 26 | materials: 5 Wooden Board, 5 Electric Organ
+- **Ice Mine** — type: Defense | tech level: 38 | materials: 5 Ingot, 2 Ice Organ
+- **Improved Furnace** — type: Product | tech level: 34 | materials: 100 Stone, 30 Cement, 15 Flame Organ, 5 Cryogenic Coolant
+- **Incense Burner** — type: Furniture | tech level: 55 | materials: 3 Ingot, 5 Wood
+- **Iron Chair** — type: Furniture | tech level: 22 | materials: 3 Ingot
+- **Iron Desk** — type: Furniture | tech level: 22 | materials: 2 Wooden Board, 15 Ingot
+- **Iron Fence** — type: Furniture | tech level: 49 | materials: 5 Ingot
+- **Iron Gate** — type: Defense | tech level: 30 | materials: 10 Ingot, 1 Cement
+- **Iron Shelf** — type: Storage | tech level: 17 | materials: 20 Ingot, 1 Nail
+- **Iron Stool** — type: Furniture | tech level: 22 | materials: 3 Ingot
+- **Iron Wall Shelf** — type: Storage | tech level: 10 | materials: 5 Wood, 10 Ingot
+- **Ironwood Low Table** — type: Furniture | tech level: 35 | materials: 2 Wooden Board, 2 Ingot
+- **Ironwood Side Table** — type: Furniture | tech level: 35 | materials: 1 Wooden Board, 2 Ingot
+- **Ironwood Table** — type: Furniture | tech level: 35 | materials: 2 Wooden Board, 5 Ingot, 2 Red Berries
+- **Item Retrieval Machine** — type: Storage | tech level: 49 | materials: 100 Pal Metal Ingot, 30 Paldium Fragment, 4 Bio Battery
+- **Japanese Floor Chair** — type: Furniture | tech level: 55 | materials: 15 Hardwood, 3 Cloth, 10 Fiber
+- **Japanese Floor Cushion** — type: Furniture | tech level: 55 | materials: 3 Cloth, 10 Fiber
+- **Japanese Hearth** — type: Furniture | tech level: 55 | materials: 10 Hardwood, 3 Ingot, 2 Charcoal
+- **Japanese Paper Lantern** — type: Light | tech level: 55 | materials: 10 Hardwood, 3 Flame Organ
+- **Japanese Writing Table** — type: Furniture | tech level: 55 | materials: 10 Hardwood
+- **Japanese-Style Chest** — type: Storage | tech level: 55 | materials: 15 Hardwood, 5 Stone
+- **Japanese-Style Corner Roof** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Diagonal Wall** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Door A** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Door B** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Door C** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Fence** — type: Foundation | tech level: 49 | materials: 5 Hardwood
+- **Japanese-Style Foundation** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Hot Spring** — type: Infrastructure | tech level: 64 | materials: 30 Coralum Ingot, 10 Thermal Core, 20 Paldium Fragment, 20 Hardwood
+- **Japanese-Style Pal Passage Entrance** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Pillar** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Pyramid Roof** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Roof A** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Roof B** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Slanted Corner Roof (Inverted)** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Slanted Roof** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Slanted Triangular Roof** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Stairs** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Triangular Foundation** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Triangular Roof A** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Triangular Roof B** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Triangular Wall** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Triangular Wall (Inverted)** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Wall** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Japanese-Style Wall and Window** — type: Foundation | tech level: 49 | materials: 4 Hardwood
+- **Jetragon Statue** — type: Furniture | tech level: 79 | materials: 100 Stone
+- **Laboratory Chair** — type: Furniture | materials: 10 Polymer
+- **Laboratory Desk** — type: Furniture | materials: 15 Polymer
+- **Ladder** — type: Foundation | tech level: 10 | materials: 10 Wood
+- **Lamp** — type: Light | tech level: 26 | materials: 10 Ingot, 3 Electric Organ, 3 Nail, 20 Wood
+- **Large Antique Cabinet** — type: Storage | tech level: 13 | materials: 40 Wood, 10 Fiber, 3 Ingot
+- **Large Ceiling Lamp** — type: Light | tech level: 47 | materials: 30 Refined Ingot, 5 Circuit Board, 5 Nail, 1 Bio Battery
+- **Large Container** — type: Storage | tech level: 23 | materials: 100 Ingot
+- **Large Fishing Pond** — type: Product | tech level: 69 | materials: 20 High Quality Wooden Board, 30 Stone, 10 Coralum Ingot, 20 High Quality Pal Oil
+- **Large Incubator** — type: Pal | tech level: 48 | materials: 50 Pal Metal Ingot, 20 High Quality Cloth, 20 Ancient Civilization Parts, 4 Ancient Civilization Core
+- **Large Mounted Lamp** — type: Light | tech level: 46 | materials: 30 Refined Ingot, 5 Circuit Board, 5 Nail, 1 Bio Battery
+- **Large Pal Bed** — type: Infrastructure | tech level: 36 | materials: 5 High Quality Cloth, 5 Hardwood, 20 Nail, 20 Fiber
+- **Large Power Generator** — type: Infrastructure | tech level: 50 | materials: 200 Pal Metal Ingot, 200 Electric Organ
+- **Large Toolbox** — type: Other | tech level: 20 | materials: 10 Ingot, 50 Wood, 15 Nail
+- **Large-Scale Electric Egg Incubator** — type: Pal | tech level: 58 | materials: 100 Hexolite, 50 Circuit Board, 30 Ancient Civilization Parts, 20 Ancient Civilization Core
+- **Large-Scale Stone Oven** — type: Food | tech level: 49 | materials: 200 Cement, 200 Charcoal, 25 High Quality Wooden Board, 13 Cryogenic Coolant
+- **Leather Armchair** — type: Furniture | tech level: 38 | materials: 10 Wood, 2 Leather, 1 Cloth
+- **Leather Chair** — type: Furniture | tech level: 38 | materials: 2 Ingot, 1 Leather
+- **Leather Couch** — type: Furniture | tech level: 38 | materials: 20 Wood, 3 Leather
+- **Lettuce Plantation** — type: Food | tech level: 25 | materials: 3 Lettuce Seeds, 100 Wood, 70 Stone, 10 Aquatic Pal Fluids
+- **Locker** — type: Storage | tech level: 17 | materials: 30 Ingot, 3 Nail
+- **Logging Site** — type: Product | tech level: 7 | materials: 50 Wood, 20 Stone, 10 Paldium Fragment
+- **Logging Site II** — type: Product | tech level: 43 | materials: 100 Hardwood, 50 Stone, 20 Paldium Fragment, 5 Ancient Civilization Parts
+- **Long Iron Shelf** — type: Storage | tech level: 17 | materials: 20 Ingot, 2 Nail
+- **Lyleen Statue** — type: Furniture | materials: 100 Stone
+- **Majestic Candlestick** — type: Light | materials: 5 Ingot, 2 Flame Organ
+- **Majestic Wall Torch** — type: Light | materials: 5 Wood, 2 Stone, 2 Flame Organ
+- **Medicine Rack** — type: Infrastructure | tech level: 24 | materials: 20 Ingot, 3 Wooden Board, 5 Cloth
+- **Medieval Medicine Workbench** — type: Product | tech level: 12 | materials: 30 Wood, 5 Nail, 10 Paldium Fragment
+- **Metal Chest** — type: Storage | tech level: 13 | materials: 5 Ingot, 10 Wood
+- **Metal Corner Roof** — type: Foundation | tech level: 30 | materials: 1 Ingot, 2 Stone
+- **Metal Defensive Wall** — type: Defense | tech level: 30 | materials: 10 Ingot, 1 Cement
+- **Metal Diagonal Wall** — type: Foundation | tech level: 30 | materials: 1 Ingot, 2 Stone
+- **Metal Door** — type: Foundation | tech level: 30 | materials: 1 Ingot, 2 Stone
+- **Metal Fence** — type: Foundation | tech level: 30 | materials: 3 Ingot
+- **Metal Foundation** — type: Foundation | tech level: 30 | materials: 1 Ingot, 2 Stone
+- **Metal Pal Passage Entrance** — type: Foundation | tech level: 30 | materials: 1 Ingot, 2 Stone
+- **Metal Pillar** — type: Foundation | tech level: 30 | materials: 1 Ingot, 2 Stone
+- **Metal Pyramid Roof** — type: Foundation | tech level: 30 | materials: 1 Ingot, 2 Stone
+- **Metal Roof** — type: Foundation | tech level: 30 | materials: 1 Ingot, 2 Stone
+- **Metal Slanted Corner Roof (Inverted)** — type: Foundation | tech level: 30 | materials: 1 Ingot, 2 Stone
+- **Metal Slanted Roof** — type: Foundation | tech level: 30 | materials: 1 Ingot, 2 Stone
+- **Metal Slanted Triangular Roof** — type: Foundation | tech level: 30 | materials: 1 Ingot, 2 Stone
+- **Metal Stairs** — type: Foundation | tech level: 30 | materials: 1 Ingot, 2 Stone
+- **Metal Triangular Foundation** — type: Foundation | tech level: 30 | materials: 1 Ingot, 2 Stone
+- **Metal Triangular Roof** — type: Foundation | tech level: 30 | materials: 1 Ingot, 2 Stone
+- **Metal Triangular Wall** — type: Foundation | tech level: 30 | materials: 1 Ingot, 2 Stone
+- **Metal Triangular Wall (Inverted)** — type: Foundation | tech level: 30 | materials: 1 Ingot, 2 Stone
+- **Metal Wall** — type: Foundation | tech level: 30 | materials: 1 Ingot, 2 Stone
+- **Metal Wall and Window** — type: Foundation | tech level: 30 | materials: 1 Ingot, 2 Stone
+- **Mill** — type: Product | tech level: 15 | materials: 10 Wooden Board, 40 Stone, 10 Ingot
+- **Mine** — type: Defense | tech level: 30 | materials: 5 Ingot, 2 Flame Organ
+- **Mining Cart** — type: Other | tech level: 30 | materials: 20 Wood, 50 Stone, 15 Ingot
+- **Monitoring Stand** — type: Pal | tech level: 7 | materials: 30 Wood, 10 Stone
+- **Moon Lord Statue** — type: Furniture | materials: 100 Hallowed Bar
+- **Moonflower Standard** — type: Furniture | tech level: 55 | materials: 20 Refined Ingot, 10 Fiber, 20 High Quality Cloth
+- **Moonflower Vertical Banner** — type: Furniture | tech level: 55 | materials: 10 Refined Ingot, 10 Fiber, 20 High Quality Cloth
+- **Mounted Crossbow** — type: Defense | tech level: 26 | materials: 10 Ingot, 3 Wooden Board, 15 Stone, 5 Nail
+- **Mounted Machine Gun** — type: Defense | tech level: 40 | materials: 15 Ingot, 10 Nail, 15 Cement
+- **Mounted Missile Launcher** — type: Defense | tech level: 50 | materials: 20 Refined Ingot, 5 Computer, 3 Bio Battery, 30 Cement
+- **Mounted Torch** — type: Light | tech level: 6 | materials: 5 Wood, 2 Stone
+- **Moving Panels** — type: Defense | materials: 50 Paldium Fragment
+- **No Pals Beyond Sign** — type: Furniture | tech level: 49 | materials: 5 Ingot
+- **Old TV** — type: Furniture | tech level: 46 | materials: 20 Wood, 1 Circuit Board
+- **Onion Plantation** — type: Food | tech level: 36 | materials: 3 Onion Seeds, 30 Wood, 20 Stone, 2 Aquatic Pal Fluids
+- **Orange Barricade** — type: Furniture | tech level: 49 | materials: 3 Ingot, 1 Polymer
+- **Orange Locker** — type: Storage | tech level: 17 | materials: 30 Ingot, 3 Nail
+- **Ore Mining Site** — type: Product | tech level: 24 | materials: 50 Stone, 25 Ingot, 20 Paldium Fragment, 5 Ancient Civilization Parts
+- **Ore Mining Site II** — type: Product | tech level: 39 | materials: 100 Stone, 50 Ingot, 40 Paldium Fragment, 10 Ancient Civilization Parts
+- **Pal Disassembly Conveyor** — type: Pal | tech level: 56 | materials: 100 Pal Metal Ingot, 15 Computer, 30 Nail, 30 Plasteel
+- **Pal Dressing Facility** — type: Pal | tech level: 2 | materials: 10 Stone, 10 Paldium Fragment
+- **Pal Essence Condenser** — type: Pal | tech level: 14 | materials: 20 Paldium Fragment, 20 Ingot, 5 Ancient Civilization Parts
+- **Pal Expedition Station** — type: Pal | tech level: 22 | materials: 10 Wooden Board, 100 Stone, 20 Paldium Fragment, 20 Cement
+- **Pal Gear Workbench** — type: Product | tech level: 6 | materials: 10 Paldium Fragment, 30 Wood, 2 Cloth
+- **PAL Genetic Research Unit Standard** — type: Furniture | tech level: 50 | materials: 20 Refined Ingot, 10 Fiber, 20 High Quality Cloth
+- **PAL Genetic Research Unit Vertical Banner** — type: Furniture | tech level: 50 | materials: 10 Refined Ingot, 10 Fiber, 20 High Quality Cloth
+- **Pal Labor Research Lab** — type: Pal | tech level: 19 | materials: 30 Ingot, 30 Paldium Fragment
+- **Pal Pod** — type: Infrastructure | tech level: 56 | materials: 10 Pal Metal Ingot, 6 Cryogenic Coolant, 3 Computer
+- **Pal Surgery Table** — type: Pal | tech level: 38 | materials: 30 Refined Ingot, 20 High Quality Cloth, 10 Corrosive Solvent
+- **Palbox** — type: Pal | tech level: 2 | materials: 1 Paldium Fragment, 8 Wood, 3 Stone
+- **Palbox Control Device** — type: Pal | tech level: 32 | materials: 20 Ingot, 30 Paldium Fragment
+- **Paper Lantern** — type: Light | materials: 5 Ingot, 2 Electric Organ
+- **PIDF Standard** — type: Furniture | tech level: 39 | materials: 20 Refined Ingot, 10 Fiber, 20 Cloth
+- **PIDF Vertical Banner** — type: Furniture | tech level: 39 | materials: 10 Refined Ingot, 10 Fiber, 20 Cloth
+- **Potato Plantation** — type: Food | tech level: 29 | materials: 3 Potato Seeds, 30 Wood, 20 Stone, 3 Aquatic Pal Fluids
+- **Potted Houseplant** — type: Furniture | tech level: 6 | materials: 5 Stone, 5 Fiber
+- **Power Generator** — type: Infrastructure | tech level: 26 | materials: 50 Ingot, 20 Electric Organ
+- **Primitive Furnace** — type: Product | tech level: 10 | materials: 20 Wood, 40 Stone, 3 Flame Organ
+- **Primitive Workbench** — type: Product | tech level: 1 | materials: 2 Wood
+- **Production Assembly Line** — type: Product | tech level: 29 | materials: 100 Ingot, 5 Wooden Board, 20 Nail, 10 Cement
+- **Production Assembly Line II** — type: Product | tech level: 42 | materials: 100 Refined Ingot, 10 Circuit Board, 30 Cement, 5 Corrosive Solvent
+- **Pure Quartz Quarry** — type: Product | tech level: 52 | materials: 70 Stone, 100 Pure Quartz, 30 Paldium Fragment, 10 Ancient Civilization Parts
+- **Ranch** — type: Pal | tech level: 5 | materials: 30 Wood, 20 Stone, 30 Fiber
+- **Rayne Syndicate Flag** — type: Furniture | materials: 10 Wood, 2 Cloth
+- **Rayne Syndicate Standard** — type: Furniture | tech level: 11 | materials: 20 Ingot, 10 Fiber, 20 Cloth
+- **Rayne Syndicate Vertical Banner** — type: Furniture | tech level: 11 | materials: 10 Ingot, 10 Fiber, 20 Cloth
+- **Red Iron Barricade** — type: Furniture | tech level: 49 | materials: 5 Ingot, 1 Flame Organ
+- **Red Metal Barrel** — type: Furniture | tech level: 34 | materials: 10 Ingot, 1 Aquatic Pal Fluids
+- **Red Wooden Lantern** — type: Light | materials: 10 Ingot, 3 Electric Organ, 10 Stone
+- **Refined Metal Chest** — type: Storage | tech level: 39 | materials: 5 Refined Ingot, 10 Hardwood, 10 Nail
+- **Refrigerator** — type: Storage | tech level: 38 | materials: 50 Refined Ingot, 20 Polymer, 10 Cryogenic Coolant, 5 Circuit Board
+- **Repair Bench** — type: Product | tech level: 2 | materials: 10 Wood, 10 Stone
+- **Retro Street Lamp** — type: Light | tech level: 46 | materials: 20 Ingot, 3 Electric Organ, 3 Nail
+- **Round Iron Table** — type: Furniture | tech level: 22 | materials: 5 Ingot
+- **Round Table** — type: Furniture | tech level: 5 | materials: 20 Wood, 5 Red Berries
+- **Sandbag** — type: Defense | tech level: 7 | materials: 10 Wood, 10 Stone
+- **Shoddy Bed** — type: Infrastructure | tech level: 3 | materials: 20 Wood, 5 Fiber, 1 Wool
+- **Sign** — type: Other | tech level: 6 | materials: 10 Wood
+- **Silo** — type: Other | tech level: 25 | materials: 30 Wood, 20 Stone, 30 Fiber, 10 Cement
+- **Simple Street Lamp** — type: Light | tech level: 46 | materials: 20 Ingot, 3 Electric Organ, 3 Nail
+- **Skillfruit Orchard** — type: Food | tech level: 71 | materials: 200 Mythical Wood, 500 Paldium Fragment, 150 Soralite
+- **Skinny Traffic Cone** — type: Furniture | tech level: 48 | materials: 1 Polymer
+- **Small Container** — type: Storage | tech level: 23 | materials: 10 Ingot, 20 Wood
+- **Small Wall Ivy** — type: Furniture | tech level: 7 | materials: 5 Fiber
+- **Snowman** — type: Other | tech level: 33 | materials: 5 Ice Organ, 10 Wood, 5 Cloth
+- **Soccer Goal** — type: Furniture | tech level: 46 | materials: 20 Ingot, 20 Fiber
+- **Soralite Quarry** — type: Product | tech level: 72 | materials: 70 Stone, 100 Soralite, 10 Ancient Civilization Parts
+- **Sphere Assembly Line** — type: Product | tech level: 27 | materials: 30 Paldium Fragment, 5 Wooden Board, 100 Ingot, 20 Nail
+- **Sphere Assembly Line II** — type: Product | tech level: 35 | materials: 100 Refined Ingot, 10 Circuit Board, 30 Nail, 50 Paldium Fragment
+- **Sphere Workbench** — type: Product | tech level: 14 | materials: 10 Paldium Fragment, 30 Wood, 10 Nail, 20 Ingot
+- **Square Table** — type: Furniture | tech level: 5 | materials: 20 Wood, 5 Red Berries
+- **Statue of Power** — type: Pal | tech level: 9 | materials: 20 Stone, 10 Paldium Fragment
+- **Stone Corner Roof** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stone Defensive Wall** — type: Defense | tech level: 19 | materials: 10 Stone
+- **Stone Diagonal Wall** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stone Door** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stone Fence** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stone Foundation** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stone Gate** — type: Defense | tech level: 19 | materials: 10 Stone
+- **Stone Lantern** — type: Furniture | tech level: 55 | materials: 15 Stone
+- **Stone Pal Passage Entrance** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stone Pillar** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stone Pit** — type: Product | tech level: 7 | materials: 50 Stone, 20 Wood, 10 Paldium Fragment
+- **Stone Pyramid Roof** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stone Roof** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stone Slanted Corner Roof (Inverted)** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stone Slanted Roof** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stone Slanted Triangular Roof** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stone Stairs** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stone Triangular Foundation** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stone Triangular Roof** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stone Triangular Wall** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stone Triangular Wall (Inverted)** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stone Wall** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stone Wall and Window** — type: Foundation | tech level: 19 | materials: 3 Stone
+- **Stop Sign** — type: Furniture | tech level: 49 | materials: 5 Ingot
+- **Straw Pal Bed** — type: Infrastructure | tech level: 3 | materials: 10 Wood, 5 Fiber
+- **Stump and Axe** — type: Other | tech level: 28 | materials: 50 Wood, 10 Ingot, 30 Stone
+- **Stylish Street Lamp** — type: Light | tech level: 46 | materials: 20 Ingot, 3 Electric Organ, 3 Nail
+- **Sulfur Quarry** — type: Product | tech level: 46 | materials: 70 Stone, 100 Sulfur, 30 Paldium Fragment, 10 Ancient Civilization Parts
+- **Summoning Altar** — type: Pal | tech level: 33 | materials: 100 Stone, 20 Paldium Fragment
+- **Tabletop Houseplant** — type: Furniture | tech level: 6 | materials: 10 Stone, 5 Fiber
+- **Tidy Round Table** — type: Furniture | tech level: 12 | materials: 20 Wood
+- **Tidy Square Table** — type: Furniture | tech level: 12 | materials: 20 Wood
+- **Tire** — type: Furniture | tech level: 37 | materials: 2 High Quality Pal Oil, 2 Aquatic Pal Fluids
+- **Tomato Plantation** — type: Food | tech level: 21 | materials: 3 Tomato Seeds, 70 Wood, 50 Stone, 5 Aquatic Pal Fluids
+- **Tombstone** — type: Other | tech level: 17 | materials: 10 Stone
+- **Traffic Cone** — type: Furniture | tech level: 48 | materials: 1 Polymer
+- **Traffic Light** — type: Furniture | tech level: 48 | materials: 20 Ingot, 2 Electric Organ
+- **Training Dummy** — type: Other | tech level: 13 | materials: 20 Wood, 5 Fiber, 5 Paldium Fragment
+- **Tuppanyan sticker** — type: Furniture | materials: 1 Wood
+- **Upright Piano** — type: Furniture | tech level: 17 | materials: 10 Wooden Board, 20 Fiber, 5 Ingot
+- **Viewing Cage** — type: Pal | tech level: 15 | materials: 10 Paldium Fragment, 10 Wood, 20 Stone
+- **Wall Clock** — type: Furniture | tech level: 22 | materials: 5 Ingot, 3 Paldium Fragment
+- **Wall Lamp** — type: Light | tech level: 26 | materials: 10 Ingot, 2 Electric Organ, 2 Nail
+- **Wall Torch** — type: Light | tech level: 14 | materials: 5 Wood, 2 Stone
+- **Wall-Mounted Sign** — type: Other | tech level: 6 | materials: 10 Wood
+- **Water Fountain** — type: Other | tech level: 23 | materials: 20 Ingot, 50 Stone, 8 Aquatic Pal Fluids
+- **Weapon Assembly Line** — type: Product | tech level: 32 | materials: 100 Ingot, 20 Wooden Board, 20 Nail, 10 High Quality Pal Oil
+- **Weapon Assembly Line II** — type: Product | tech level: 47 | materials: 100 Refined Ingot, 10 Circuit Board, 5 Corrosive Solvent, 5 Bio Battery
+- **Weapon Workbench** — type: Product | tech level: 20 | materials: 15 Ingot, 10 Wooden Board, 10 Nail
+- **Wheat Plantation** — type: Food | tech level: 15 | materials: 3 Wheat Seeds, 15 Wood, 15 Stone
+- **White Iron Barricade** — type: Furniture | tech level: 49 | materials: 5 Ingot
+- **Wire Fence** — type: Furniture | materials: 5 Ingot, 10 Stone
+- **Witch Cauldron** — type: Other | tech level: 32 | materials: 10 Ingot, 20 Stone, 5 Cryogenic Coolant, 3 High Quality Pal Oil
+- **Wooden Bar Stool** — type: Furniture | tech level: 5 | materials: 8 Wood
+- **Wooden Barrel** — type: Storage | tech level: 5 | materials: 30 Wood, 5 Stone
+- **Wooden Barrel Shelf** — type: Storage | tech level: 5 | materials: 70 Wood, 10 Stone
+- **Wooden Barricade** — type: Furniture | materials: 10 Wood, 10 Fiber
+- **Wooden Bench** — type: Furniture | tech level: 5 | materials: 10 Wood
+- **Wooden Box** — type: Storage | tech level: 5 | materials: 30 Wood, 5 Stone
+- **Wooden Chair** — type: Furniture | tech level: 5 | materials: 10 Wood
+- **Wooden Chest** — type: Storage | tech level: 2 | materials: 15 Wood, 5 Stone
+- **Wooden Corner Roof** — type: Foundation | tech level: 2 | materials: 2 Wood
+- **Wooden Counter** — type: Furniture | tech level: 5 | materials: 30 Wood, 5 Stone
+- **Wooden Decorative Wall Shelf** — type: Furniture | tech level: 5 | materials: 5 Wood, 5 Stone
+- **Wooden Defensive Wall** — type: Defense | tech level: 8 | materials: 10 Wood
+- **Wooden Diagonal Wall** — type: Foundation | tech level: 2 | materials: 2 Wood
+- **Wooden Door** — type: Foundation | tech level: 2 | materials: 2 Wood
+- **Wooden Fence** — type: Foundation | tech level: 2 | materials: 3 Wood
+- **Wooden Foundation** — type: Foundation | tech level: 2 | materials: 2 Wood
+- **Wooden Gate** — type: Defense | tech level: 8 | materials: 10 Wood
+- **Wooden Pal Passage Entrance** — type: Foundation | tech level: 2 | materials: 2 Wood
+- **Wooden Pillar** — type: Foundation | tech level: 2 | materials: 2 Wood
+- **Wooden Pyramid Roof** — type: Foundation | tech level: 2 | materials: 2 Wood
+- **Wooden Roof** — type: Foundation | tech level: 2 | materials: 2 Wood
+- **Wooden Shelf** — type: Storage | tech level: 5 | materials: 40 Wood, 2 Stone
+- **Wooden Slanted Corner Roof (Inverted)** — type: Foundation | tech level: 2 | materials: 2 Wood
+- **Wooden Slanted Roof** — type: Foundation | tech level: 2 | materials: 2 Wood
+- **Wooden Slanted Triangular Roof** — type: Foundation | tech level: 2 | materials: 2 Wood
+- **Wooden Stairs** — type: Foundation | tech level: 2 | materials: 2 Wood
+- **Wooden Stool** — type: Furniture | tech level: 5 | materials: 5 Wood
+- **Wooden Triangular Foundation** — type: Foundation | tech level: 2 | materials: 2 Wood
+- **Wooden Triangular Roof** — type: Foundation | tech level: 2 | materials: 2 Wood
+- **Wooden Triangular Wall** — type: Foundation | tech level: 2 | materials: 2 Wood
+- **Wooden Triangular Wall (Inverted)** — type: Foundation | tech level: 2 | materials: 2 Wood
+- **Wooden Wall** — type: Foundation | tech level: 2 | materials: 2 Wood
+- **Wooden Wall and Window** — type: Foundation | tech level: 2 | materials: 2 Wood
+- **Wooden Wall Shelf** — type: Storage | tech level: 5 | materials: 20 Wood, 5 Stone
+- **Yakumo Statue** — type: Furniture | materials: 70 Stone

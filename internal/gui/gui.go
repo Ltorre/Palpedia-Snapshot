@@ -6,20 +6,26 @@ import (
 	"fmt"
 	"image"
 	"image/color"
+	"os"
 	"path/filepath"
 	"sort"
 	"strings"
 	"time"
 
 	"gioui.org/app"
+	"gioui.org/f32"
 	"gioui.org/layout"
 	"gioui.org/op"
+	"gioui.org/op/clip"
+	"gioui.org/op/paint"
 	"gioui.org/text"
 	"gioui.org/unit"
 	"gioui.org/widget"
 	"gioui.org/widget/material"
 	"gioui.org/x/explorer"
 
+	"github.com/Ltorre/palpedia-snapshot/internal/breeding"
+	"github.com/Ltorre/palpedia-snapshot/internal/planner"
 	"github.com/Ltorre/palpedia-snapshot/internal/report"
 	"github.com/Ltorre/palpedia-snapshot/internal/sav"
 )
@@ -31,36 +37,87 @@ const (
 	french  language = "fr"
 )
 
+type themeMode string
+
+const (
+	lightTheme themeMode = "light"
+	darkTheme  themeMode = "dark"
+)
+
+type workspaceView string
+
+const (
+	noWorkspace       workspaceView = ""
+	notebookWorkspace workspaceView = "notebook"
+	plannerWorkspace  workspaceView = "planner"
+	routeWorkspace    workspaceView = "route"
+)
+
 type taskResult struct {
-	kind       string
-	candidates []SaveCandidate
-	players    []sav.Player
-	path       string
-	message    string
-	err        error
+	kind        string
+	candidates  []SaveCandidate
+	players     []sav.Player
+	plannerPals []planner.Pal
+	updatedAt   time.Time
+	path        string
+	message     string
+	err         error
+}
+
+type plannerPicker struct {
+	pal          planner.Pal
+	male, female widget.Clickable
+}
+
+type routeTreeNode struct {
+	species    string
+	generation int
+	rect       image.Rectangle
 }
 
 type screen struct {
-	window   *app.Window
-	explorer *explorer.Explorer
-	theme    *material.Theme
-	version  string
-	language language
+	window    *app.Window
+	explorer  *explorer.Explorer
+	theme     *material.Theme
+	version   string
+	language  language
+	themeMode themeMode
 
-	root, level, output, players, player, compare                                                        widget.Editor
-	advanced                                                                                             widget.Bool
-	englishButton, frenchButton, scanButton                                                              widget.Clickable
-	browseButton, outputBrowseButton, compareBrowseButton, playersButton, exportButton, openExportButton widget.Clickable
-	candidates                                                                                           []SaveCandidate
-	candidateButtons                                                                                     []widget.Clickable
-	playersFound                                                                                         []sav.Player
-	playerButtons                                                                                        []widget.Clickable
-	list                                                                                                 layout.List
-	results                                                                                              chan taskResult
-	busy                                                                                                 bool
-	status                                                                                               string
-	statusError                                                                                          bool
-	lastExportDir                                                                                        string
+	root, level, output, players, player, compare                                                              widget.Editor
+	advanced                                                                                                   widget.Bool
+	englishButton, frenchButton, lightButton, darkButton, scanButton, changeSaveButton, changeExportButton     widget.Clickable
+	notebookViewButton, plannerViewButton, routeViewButton                                                     widget.Clickable
+	browseButton, outputBrowseButton, compareBrowseButton, playersButton, exportButton, openExportButton       widget.Clickable
+	candidates                                                                                                 []SaveCandidate
+	candidateButtons                                                                                           []widget.Clickable
+	playersFound                                                                                               []sav.Player
+	playerButtons                                                                                              []widget.Clickable
+	list, plannerList                                                                                          layout.List
+	results                                                                                                    chan taskResult
+	busy                                                                                                       bool
+	status                                                                                                     string
+	statusError                                                                                                bool
+	lastExportDir                                                                                              string
+	showSaveSetup, showExportSetup                                                                             bool
+	activeView                                                                                                 workspaceView
+	plannerRefreshButton, pairButton, routeButton, routeResetButton, plannerSortLevelAsc, plannerSortLevelDesc widget.Clickable
+	plannerGold, plannerDiamond, plannerMale, plannerFemale                                                    widget.Bool
+	routeGold, routeDiamond                                                                                    widget.Bool
+	plannerSort                                                                                                planner.SortOrder
+	plannerFilter, target                                                                                      widget.Editor
+	plannerPals                                                                                                []planner.Pal
+	plannerPickers                                                                                             map[string]*plannerPicker
+	targetSuggestionButtons                                                                                    map[string]*widget.Clickable
+	traitHovers                                                                                                map[string]*widget.Clickable
+	routeAvoidButtons                                                                                          map[string]*widget.Clickable
+	routeRebreedButtons                                                                                        map[string]*widget.Clickable
+	routeExcluded                                                                                              map[string]bool
+	routeRebreed                                                                                               map[string]bool
+	selectedMale, selectedFemale                                                                               *planner.Pal
+	plannerLoadedAt                                                                                            time.Time
+	plannerSaveModified                                                                                        time.Time
+	plannerPairResult, plannerRoute, plannerRouteNotice, plannerRouteTarget                                    string
+	plannerRoutePath                                                                                           *planner.Path
 }
 
 func Run(version string) {
@@ -87,20 +144,62 @@ func Run(version string) {
 
 func newScreen(window *app.Window, version string) *screen {
 	theme := material.NewTheme()
-	theme.Palette = material.Palette{
-		Bg:         color.NRGBA{R: 246, G: 248, B: 252, A: 255},
-		Fg:         color.NRGBA{R: 25, G: 32, B: 48, A: 255},
-		ContrastBg: color.NRGBA{R: 93, G: 76, B: 205, A: 255},
-		ContrastFg: color.NRGBA{R: 255, G: 255, B: 255, A: 255},
-	}
-	s := &screen{window: window, explorer: explorer.NewExplorer(window), theme: theme, version: version, language: english, results: make(chan taskResult, 4), list: layout.List{Axis: layout.Vertical}}
-	for _, field := range []*widget.Editor{&s.root, &s.level, &s.output, &s.players, &s.player, &s.compare} {
+	s := &screen{window: window, explorer: explorer.NewExplorer(window), theme: theme, version: version, language: english, themeMode: lightTheme, showSaveSetup: true, showExportSetup: true, results: make(chan taskResult, 4), list: layout.List{Axis: layout.Vertical}, plannerList: layout.List{Axis: layout.Vertical}}
+	s.applyTheme(lightTheme)
+	for _, field := range []*widget.Editor{&s.root, &s.level, &s.output, &s.players, &s.player, &s.compare, &s.plannerFilter, &s.target} {
 		field.SingleLine = true
 	}
+	s.plannerPickers = make(map[string]*plannerPicker)
+	s.targetSuggestionButtons = make(map[string]*widget.Clickable)
+	s.traitHovers = make(map[string]*widget.Clickable)
+	s.routeAvoidButtons = make(map[string]*widget.Clickable)
+	s.routeRebreedButtons = make(map[string]*widget.Clickable)
+	s.routeExcluded = make(map[string]bool)
+	s.routeRebreed = make(map[string]bool)
 	s.root.SetText(DefaultSaveRoot())
 	s.output.SetText(DefaultExportDir())
+	s.lastExportDir = latestExportDir(s.output.Text())
 	s.startScan()
 	return s
+}
+
+func (s *screen) applyTheme(mode themeMode) {
+	s.themeMode = mode
+	if mode == darkTheme {
+		s.theme.Palette = material.Palette{Bg: color.NRGBA{R: 22, G: 25, B: 34, A: 255}, Fg: color.NRGBA{R: 237, G: 239, B: 247, A: 255}, ContrastBg: color.NRGBA{R: 150, G: 130, B: 255, A: 255}, ContrastFg: color.NRGBA{R: 20, G: 18, B: 30, A: 255}}
+		return
+	}
+	s.theme.Palette = material.Palette{Bg: color.NRGBA{R: 246, G: 248, B: 252, A: 255}, Fg: color.NRGBA{R: 25, G: 32, B: 48, A: 255}, ContrastBg: color.NRGBA{R: 93, G: 76, B: 205, A: 255}, ContrastFg: color.NRGBA{R: 255, G: 255, B: 255, A: 255}}
+}
+
+func (s *screen) isDark() bool { return s.themeMode == darkTheme }
+
+func (s *screen) primaryText() color.NRGBA {
+	if s.isDark() {
+		return color.NRGBA{R: 237, G: 239, B: 247, A: 255}
+	}
+	return color.NRGBA{R: 43, G: 49, B: 70, A: 255}
+}
+
+func (s *screen) mutedText() color.NRGBA {
+	if s.isDark() {
+		return color.NRGBA{R: 174, G: 181, B: 202, A: 255}
+	}
+	return color.NRGBA{R: 91, G: 98, B: 117, A: 255}
+}
+
+func (s *screen) surface() color.NRGBA {
+	if s.isDark() {
+		return color.NRGBA{R: 43, G: 48, B: 64, A: 255}
+	}
+	return color.NRGBA{R: 232, G: 235, B: 250, A: 255}
+}
+
+func (s *screen) border() color.NRGBA {
+	if s.isDark() {
+		return color.NRGBA{R: 92, G: 101, B: 130, A: 255}
+	}
+	return color.NRGBA{R: 173, G: 178, B: 207, A: 255}
 }
 
 func (s *screen) handle(gtx layout.Context) {
@@ -120,8 +219,15 @@ func (s *screen) handle(gtx layout.Context) {
 				s.candidateButtons = make([]widget.Clickable, len(result.candidates))
 			case "browse":
 				s.level.SetText(result.path)
+				s.showSaveSetup = result.path == ""
+				if result.path != "" {
+					s.activeView = noWorkspace
+				}
 			case "output-browse":
 				s.output.SetText(result.path)
+				if result.path != "" {
+					s.lastExportDir = latestExportDir(result.path)
+				}
 			case "compare-browse":
 				s.compare.SetText(result.path)
 			case "players":
@@ -130,6 +236,15 @@ func (s *screen) handle(gtx layout.Context) {
 			case "export":
 				if result.err == nil && result.path != "" {
 					s.lastExportDir = result.path
+					s.showExportSetup = false
+					s.startPlannerRefresh()
+				}
+			case "planner":
+				if result.err == nil {
+					s.plannerPals, s.plannerLoadedAt, s.plannerSaveModified = result.plannerPals, time.Now(), result.updatedAt
+					s.plannerPickers = make(map[string]*plannerPicker)
+					s.selectedMale, s.selectedFemale, s.plannerPairResult = nil, nil, ""
+					s.clearRoute()
 				}
 			}
 		default:
@@ -143,6 +258,30 @@ handled:
 	}
 	if s.frenchButton.Clicked(gtx) {
 		s.language = french
+	}
+	if s.lightButton.Clicked(gtx) {
+		s.applyTheme(lightTheme)
+	}
+	if s.darkButton.Clicked(gtx) {
+		s.applyTheme(darkTheme)
+	}
+	if s.changeSaveButton.Clicked(gtx) {
+		s.showSaveSetup = true
+		s.activeView = noWorkspace
+	}
+	if s.changeExportButton.Clicked(gtx) {
+		s.showExportSetup = true
+	}
+	if s.notebookViewButton.Clicked(gtx) {
+		s.activeView = notebookWorkspace
+	}
+	if s.plannerViewButton.Clicked(gtx) {
+		s.activeView = plannerWorkspace
+		s.ensurePlannerLoaded()
+	}
+	if s.routeViewButton.Clicked(gtx) {
+		s.activeView = routeWorkspace
+		s.ensurePlannerLoaded()
 	}
 	if s.scanButton.Clicked(gtx) && !s.busy {
 		s.startScan()
@@ -162,6 +301,27 @@ handled:
 	if s.exportButton.Clicked(gtx) && !s.busy {
 		s.startExport()
 	}
+	if s.plannerRefreshButton.Clicked(gtx) && !s.busy {
+		s.startPlannerRefresh()
+	}
+	if s.plannerSortLevelAsc.Clicked(gtx) {
+		s.plannerSort = planner.SortByLevelAscending
+	}
+	if s.plannerSortLevelDesc.Clicked(gtx) {
+		s.plannerSort = planner.SortByLevelDescending
+	}
+	if s.pairButton.Clicked(gtx) {
+		s.calculatePair()
+	}
+	if s.routeButton.Clicked(gtx) {
+		s.calculateRoute()
+	}
+	if s.routeResetButton.Clicked(gtx) {
+		s.routeExcluded = make(map[string]bool)
+		s.routeRebreed = make(map[string]bool)
+		s.routeGold.Value, s.routeDiamond.Value = false, false
+		s.calculateRoute()
+	}
 	if s.openExportButton.Clicked(gtx) && s.lastExportDir != "" {
 		if err := openFolder(s.lastExportDir); err != nil {
 			s.statusError, s.status = true, err.Error()
@@ -170,6 +330,8 @@ handled:
 	for index := range s.candidateButtons {
 		if s.candidateButtons[index].Clicked(gtx) {
 			s.level.SetText(s.candidates[index].LevelPath)
+			s.showSaveSetup = false
+			s.activeView = noWorkspace
 			s.statusError = false
 			s.status = s.t("world_selected")
 		}
@@ -181,6 +343,54 @@ handled:
 			s.statusError = false
 			s.status = fmt.Sprintf(s.t("player_selected"), player.Nickname)
 		}
+	}
+	for _, picker := range s.plannerPickers {
+		if picker.male.Clicked(gtx) {
+			pal := picker.pal
+			s.selectedMale, s.plannerPairResult = &pal, ""
+			s.clearRoute()
+			s.plannerMale.Value, s.plannerFemale.Value = false, true
+		}
+		if picker.female.Clicked(gtx) {
+			pal := picker.pal
+			s.selectedFemale, s.plannerPairResult = &pal, ""
+			s.clearRoute()
+			s.plannerMale.Value, s.plannerFemale.Value = true, false
+		}
+	}
+	for characterID, button := range s.targetSuggestionButtons {
+		if button.Clicked(gtx) {
+			if rules, err := breeding.Default(); err == nil {
+				s.target.SetText(rules.DisplayName(characterID))
+				s.clearRoute()
+			}
+		}
+	}
+	for species, button := range s.routeAvoidButtons {
+		if button.Clicked(gtx) {
+			s.routeExcluded[species] = true
+			s.routeRebreed = make(map[string]bool)
+			s.calculateRoute()
+		}
+	}
+	for species, button := range s.routeRebreedButtons {
+		if button.Clicked(gtx) {
+			s.expandRouteSpecies(species)
+		}
+	}
+}
+
+func (s *screen) clearRoute() {
+	s.plannerRoute, s.plannerRouteNotice, s.plannerRouteTarget, s.plannerRoutePath = "", "", "", nil
+	s.routeExcluded = make(map[string]bool)
+	s.routeAvoidButtons = make(map[string]*widget.Clickable)
+	s.routeRebreed = make(map[string]bool)
+	s.routeRebreedButtons = make(map[string]*widget.Clickable)
+}
+
+func (s *screen) ensurePlannerLoaded() {
+	if len(s.plannerPals) == 0 && !s.busy {
+		s.startPlannerRefresh()
 	}
 }
 
@@ -286,6 +496,240 @@ func (s *screen) startExport() {
 	}()
 }
 
+func (s *screen) startPlannerRefresh() {
+	levelPath := strings.TrimSpace(s.level.Text())
+	if levelPath == "" {
+		s.statusError, s.status = true, s.t("planner_select_save")
+		return
+	}
+	playersDir, playerUID := strings.TrimSpace(s.players.Text()), strings.TrimSpace(s.player.Text())
+	s.busy, s.statusError, s.status = true, false, s.t("planner_updating")
+	go func() {
+		world, err := loadWorld(levelPath, playersDir)
+		if err == nil && !report.HasPlayer(world, playerUID) {
+			err = fmt.Errorf("player %q was not found", playerUID)
+		}
+		var pals []planner.Pal
+		if err == nil {
+			rules, ruleErr := breeding.Default()
+			if ruleErr != nil {
+				err = ruleErr
+			} else {
+				pals = plannerCollection(world, playerUID, rules)
+			}
+		}
+		var updatedAt time.Time
+		if info, statErr := os.Stat(levelPath); statErr == nil {
+			updatedAt = info.ModTime()
+		}
+		message := s.t("planner_ready")
+		if err == nil {
+			message = fmt.Sprintf(s.t("planner_loaded"), len(pals))
+		}
+		s.results <- taskResult{kind: "planner", plannerPals: pals, updatedAt: updatedAt, message: message, err: err}
+		s.window.Invalidate()
+	}()
+}
+
+func plannerCollection(world *sav.World, playerUID string, rules *breeding.Rules) []planner.Pal {
+	containers := make(map[string]bool, len(world.Players)*2)
+	for _, player := range world.Players {
+		if playerUID != "" && !strings.EqualFold(player.UID, playerUID) {
+			continue
+		}
+		containers[strings.ToLower(player.OtomoContainerID)] = true
+		containers[strings.ToLower(player.PalStorageContainerID)] = true
+	}
+	pals := make([]planner.Pal, 0, len(world.Pals))
+	for _, pal := range world.Pals {
+		if !containers[strings.ToLower(pal.ContainerID)] {
+			continue
+		}
+		pals = append(pals, planner.Pal{InstanceID: pal.InstanceID, CharacterID: pal.CharacterID, DisplayName: rules.DisplayName(pal.CharacterID), Gender: pal.Gender, Level: pal.Level, Traits: append([]string(nil), pal.PassiveSkillIDs...)})
+	}
+	return pals
+}
+
+func (s *screen) calculatePair() {
+	if s.selectedMale == nil || s.selectedFemale == nil {
+		s.statusError, s.status = true, s.t("planner_select_parents")
+		return
+	}
+	rules, err := breeding.Default()
+	if err == nil {
+		result, resolveErr := planner.ResolvePair(rules, *s.selectedMale, *s.selectedFemale)
+		if resolveErr != nil {
+			err = resolveErr
+		} else {
+			s.plannerPairResult = fmt.Sprintf(s.t("planner_pair_result"), rules.DisplayName(result.Child), result.Rule, result.TargetRank)
+			s.statusError, s.status = false, s.t("planner_pair_ready")
+		}
+	}
+	if err != nil {
+		s.statusError, s.status = true, err.Error()
+	}
+}
+
+func (s *screen) calculateRoute() {
+	if len(s.plannerPals) == 0 {
+		s.statusError, s.status = true, s.t("planner_empty")
+		return
+	}
+	target := strings.TrimSpace(s.target.Text())
+	if target == "" {
+		s.statusError, s.status = true, s.t("planner_target_required")
+		return
+	}
+	s.plannerRoute, s.plannerRouteNotice, s.plannerRoutePath = "", "", nil
+	rules, err := breeding.Default()
+	if err != nil {
+		s.statusError, s.status = true, err.Error()
+		return
+	}
+	targetKey, known := rules.Key(target)
+	if !known {
+		s.statusError, s.status = true, fmt.Sprintf(s.t("planner_target_unknown"), target)
+		return
+	}
+	if s.plannerRouteTarget != "" && s.plannerRouteTarget != targetKey {
+		s.routeExcluded = make(map[string]bool)
+		s.routeRebreed = make(map[string]bool)
+	}
+	s.plannerRouteTarget = targetKey
+	startingPals := s.routeStartingPals()
+	ownedPath, err := planner.ShortestPath(rules, startingPals, targetKey)
+	if err != nil {
+		if len(startingPals) < len(s.plannerPals) {
+			s.plannerRoute = s.t("planner_route_trait_no_route") + "\n" + s.t("planner_route_caveat")
+			s.statusError, s.status = false, s.t("planner_route_ready")
+			return
+		}
+		s.plannerRoute = s.t("planner_route_no_route") + "\n" + s.t("planner_route_caveat")
+		s.statusError, s.status = false, s.t("planner_route_ready")
+		return
+	}
+	omittedInitial := make(map[string]bool, 1)
+	if ownedPath.Generations == 0 {
+		s.plannerRouteNotice = fmt.Sprintf(s.t("planner_already_owned_inheritance"), rules.DisplayName(ownedPath.Target))
+		omittedInitial[ownedPath.Target] = true
+	}
+	path, err := planner.ShortestPathWithOmittedInitialSpecies(rules, startingPals, targetKey, omittedInitial, s.routeExcluded)
+	if err != nil {
+		if len(s.routeExcluded) > 0 {
+			s.plannerRoute = s.t("planner_route_exclusion_no_route") + "\n" + s.t("planner_route_caveat")
+		} else if s.plannerRouteNotice != "" {
+			s.plannerRoute = s.t("planner_inheritance_no_route") + "\n" + s.t("planner_route_caveat")
+		} else {
+			s.plannerRoute = s.t("planner_route_no_route") + "\n" + s.t("planner_route_caveat")
+		}
+		s.statusError, s.status = false, s.t("planner_route_ready")
+		return
+	}
+	s.plannerRoutePath = &path
+	s.plannerRoute, s.statusError, s.status = s.routeDetails(path), false, s.t("planner_route_ready")
+}
+
+func (s *screen) routeDetails(path planner.Path) string {
+	var out strings.Builder
+	if path.Generations > 2 {
+		out.WriteString(s.t("planner_speed_title"))
+		helpers := planner.BreedingSpeedHelpers(s.plannerPals)
+		if len(helpers) == 0 {
+			out.WriteString("\n" + s.t("planner_speed_none"))
+		}
+		for _, helper := range helpers {
+			label := plannerPalLabel(helper.Pal)
+			switch helper.TraitID {
+			case "MutationPal_Babysitter":
+				fmt.Fprintf(&out, "\n• "+s.t("planner_speed_babysitter"), label)
+			case "Test_PalEgg_HatchingSpeed_Up":
+				fmt.Fprintf(&out, "\n• "+s.t("planner_speed_philanthropist"), label)
+			}
+		}
+	}
+	if out.Len() > 0 {
+		out.WriteString("\n\n")
+	}
+	out.WriteString(s.t("planner_route_caveat"))
+	return out.String()
+}
+
+func (s *screen) expandRouteSpecies(species string) {
+	if s.plannerRoutePath == nil {
+		return
+	}
+	rules, err := breeding.Default()
+	if err != nil {
+		s.statusError, s.status = true, err.Error()
+		return
+	}
+	branch, err := planner.ShortestPathWithOmittedInitialSpecies(rules, s.routeStartingPals(), species, map[string]bool{species: true}, s.routeExcluded)
+	if err != nil {
+		s.statusError, s.status = true, s.t("planner_route_rebreed_no_route")
+		return
+	}
+	path := mergeRouteBranch(*s.plannerRoutePath, branch)
+	s.plannerRoutePath = &path
+	s.routeRebreed[species] = true
+	s.plannerRoute, s.statusError, s.status = s.routeDetails(path), false, s.t("planner_route_rebreed_ready")
+}
+
+func mergeRouteBranch(base, branch planner.Path) planner.Path {
+	steps := make(map[string]planner.Step, len(base.Steps)+len(branch.Steps))
+	for _, step := range base.Steps {
+		steps[step.Child] = step
+	}
+	for _, step := range branch.Steps {
+		steps[step.Child] = step
+	}
+	visiting := make(map[string]bool)
+	depths := make(map[string]int)
+	var depth func(string) int
+	depth = func(species string) int {
+		if value, ok := depths[species]; ok {
+			return value
+		}
+		if visiting[species] {
+			return 0
+		}
+		step, ok := steps[species]
+		if !ok {
+			depths[species] = 0
+			return 0
+		}
+		visiting[species] = true
+		left, right := depth(step.ParentA), depth(step.ParentB)
+		value := left + 1
+		if right > left {
+			value = right + 1
+		}
+		delete(visiting, species)
+		depths[species] = value
+		return value
+	}
+	merged := make([]planner.Step, 0, len(steps))
+	for _, step := range steps {
+		step.Generation = depth(step.Child)
+		merged = append(merged, step)
+	}
+	sort.Slice(merged, func(i, j int) bool {
+		if merged[i].Generation != merged[j].Generation {
+			return merged[i].Generation < merged[j].Generation
+		}
+		return strings.Join([]string{merged[i].ParentA, merged[i].ParentB, merged[i].Child}, "\x00") < strings.Join([]string{merged[j].ParentA, merged[j].ParentB, merged[j].Child}, "\x00")
+	})
+	base.Steps = merged
+	base.Generations = depth(base.Target)
+	return base
+}
+
+func (s *screen) routeStartingPals() []planner.Pal {
+	if !s.routeGold.Value && !s.routeDiamond.Value {
+		return s.plannerPals
+	}
+	return planner.FilterWithOptions(s.plannerPals, planner.FilterOptions{GoldOnly: s.routeGold.Value, DiamondOnly: s.routeDiamond.Value})
+}
+
 func export(levelPath, outputParent, playersDir, playerUID, compareDir string) (string, string, error) {
 	levelPath, err := filepath.Abs(levelPath)
 	if err != nil {
@@ -315,6 +759,25 @@ func export(levelPath, outputParent, playersDir, playerUID, compareDir string) (
 	return fmt.Sprintf("Exported %d Pals to %s", len(world.Pals), exportDir), exportDir, nil
 }
 
+func latestExportDir(parent string) string {
+	entries, err := os.ReadDir(parent)
+	if err != nil {
+		return ""
+	}
+	var latest string
+	var latestTime time.Time
+	for _, entry := range entries {
+		if !entry.IsDir() || !strings.HasPrefix(entry.Name(), "export_") {
+			continue
+		}
+		info, infoErr := entry.Info()
+		if infoErr == nil && info.ModTime().After(latestTime) {
+			latest, latestTime = filepath.Join(parent, entry.Name()), info.ModTime()
+		}
+	}
+	return latest
+}
+
 func readPlayers(levelPath, playersDir string) ([]sav.Player, error) {
 	world, err := loadWorld(levelPath, playersDir)
 	if err != nil {
@@ -340,11 +803,34 @@ func loadWorld(levelPath, playersDir string) (*sav.World, error) {
 }
 
 func (s *screen) layout(gtx layout.Context) layout.Dimensions {
+	paint.Fill(gtx.Ops, s.theme.Palette.Bg)
 	return layout.Inset{Top: unit.Dp(18), Bottom: unit.Dp(18), Left: unit.Dp(28), Right: unit.Dp(28)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 		return s.list.Layout(gtx, 1, func(gtx layout.Context, _ int) layout.Dimensions {
-			return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
-				layout.Rigid(s.header), layout.Rigid(spacer(14)), layout.Rigid(s.saveSection), layout.Rigid(spacer(12)), layout.Rigid(s.exportSection), layout.Rigid(spacer(12)), layout.Rigid(s.statusSection),
-			)
+			children := []layout.FlexChild{layout.Rigid(s.header), layout.Rigid(spacer(14))}
+			if s.showSaveSetup || strings.TrimSpace(s.level.Text()) == "" {
+				children = append(children, layout.Rigid(s.saveSection))
+			} else {
+				children = append(children,
+					layout.Rigid(s.selectedSaveSummary),
+					layout.Rigid(spacer(12)),
+					layout.Rigid(s.workspaceChooser),
+				)
+				switch s.activeView {
+				case notebookWorkspace:
+					children = append(children, layout.Rigid(spacer(12)))
+					if s.showExportSetup {
+						children = append(children, layout.Rigid(s.exportSection))
+					} else {
+						children = append(children, layout.Rigid(s.exportSummary))
+					}
+				case plannerWorkspace:
+					children = append(children, layout.Rigid(spacer(12)), layout.Rigid(s.plannerSection))
+				case routeWorkspace:
+					children = append(children, layout.Rigid(spacer(12)), layout.Rigid(s.quickestRouteSection))
+				}
+			}
+			children = append(children, layout.Rigid(spacer(12)), layout.Rigid(s.statusSection))
+			return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
 		})
 	})
 }
@@ -355,22 +841,36 @@ func (s *screen) header(gtx layout.Context) layout.Dimensions {
 			return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
 				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 					l := material.H4(s.theme, s.t("title"))
-					l.Color = color.NRGBA{R: 60, G: 48, B: 140, A: 255}
+					l.Color = s.theme.Palette.ContrastBg
 					return l.Layout(gtx)
 				}),
 				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 					l := material.Body2(s.theme, fmt.Sprintf("%s · %s", s.t("subtitle"), s.version))
-					l.Color = color.NRGBA{R: 85, G: 91, B: 110, A: 255}
+					l.Color = s.mutedText()
 					return l.Layout(gtx)
 				}),
 			)
 		}),
 		layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-			return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+			return layout.Flex{Axis: layout.Vertical, Alignment: layout.End}.Layout(gtx,
 				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-					return s.languageButton(gtx, &s.englishButton, "EN", s.language == english)
-				}), layout.Rigid(spacer(6)), layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-					return s.languageButton(gtx, &s.frenchButton, "FR", s.language == french)
+					return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+						layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+							return s.languageButton(gtx, &s.englishButton, "EN", s.language == english)
+						}), layout.Rigid(spacer(6)), layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+							return s.languageButton(gtx, &s.frenchButton, "FR", s.language == french)
+						}),
+					)
+				}),
+				layout.Rigid(spacer(6)),
+				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+					return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+						layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+							return s.languageButton(gtx, &s.lightButton, s.t("theme_light"), s.themeMode == lightTheme)
+						}), layout.Rigid(spacer(6)), layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+							return s.languageButton(gtx, &s.darkButton, s.t("theme_dark"), s.themeMode == darkTheme)
+						}),
+					)
 				}),
 			)
 		}),
@@ -380,7 +880,7 @@ func (s *screen) header(gtx layout.Context) layout.Dimensions {
 func (s *screen) languageButton(gtx layout.Context, button *widget.Clickable, label string, active bool) layout.Dimensions {
 	style := material.Button(s.theme, button, label)
 	if !active {
-		style.Background, style.Color = color.NRGBA{R: 224, G: 226, B: 236, A: 255}, color.NRGBA{R: 63, G: 67, B: 85, A: 255}
+		style.Background, style.Color = s.surface(), s.primaryText()
 	}
 	return style.Layout(gtx)
 }
@@ -401,6 +901,43 @@ func (s *screen) saveSection(gtx layout.Context) layout.Dimensions {
 	})
 }
 
+func (s *screen) selectedSaveSummary(gtx layout.Context) layout.Dimensions {
+	return section(gtx, s.theme, s.t("selected_save_summary"), func(gtx layout.Context) layout.Dimensions {
+		return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
+			layout.Flexed(1, s.note(filepath.Base(s.level.Text()), s.primaryText())),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				return s.languageButton(gtx, &s.changeSaveButton, s.t("change_save"), false)
+			}),
+		)
+	})
+}
+
+func (s *screen) workspaceChooser(gtx layout.Context) layout.Dimensions {
+	return section(gtx, s.theme, s.t("workspace_title"), func(gtx layout.Context) layout.Dimensions {
+		return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+			layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+				return s.workspaceButton(gtx, &s.notebookViewButton, s.t("workspace_notebook"), s.activeView == notebookWorkspace)
+			}),
+			layout.Rigid(spacer(8)),
+			layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+				return s.workspaceButton(gtx, &s.plannerViewButton, s.t("workspace_planner"), s.activeView == plannerWorkspace)
+			}),
+			layout.Rigid(spacer(8)),
+			layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+				return s.workspaceButton(gtx, &s.routeViewButton, s.t("workspace_route"), s.activeView == routeWorkspace)
+			}),
+		)
+	})
+}
+
+func (s *screen) workspaceButton(gtx layout.Context, button *widget.Clickable, label string, active bool) layout.Dimensions {
+	style := material.Button(s.theme, button, label)
+	if !active {
+		style.Background, style.Color = s.surface(), s.primaryText()
+	}
+	return style.Layout(gtx)
+}
+
 func (s *screen) candidatesList(gtx layout.Context) layout.Dimensions {
 	if len(s.candidates) == 0 {
 		return s.caption("no_candidates")(gtx)
@@ -415,7 +952,7 @@ func (s *screen) candidatesList(gtx layout.Context) layout.Dimensions {
 				candidate := s.candidates[index]
 				label := fmt.Sprintf("%s  ·  %s", filepath.Base(candidate.WorldDir), candidate.UpdatedAt.Local().Format("2006-01-02 15:04"))
 				style := material.Button(s.theme, &s.candidateButtons[index], label)
-				style.Background, style.Color = color.NRGBA{R: 232, G: 235, B: 250, A: 255}, color.NRGBA{R: 48, G: 54, B: 82, A: 255}
+				style.Background, style.Color = s.surface(), s.primaryText()
 				return layout.Inset{Bottom: unit.Dp(5)}.Layout(gtx, style.Layout)
 			})
 		}),
@@ -457,6 +994,7 @@ func (s *screen) exportSection(gtx layout.Context) layout.Dimensions {
 		children = append(children, layout.Rigid(spacer(12)), layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 			button := material.Button(s.theme, &s.exportButton, s.t("export_button"))
 			button.Background = color.NRGBA{R: 32, G: 125, B: 104, A: 255}
+			button.Color = color.NRGBA{R: 255, G: 255, B: 255, A: 255}
 			return button.Layout(gtx)
 		}))
 		if s.lastExportDir != "" {
@@ -466,6 +1004,759 @@ func (s *screen) exportSection(gtx layout.Context) layout.Dimensions {
 		}
 		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
 	})
+}
+
+func (s *screen) exportSummary(gtx layout.Context) layout.Dimensions {
+	return section(gtx, s.theme, s.t("export_summary"), func(gtx layout.Context) layout.Dimensions {
+		return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
+			layout.Flexed(1, s.note(filepath.Base(s.lastExportDir), s.primaryText())),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				return s.languageButton(gtx, &s.changeExportButton, s.t("change_export"), false)
+			}),
+		)
+	})
+}
+
+func (s *screen) plannerSection(gtx layout.Context) layout.Dimensions {
+	return section(gtx, s.theme, s.t("planner_title"), func(gtx layout.Context) layout.Dimensions {
+		children := []layout.FlexChild{
+			layout.Rigid(s.caption("planner_help")),
+			layout.Rigid(spacer(6)),
+			layout.Rigid(s.plannerFreshness),
+			layout.Rigid(spacer(6)),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				button := material.Button(s.theme, &s.plannerRefreshButton, s.t("planner_refresh"))
+				button.Background = color.NRGBA{R: 46, G: 103, B: 171, A: 255}
+				button.Color = color.NRGBA{R: 255, G: 255, B: 255, A: 255}
+				return button.Layout(gtx)
+			}),
+		}
+		if len(s.plannerPals) == 0 {
+			children = append(children, layout.Rigid(spacer(6)), layout.Rigid(s.caption("planner_empty")))
+			return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
+		}
+		children = append(children,
+			layout.Rigid(spacer(12)),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				return material.Subtitle2(s.theme, s.t("planner_pick_title")).Layout(gtx)
+			}),
+			layout.Rigid(s.plannerParentCards),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				button := material.Button(s.theme, &s.pairButton, s.t("planner_calculate_pair"))
+				button.Background = color.NRGBA{R: 127, G: 83, B: 187, A: 255}
+				button.Color = color.NRGBA{R: 255, G: 255, B: 255, A: 255}
+				return button.Layout(gtx)
+			}),
+		)
+		if s.plannerPairResult != "" {
+			children = append(children, layout.Rigid(spacer(5)), layout.Rigid(s.note(s.plannerPairResult, s.primaryText())))
+		}
+		children = append(children,
+			layout.Rigid(spacer(8)),
+			layout.Rigid(s.caption("planner_filter_help")),
+			layout.Rigid(s.caption("planner_trait_help")),
+			layout.Rigid(s.editor(&s.plannerFilter, s.t("planner_filter"))),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return material.CheckBox(s.theme, &s.plannerGold, s.t("planner_gold")).Layout(gtx)
+					}),
+					layout.Rigid(spacer(12)),
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return material.CheckBox(s.theme, &s.plannerDiamond, s.t("planner_diamond")).Layout(gtx)
+					}),
+				)
+			}),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return material.CheckBox(s.theme, &s.plannerMale, s.t("planner_male")).Layout(gtx)
+					}),
+					layout.Rigid(spacer(12)),
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return material.CheckBox(s.theme, &s.plannerFemale, s.t("planner_female")).Layout(gtx)
+					}),
+				)
+			}),
+			layout.Rigid(spacer(4)),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return s.plannerSortButton(gtx, &s.plannerSortLevelAsc, s.t("planner_sort_level_asc"), s.plannerSort == planner.SortByLevelAscending)
+					}),
+					layout.Rigid(spacer(8)),
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return s.plannerSortButton(gtx, &s.plannerSortLevelDesc, s.t("planner_sort_level_desc"), s.plannerSort == planner.SortByLevelDescending)
+					}),
+				)
+			}),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				if gender := s.plannerRequiredGender(); gender != "" {
+					return s.caption("planner_opposite_" + gender)(gtx)
+				}
+				return layout.Dimensions{}
+			}),
+			layout.Rigid(spacer(4)),
+			layout.Rigid(s.plannerPalsList),
+		)
+		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
+	})
+}
+
+func (s *screen) quickestRouteSection(gtx layout.Context) layout.Dimensions {
+	return section(gtx, s.theme, s.t("planner_route_section"), func(gtx layout.Context) layout.Dimensions {
+		children := []layout.FlexChild{
+			layout.Rigid(s.caption("planner_route_help")),
+			layout.Rigid(spacer(6)),
+			layout.Rigid(s.plannerFreshness),
+			layout.Rigid(spacer(6)),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				button := material.Button(s.theme, &s.plannerRefreshButton, s.t("planner_refresh"))
+				button.Background = color.NRGBA{R: 46, G: 103, B: 171, A: 255}
+				button.Color = color.NRGBA{R: 255, G: 255, B: 255, A: 255}
+				return button.Layout(gtx)
+			}),
+		}
+		if len(s.plannerPals) == 0 {
+			children = append(children, layout.Rigid(spacer(6)), layout.Rigid(s.caption("planner_empty")))
+			return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
+		}
+		children = append(children,
+			layout.Rigid(spacer(12)),
+			layout.Rigid(s.routeTargetPicker),
+		)
+		if s.plannerRoute != "" {
+			children = append(children, layout.Rigid(spacer(12)), layout.Rigid(s.routeResultCard))
+		}
+		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
+	})
+}
+
+func (s *screen) routeTargetPicker(gtx layout.Context) layout.Dimensions {
+	return s.outlinedCard(gtx, s.t("planner_target_picker"), func(gtx layout.Context) layout.Dimensions {
+		return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+			layout.Rigid(s.caption("planner_target_picker_help")),
+			layout.Rigid(spacer(8)),
+			layout.Rigid(s.routeTargetInput),
+			layout.Rigid(s.plannerTargetSuggestions),
+			layout.Rigid(spacer(10)),
+			layout.Rigid(s.caption("planner_route_starters_title")),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return material.CheckBox(s.theme, &s.routeGold, s.t("planner_route_gold")).Layout(gtx)
+					}),
+					layout.Rigid(spacer(12)),
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return material.CheckBox(s.theme, &s.routeDiamond, s.t("planner_route_diamond")).Layout(gtx)
+					}),
+				)
+			}),
+			layout.Rigid(s.routeStarterSummary),
+			layout.Rigid(spacer(8)),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				button := material.Button(s.theme, &s.routeButton, s.t("planner_find_route"))
+				button.Background = color.NRGBA{R: 32, G: 125, B: 104, A: 255}
+				button.Color = color.NRGBA{R: 255, G: 255, B: 255, A: 255}
+				return button.Layout(gtx)
+			}),
+		)
+	})
+}
+
+func (s *screen) routeTargetInput(gtx layout.Context) layout.Dimensions {
+	return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
+		layout.Flexed(0.42, func(gtx layout.Context) layout.Dimensions {
+			label := material.Body1(s.theme, s.t("planner_target"))
+			label.Color = s.primaryText()
+			label.WrapPolicy = text.WrapWords
+			return layout.Inset{Right: unit.Dp(12)}.Layout(gtx, label.Layout)
+		}),
+		layout.Flexed(0.58, func(gtx layout.Context) layout.Dimensions {
+			return widget.Border{Color: s.theme.Palette.ContrastBg, CornerRadius: unit.Dp(6), Width: unit.Dp(2)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+				return layout.Inset{Top: unit.Dp(8), Bottom: unit.Dp(8), Left: unit.Dp(10), Right: unit.Dp(10)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+					gtx.Constraints.Min.Y = gtx.Dp(unit.Dp(28))
+					return s.editor(&s.target, s.t("planner_target_hint"))(gtx)
+				})
+			})
+		}),
+	)
+}
+
+func (s *screen) routeStarterSummary(gtx layout.Context) layout.Dimensions {
+	if !s.routeGold.Value && !s.routeDiamond.Value {
+		return s.caption("planner_route_all_starters")(gtx)
+	}
+	return s.note(fmt.Sprintf(s.t("planner_route_filtered_starters"), len(s.routeStartingPals()), len(s.plannerPals)), s.mutedText())(gtx)
+}
+
+func (s *screen) routeResultCard(gtx layout.Context) layout.Dimensions {
+	title := s.t("planner_route_result")
+	if s.plannerRoutePath != nil {
+		if rules, err := breeding.Default(); err == nil {
+			title = fmt.Sprintf(s.t("planner_route_result_to"), rules.DisplayName(s.plannerRoutePath.Target), s.plannerRoutePath.Generations)
+		}
+	}
+	return s.outlinedCard(gtx, title, func(gtx layout.Context) layout.Dimensions {
+		children := make([]layout.FlexChild, 0, 7)
+		if s.plannerRouteNotice != "" {
+			children = append(children, layout.Rigid(s.note(s.plannerRouteNotice, s.routeNoticeColor())), layout.Rigid(spacer(8)))
+		}
+		if s.plannerRoutePath != nil && len(s.plannerRoutePath.Steps) > 0 {
+			children = append(children,
+				layout.Rigid(s.note(s.t("planner_route_tree_title"), s.primaryText())),
+				layout.Rigid(s.caption("planner_route_tree_help")),
+				layout.Rigid(spacer(8)),
+				layout.Rigid(s.routeFamilyTree),
+				layout.Rigid(spacer(10)),
+			)
+		}
+		if len(s.routeExcluded) > 0 {
+			children = append(children, layout.Rigid(s.routeExclusions), layout.Rigid(spacer(10)))
+		}
+		if len(s.routeRebreed) > 0 {
+			children = append(children, layout.Rigid(s.routeRebreeds), layout.Rigid(spacer(10)))
+		}
+		children = append(children, layout.Rigid(s.routeBody(s.plannerRoute)))
+		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
+	})
+}
+
+func (s *screen) routeFamilyTree(gtx layout.Context) layout.Dimensions {
+	if s.plannerRoutePath == nil {
+		return layout.Dimensions{}
+	}
+	rules, err := breeding.Default()
+	if err != nil {
+		return layout.Dimensions{}
+	}
+	steps := make(map[string]planner.Step, len(s.plannerRoutePath.Steps))
+	for _, step := range s.plannerRoutePath.Steps {
+		steps[step.Child] = step
+	}
+	nodes := make(map[int]map[string]bool)
+	depths := make(map[string]int)
+	visiting := make(map[string]bool)
+	var depth func(string) int
+	depth = func(species string) int {
+		if value, ok := depths[species]; ok {
+			return value
+		}
+		if visiting[species] {
+			return 0
+		}
+		step, produced := steps[species]
+		if !produced {
+			depths[species] = 0
+			return 0
+		}
+		visiting[species] = true
+		left, right := depth(step.ParentA), depth(step.ParentB)
+		delete(visiting, species)
+		depths[species] = left + 1
+		if right > left {
+			depths[species] = right + 1
+		}
+		return depths[species]
+	}
+	for _, step := range steps {
+		for _, species := range []string{step.ParentA, step.ParentB, step.Child} {
+			generation := depth(species)
+			if nodes[generation] == nil {
+				nodes[generation] = make(map[string]bool)
+			}
+			nodes[generation][species] = true
+		}
+	}
+	maxGeneration := depth(s.plannerRoutePath.Target)
+
+	columnGap := gtx.Dp(unit.Dp(24))
+	cardHeight := gtx.Dp(unit.Dp(104))
+	rowGap := gtx.Dp(unit.Dp(22))
+	headerHeight := gtx.Dp(unit.Dp(25))
+	width := gtx.Constraints.Max.X
+	if width == 0 {
+		width = gtx.Constraints.Min.X
+	}
+	cardWidth := (width - maxGeneration*columnGap) / (maxGeneration + 1)
+	if cardWidth < gtx.Dp(unit.Dp(118)) {
+		cardWidth = gtx.Dp(unit.Dp(118))
+		width = cardWidth*(maxGeneration+1) + columnGap*maxGeneration
+	}
+
+	centers := make(map[string]int, len(steps)*2)
+	ordered := make(map[int][]string, maxGeneration+1)
+	for generation := 0; generation <= maxGeneration; generation++ {
+		for name := range nodes[generation] {
+			ordered[generation] = append(ordered[generation], name)
+		}
+		sort.Slice(ordered[generation], func(i, j int) bool {
+			if generation == 0 {
+				return rules.DisplayName(ordered[generation][i]) < rules.DisplayName(ordered[generation][j])
+			}
+			return routeParentCenter(ordered[generation][i], steps, centers) < routeParentCenter(ordered[generation][j], steps, centers)
+		})
+		lastCenter := -cardHeight
+		for index, name := range ordered[generation] {
+			center := cardHeight/2 + index*(cardHeight+rowGap)
+			if generation > 0 {
+				center = routeParentCenter(name, steps, centers)
+			}
+			if center < lastCenter+cardHeight+rowGap {
+				center = lastCenter + cardHeight + rowGap
+			}
+			centers[name] = center
+			lastCenter = center
+		}
+	}
+
+	minCenter, maxCenter := 0, 0
+	for _, center := range centers {
+		if minCenter == 0 || center < minCenter {
+			minCenter = center
+		}
+		if center > maxCenter {
+			maxCenter = center
+		}
+	}
+	shift := headerHeight + cardHeight/2 - minCenter
+	treeNodes := make(map[string]routeTreeNode, len(centers))
+	for generation, species := range ordered {
+		for _, name := range species {
+			center := centers[name] + shift
+			treeNodes[name] = routeTreeNode{
+				species:    name,
+				generation: generation,
+				rect:       image.Rect(generation*(cardWidth+columnGap), center-cardHeight/2, generation*(cardWidth+columnGap)+cardWidth, center+cardHeight/2),
+			}
+		}
+	}
+	height := maxCenter + shift + cardHeight/2
+	s.drawRouteTreeConnectors(gtx, treeNodes, steps)
+	for generation, species := range ordered {
+		labelGtx := gtx
+		labelGtx.Constraints = layout.Constraints{Max: image.Pt(cardWidth, headerHeight)}
+		stack := op.Offset(image.Pt(generation*(cardWidth+columnGap), 0)).Push(gtx.Ops)
+		s.note(fmt.Sprintf(s.t("planner_route_generation"), generation), s.mutedText())(labelGtx)
+		stack.Pop()
+		for _, name := range species {
+			node := treeNodes[name]
+			nodeGtx := gtx
+			nodeGtx.Constraints = layout.Exact(node.rect.Size())
+			stack := op.Offset(node.rect.Min).Push(gtx.Ops)
+			role := s.t("planner_route_starting_pal")
+			if _, produced := steps[name]; produced {
+				role = s.t("planner_route_bred_pal")
+			}
+			if name == s.plannerRoutePath.Target {
+				role = s.t("planner_route_target")
+			}
+			s.routeSpeciesCard(nodeGtx, rules, name, role)
+			stack.Pop()
+		}
+	}
+	return layout.Dimensions{Size: image.Pt(width, height)}
+}
+
+func routeParentCenter(species string, steps map[string]planner.Step, centers map[string]int) int {
+	step, produced := steps[species]
+	if !produced {
+		return 0
+	}
+	return (centers[step.ParentA] + centers[step.ParentB]) / 2
+}
+
+func (s *screen) drawRouteTreeConnectors(gtx layout.Context, nodes map[string]routeTreeNode, steps map[string]planner.Step) {
+	var path clip.Path
+	path.Begin(gtx.Ops)
+	for child, step := range steps {
+		childNode, childOK := nodes[child]
+		left, leftOK := nodes[step.ParentA]
+		right, rightOK := nodes[step.ParentB]
+		if !childOK || !leftOK || !rightOK {
+			continue
+		}
+		joinX := float32(childNode.rect.Min.X - gtx.Dp(unit.Dp(12)))
+		leftY := float32((left.rect.Min.Y + left.rect.Max.Y) / 2)
+		rightY := float32((right.rect.Min.Y + right.rect.Max.Y) / 2)
+		childY := float32((childNode.rect.Min.Y + childNode.rect.Max.Y) / 2)
+		path.MoveTo(f32.Pt(float32(left.rect.Max.X), leftY))
+		path.LineTo(f32.Pt(joinX, leftY))
+		path.MoveTo(f32.Pt(float32(right.rect.Max.X), rightY))
+		path.LineTo(f32.Pt(joinX, rightY))
+		path.MoveTo(f32.Pt(joinX, leftY))
+		path.LineTo(f32.Pt(joinX, rightY))
+		path.MoveTo(f32.Pt(joinX, childY))
+		path.LineTo(f32.Pt(float32(childNode.rect.Min.X), childY))
+	}
+	paint.FillShape(gtx.Ops, s.routeTreeLineColor(), clip.Stroke{Path: path.End(), Width: float32(gtx.Dp(unit.Dp(2)))}.Op())
+}
+
+func (s *screen) routeTreeLineColor() color.NRGBA {
+	if s.isDark() {
+		return color.NRGBA{R: 164, G: 142, B: 255, A: 255}
+	}
+	return color.NRGBA{R: 101, G: 74, B: 190, A: 255}
+}
+
+func (s *screen) routeSpeciesCard(gtx layout.Context, rules *breeding.Rules, species, role string) layout.Dimensions {
+	clickable := s.plannerRoutePath != nil && species != s.plannerRoutePath.Target
+	content := func(gtx layout.Context) layout.Dimensions {
+		return layout.Inset{Top: unit.Dp(7), Bottom: unit.Dp(7), Left: unit.Dp(9), Right: unit.Dp(9)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+			children := []layout.FlexChild{
+				layout.Rigid(s.captionValue(role)),
+				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+					label := material.Label(s.theme, unit.Sp(17), rules.DisplayName(species))
+					label.Color = s.primaryText()
+					label.MaxLines = 2
+					return label.Layout(gtx)
+				}),
+			}
+			if clickable {
+				children = append(children,
+					layout.Rigid(spacer(4)),
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+							layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+								return s.routeTreeAction(gtx, s.routeAvoidButton(species), s.t("planner_route_avoid"), false)
+							}),
+							layout.Rigid(spacer(6)),
+							layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+								return s.routeTreeAction(gtx, s.routeRebreedButton(species), s.t("planner_route_rebreed"), true)
+							}),
+						)
+					}),
+				)
+			}
+			return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
+		})
+	}
+	border := widget.Border{Color: s.border(), CornerRadius: unit.Dp(6), Width: unit.Dp(1)}
+	return border.Layout(gtx, content)
+}
+
+func (s *screen) routeTreeAction(gtx layout.Context, button *widget.Clickable, label string, primary bool) layout.Dimensions {
+	style := material.Button(s.theme, button, label)
+	if !primary {
+		style.Background, style.Color = s.surface(), s.primaryText()
+	}
+	return style.Layout(gtx)
+}
+
+func (s *screen) routeAvoidButton(species string) *widget.Clickable {
+	if button, ok := s.routeAvoidButtons[species]; ok {
+		return button
+	}
+	button := new(widget.Clickable)
+	s.routeAvoidButtons[species] = button
+	return button
+}
+
+func (s *screen) routeRebreedButton(species string) *widget.Clickable {
+	if button, ok := s.routeRebreedButtons[species]; ok {
+		return button
+	}
+	button := new(widget.Clickable)
+	s.routeRebreedButtons[species] = button
+	return button
+}
+
+func (s *screen) routeExclusions(gtx layout.Context) layout.Dimensions {
+	rules, err := breeding.Default()
+	if err != nil {
+		return layout.Dimensions{}
+	}
+	species := make([]string, 0, len(s.routeExcluded))
+	for name := range s.routeExcluded {
+		species = append(species, rules.DisplayName(name))
+	}
+	sort.Strings(species)
+	return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+		layout.Rigid(s.note(fmt.Sprintf(s.t("planner_route_avoiding"), strings.Join(species, ", ")), s.mutedText())),
+		layout.Rigid(spacer(6)),
+		layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+			return s.languageButton(gtx, &s.routeResetButton, s.t("planner_route_reset"), false)
+		}),
+	)
+}
+
+func (s *screen) routeRebreeds(gtx layout.Context) layout.Dimensions {
+	rules, err := breeding.Default()
+	if err != nil {
+		return layout.Dimensions{}
+	}
+	species := make([]string, 0, len(s.routeRebreed))
+	for name := range s.routeRebreed {
+		species = append(species, rules.DisplayName(name))
+	}
+	sort.Strings(species)
+	return s.note(fmt.Sprintf(s.t("planner_route_rebreeding"), strings.Join(species, ", ")), s.routeNoticeColor())(gtx)
+}
+
+func (s *screen) outlinedCard(gtx layout.Context, title string, content layout.Widget) layout.Dimensions {
+	return widget.Border{Color: s.border(), CornerRadius: unit.Dp(8), Width: unit.Dp(1)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+		return layout.Inset{Top: unit.Dp(12), Bottom: unit.Dp(12), Left: unit.Dp(14), Right: unit.Dp(14)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+			return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+					label := material.H6(s.theme, title)
+					label.Color = s.primaryText()
+					return label.Layout(gtx)
+				}),
+				layout.Rigid(spacer(8)),
+				layout.Rigid(content),
+			)
+		})
+	})
+}
+
+func (s *screen) routeBody(value string) layout.Widget {
+	return func(gtx layout.Context) layout.Dimensions {
+		label := material.Body1(s.theme, value)
+		label.Color = s.primaryText()
+		label.WrapPolicy = text.WrapWords
+		return label.Layout(gtx)
+	}
+}
+
+func (s *screen) routeNoticeColor() color.NRGBA {
+	if s.isDark() {
+		return color.NRGBA{R: 111, G: 226, B: 172, A: 255}
+	}
+	return color.NRGBA{R: 20, G: 132, B: 85, A: 255}
+}
+
+func (s *screen) plannerFreshness(gtx layout.Context) layout.Dimensions {
+	if s.plannerLoadedAt.IsZero() {
+		return s.note(s.t("planner_not_loaded"), s.mutedText())(gtx)
+	}
+	message := fmt.Sprintf(s.t("planner_freshness"), len(s.plannerPals), s.plannerLoadedAt.Local().Format("2006-01-02 15:04"), s.plannerSaveModified.Local().Format("2006-01-02 15:04"))
+	if s.lastExportDir != "" {
+		message += "\n" + fmt.Sprintf(s.t("planner_last_export"), filepath.Base(s.lastExportDir))
+	}
+	return s.note(message, s.primaryText())(gtx)
+}
+
+func (s *screen) plannerTargetSuggestions(gtx layout.Context) layout.Dimensions {
+	rules, err := breeding.Default()
+	if err != nil {
+		return layout.Dimensions{}
+	}
+	suggestions := rules.Suggestions(s.target.Text(), 6)
+	if len(suggestions) == 0 {
+		return layout.Dimensions{}
+	}
+	return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+		layout.Rigid(s.caption("planner_target_suggestions")),
+		layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+			return layout.Flex{Axis: layout.Vertical}.Layout(gtx, suggestionChildren(s, suggestions)...)
+		}),
+	)
+}
+
+func suggestionChildren(s *screen, suggestions []breeding.Suggestion) []layout.FlexChild {
+	children := make([]layout.FlexChild, 0, len(suggestions))
+	for _, suggestion := range suggestions {
+		suggestion := suggestion
+		button, ok := s.targetSuggestionButtons[suggestion.CharacterID]
+		if !ok {
+			button = new(widget.Clickable)
+			s.targetSuggestionButtons[suggestion.CharacterID] = button
+		}
+		label := suggestion.DisplayName
+		if suggestion.DisplayName != suggestion.CharacterID {
+			label += " · " + suggestion.CharacterID
+		}
+		children = append(children, layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+			style := material.Button(s.theme, button, label)
+			style.Background, style.Color = s.surface(), s.primaryText()
+			return layout.Inset{Top: unit.Dp(4)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+				return widget.Border{Color: s.border(), CornerRadius: unit.Dp(5), Width: unit.Dp(1)}.Layout(gtx, style.Layout)
+			})
+		}))
+	}
+	return children
+}
+
+func (s *screen) plannerPalsList(gtx layout.Context) layout.Dimensions {
+	filters := planner.FilterOptions{
+		Query:          s.plannerFilter.Text(),
+		GoldOnly:       s.plannerGold.Value,
+		DiamondOnly:    s.plannerDiamond.Value,
+		MaleOnly:       s.plannerMale.Value,
+		FemaleOnly:     s.plannerFemale.Value,
+		RequiredGender: s.plannerRequiredGender(),
+		SortOrder:      s.plannerSort,
+	}
+	total := len(planner.FilterWithOptions(s.plannerPals, filters))
+	filters.Deduplicate = true
+	visible := planner.FilterWithOptions(s.plannerPals, filters)
+	if len(visible) == 0 {
+		return s.caption("planner_no_matches")(gtx)
+	}
+	return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+		layout.Rigid(s.note(fmt.Sprintf(s.t("planner_showing"), len(visible), total), s.mutedText())),
+		layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+			maxHeight := gtx.Dp(unit.Dp(320))
+			if gtx.Constraints.Max.Y > maxHeight {
+				gtx.Constraints.Max.Y = maxHeight
+			}
+			return s.plannerList.Layout(gtx, len(visible), func(gtx layout.Context, index int) layout.Dimensions {
+				pal := visible[index]
+				picker := s.plannerPicker(pal)
+				return layout.Inset{Bottom: unit.Dp(5)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+					return widget.Border{Color: s.border(), CornerRadius: unit.Dp(6), Width: unit.Dp(1)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+						return layout.Inset{Top: unit.Dp(7), Bottom: unit.Dp(7), Left: unit.Dp(10), Right: unit.Dp(10)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+							return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
+								layout.Flexed(1, s.plannerPalDetails(pal, "list")),
+								layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+									if strings.EqualFold(pal.Gender, "male") {
+										return material.Button(s.theme, &picker.male, s.t("planner_choose_male")).Layout(gtx)
+									}
+									if strings.EqualFold(pal.Gender, "female") {
+										return material.Button(s.theme, &picker.female, s.t("planner_choose_female")).Layout(gtx)
+									}
+									return layout.Dimensions{}
+								}),
+							)
+						})
+					})
+				})
+			})
+		}),
+	)
+}
+
+func (s *screen) plannerRequiredGender() string {
+	if s.selectedMale != nil && s.selectedFemale == nil {
+		return "female"
+	}
+	if s.selectedFemale != nil && s.selectedMale == nil {
+		return "male"
+	}
+	return ""
+}
+
+func (s *screen) plannerSortButton(gtx layout.Context, button *widget.Clickable, label string, active bool) layout.Dimensions {
+	style := material.Button(s.theme, button, label)
+	if !active {
+		style.Background, style.Color = s.surface(), s.primaryText()
+	}
+	return style.Layout(gtx)
+}
+
+func (s *screen) plannerPicker(pal planner.Pal) *plannerPicker {
+	key := strings.Join([]string{pal.InstanceID, pal.CharacterID, pal.Gender}, "\x00")
+	if picker, ok := s.plannerPickers[key]; ok {
+		return picker
+	}
+	picker := &plannerPicker{pal: pal}
+	s.plannerPickers[key] = picker
+	return picker
+}
+
+func (s *screen) plannerParentCards(gtx layout.Context) layout.Dimensions {
+	return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
+		layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+			return s.plannerParentCard(gtx, s.t("planner_male_parent"), s.selectedMale)
+		}),
+		layout.Rigid(spacer(8)),
+		layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+			return s.plannerParentCard(gtx, s.t("planner_female_parent"), s.selectedFemale)
+		}),
+	)
+}
+
+func (s *screen) plannerParentCard(gtx layout.Context, title string, pal *planner.Pal) layout.Dimensions {
+	return widget.Border{Color: s.border(), CornerRadius: unit.Dp(6), Width: unit.Dp(1)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+		return layout.Inset{Top: unit.Dp(8), Bottom: unit.Dp(8), Left: unit.Dp(10), Right: unit.Dp(10)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+			children := []layout.FlexChild{
+				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+					label := material.Caption(s.theme, title)
+					label.Color = s.mutedText()
+					return label.Layout(gtx)
+				}),
+			}
+			if pal == nil {
+				children = append(children, layout.Rigid(s.note(s.t("planner_no_parent"), s.mutedText())))
+			} else {
+				children = append(children, layout.Rigid(s.plannerPalDetails(*pal, title)))
+			}
+			return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
+		})
+	})
+}
+
+func plannerPalLabel(pal planner.Pal) string {
+	return fmt.Sprintf("%s · Lv. %d · %s", planner.PalName(pal), planner.PalLevel(pal), pal.Gender)
+}
+
+func (s *screen) plannerPalDetails(pal planner.Pal, location string) layout.Widget {
+	return func(gtx layout.Context) layout.Dimensions {
+		children := []layout.FlexChild{layout.Rigid(s.note(plannerPalLabel(pal), s.primaryText()))}
+		if len(pal.Traits) > 0 {
+			children = append(children, layout.Rigid(s.traitLabels(location+"\x00"+pal.InstanceID, pal.Traits)))
+		}
+		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
+	}
+}
+
+func (s *screen) traitLabels(location string, traits []string) layout.Widget {
+	return func(gtx layout.Context) layout.Dimensions {
+		children := make([]layout.FlexChild, 0, len(traits))
+		for index, trait := range traits {
+			index, trait := index, trait
+			key := fmt.Sprintf("%s\x00%d\x00%s", location, index, trait)
+			hover := s.traitHover(key)
+			children = append(children, layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				label := material.Caption(s.theme, planner.TraitName(trait))
+				label.Color = s.traitColor(trait)
+				traitLabel := func(gtx layout.Context) layout.Dimensions {
+					if index < len(traits)-1 {
+						return layout.Inset{Right: unit.Dp(8)}.Layout(gtx, label.Layout)
+					}
+					return label.Layout(gtx)
+				}
+				return hover.Layout(gtx, traitLabel)
+			}))
+		}
+		labelRow := layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx, children...)
+		for index, trait := range traits {
+			key := fmt.Sprintf("%s\x00%d\x00%s", location, index, trait)
+			if effect := planner.TraitEffect(trait); effect != "" && s.traitHover(key).Hovered() {
+				return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+					layout.Rigid(func(layout.Context) layout.Dimensions { return labelRow }),
+					layout.Rigid(s.note(effect, s.mutedText())),
+				)
+			}
+		}
+		return labelRow
+	}
+}
+
+func (s *screen) traitHover(key string) *widget.Clickable {
+	if hover, ok := s.traitHovers[key]; ok {
+		return hover
+	}
+	hover := new(widget.Clickable)
+	s.traitHovers[key] = hover
+	return hover
+}
+
+func (s *screen) traitColor(trait string) color.NRGBA {
+	switch planner.Tier(trait) {
+	case planner.Gold:
+		if s.isDark() {
+			return color.NRGBA{R: 247, G: 207, B: 93, A: 255}
+		}
+		return color.NRGBA{R: 167, G: 114, B: 0, A: 255}
+	case planner.Diamond:
+		if s.isDark() {
+			return color.NRGBA{R: 111, G: 226, B: 172, A: 255}
+		}
+		return color.NRGBA{R: 20, G: 132, B: 85, A: 255}
+	default:
+		return s.mutedText()
+	}
 }
 
 func (s *screen) playersList(gtx layout.Context) layout.Dimensions {
@@ -481,7 +1772,7 @@ func (s *screen) playersList(gtx layout.Context) layout.Dimensions {
 			return list.Layout(gtx, len(s.playersFound), func(gtx layout.Context, index int) layout.Dimensions {
 				player := s.playersFound[index]
 				style := material.Button(s.theme, &s.playerButtons[index], fmt.Sprintf("%s  ·  Lv. %d", player.Nickname, player.Level))
-				style.Background, style.Color = color.NRGBA{R: 232, G: 235, B: 250, A: 255}, color.NRGBA{R: 48, G: 54, B: 82, A: 255}
+				style.Background, style.Color = s.surface(), s.primaryText()
 				return layout.Inset{Bottom: unit.Dp(5)}.Layout(gtx, style.Layout)
 			})
 		}),
@@ -496,7 +1787,7 @@ func (s *screen) statusSection(gtx layout.Context) layout.Dimensions {
 	if s.statusError {
 		label.Color = color.NRGBA{R: 180, G: 43, B: 43, A: 255}
 	} else {
-		label.Color = color.NRGBA{R: 22, G: 104, B: 83, A: 255}
+		label.Color = s.primaryText()
 	}
 	return layout.Inset{Top: unit.Dp(4), Bottom: unit.Dp(8)}.Layout(gtx, label.Layout)
 }
@@ -510,9 +1801,22 @@ func (s *screen) editor(editor *widget.Editor, hint string) layout.Widget {
 }
 
 func (s *screen) caption(key string) layout.Widget {
+	return s.captionValue(s.t(key))
+}
+
+func (s *screen) captionValue(value string) layout.Widget {
 	return func(gtx layout.Context) layout.Dimensions {
-		label := material.Caption(s.theme, s.t(key))
-		label.Color = color.NRGBA{R: 91, G: 98, B: 117, A: 255}
+		label := material.Caption(s.theme, value)
+		label.Color = s.mutedText()
+		label.WrapPolicy = text.WrapWords
+		return label.Layout(gtx)
+	}
+}
+
+func (s *screen) note(value string, foreground color.NRGBA) layout.Widget {
+	return func(gtx layout.Context) layout.Dimensions {
+		label := material.Body2(s.theme, value)
+		label.Color = foreground
 		label.WrapPolicy = text.WrapWords
 		return label.Layout(gtx)
 	}
@@ -522,7 +1826,7 @@ func section(gtx layout.Context, theme *material.Theme, title string, content la
 	return layout.Inset{Top: unit.Dp(8), Bottom: unit.Dp(8)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 			label := material.H6(theme, title)
-			label.Color = color.NRGBA{R: 43, G: 49, B: 70, A: 255}
+			label.Color = theme.Palette.Fg
 			return label.Layout(gtx)
 		}), layout.Rigid(spacer(6)), layout.Rigid(content))
 	})
@@ -544,6 +1848,191 @@ var translations = map[language]map[string]string{
 }
 
 func init() {
-	translations[english]["notebooklm_files"] = "Add to NotebookLM: collection.md, pals.csv, capture-history.csv, palpedia-progress.md, breeding-candidates.md, breeding-rules.md, breeding-direct-pairs.csv, and collection-diff.md when comparing. Do not add world.json."
-	translations[french]["notebooklm_files"] = "À ajouter à NotebookLM : collection.md, pals.csv, capture-history.csv, palpedia-progress.md, breeding-candidates.md, breeding-rules.md, breeding-direct-pairs.csv et collection-diff.md lors d’une comparaison. Ne pas ajouter world.json."
+	translations[english]["theme_light"] = "Light"
+	translations[english]["theme_dark"] = "Dark"
+	translations[french]["theme_light"] = "Clair"
+	translations[french]["theme_dark"] = "Sombre"
+	translations[english]["selected_save_summary"] = "Selected save"
+	translations[english]["change_save"] = "Change save"
+	translations[english]["export_summary"] = "Latest NotebookLM export"
+	translations[english]["change_export"] = "Edit export"
+	translations[french]["selected_save_summary"] = "Sauvegarde sélectionnée"
+	translations[french]["change_save"] = "Changer de sauvegarde"
+	translations[french]["export_summary"] = "Dernier export NotebookLM"
+	translations[french]["change_export"] = "Modifier l’export"
+	translations[english]["notebooklm_files"] = "Create your own notebook at notebook.google.com. First upload the 31 reference Markdown files from palpedia-snapshot-notebooklm-reference.zip, then add: collection.md, pals.csv, capture-history.csv, palpedia-progress.md, breeding-candidates.md, breeding-rules.md, breeding-direct-pairs.csv, and collection-diff.md when comparing. Do not add world.json."
+	translations[french]["notebooklm_files"] = "Créez votre propre notebook sur notebook.google.com. Importez d’abord les 31 fichiers Markdown de référence depuis palpedia-snapshot-notebooklm-reference.zip, puis ajoutez : collection.md, pals.csv, capture-history.csv, palpedia-progress.md, breeding-candidates.md, breeding-rules.md, breeding-direct-pairs.csv et collection-diff.md lors d’une comparaison. Ne pas ajouter world.json."
+	translations[english]["workspace_title"] = "Choose a workspace"
+	translations[english]["workspace_notebook"] = "NotebookLM export"
+	translations[english]["workspace_planner"] = "Breeding planner"
+	translations[english]["workspace_route"] = "Quickest route"
+	translations[french]["workspace_title"] = "Choisir un espace"
+	translations[french]["workspace_notebook"] = "Export NotebookLM"
+	translations[french]["workspace_planner"] = "Planificateur d’élevage"
+	translations[french]["workspace_route"] = "Chemin le plus rapide"
+	translations[english]["planner_title"] = "Breeding planner"
+	translations[english]["planner_help"] = "Load the selected save to choose actual Pals and calculate the exact child of a selected pair. This is read-only."
+	translations[english]["planner_not_loaded"] = "No collection is loaded for planning yet."
+	translations[english]["planner_freshness"] = "Planner collection: %d current Pals · loaded %s · selected save last changed %s."
+	translations[english]["planner_last_export"] = "Latest NotebookLM export in the selected folder: %s"
+	translations[english]["planner_refresh"] = "Update planner from selected save"
+	translations[english]["planner_select_save"] = "Select a Level.sav before updating the planner."
+	translations[english]["planner_updating"] = "Reading the selected save for the breeding planner…"
+	translations[english]["planner_ready"] = "Breeding planner is ready."
+	translations[english]["planner_loaded"] = "Loaded %d current Pals into the breeding planner."
+	translations[english]["planner_empty"] = "No current party or Palbox Pals are loaded. Update the planner from a selected save."
+	translations[english]["planner_pick_title"] = "Pick real parents"
+	translations[english]["planner_filter_help"] = "Search a Pal name (for example Mammorest), a raw game ID, or a passive trait. Filter by sex or sort by level when useful. Gold is rank 3; diamond is rank 4. If both are checked, either tier is included."
+	translations[english]["planner_trait_help"] = "Hover a trait to see its in-game effect."
+	translations[english]["planner_filter"] = "Search Pal name or trait"
+	translations[english]["planner_gold"] = "Gold traits (rank 3)"
+	translations[english]["planner_diamond"] = "Diamond traits (rank 4)"
+	translations[english]["planner_male"] = "Male"
+	translations[english]["planner_female"] = "Female"
+	translations[english]["planner_sort_level_asc"] = "Level ↑"
+	translations[english]["planner_sort_level_desc"] = "Level ↓"
+	translations[english]["planner_opposite_male"] = "Choose a male parent for the selected female."
+	translations[english]["planner_opposite_female"] = "Choose a female parent for the selected male."
+	translations[english]["planner_no_matches"] = "No loaded Pals match these filters."
+	translations[english]["planner_showing"] = "Showing %d highest-level unique Pal(s) from %d matching Pal(s). Scroll this list to browse the collection."
+	translations[english]["planner_choose_male"] = "Choose male"
+	translations[english]["planner_choose_female"] = "Choose female"
+	translations[english]["planner_no_parent"] = "Not selected"
+	translations[english]["planner_male_parent"] = "Male parent"
+	translations[english]["planner_female_parent"] = "Female parent"
+	translations[english]["planner_selected"] = "Male parent: %s\nFemale parent: %s"
+	translations[english]["planner_calculate_pair"] = "Calculate selected pair"
+	translations[english]["planner_select_parents"] = "Choose one male parent and one female parent first."
+	translations[english]["planner_pair_result"] = "Exact child: %s · rule: %s · generic target rank: %d"
+	translations[english]["planner_pair_ready"] = "Exact breeding outcome calculated."
+	translations[english]["planner_route_section"] = "Find the quickest target route"
+	translations[english]["planner_route_help"] = "Enter a Pal name such as Anubis or Mammorest. Game Character IDs such as SheepBall or PinkCat also work. The route uses the fewest sequential breeding generations from your current male/female collection."
+	translations[english]["planner_target_picker"] = "Choose the Pal you want to breed"
+	translations[english]["planner_target_picker_help"] = "Start typing to find a Pal by its Palpedia name. Select a matching suggestion to avoid spelling or internal-ID mistakes."
+	translations[english]["planner_route_starters_title"] = "Optional: only start from high-tier trait Pals"
+	translations[english]["planner_route_gold"] = "Gold traits"
+	translations[english]["planner_route_diamond"] = "Diamond traits"
+	translations[english]["planner_route_all_starters"] = "The route may start from every Pal in your loaded collection."
+	translations[english]["planner_route_filtered_starters"] = "The route starts from %d of %d loaded Pals matching the selected trait tier(s)."
+	translations[english]["planner_target"] = "Target Pal name or Character ID"
+	translations[english]["planner_target_hint"] = "Example: Anubis"
+	translations[english]["planner_target_suggestions"] = "Matching Pals — choose one"
+	translations[english]["planner_find_route"] = "Find quickest breeding route"
+	translations[english]["planner_target_required"] = "Enter a target Pal Character ID."
+	translations[english]["planner_target_unknown"] = "Unknown target Pal %q. Choose one of the matching suggestions."
+	translations[english]["planner_route_result"] = "Your breeding route"
+	translations[english]["planner_route_result_to"] = "%s · %d breeding generation(s)"
+	translations[english]["planner_route_title"] = "Route to %s · %d breeding generation(s)"
+	translations[english]["planner_route_tree_title"] = "Family tree"
+	translations[english]["planner_route_tree_help"] = "Follow the branches from left to right: two parent lines join into each bred Pal."
+	translations[english]["planner_route_target"] = "Target"
+	translations[english]["planner_route_generation"] = "Generation %d"
+	translations[english]["planner_route_starting_pal"] = "Starting Pal"
+	translations[english]["planner_route_bred_pal"] = "Bred Pal"
+	translations[english]["planner_route_bred_from"] = "Bred from %s + %s"
+	translations[english]["planner_route_male_parent"] = "Male parent"
+	translations[english]["planner_route_female_parent"] = "Female parent"
+	translations[english]["planner_route_breed_rule"] = "↓ Breed together · %s"
+	translations[english]["planner_route_avoid_hint"] = "Click to avoid this species"
+	translations[english]["planner_route_avoid"] = "Avoid species"
+	translations[english]["planner_route_rebreed"] = "Breed new"
+	translations[english]["planner_route_avoiding"] = "Avoiding this species in the current route: %s"
+	translations[english]["planner_route_rebreeding"] = "Breeding a new copy before continuing: %s"
+	translations[english]["planner_route_reset"] = "Use all Pals again"
+	translations[english]["planner_already_owned"] = "Already owned in the loaded collection; no breeding step is required."
+	translations[english]["planner_already_owned_inheritance"] = "You already own %s. The route below deliberately ignores those copies, so you can breed a new one for passive-trait inheritance."
+	translations[english]["planner_inheritance_no_route"] = "No route could be formed without using your existing target Pal. Keep the target you own, or add more male/female Pals to the collection and refresh."
+	translations[english]["planner_route_no_route"] = "No breeding route could be formed from the current male/female collection. Add more Pals and refresh the collection."
+	translations[english]["planner_route_exclusion_no_route"] = "No route remains with the selected avoided species. Use all Pals again or avoid fewer species."
+	translations[english]["planner_route_rebreed_no_route"] = "No route can breed the selected Pal again from the current starting collection. Use all Pals again or choose fewer Pals to breed anew."
+	translations[english]["planner_route_trait_no_route"] = "No route can start from only the selected high-tier trait Pals. Include more trait tiers or use all Pals again."
+	translations[english]["planner_speed_title"] = "Speed up this long route"
+	translations[english]["planner_speed_none"] = "No Philanthropist or Babysitter Pal was found in the loaded party/Palbox collection."
+	translations[english]["planner_speed_philanthropist"] = "%s — assign to the Breeding Farm: Philanthropist increases that Pal's breeding speed by 100%%."
+	translations[english]["planner_speed_babysitter"] = "%s — keep at the base: Babysitter improves Breeding Farm egg production and incubation speed by 30%%."
+	translations[english]["planner_route_caveat"] = "This is a species route. Passive inheritance and egg-gender RNG are not guaranteed; breed extra eggs when a later step needs a specific sex."
+	translations[english]["planner_route_ready"] = "Quickest breeding route calculated."
+
+	translations[french]["planner_title"] = "Planificateur d’élevage"
+	translations[french]["planner_help"] = "Chargez la sauvegarde sélectionnée pour choisir vos vrais Pals et calculer l’enfant exact d’une paire. Lecture seule."
+	translations[french]["planner_not_loaded"] = "Aucune collection n’est encore chargée pour le planificateur."
+	translations[french]["planner_freshness"] = "Collection du planificateur : %d Pals actuels · chargée à %s · sauvegarde sélectionnée modifiée à %s."
+	translations[french]["planner_last_export"] = "Dernier export NotebookLM du dossier sélectionné : %s"
+	translations[french]["planner_refresh"] = "Mettre à jour depuis la sauvegarde sélectionnée"
+	translations[french]["planner_select_save"] = "Sélectionnez un Level.sav avant de mettre à jour le planificateur."
+	translations[french]["planner_updating"] = "Lecture de la sauvegarde sélectionnée pour le planificateur…"
+	translations[french]["planner_ready"] = "Le planificateur d’élevage est prêt."
+	translations[french]["planner_loaded"] = "%d Pals actuels chargés dans le planificateur."
+	translations[french]["planner_empty"] = "Aucun Pal de l’équipe ou du Palbox n’est chargé. Mettez à jour depuis une sauvegarde sélectionnée."
+	translations[french]["planner_pick_title"] = "Choisir les vrais parents"
+	translations[french]["planner_filter_help"] = "Recherchez un nom de Pal (par exemple Mammorest), un identifiant du jeu ou un trait passif. Filtrez par sexe ou triez par niveau si nécessaire. Or = rang 3 ; diamant = rang 4. Avec les deux cochés, les deux rangs sont inclus."
+	translations[french]["planner_trait_help"] = "Survolez un trait pour voir son effet en jeu."
+	translations[french]["planner_filter"] = "Rechercher un Pal ou trait"
+	translations[french]["planner_gold"] = "Traits or (rang 3)"
+	translations[french]["planner_diamond"] = "Traits diamant (rang 4)"
+	translations[french]["planner_male"] = "Mâle"
+	translations[french]["planner_female"] = "Femelle"
+	translations[french]["planner_sort_level_asc"] = "Niveau ↑"
+	translations[french]["planner_sort_level_desc"] = "Niveau ↓"
+	translations[french]["planner_opposite_male"] = "Choisissez un parent mâle pour la femelle sélectionnée."
+	translations[french]["planner_opposite_female"] = "Choisissez un parent femelle pour le mâle sélectionné."
+	translations[french]["planner_no_matches"] = "Aucun Pal chargé ne correspond à ces filtres."
+	translations[french]["planner_showing"] = "%d Pal(s) unique(s) au niveau le plus élevé affiché(s) parmi %d correspondant(s). Faites défiler cette liste pour parcourir la collection."
+	translations[french]["planner_choose_male"] = "Choisir le mâle"
+	translations[french]["planner_choose_female"] = "Choisir la femelle"
+	translations[french]["planner_no_parent"] = "Non sélectionné"
+	translations[french]["planner_male_parent"] = "Parent mâle"
+	translations[french]["planner_female_parent"] = "Parent femelle"
+	translations[french]["planner_selected"] = "Parent mâle : %s\nParent femelle : %s"
+	translations[french]["planner_calculate_pair"] = "Calculer la paire sélectionnée"
+	translations[french]["planner_select_parents"] = "Choisissez d’abord un parent mâle et un parent femelle."
+	translations[french]["planner_pair_result"] = "Enfant exact : %s · règle : %s · rang cible générique : %d"
+	translations[french]["planner_pair_ready"] = "Résultat exact de l’élevage calculé."
+	translations[french]["planner_route_section"] = "Trouver le chemin le plus rapide"
+	translations[french]["planner_route_help"] = "Entrez un nom de Pal comme Anubis ou Mammorest. Les Character IDs du jeu, comme SheepBall ou PinkCat, fonctionnent aussi. Le chemin utilise le moins de générations d’élevage consécutives depuis votre collection mâle/femelle."
+	translations[french]["planner_target_picker"] = "Choisir le Pal à obtenir"
+	translations[french]["planner_target_picker_help"] = "Commencez à écrire pour rechercher un Pal par son nom du Palpédia. Sélectionnez une suggestion pour éviter les erreurs d’orthographe ou d’identifiant interne."
+	translations[french]["planner_route_starters_title"] = "Facultatif : démarrer uniquement avec des Pals aux traits élevés"
+	translations[french]["planner_route_gold"] = "Traits or"
+	translations[french]["planner_route_diamond"] = "Traits diamant"
+	translations[french]["planner_route_all_starters"] = "Le chemin peut démarrer avec tous les Pals de votre collection chargée."
+	translations[french]["planner_route_filtered_starters"] = "Le chemin démarre avec %d Pal(s) parmi %d ayant les rangs de traits sélectionnés."
+	translations[french]["planner_target"] = "Nom ou Character ID du Pal cible"
+	translations[french]["planner_target_hint"] = "Exemple : Anubis"
+	translations[french]["planner_target_suggestions"] = "Pals correspondants — choisissez-en un"
+	translations[french]["planner_find_route"] = "Trouver le chemin le plus rapide"
+	translations[french]["planner_target_required"] = "Entrez un Character ID de Pal cible."
+	translations[french]["planner_target_unknown"] = "Pal cible inconnu %q. Choisissez une des suggestions correspondantes."
+	translations[french]["planner_route_result"] = "Votre chemin d’élevage"
+	translations[french]["planner_route_result_to"] = "%s · %d génération(s) d’élevage"
+	translations[french]["planner_route_title"] = "Chemin vers %s · %d génération(s) d’élevage"
+	translations[french]["planner_route_tree_title"] = "Arbre familial"
+	translations[french]["planner_route_tree_help"] = "Suivez les branches de gauche à droite : les deux lignes des parents se rejoignent vers chaque Pal élevé."
+	translations[french]["planner_route_target"] = "Cible"
+	translations[french]["planner_route_generation"] = "Génération %d"
+	translations[french]["planner_route_starting_pal"] = "Pal de départ"
+	translations[french]["planner_route_bred_pal"] = "Pal élevé"
+	translations[french]["planner_route_bred_from"] = "Obtenu avec %s + %s"
+	translations[french]["planner_route_male_parent"] = "Parent mâle"
+	translations[french]["planner_route_female_parent"] = "Parent femelle"
+	translations[french]["planner_route_breed_rule"] = "↓ Faire se reproduire · %s"
+	translations[french]["planner_route_avoid_hint"] = "Cliquer pour éviter cette espèce"
+	translations[french]["planner_route_avoid"] = "Éviter l’espèce"
+	translations[french]["planner_route_rebreed"] = "Élever un nouveau"
+	translations[french]["planner_route_avoiding"] = "Espèce évitée dans le chemin actuel : %s"
+	translations[french]["planner_route_rebreeding"] = "Élever un nouvel exemplaire avant de continuer : %s"
+	translations[french]["planner_route_reset"] = "Réutiliser tous les Pals"
+	translations[french]["planner_already_owned"] = "Déjà possédé dans la collection chargée ; aucune étape d’élevage n’est nécessaire."
+	translations[french]["planner_already_owned_inheritance"] = "Vous possédez déjà %s. Le chemin ci-dessous ignore volontairement ces exemplaires afin d’en élever un nouveau pour l’héritage des traits passifs."
+	translations[french]["planner_inheritance_no_route"] = "Aucun chemin n’a pu être formé sans utiliser le Pal cible que vous possédez. Gardez cet exemplaire, ou ajoutez des Pals mâles/femelles à la collection puis actualisez-la."
+	translations[french]["planner_route_no_route"] = "Aucun chemin d’élevage n’a pu être formé depuis la collection mâle/femelle actuelle. Ajoutez des Pals puis actualisez la collection."
+	translations[french]["planner_route_exclusion_no_route"] = "Aucun chemin ne reste avec les espèces évitées. Réutilisez tous les Pals ou évitez moins d’espèces."
+	translations[french]["planner_route_rebreed_no_route"] = "Aucun chemin ne peut élever à nouveau le Pal choisi depuis la collection initiale. Réutilisez tous les Pals ou choisissez moins de Pals à élever de nouveau."
+	translations[french]["planner_route_trait_no_route"] = "Aucun chemin ne peut démarrer uniquement avec les Pals aux traits élevés sélectionnés. Incluez plus de rangs de traits ou réutilisez tous les Pals."
+	translations[french]["planner_speed_title"] = "Accélérer ce long chemin"
+	translations[french]["planner_speed_none"] = "Aucun Pal Philanthropist ou Babysitter n’a été trouvé dans la collection chargée (équipe/Palbox)."
+	translations[french]["planner_speed_philanthropist"] = "%s — assignez-le à la Ferme d’élevage : Philanthropist augmente sa vitesse d’élevage de 100 %%."
+	translations[french]["planner_speed_babysitter"] = "%s — gardez-le dans la base : Babysitter augmente de 30 %% la production d’œufs et la vitesse d’incubation de la Ferme d’élevage."
+	translations[french]["planner_route_caveat"] = "C’est un chemin d’espèces. L’héritage des traits et le hasard du sexe des œufs ne sont pas garantis ; produisez des œufs supplémentaires lorsqu’une étape suivante demande un sexe précis."
+	translations[french]["planner_route_ready"] = "Chemin d’élevage le plus rapide calculé."
 }

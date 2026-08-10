@@ -1,0 +1,1327 @@
+# Items
+
+## Source
+
+- URL: https://palworld.gg/items
+- Retrieved: 2026-08-08
+- This note is a factual, reorganized reference. Consult the source for live updates and full prose.
+
+Structured records captured from the site's bundled English data: 1317.
+
+- **Gold Coin** — type: Material | rarity: Common | price: 1 | output: 20000 | recipe: 30 Ingot | dropped by: Mau, Direhowl, Vanwyrm, Dumud Gild, Mimog
+- **Pal Sphere** — type: SpecialWeapon | rarity: Common | price: 80 | tech level: 2 | recipe: 1 Paldium Fragment
+- **Mega Sphere** — type: SpecialWeapon | rarity: Common | price: 460 | tech level: 14 | recipe: 1 Paldium Fragment, 1 Ingot, 3 Wood, 3 Stone
+- **Giga Sphere** — type: SpecialWeapon | rarity: Uncommon | price: 890 | tech level: 20 | recipe: 2 Paldium Fragment, 2 Ingot, 5 Wood, 5 Stone
+- **Hyper Sphere** — type: SpecialWeapon | rarity: Uncommon | price: 1350 | tech level: 27 | recipe: 3 Paldium Fragment, 3 Ingot, 8 Wood, 8 Stone
+- **Ultra Sphere** — type: SpecialWeapon | rarity: Rare | price: 3300 | tech level: 35 | recipe: 5 Paldium Fragment, 3 Refined Ingot, 10 Wood, 10 Stone
+- **Legendary Sphere** — type: SpecialWeapon | rarity: Rare | price: 5570 | tech level: 44 | recipe: 5 Paldium Fragment, 3 Pal Metal Ingot, 3 Hardwood, 20 Stone
+- **Ultimate Sphere** — type: SpecialWeapon | rarity: Epic | price: 12560 | tech level: 51 | recipe: 10 Paldium Fragment, 5 Pal Metal Ingot, 10 Hardwood, 1 Plasteel
+- **Exotic Sphere** — type: SpecialWeapon | rarity: Epic | price: 9080 | tech level: 58 | recipe: 15 Paldium Fragment, 1 Plasteel, 10 Hardwood, 1 Hexolite
+- **Sol Sphere** — type: SpecialWeapon | rarity: Epic | price: 21000 | tech level: 67 | recipe: 30 Paldium Fragment, 2 Soralite Ingot, 10 Hardwood
+- **Ancient Sphere** — type: SpecialWeapon | rarity: Legendary | price: 122760 | tech level: 74 | recipe: 30 Paldium Fragment, 6 Paloxite Ingot, 3 Mythical Wood
+- **Arrow** — type: Ammo | rarity: Common | price: 10 | tech level: 3 | output: 10 | recipe: 2 Wood, 2 Stone | dropped by: Robinquill, Robinquill Terra
+- **Poison Arrow** — type: Ammo | rarity: Common | price: 40 | tech level: 8 | output: 10 | recipe: 2 Wood, 2 Stone, 1 Venom Gland
+- **Fire Arrow** — type: Ammo | rarity: Common | price: 40 | tech level: 6 | output: 10 | recipe: 2 Wood, 2 Stone, 1 Flame Organ
+- **Reinforced Arrow** — type: Ammo | rarity: Common | price: 370 | tech level: 42 | output: 10 | recipe: 2 Refined Ingot, 2 Carbon Fiber
+- **Advanced Arrow** — type: Ammo | rarity: Common | price: 1110 | tech level: 57 | output: 10 | recipe: 2 Plasteel, 5 Carbon Fiber
+- **Coarse Ammo** — type: Ammo | rarity: Common | price: 40 | tech level: 21 | output: 20 | recipe: 1 Ingot, 1 Gunpowder
+- **Handgun Ammo** — type: Ammo | rarity: Common | price: 40 | tech level: 28 | output: 20 | recipe: 1 Ingot, 1 Gunpowder
+- **Rifle Ammo** — type: Ammo | rarity: Common | price: 280 | tech level: 36 | output: 10 | recipe: 2 Refined Ingot, 2 Gunpowder
+- **Shotgun Shell** — type: Ammo | rarity: Common | price: 330 | tech level: 39 | output: 10 | recipe: 2 Refined Ingot, 3 Gunpowder
+- **Assault Rifle Ammo** — type: Ammo | rarity: Common | price: 90 | tech level: 45 | output: 20 | recipe: 1 Refined Ingot, 2 Gunpowder
+- **Rocket Ammo** — type: Ammo | rarity: Common | price: 2550 | tech level: 65 | output: 10 | recipe: 3 Hexolite, 1 Thermal Core
+- **Decal Ink** — type: Ammo | rarity: Common | price: 70 | tech level: 45 | output: 10 | recipe: 1 Aquatic Pal Fluids, 1 High Quality Pal Oil
+- **Flamethrower Fuel** — type: Ammo | rarity: Common | price: 280 | tech level: 52 | output: 10 | recipe: 2 Crude Oil, 1 Refined Ingot
+- **Missile Ammo** — type: Ammo | rarity: Common | price: 3240 | tech level: 56 | output: 10 | recipe: 3 Pal Metal Ingot, 1 Crude Oil, 1 Computer
+- **Grenade Ammo** — type: Ammo | rarity: Common | price: 470 | tech level: 53 | output: 10 | recipe: 2 Pal Metal Ingot, 20 Fiber, 3 Gunpowder
+- **Gatling Gun Ammo** — type: Ammo | rarity: Common | price: 60 | tech level: 54 | output: 50 | recipe: 1 Pal Metal Ingot, 3 Gunpowder
+- **Meteorite Ammo** — type: Ammo | rarity: Common | price: 360 | tech level: 38 | output: 10 | recipe: 3 Meteorite Fragment
+- **Energy Cartridge** — type: Ammo | rarity: Common | price: 280 | tech level: 51 | output: 20 | recipe: 1 Bio Battery, 2 Pal Metal Ingot
+- **Plasma Cartridge** — type: Ammo | rarity: Common | price: 2190 | tech level: 61 | output: 10 | recipe: 1 Thermal Core, 2 Hexolite
+- **Laser Gatling Cartridge** — type: Ammo | rarity: Common | price: 110 | tech level: 59 | output: 50 | recipe: 1 Bio Battery, 1 Plasteel
+- **Charge Rifle Ammo** — type: Ammo | rarity: Common | price: 1740 | tech level: 65 | output: 10 | recipe: 1 Bio Battery, 1 Thermal Core
+- **Overheat Rifle Ammo** — type: Ammo | rarity: Common | price: 920 | tech level: 64 | output: 20 | recipe: 1 Thermal Core, 1 Hexolite
+- **Energy Shotgun Ammo** — type: Ammo | rarity: Common | price: 990 | tech level: 63 | output: 10 | recipe: 1 Bio Battery, 2 Hexolite
+- **Boost Gun Ammo** — type: Ammo | rarity: Common | price: 90 | tech level: 25 | output: 10 | recipe: 2 Ingot, 1 Electric Organ
+- **Beam Scatter Ammo** — type: Ammo | rarity: Common | price: 7830 | tech level: 75 | output: 10 | recipe: 1 Bio Battery, 3 Paloxite Ingot, 2 Soralite Ingot
+- **Plasma Rifle Ammo** — type: Ammo | rarity: Common | price: 3910 | tech level: 78 | output: 20 | recipe: 1 Bio Battery, 3 Paloxite Ingot, 2 Soralite Ingot
+- **Beam Launcher Ammo** — type: Ammo | rarity: Common | price: 13660 | tech level: 80 | output: 10 | recipe: 1 Bio Battery, 6 Paloxite Ingot, 2 Soralite Ingot
+- **Mechanical Bow Ammo** — type: Ammo | rarity: Common | price: 1730 | tech level: 67 | output: 10 | recipe: 2 Soralite Ingot
+- **Combat SMG Ammo** — type: Ammo | rarity: Common | price: 1020 | tech level: 68 | output: 20 | recipe: 2 Soralite Ingot, 6 Gunpowder
+- **Prototype Shotgun Ammo** — type: Ammo | rarity: Common | price: 3870 | tech level: 69 | output: 10 | recipe: 4 Soralite Ingot, 8 Gunpowder
+- **Heavy Assault Rifle Ammo** — type: Ammo | rarity: Common | price: 1120 | tech level: 70 | output: 20 | recipe: 2 Soralite Ingot, 10 Gunpowder
+- **Tactical Grenade Launcher Ammo** — type: Ammo | rarity: Common | price: 3970 | tech level: 72 | output: 10 | recipe: 4 Soralite Ingot, 10 Gunpowder
+- **Wing Cell** — type: Consume | rarity: Common | price: 31200 | tech level: 80 | recipe: 10 Mythical Wood, 20 Crude Oil
+- **Simple Bait** — type: Consume | rarity: Common | price: 160 | tech level: 15 | output: 10 | recipe: 2 Aquatic Pal Fluids, 4 Red Berries, 2 Flour
+- **High Quality Bait** — type: Consume | rarity: Uncommon | price: 240 | tech level: 22 | output: 10 | recipe: 3 Aquatic Pal Fluids, 4 Tomato, 3 Flour
+- **Deluxe Bait** — type: Consume | rarity: Rare | price: 350 | tech level: 38 | output: 10 | recipe: 4 High Quality Pal Oil, 4 Onion, 3 Carrot, 4 Flour
+- **Alluring Bait** — type: Consume | rarity: Epic | price: 2020 | tech level: 52 | output: 3 | recipe: 10 High Quality Pal Oil, 1 Cavern Mushroom, 3 Carrot, 5 Flour
+- **Life Pendant** — type: Accessory | rarity: Rare | price: 16500 | recipe: 25 Ingot, 20 Bone, 25 Paldium Fragment, 2 Ancient Civilization Parts
+- **Attack Pendant** — type: Accessory | rarity: Rare | price: 16500 | recipe: 25 Ingot, 20 Horn, 25 Paldium Fragment, 2 Ancient Civilization Parts
+- **Defense Pendant** — type: Accessory | rarity: Rare | price: 15540 | recipe: 30 Ingot, 20 Ore, 25 Paldium Fragment, 2 Ancient Civilization Parts
+- **Pendant of Diligence** — type: Accessory | rarity: Rare | price: 16500 | recipe: 25 Ingot, 20 Leather, 25 Paldium Fragment, 2 Ancient Civilization Parts
+- **Heat Resistant Undershirt** — type: Accessory | rarity: Rare | price: 16540 | recipe: 20 Wool, 15 Flame Organ, 25 Leather, 35 Fiber
+- **Thermal Undershirt** — type: Accessory | rarity: Rare | price: 21960 | recipe: 20 Wool, 15 Ice Organ, 25 Leather, 10 Cloth
+- **Multiclimate Undershirt** — type: Accessory | rarity: Rare | price: 167040 | recipe: 40 High Quality Cloth, 20 Flame Organ, 20 Ice Organ, 20 Polymer
+- **Explosion-Resistant Undershirt** — type: Accessory | rarity: Legendary | price: 120000 | tech level: 76 | recipe: 10 Explosion-Resistant Fiber, 50 Mythical Wood
+- **Corrosive Mist Mask** — type: Accessory | rarity: Legendary | price: 168000 | tech level: 76 | recipe: 10 Toxin Filtering Membrane, 30 Paloxite
+- **Ring of Neutral Resistance** — type: Accessory | rarity: Rare | price: 14700 | recipe: 20 Ingot, 20 Bone, 15 Cement, 30 Paldium Fragment
+- **Ring of Fire Resistance** — type: Accessory | rarity: Rare | price: 18480 | recipe: 20 Ingot, 20 Bone, 15 Flame Organ, 30 Paldium Fragment
+- **Ring of Water Resistance** — type: Accessory | rarity: Rare | price: 23880 | recipe: 20 Ingot, 20 Bone, 30 Aquatic Pal Fluids, 30 Paldium Fragment
+- **Ring of Electric Resistance** — type: Accessory | rarity: Rare | price: 16680 | recipe: 20 Ingot, 20 Bone, 10 Electric Organ, 30 Paldium Fragment
+- **Ring of Grass Resistance** — type: Accessory | rarity: Rare | price: 16080 | recipe: 20 Ingot, 20 Bone, 5 Gumoss Leaf, 30 Paldium Fragment
+- **Ring of Ice Resistance** — type: Accessory | rarity: Rare | price: 18480 | recipe: 20 Ingot, 20 Bone, 15 Ice Organ, 30 Paldium Fragment
+- **Ring of Ground Resistance** — type: Accessory | rarity: Rare | price: 25080 | recipe: 20 Ingot, 20 Bone, 10 Meteorite Fragment, 30 Paldium Fragment
+- **Ring of Dark Resistance** — type: Accessory | rarity: Rare | price: 16680 | recipe: 20 Ingot, 20 Bone, 10 Venom Gland, 30 Paldium Fragment
+- **Ring of Dragon Resistance** — type: Accessory | rarity: Rare | price: 25080 | recipe: 20 Ingot, 20 Bone, 20 Pure Quartz, 30 Paldium Fragment
+- **Ring of Mercy** — type: Accessory | rarity: Rare | price: 16320 | tech level: 18 | recipe: 30 Ingot, 20 Paldium Fragment, 5 Ancient Civilization Parts
+- **Ability Glasses** — type: Accessory | rarity: Rare | price: 51600 | tech level: 34 | recipe: 30 Refined Ingot, 20 Paldium Fragment, 10 Ancient Civilization Parts, 5 Ancient Civilization Core
+- **Ring of Freight** — type: Accessory | rarity: Rare | price: 20400 | recipe: 25 Ingot, 20 Leather, 20 Horn, 3 Ancient Civilization Parts
+- **Anti-Gravity Belt** — type: Accessory | rarity: Uncommon | price: 23160 | tech level: 28 | recipe: 30 Ingot, 30 Paldium Fragment, 10 Nightstar Sand
+- **Double Jump Boots** — type: Accessory | rarity: Rare | price: 54120 | tech level: 40 | recipe: 30 Refined Ingot, 50 Paldium Fragment, 20 Nightstar Sand
+- **Triple Jump Boots** — type: Accessory | rarity: Epic | price: 210600 | tech level: 70 | recipe: 30 Hexolite, 150 Paldium Fragment, 50 Nightstar Sand, 50 Dark Fragment
+- **Air Dash Boots** — type: Accessory | rarity: Rare | price: 54120 | tech level: 35 | recipe: 30 Refined Ingot, 50 Paldium Fragment, 20 Nightstar Sand
+- **Double Air Dash Boots** — type: Accessory | rarity: Epic | price: 153120 | tech level: 61 | recipe: 30 Plasteel, 100 Paldium Fragment, 30 Nightstar Sand, 30 Dark Fragment
+- **Triple Air Dash Boots** — type: Accessory | rarity: Legendary | price: 306600 | tech level: 65 | recipe: 30 Coralum Ingot, 150 Paldium Fragment, 40 Nightstar Sand, 50 Dark Fragment
+- **Neutral Support Whistle** — type: Accessory | rarity: Rare | price: 14580 | recipe: 20 Ingot, 20 Horn, 15 Cement, 2 Ancient Civilization Parts
+- **Fire Support Whistle** — type: Accessory | rarity: Rare | price: 18360 | recipe: 20 Ingot, 20 Horn, 15 Flame Organ, 2 Ancient Civilization Parts
+- **Water Support Whistle** — type: Accessory | rarity: Rare | price: 23760 | recipe: 20 Ingot, 20 Horn, 30 Aquatic Pal Fluids, 2 Ancient Civilization Parts
+- **Electric Support Whistle** — type: Accessory | rarity: Rare | price: 16560 | recipe: 20 Ingot, 20 Horn, 10 Electric Organ, 2 Ancient Civilization Parts
+- **Grass Support Whistle** — type: Accessory | rarity: Rare | price: 15960 | recipe: 20 Ingot, 20 Horn, 5 Gumoss Leaf, 2 Ancient Civilization Parts
+- **Ice Support Whistle** — type: Accessory | rarity: Rare | price: 18360 | recipe: 20 Ingot, 20 Horn, 15 Ice Organ, 2 Ancient Civilization Parts
+- **Ground Support Whistle** — type: Accessory | rarity: Rare | price: 24960 | recipe: 20 Ingot, 20 Horn, 10 Meteorite Fragment, 2 Ancient Civilization Parts
+- **Dark Support Whistle** — type: Accessory | rarity: Rare | price: 16560 | recipe: 20 Ingot, 20 Horn, 10 Venom Gland, 2 Ancient Civilization Parts
+- **Dragon Support Whistle** — type: Accessory | rarity: Rare | price: 24960 | recipe: 20 Ingot, 20 Horn, 20 Pure Quartz, 2 Ancient Civilization Parts
+- **Attack Support Whistle** — type: Accessory | rarity: Rare | price: 21960 | recipe: 20 Ingot, 20 Horn, 25 Sulfur, 2 Ancient Civilization Parts
+- **Defense Support Whistle** — type: Accessory | rarity: Rare | price: 32400 | recipe: 20 Ingot, 20 Horn, 15 Polymer, 2 Ancient Civilization Parts
+- **Growth Acceleration Bell** — type: Accessory | rarity: Rare | price: 22920 | recipe: 25 Ingot, 30 Paldium Fragment, 10 Mysterious Mushroom, 3 Ancient Civilization Parts
+- **Dogen Emblem** — type: Accessory | rarity: Epic | price: 70620 | recipe: 20 Refined Ingot, 30 Bone, 35 Paldium Fragment, 30 Ancient Bone
+- **Silvegis Emblem** — type: Accessory | rarity: Epic | price: 81420 | recipe: 20 Refined Ingot, 10 Chromite, 35 Paldium Fragment, 30 Ancient Bone
+- **Reptyro Charm** — type: Accessory | rarity: Epic | price: 86040 | recipe: 20 Refined Ingot, 20 Flame Organ, 30 Paldium Fragment, 30 Carbon Fiber, 30 Ancient Bark
+- **Wumpo Charm** — type: Accessory | rarity: Epic | price: 158040 | recipe: 20 Refined Ingot, 20 Ice Organ, 30 Paldium Fragment, 30 High Quality Cloth, 30 Ancient Lava
+- **Wandering Merchant Charm** — type: Accessory | rarity: Epic | price: 103680 | recipe: 30 Polymer, 30 Leather, 20 Flame Organ, 20 Ice Organ, 30 Ancient Bone
+- **Vanguard Charm** — type: Accessory | rarity: Epic | price: 103680 | recipe: 30 Polymer, 30 Bone, 20 Flame Organ, 20 Ice Organ, 30 Ancient Bone
+- **Warsect Terra's Belt** — type: Accessory | rarity: Epic | price: 80700 | recipe: 40 Refined Ingot, 20 Honey, 35 Paldium Fragment, 30 Ancient Lava
+- **Islander's Tool Belt** — type: Accessory | rarity: Epic | price: 58620 | recipe: 20 Refined Ingot, 40 Leather, 35 Paldium Fragment, 30 Ancient Bark
+- **Celestial Emperor's Baton** — type: Accessory | rarity: Epic | price: 51480 | recipe: 20 Refined Ingot, 30 Horn, 10 Pal Metal Ingot, 5 Ancient Civilization Core
+- **Flame Emperor's Baton** — type: Accessory | rarity: Epic | price: 41880 | recipe: 20 Refined Ingot, 30 Horn, 15 Flame Organ, 5 Ancient Civilization Core
+- **Lord of the Sea's Baton** — type: Accessory | rarity: Epic | price: 47280 | recipe: 20 Refined Ingot, 30 Horn, 30 Aquatic Pal Fluids, 5 Ancient Civilization Core
+- **Lord of Lightning's Baton** — type: Accessory | rarity: Epic | price: 40080 | recipe: 20 Refined Ingot, 30 Horn, 10 Electric Organ, 5 Ancient Civilization Core
+- **Spirit Emperor's Baton** — type: Accessory | rarity: Epic | price: 39480 | recipe: 20 Refined Ingot, 30 Horn, 5 Beautiful Flower, 5 Ancient Civilization Core
+- **Ice Emperor's Baton** — type: Accessory | rarity: Epic | price: 41880 | recipe: 20 Refined Ingot, 30 Horn, 15 Ice Organ, 5 Ancient Civilization Core
+- **Earth Emperor's Baton** — type: Accessory | rarity: Epic | price: 43680 | recipe: 20 Refined Ingot, 30 Horn, 30 Bone, 5 Ancient Civilization Core
+- **Lord of the Underworld's Baton** — type: Accessory | rarity: Epic | price: 45480 | recipe: 20 Refined Ingot, 30 Horn, 15 Pure Quartz, 5 Ancient Civilization Core
+- **Divine Dragon's Baton** — type: Accessory | rarity: Epic | price: 67200 | recipe: 20 Refined Ingot, 20 Polymer, 20 Pure Quartz, 5 Ancient Civilization Core
+- **Pal Tamer's Glasses** — type: Accessory | rarity: Epic | price: 46200 | recipe: 20 Refined Ingot, 30 Paldium Fragment, 10 Ancient Civilization Parts, 15 Ancient Bark
+- **Air Walker Mk I** — type: Accessory | rarity: Epic | price: 133920 | recipe: 20 Hexolite, 30 Paldium Fragment, 15 Dark Fragment, 30 Nightstar Sand, 15 Ancient Bark
+- **Air Walker Mk II** — type: Accessory | rarity: Epic | price: 210360 | recipe: 30 Hexolite, 40 Paldium Fragment, 25 Dark Fragment, 40 Nightstar Sand, 30 Ancient Lava
+- **Air Walker Mk III** — type: Accessory | rarity: Epic | price: 272400 | recipe: 20 Coralum Ingot, 50 Paldium Fragment, 35 Dark Fragment, 50 Nightstar Sand, 30 Ancient Bone
+- **Air Walker EX** — type: Accessory | rarity: Epic | price: 406440 | recipe: 30 Coralum Ingot, 60 Paldium Fragment, 45 Dark Fragment, 60 Nightstar Sand, 60 Ancient Bone
+- **Hartalis's Talisman** — type: Accessory | rarity: Epic | price: 43680 | recipe: 20 Refined Ingot, 30 Leather, 30 Horn, 10 Ancient Civilization Parts
+- **Blazamut's Talisman** — type: Accessory | rarity: Epic | price: 38280 | recipe: 20 Refined Ingot, 15 Coal, 15 Flame Organ, 10 Ancient Civilization Parts
+- **Neptilius's Talisman** — type: Accessory | rarity: Epic | price: 55200 | recipe: 20 Refined Ingot, 15 Carbon Fiber, 30 Aquatic Pal Fluids, 10 Ancient Civilization Parts
+- **Orserk's Talisman** — type: Accessory | rarity: Epic | price: 40080 | recipe: 20 Refined Ingot, 30 Bone, 10 Electric Organ, 10 Ancient Civilization Parts
+- **Lyleen's Talisman** — type: Accessory | rarity: Epic | price: 39480 | recipe: 20 Refined Ingot, 30 Bone, 5 Beautiful Flower, 10 Ancient Civilization Parts
+- **Frostallion's Talisman** — type: Accessory | rarity: Epic | price: 41880 | recipe: 20 Refined Ingot, 30 Bone, 15 Ice Organ, 10 Ancient Civilization Parts
+- **Anubis's Talisman** — type: Accessory | rarity: Epic | price: 48480 | recipe: 20 Refined Ingot, 30 Bone, 10 Meteorite Fragment, 10 Ancient Civilization Parts
+- **Lyleen Noct's Talisman** — type: Accessory | rarity: Epic | price: 35880 | recipe: 20 Refined Ingot, 5 Beautiful Flower, 10 Venom Gland, 10 Ancient Civilization Parts
+- **Jetragon's Talisman** — type: Accessory | rarity: Epic | price: 47280 | recipe: 20 Refined Ingot, 30 Leather, 30 High Quality Pal Oil, 10 Ancient Civilization Parts
+- **Blazehowl Ring** — type: Accessory | rarity: Epic | price: 31200 | recipe: 20 Refined Ingot, 30 Paldium Fragment, 15 Flame Organ, 5 Ancient Civilization Parts
+- **Faleris Aqua Ring** — type: Accessory | rarity: Epic | price: 36600 | recipe: 20 Refined Ingot, 30 Paldium Fragment, 30 Aquatic Pal Fluids, 5 Ancient Civilization Parts
+- **Fenglope Lux Ring** — type: Accessory | rarity: Epic | price: 38280 | recipe: 20 Refined Ingot, 40 Leather, 15 Electric Organ, 5 Ancient Civilization Parts
+- **Menasting Terra Ring** — type: Accessory | rarity: Epic | price: 41280 | recipe: 20 Refined Ingot, 15 Crude Oil, 10 Flame Organ, 5 Ancient Civilization Parts
+- **Vaelet Ring** — type: Accessory | rarity: Epic | price: 24480 | recipe: 20 Refined Ingot, 10 Tomato Seeds, 10 Onion Seeds, 5 Ancient Civilization Parts
+- **Katress Ring** — type: Accessory | rarity: Epic | price: 34080 | recipe: 20 Refined Ingot, 20 Leather, 10 Katress Hair, 5 Ancient Civilization Parts
+- **Elphidran Ring** — type: Accessory | rarity: Epic | price: 35280 | recipe: 20 Refined Ingot, 20 Bone, 20 High Quality Pal Oil, 5 Ancient Civilization Parts
+- **Cryolinx Ring** — type: Accessory | rarity: Epic | price: 40680 | recipe: 20 Refined Ingot, 20 Pure Quartz, 15 Ice Organ, 5 Ancient Civilization Parts
+- **Faleris Ring** — type: Accessory | rarity: Epic | price: 34080 | recipe: 20 Refined Ingot, 15 Ice Organ, 15 Flame Organ, 5 Ancient Civilization Parts
+- **Ring of Trust** — type: Accessory | rarity: Epic | price: 66120 | recipe: 25 Refined Ingot, 30 Paldium Fragment, 10 Beautiful Flower, 30 Ancient Lava
+- **Phantom Ring** — type: Accessory | rarity: Epic | price: 121860 | recipe: 30 Refined Ingot, 10 Plasteel, 15 Pal Metal Ingot, 30 Ancient Bone
+- **Normal Parachute** — type: Glider | rarity: Common | price: 1300 | tech level: 5 | recipe: 10 Wood, 2 Cloth
+- **Mega Glider** — type: Glider | rarity: Common | price: 15480 | tech level: 18 | recipe: 5 Wooden Board, 10 Bone, 20 Cloth
+- **Giga Glider** — type: Glider | rarity: Uncommon | price: 76080 | tech level: 40 | recipe: 20 Refined Ingot, 100 Hardwood, 15 Carbon Fiber, 10 High Quality Cloth
+- **Hyper Glider** — type: Glider | rarity: Epic | price: 332880 | tech level: 52 | recipe: 40 Pal Metal Ingot, 20 High Quality Wooden Board, 25 Carbon Fiber, 20 High Quality Cloth
+- **Wing Pack** — type: Glider | rarity: Legendary | price: 6508680 | tech level: 80 | recipe: 30 Paldium Fragment, 6 Paloxite Ingot, 20 AI Core, 20 Thermal Core, 10 Ancient Civilization Core
+- **Cake** — type: Food | rarity: Common | price: 6300 | stats: restoreSanity 82, restoreSatiety 656 | recipe: 5 Flour, 8 Red Berries, 7 Milk, 8 Egg, 2 Honey | dropped by: Lovander
+- **Mushroom Cake** — type: Food | rarity: Uncommon | price: 7740 | tech level: 30 | stats: restoreSanity 84, restoreSatiety 676 | recipe: 5 Flour, 5 Mushroom, 3 Cavern Mushroom, 8 Egg, 2 Honey
+- **Vegetable Cake** — type: Food | rarity: Rare | price: 7200 | tech level: 47 | stats: restoreSanity 87, restoreSatiety 696 | recipe: 8 Flour, 8 Tomato, 7 Lettuce, 8 Egg, 4 Honey
+- **Extravagant Vegetable Cake** — type: Food | rarity: Epic | price: 9360 | tech level: 60 | stats: restoreSanity 90, restoreSatiety 717 | recipe: 12 Flour, 8 Cotton Candy, 10 Potato, 6 Onion, 8 Carrot
+- **Special Cake** — type: Food | rarity: Legendary | price: 20400 | tech level: 74 | stats: restoreSanity 92, restoreSatiety 738 | recipe: 20 Flour, 8 Caramel Cotton Candy, 15 Milk, 15 Egg, 2 Mammorest Meat
+- **Mammorest Curry** — type: Food | rarity: Epic | price: 2040 | stats: restoreSanity 52, restoreSatiety 418 | recipe: 1 Mammorest Meat, 2 Onion, 2 Carrot, 2 Potato, 2 Red Berries
+- **Broncherry Fried Noodles** — type: Food | rarity: Rare | price: 1140 | stats: restoreSanity 40, restoreSatiety 321 | recipe: 1 Broncherry Meat, 1 Onion, 1 Carrot, 1 Flour
+- **Mozzarina Cheeseburger** — type: Food | rarity: Rare | price: 1430 | stats: restoreSanity 36, restoreSatiety 288 | recipe: 2 Mozzarina Meat, 1 Flour, 2 Tomato, 2 Milk
+- **Roast Reindrix** — type: Food | rarity: Common | price: 420 | stats: restoreSanity 1, restoreSatiety 252 | recipe: 1 Reindrix Venison
+- **Broncherry Rib Roast** — type: Food | rarity: Uncommon | price: 600 | stats: restoreSanity 3, restoreSatiety 252 | recipe: 1 Broncherry Meat
+- **Mammorest Steak** — type: Food | rarity: Uncommon | price: 1200 | stats: restoreSanity 3, restoreSatiety 252 | recipe: 1 Mammorest Meat
+- **Eikthyrdeer Stew** — type: Food | rarity: Rare | price: 1270 | stats: restoreSanity 27, restoreSatiety 212 | recipe: 2 Eikthyrdeer Venison, 1 Mushroom, 2 Milk
+- **Seafood Pasta** — type: Food | rarity: Rare | price: 1810 | stats: restoreSanity 15, restoreSatiety 193 | recipe: 3 Gloopie Tentacle, 3 Flour, 2 Tomato
+- **Pizza** — type: Food | rarity: Common | price: 1090 | stats: restoreSanity 23, restoreSatiety 184 | recipe: 1 Flour, 2 Red Berries, 2 Tomato, 2 Milk
+- **Mushroom Quiche** — type: Food | rarity: Epic | price: 2220 | stats: restoreSanity 23, restoreSatiety 184 | recipe: 1 Flour, 2 Mushroom, 2 Onion, 2 Egg, 2 Milk
+- **Broncherry Meat** — type: Food | rarity: Uncommon | price: 500 | stats: restoreSatiety 180 | dropped by: Broncherry, Broncherry Aqua
+- **Mammorest Meat** — type: Food | rarity: Uncommon | price: 1000 | stats: restoreSatiety 180 | dropped by: Mammorest, Mammorest Cryst
+- **Eikthyrdeer Loco Moco** — type: Food | rarity: Rare | price: 820 | stats: restoreSanity 22, restoreSatiety 174 | recipe: 1 Eikthyrdeer Venison, 2 Red Berries, 2 Egg
+- **Dumud Chowder** — type: Food | rarity: Rare | price: 650 | stats: restoreSanity 21, restoreSatiety 170 | recipe: 1 Raw Dumud, 2 Lettuce, 2 Tomato
+- **Rushoar Bacon 'n' Eggs** — type: Food | rarity: Uncommon | price: 840 | stats: restoreSanity 21, restoreSatiety 167 | recipe: 2 Rushoar Pork, 2 Egg
+- **Mozzarina Hamburger** — type: Food | rarity: Rare | price: 720 | stats: restoreSanity 20, restoreSatiety 162 | recipe: 1 Mozzarina Meat, 1 Flour, 2 Lettuce
+- **Galeclaw Nikujaga** — type: Food | rarity: Epic | price: 960 | stats: restoreSanity 19, restoreSatiety 150 | recipe: 1 Galeclaw Poultry, 2 Onion, 2 Carrot, 2 Potato
+- **Grilled Lamball** — type: Food | rarity: Uncommon | price: 340 | stats: restoreSanity 18, restoreSatiety 147 | recipe: 1 Lamball Mutton, 2 Lettuce
+- **Minestrone** — type: Food | rarity: Rare | price: 890 | stats: restoreSanity 18, restoreSatiety 146 | recipe: 3 Tomato, 2 Carrot, 2 Onion, 1 Potato
+- **Rushoar Hot Dog** — type: Food | rarity: Rare | price: 670 | stats: restoreSanity 18, restoreSatiety 140 | recipe: 1 Rushoar Pork, 1 Flour, 2 Lettuce
+- **Reindrix Stew** — type: Food | rarity: Uncommon | price: 610 | stats: restoreSanity 17, restoreSatiety 132 | recipe: 1 Reindrix Venison, 2 Tomato
+- **Carbonara** — type: Food | rarity: Common | price: 1260 | stats: restoreSanity 16, restoreSatiety 129 | recipe: 1 Flour, 2 Egg, 2 Milk
+- **Rushoar Gyoza** — type: Food | rarity: Uncommon | price: 840 | stats: restoreSanity 20, restoreSatiety 115 | recipe: 1 Rushoar Pork, 1 Mushroom, 1 Flour
+- **Spring Rolls** — type: Food | rarity: Rare | price: 1260 | stats: restoreSanity 14, restoreSatiety 115 | recipe: 2 Onion, 2 Mushroom, 1 Flour
+- **Gratin** — type: Food | rarity: Rare | price: 1020 | stats: restoreSanity 14, restoreSatiety 113 | recipe: 2 Milk, 2 Potato, 1 Flour
+- **Fried Chikipi** — type: Food | rarity: Rare | price: 1020 | stats: restoreSanity 14, restoreSatiety 108 | recipe: 1 Chikipi Poultry, 1 Flour, 1 Egg, 1 High Quality Pal Oil
+- **Fried Kelpsea** — type: Food | rarity: Rare | price: 1070 | stats: restoreSanity 14, restoreSatiety 108 | recipe: 1 Raw Kelpsea, 1 Flour, 1 Egg, 1 High Quality Pal Oil
+- **Seafood Salad** — type: Food | rarity: Uncommon | price: 1100 | stats: restoreSanity 1, restoreSatiety 95 | recipe: 3 Gloopie Tentacle, 4 Lettuce
+- **Herb Roasted Lamball** — type: Food | rarity: Uncommon | price: 260 | stats: restoreSanity 12, restoreSatiety 94 | recipe: 1 Lamball Mutton, 2 Red Berries
+- **Chikipi Sauté** — type: Food | rarity: Uncommon | price: 240 | stats: restoreSanity 12, restoreSatiety 92 | recipe: 1 Chikipi Poultry, 2 Red Berries
+- **Stewed Galeclaw** — type: Food | rarity: Uncommon | price: 360 | stats: restoreSanity 12, restoreSatiety 92 | recipe: 1 Galeclaw Poultry, 2 Red Berries
+- **Salt-Grilled Skutlass** — type: Food | rarity: Uncommon | price: 720 | stats: restoreSanity 10, restoreSatiety 90 | recipe: 1 Skutlass Sashimi
+- **Munchill Steak** — type: Food | rarity: Uncommon | price: 300 | stats: restoreSanity 1, restoreSatiety 85 | recipe: 1 Munchill Meat
+- **Salad** — type: Food | rarity: Common | price: 380 | stats: restoreSanity 11, restoreSatiety 84 | recipe: 2 Lettuce, 2 Tomato
+- **Skutlass Sashimi** — type: Food | rarity: Uncommon | price: 600 | stats: restoreSatiety 80 | dropped by: Skutlass, Skutlass Ignis
+- **Herb Roasted Caprity** — type: Food | rarity: Common | price: 200 | stats: restoreSanity 1, restoreSatiety 80 | recipe: 1 Caprity Meat
+- **Mozzarina Steak** — type: Food | rarity: Common | price: 230 | stats: restoreSanity 1, restoreSatiety 80 | recipe: 1 Mozzarina Meat
+- **Fried Gloopie Balls** — type: Food | rarity: Uncommon | price: 1380 | stats: restoreSanity 1, restoreSatiety 80 | recipe: 2 Gloopie Tentacle, 3 Flour
+- **Broiled Dumud** — type: Food | rarity: Common | price: 260 | stats: restoreSanity 1, restoreSatiety 70 | recipe: 1 Raw Dumud
+- **Roast Eikthyrdeer** — type: Food | rarity: Common | price: 220 | stats: restoreSanity 1, restoreSatiety 70 | recipe: 1 Eikthyrdeer Venison
+- **Omelet** — type: Food | rarity: Common | price: 580 | stats: restoreSanity 7, restoreSatiety 67 | recipe: 1 Tomato, 2 Egg
+- **Reindrix Venison** — type: Food | rarity: Common | price: 350 | stats: restoreSatiety 64 | dropped by: Reindrix
+- **Marinated Mushrooms** — type: Food | rarity: Common | price: 480 | stats: restoreSanity 7, restoreSatiety 60 | recipe: 1 Mushroom, 2 Red Berries
+- **Roast Rushoar** — type: Food | rarity: Common | price: 180 | stats: restoreSanity 1, restoreSatiety 60 | recipe: 1 Rushoar Pork
+- **Jellroy's Jolly Jelly** — type: Food | rarity: Uncommon | price: 720 | stats: restoreSanity 1, restoreSatiety 60 | recipe: 2 Jellroy Bell Flesh, 2 Red Berries
+- **Jelliette's Jiggly Jelly** — type: Food | rarity: Uncommon | price: 1320 | stats: restoreSanity 1, restoreSatiety 58 | recipe: 2 Jelliette Bell Flesh, 2 Aquatic Pal Fluids
+- **Caprity Meat** — type: Food | rarity: Common | price: 170 | stats: restoreSatiety 57 | dropped by: Caprity, Caprity Noct
+- **Mozzarina Meat** — type: Food | rarity: Common | price: 190 | stats: restoreSatiety 57 | dropped by: Mozzarina
+- **Stir-Fried Vegetables** — type: Food | rarity: Uncommon | price: 480 | stats: restoreSanity 7, restoreSatiety 54 | recipe: 2 Onion, 2 Carrot
+- **Mushroom Soup** — type: Food | rarity: Common | price: 840 | stats: restoreSanity 7, restoreSatiety 52 | recipe: 1 Mushroom, 2 Milk
+- **Lamball Kebab** — type: Food | rarity: Common | price: 140 | stats: restoreSanity 1, restoreSatiety 52 | recipe: 1 Lamball Mutton
+- **Jam-Filled Bun** — type: Food | rarity: Common | price: 420 | stats: restoreSanity 6, restoreSatiety 51 | recipe: 1 Flour, 2 Red Berries
+- **Raw Dumud** — type: Food | rarity: Common | price: 220 | stats: restoreSatiety 50 | dropped by: Dumud, Dumud Gild
+- **Eikthyrdeer Venison** — type: Food | rarity: Common | price: 180 | stats: restoreSatiety 50 | dropped by: Eikthyrdeer, Eikthyrdeer Terra
+- **Grilled Chikipi** — type: Food | rarity: Common | price: 120 | stats: restoreSanity 1, restoreSatiety 50 | recipe: 1 Chikipi Poultry
+- **Grilled Kelpsea** — type: Food | rarity: Common | price: 170 | stats: restoreSanity 1, restoreSatiety 50 | recipe: 1 Raw Kelpsea
+- **Grilled Galeclaw** — type: Food | rarity: Common | price: 240 | stats: restoreSanity 1, restoreSatiety 50 | recipe: 1 Galeclaw Poultry
+- **Rushoar Pork** — type: Food | rarity: Common | price: 150 | stats: restoreSatiety 43 | dropped by: Rushoar
+- **Pancake** — type: Food | rarity: Common | price: 540 | stats: restoreSanity 5, restoreSatiety 42 | recipe: 1 Flour, 1 Milk
+- **Munchill Meat** — type: Food | rarity: Uncommon | price: 250 | stats: restoreSatiety 42 | dropped by: Munchill
+- **Gloopie Tentacle** — type: Food | rarity: Uncommon | price: 200 | stats: restoreSatiety 40 | dropped by: Gloopie, Gloopie Primo
+- **Lamball Mutton** — type: Food | rarity: Common | price: 120 | stats: restoreSatiety 37 | dropped by: Lamball
+- **Jellroy Bell Flesh** — type: Food | rarity: Uncommon | price: 250 | stats: restoreSatiety 37 | dropped by: Jellroy
+- **Chikipi Poultry** — type: Food | rarity: Common | price: 100 | stats: restoreSatiety 36 | dropped by: Chikipi
+- **Raw Kelpsea** — type: Food | rarity: Common | price: 140 | stats: restoreSatiety 36 | dropped by: Kelpsea, Kelpsea Ignis
+- **Galeclaw Poultry** — type: Food | rarity: Common | price: 200 | stats: restoreSatiety 36 | dropped by: Galeclaw
+- **French Fries** — type: Food | rarity: Uncommon | price: 600 | stats: restoreSanity 10, restoreSatiety 35 | recipe: 2 Potato, 1 High Quality Pal Oil
+- **Jelliette Bell Flesh** — type: Food | rarity: Uncommon | price: 250 | stats: restoreSatiety 35 | dropped by: Jelliette
+- **Bread** — type: Food | rarity: Common | price: 300 | stats: restoreSanity 4, restoreSatiety 27 | recipe: 1 Flour
+- **Fried Egg** — type: Food | rarity: Common | price: 240 | stats: restoreSanity 1, restoreSatiety 23 | recipe: 1 Egg
+- **Baked Berries** — type: Food | rarity: Common | price: 60 | stats: restoreSanity 1, restoreSatiety 21 | recipe: 1 Red Berries
+- **Baked Mushroom** — type: Food | rarity: Common | price: 360 | stats: restoreSanity 1, restoreSatiety 18 | recipe: 1 Mushroom
+- **Egg** — type: Food | rarity: Common | price: 200 | stats: restoreSatiety 16 | dropped by: Chikipi
+- **Hot Milk** — type: Food | rarity: Common | price: 240 | stats: restoreSanity 1, restoreSatiety 16
+- **Red Berries** — type: Food | rarity: Common | price: 50 | stats: restoreSatiety 15 | dropped by: Cattiva, Caprity, Quivern Botan, Lullu, Shroomer, Caprity Noct, Braloha
+- **Tomato** — type: Food | rarity: Common | price: 80 | stats: restoreSatiety 15
+- **Lettuce** — type: Food | rarity: Common | price: 80 | stats: restoreSatiety 15
+- **Cavern Mushroom** — type: Food | rarity: Common | price: 500 | stats: restoreSatiety 15
+- **Mushroom** — type: Food | rarity: Common | price: 300 | stats: restoreSatiety 13 | dropped by: Lovander, Tanzee, Tanzee Ignis, Shroomer, Mycora
+- **Milk** — type: Food | rarity: Common | price: 200 | stats: restoreSatiety 12 | dropped by: Mozzarina
+- **Potato** — type: Food | rarity: Common | price: 100 | stats: restoreSatiety 11
+- **Honey** — type: Food | rarity: Common | price: 300 | stats: restoreSanity 3, restoreSatiety 10 | dropped by: Elizabee, Beegarde, Warsect, Warsect Terra, Cinnamoth
+- **Carrot** — type: Food | rarity: Common | price: 100 | stats: restoreSatiety 10 | dropped by: Ribbuny Botan
+- **Onion** — type: Food | rarity: Common | price: 100 | stats: restoreSatiety 9
+- **Wheat** — type: Food | rarity: Common | price: 70 | stats: restoreSatiety 6
+- **Cotton Candy** — type: Food | rarity: Common | price: 300 | stats: restoreSanity 5, restoreSatiety 5 | dropped by: Woolipop
+- **Caramel Cotton Candy** — type: Food | rarity: Uncommon | price: 500 | stats: restoreSanity 5, restoreSatiety 5 | dropped by: Woolipop Terra
+- **Flour** — type: Food | rarity: Common | price: 250 | stats: restoreSatiety 3 | recipe: 3 Wheat
+- **Mysterious Mushroom** — type: Food | rarity: Common | price: 800 | stats: restoreSanity 3, restoreSatiety 1 | dropped by: Shroomer Noct, Mycora, Dualith Noct
+- **Low Grade Medical Supplies** — type: Consume | rarity: Common | price: 780 | stats: restoreSatiety 1 | recipe: 5 Red Berries, 2 Horn | dropped by: Prunelia, Lifmunk, Vaelet, Flopie
+- **Medical Supplies** — type: Consume | rarity: Uncommon | price: 1820 | stats: restoreSatiety 1 | recipe: 3 Ingot, 3 Horn, 1 Bone
+- **High Grade Medical Supplies** — type: Consume | rarity: Rare | price: 3120 | stats: restoreSatiety 1 | recipe: 5 Ingot, 5 Horn, 2 Bone
+- **Low Quality Recovery Meds** — type: Consume | rarity: Common | price: 2820 | stats: restoreSatiety 1 | recipe: 3 Cavern Mushroom, 5 Red Berries, 2 Aquatic Pal Fluids
+- **Recovery Meds** — type: Consume | rarity: Uncommon | price: 6180 | stats: restoreSatiety 1 | recipe: 5 Cavern Mushroom, 5 Red Berries, 5 Aquatic Pal Fluids, 3 Cotton Candy
+- **High Quality Recovery Meds** — type: Consume | rarity: Rare | price: 12600 | stats: restoreSatiety 1 | recipe: 10 Cavern Mushroom, 20 Red Berries, 5 High Quality Pal Oil, 5 Cotton Candy, 5 Sulfur | dropped by: Lyleen, Lyleen Noct, Bellanoir Libero, Solenne
+- **Advanced Recovery Meds** — type: Consume | rarity: Epic | price: 20520 | tech level: 61 | stats: restoreSatiety 1 | recipe: 15 Cavern Mushroom, 30 Red Berries, 10 High Quality Pal Oil, 7 Cotton Candy, 10 Sulfur
+- **Beautiful Flower** — type: Material | rarity: Common | price: 500 | stats: restoreSanity 5, restoreSatiety 1 | dropped by: Prunelia, Bristla, Wumpo, Wumpo Botan, Lyleen, Lyleen Noct, Ribbuny, Quivern Botan, Petallia, Petallia Ignis, Lullu, Dualith, Tropicaw
+- **Suspicious Juice** — type: Consume | rarity: Common | price: 3120 | stats: restoreSanity 30, restoreSatiety 1 | recipe: 3 Beautiful Flower, 3 Horn, 1 Bone, 1 Aquatic Pal Fluids | dropped by: Lovander
+- **Strange Juice** — type: Consume | rarity: Common | price: 5400 | stats: restoreSanity 60, restoreSatiety 1 | recipe: 5 Beautiful Flower, 5 Horn, 2 Bone, 2 Aquatic Pal Fluids | dropped by: Lovander
+- **Mysterious Mushroom Juice** — type: Consume | rarity: Common | price: 30600 | stats: restoreSanity 80, restoreSatiety 1 | recipe: 20 Mysterious Mushroom, 10 Beautiful Flower, 10 Horn, 5 Bone, 5 Aquatic Pal Fluids
+- **Memory Wiping Medicine** — type: Consume | rarity: Rare | price: 101400 | stats: restoreSanity 1, restoreSatiety 1 | recipe: 99 Beautiful Flower, 50 Horn, 50 Bone, 50 Aquatic Pal Fluids | dropped by: Lovander
+- **Nutrient Tonic** — type: Consume | rarity: Uncommon | price: 169200 | tech level: 79 | stats: restoreSanity 1, restoreSatiety 360 | recipe: 25 World Tree Holy Water, 18 Caramel Cotton Candy, 20 Onion, 10 Cavern Mushroom
+- **Water Radiant Gem** — type: Material | rarity: Rare | price: 1000
+- **Electric Radiant Gem** — type: Material | rarity: Rare | price: 1000
+- **Ground Radiant Gem** — type: Material | rarity: Rare | price: 1000
+- **Grass Radiant Gem** — type: Material | rarity: Rare | price: 1000
+- **Fire Radiant Gem** — type: Material | rarity: Rare | price: 1000
+- **Ice Radiant Gem** — type: Material | rarity: Rare | price: 1000
+- **Dragon Radiant Gem** — type: Material | rarity: Rare | price: 1000
+- **Dark Radiant Gem** — type: Material | rarity: Rare | price: 1000
+- **Neutral Radiant Gem** — type: Material | rarity: Rare | price: 1000
+- **Revival Potion** — type: Consume | rarity: Epic | price: 39000 | tech level: 61 | recipe: 30 Cavern Mushroom, 50 Red Berries, 20 High Quality Pal Oil, 10 Cotton Candy, 20 Sulfur
+- **Water Awakening Crystal** — type: Consume | rarity: Epic | price: 120000 | recipe: 50 Water Radiant Gem, 10 World Tree Holy Water
+- **Electric Awakening Crystal** — type: Consume | rarity: Epic | price: 120000 | recipe: 50 Electric Radiant Gem, 10 World Tree Holy Water
+- **Ground Awakening Crystal** — type: Consume | rarity: Epic | price: 120000 | recipe: 50 Ground Radiant Gem, 10 World Tree Holy Water
+- **Grass Awakening Crystal** — type: Consume | rarity: Epic | price: 120000 | recipe: 50 Grass Radiant Gem, 10 World Tree Holy Water
+- **Fire Awakening Crystal** — type: Consume | rarity: Epic | price: 120000 | recipe: 50 Fire Radiant Gem, 10 World Tree Holy Water
+- **Ice Awakening Crystal** — type: Consume | rarity: Epic | price: 120000 | recipe: 50 Ice Radiant Gem, 10 World Tree Holy Water
+- **Dragon Awakening Crystal** — type: Consume | rarity: Epic | price: 120000 | recipe: 50 Dragon Radiant Gem, 10 World Tree Holy Water
+- **Dark Awakening Crystal** — type: Consume | rarity: Epic | price: 120000 | recipe: 50 Dark Radiant Gem, 10 World Tree Holy Water
+- **Neutral Awakening Crystal** — type: Consume | rarity: Epic | price: 120000 | recipe: 50 Neutral Radiant Gem, 10 World Tree Holy Water
+- **Vital Remedy** — type: Consume | rarity: Epic | price: 120000 | stats: restoreSatiety 1 | recipe: 4 Life Lotus (S), 1 Predator Core
+- **Stamina Remedy** — type: Consume | rarity: Epic | price: 120000 | stats: restoreSatiety 1 | recipe: 4 Stamina Lotus (S), 1 Predator Core
+- **Might Remedy** — type: Consume | rarity: Epic | price: 120000 | stats: restoreSatiety 1 | recipe: 4 Power Lotus (S), 1 Predator Core
+- **Speed Remedy** — type: Consume | rarity: Epic | price: 120000 | stats: restoreSatiety 1 | recipe: 4 Speed Lotus (S), 1 Predator Core
+- **Burden Remedy** — type: Consume | rarity: Epic | price: 120000 | stats: restoreSatiety 1 | recipe: 4 Carrying Lotus (S), 1 Predator Core
+- **Vital Elixir** — type: Consume | rarity: Legendary | price: 264000 | stats: restoreSatiety 1 | recipe: 6 Life Lotus (L), 2 Predator Core
+- **Stamina Elixir** — type: Consume | rarity: Legendary | price: 264000 | stats: restoreSatiety 1 | recipe: 6 Stamina Lotus (L), 2 Predator Core
+- **Might Elixir** — type: Consume | rarity: Legendary | price: 264000 | stats: restoreSatiety 1 | recipe: 6 Power Lotus (L), 2 Predator Core
+- **Speed Elixir** — type: Consume | rarity: Legendary | price: 264000 | stats: restoreSatiety 1 | recipe: 6 Speed Lotus (L), 2 Predator Core
+- **Burden Elixir** — type: Consume | rarity: Legendary | price: 264000 | stats: restoreSatiety 1 | recipe: 6 Carrying Lotus (L), 2 Predator Core
+- **Little Kinship Peach** — type: Consume | rarity: Uncommon | price: 20000 | stats: restoreSanity 10, restoreSatiety 1
+- **Kinship Peach** — type: Consume | rarity: Epic | price: 30000 | stats: restoreSanity 100, restoreSatiety 10
+- **Scrapped Tissue Sample** — type: Material | rarity: Common | price: 10
+- **Life Lotus (S)** — type: Material | rarity: Rare | price: 20000
+- **Stamina Lotus (S)** — type: Material | rarity: Rare | price: 20000
+- **Power Lotus (S)** — type: Material | rarity: Rare | price: 20000
+- **Speed Lotus (S)** — type: Material | rarity: Rare | price: 20000
+- **Carrying Lotus (S)** — type: Material | rarity: Rare | price: 20000
+- **Life Lotus (L)** — type: Material | rarity: Epic | price: 30000
+- **Stamina Lotus (L)** — type: Material | rarity: Epic | price: 30000
+- **Power Lotus (L)** — type: Material | rarity: Epic | price: 30000
+- **Speed Lotus (L)** — type: Material | rarity: Epic | price: 30000
+- **Carrying Lotus (L)** — type: Material | rarity: Epic | price: 30000
+- **Life Fruit** — type: Consume | rarity: Legendary | price: 10 | stats: restoreSatiety 1 | recipe: 3 Life Lotus (S), 3 Life Lotus (L), 3 Speed Lotus (S), 3 Carrying Lotus (S)
+- **Power Fruit** — type: Consume | rarity: Legendary | price: 10 | stats: restoreSatiety 1 | recipe: 3 Power Lotus (S), 3 Power Lotus (L), 3 Speed Lotus (L)
+- **Stout Fruit** — type: Consume | rarity: Legendary | price: 10 | stats: restoreSatiety 1 | recipe: 3 Stamina Lotus (S), 3 Stamina Lotus (L), 3 Carrying Lotus (L)
+- **Homeward Thundercloud** — type: Consume | rarity: Uncommon | price: 2400 | tech level: 22 | recipe: 1 Dazzi Cloud, 5 Electric Organ
+- **Starfruit ☆1** — type: Consume | rarity: Epic | price: 10
+- **Starfruit ☆2** — type: Consume | rarity: Epic | price: 10
+- **Starfruit ☆3** — type: Consume | rarity: Epic | price: 10
+- **Starfruit ☆4** — type: Consume | rarity: Epic | price: 10
+- **Ripe Starfruit** — type: Consume | rarity: Legendary | price: 10
+- **Applied Kindling Handbook I** — type: Consume | rarity: Legendary | price: 10
+- **Applied Watering Handbook I** — type: Consume | rarity: Legendary | price: 10
+- **Applied Planting Handbook I** — type: Consume | rarity: Legendary | price: 10
+- **Applied Generating Electricity Handbook I** — type: Consume | rarity: Legendary | price: 10
+- **Applied Handiwork Handbook I** — type: Consume | rarity: Legendary | price: 10
+- **Applied Gathering Handbook I** — type: Consume | rarity: Legendary | price: 10
+- **Applied Lumbering Handbook I** — type: Consume | rarity: Legendary | price: 10
+- **Applied Mining Handbook I** — type: Consume | rarity: Legendary | price: 10
+- **Applied Medicine Production Handbook I** — type: Consume | rarity: Legendary | price: 10
+- **Applied Cooling Handbook I** — type: Consume | rarity: Legendary | price: 10
+- **Applied Transporting Handbook I** — type: Consume | rarity: Legendary | price: 10
+- **Applied Ranching Handbook I** — type: Consume | rarity: Legendary | price: 10
+- **Training Manual (S)** — type: Consume | rarity: Common | price: 100
+- **Training Manual (M)** — type: Consume | rarity: Uncommon | price: 1000
+- **Training Manual (L)** — type: Consume | rarity: Rare | price: 2000 | recipe: 100 Ancient Pal Manuscript, 10 Fiber
+- **Training Manual (XL)** — type: Consume | rarity: Epic | price: 3000 | recipe: 500 Ancient Pal Manuscript, 4 High Quality Cloth, 5 Leather | dropped by: Mimog
+- **Training Crystal** — type: Consume | rarity: Legendary | price: 10
+- **Wood** — type: Material | rarity: Common | price: 12
+- **Hardwood** — type: Material | rarity: Uncommon | price: 100 | dropped by: Wumpo Botan, Mossanda, Mossanda Lux, Palumba
+- **Mythical Wood** — type: Material | rarity: Rare | price: 1000
+- **Fiber** — type: Material | rarity: Common | price: 8 | output: 2 | recipe: 1 Wood | dropped by: Hangyu, Hangyu Cryst, Hoocrates, Tarantriss, Needoll, Needoll Noct, Bulldosu, Carnibora, Tropicaw
+- **Stone** — type: Material | rarity: Common | price: 12
+- **Paldium Fragment** — type: Material | rarity: Common | price: 70 | recipe: 5 Stone | dropped by: Lunaris
+- **Ore** — type: Material | rarity: Common | price: 100 | dropped by: Digtoise, Gorirat Terra, Surfent Terra, Knocklem, Knocklem Ignis, Pierdon, Cryolinx Terra
+- **Coal** — type: Material | rarity: Common | price: 200 | dropped by: Blazamut, Blazamut Ryu, Pierdon
+- **Sulfur** — type: Material | rarity: Common | price: 300 | dropped by: Pierdon
+- **Pure Quartz** — type: Material | rarity: Common | price: 500 | dropped by: Pierdon Cryst
+- **Crude Oil** — type: Material | rarity: Common | price: 800 | dropped by: Maraith, Kikit, Sootseer
+- **Chromite** — type: Material | rarity: Common | price: 1500 | dropped by: Silvegis, Smokie
+- **Nightstar Sand** — type: Material | rarity: Common | price: 1000 | dropped by: Starryon Primo, Wistella
+- **Hexolite Quartz** — type: Material | rarity: Common | price: 1000 | dropped by: Celesdir
+- **Coralum Ore** — type: Material | rarity: Common | price: 2000 | dropped by: Whalaska, Whalaska Ignis, Neptilius
+- **Meteorite Fragment** — type: Material | rarity: Common | price: 1000 | dropped by: Xenovader, Xenogard, Xenolord
+- **Soralite** — type: Material | rarity: Common | price: 2500 | dropped by: Jetragon, Pierdon Cryst
+- **Paloxite** — type: Material | rarity: Common | price: 3000
+- **Wool** — type: Material | rarity: Common | price: 200 | dropped by: Lamball, Woolipop Terra, Melpaca, Kingpaca, Kingpaca Cryst, Swee, Sweepa, Cremis, Snugloo
+- **Leather** — type: Material | rarity: Common | price: 200 | dropped by: Nyafia, Lapiron, Gildane, Incineram, Incineram Noct, Mau, Rushoar, Eikthyrdeer, Eikthyrdeer Terra, Galeclaw, Grizzbolt, Direhowl, Gorirat, Univolt, Univolt Cryst
+- **Bone** — type: Material | rarity: Common | price: 200 | dropped by: Turtacle, Turtacle Terra, Anubis, Rushoar, Gorirat, Gorirat Terra, Loupmoon, Cawgnito, Maraith, Vanwyrm, Vanwyrm Cryst, Vixy, Verdash, Bushi, Kikit
+- **Horn** — type: Material | rarity: Common | price: 200 | dropped by: Incineram, Incineram Noct, Eikthyrdeer, Eikthyrdeer Terra, Univolt, Univolt Cryst, Fenglope, Caprity, Reindrix, Arsox, Celesdir, Celesdir Noct, Hoodle, Caprity Noct, Fenglope Lux
+- **Electric Organ** — type: Material | rarity: Common | price: 300 | dropped by: Grizzbolt, Jolthog, Univolt, Pengullet Lux, Dazzi, Relaxaurus Lux, Sparkit, Mossanda Lux, Rayhound, Beakon, Penking Lux, Helzephyr Lux, Orserk, Prixter Lux, Slowatt
+- **Venom Gland** — type: Material | rarity: Common | price: 300 | dropped by: Cawgnito, Depresso, Killamari, Daedream, Helzephyr, Menasting, Croajiro Noct, Shroomer Noct, Prixter, Tarantriss, Caprity Noct, Venusa, Ghangler, Needoll Noct, Loomen
+- **Flame Organ** — type: Material | rarity: Common | price: 300 | dropped by: Foxparks, Gobfin Ignis, Jormuntide Ignis, Suzaku, Pyrin, Pyrin Noct, Reptyro, Kitsun, Leezpunk Ignis, Fuack Ignis, Faleris, Blazamut, Wixen, Kelpsea Ignis, Arsox
+- **Ice Organ** — type: Material | rarity: Common | price: 300 | dropped by: Mau Cryst, Jolthog Cryst, Univolt Cryst, Pengullet, Hangyu Cryst, Cryolinx, Azurobe Cryst, Reptyro Cryst, Vanwyrm Cryst, Frostallion, Reindrix, Sibelyx, Wumpo, Rayhound Cryst, Foxcicle
+- **Aquatic Pal Fluids** — type: Material | rarity: Common | price: 300 | dropped by: Turtacle, Turtacle Terra, Teafant, Pengullet, Pengullet Lux, Gobfin, Jormuntide, Suzaku Aqua, Surfent, Surfent Terra, Azurobe, Azurobe Cryst, Fuack, Fuack Ignis, Kelpsea
+- **High Quality Pal Oil** — type: Material | rarity: Common | price: 300 | dropped by: Digtoise, Jormuntide Ignis, Elphidran, Elphidran Aqua, Woolipop, Relaxaurus, Relaxaurus Lux, Mammorest, Mammorest Cryst, Sibelyx Primo, Quivern, Quivern Botan, Grintale, Dumud, Dumud Gild
+- **Dark Fragment** — type: Material | rarity: Common | price: 500 | dropped by: Bellanoir, Bellanoir Libero, Starryon, Celesdir Noct, Omascul, Splatterina, Kitsun Noct, Dazzi Noct, Solenne
+- **Ancient Bark** — type: Material | rarity: Uncommon | price: 800
+- **Ancient Lava** — type: Material | rarity: Uncommon | price: 1000
+- **Ancient Bone** — type: Material | rarity: Uncommon | price: 1200
+- **Decayed Ancient Relic** — type: Material | rarity: Common | price: 10
+- **Dormant Ancient Relic** — type: Material | rarity: Uncommon | price: 10
+- **Gorgeous Ancient Relic** — type: Material | rarity: Rare | price: 10
+- **Glowing Ancient Relic** — type: Material | rarity: Epic | price: 10
+- **Glistening Ancient Relic** — type: Material | rarity: Legendary | price: 10
+- **World Tree Holy Water** — type: Consume | rarity: Rare | price: 5000
+- **Tocotoco Feather** — type: Material | rarity: Common | price: 500 | dropped by: Tocotoco
+- **Gumoss Leaf** — type: Material | rarity: Common | price: 500 | dropped by: Gumoss
+- **Penking Plume** — type: Material | rarity: Common | price: 500 | dropped by: Penking, Penking Lux
+- **Katress Hair** — type: Material | rarity: Common | price: 500 | dropped by: Katress, Katress Ignis
+- **Ribbuny Ribbon** — type: Material | rarity: Common | price: 500 | dropped by: Ribbuny, Ribbuny Botan
+- **Swee Hair** — type: Material | rarity: Common | price: 500 | dropped by: Swee
+- **Killamari Tentacle** — type: Material | rarity: Common | price: 500 | dropped by: Killamari, Killamari Primo
+- **Dazzi Cloud** — type: Material | rarity: Common | price: 500 | dropped by: Dazzi, Dazzi Noct
+- **Leezpunk Crest** — type: Material | rarity: Common | price: 500 | dropped by: Leezpunk, Leezpunk Ignis
+- **Toxin Filtering Membrane** — type: Material | rarity: Special | price: 5000
+- **Explosion-Resistant Fiber** — type: Material | rarity: Special | price: 5000
+- **Ancient Pal Manuscript** — type: Material | rarity: Rare | price: 1000
+- **Dog Coin** — type: Material | rarity: Epic | price: 10 | dropped by: Mimog
+- **Ancient Civilization Parts** — type: Material | rarity: Rare | price: 1000
+- **Ancient Civilization Core** — type: Material | rarity: Legendary | price: 2000 | dropped by: Silvance, Dandilord
+- **Predator Core** — type: Material | rarity: Epic | price: 20000
+- **Successful Bounty Token** — type: Material | rarity: Epic | price: 10
+- **Battle Ticket** — type: Material | rarity: Epic | price: 10
+- **Berry Seeds** — type: Material | rarity: Common | price: 10 | dropped by: Gumoss, Ribbuny, Clovee
+- **Wheat Seeds** — type: Material | rarity: Common | price: 20 | dropped by: Lifmunk, Hangyu, Herbil, Souffline
+- **Tomato Seeds** — type: Material | rarity: Common | price: 30 | dropped by: Bristla, Dinossom, Dinossom Lux, Vaelet, Cinnamoth, Braloha
+- **Lettuce Seeds** — type: Material | rarity: Common | price: 40 | dropped by: Dinossom, Flopie, Cinnamoth, Braloha
+- **Potato Seeds** — type: Material | rarity: Common | price: 50 | dropped by: Robinquill, Robinquill Terra, Petallia
+- **Carrot Seeds** — type: Material | rarity: Common | price: 60 | dropped by: Prunelia, Dinossom Lux, Wumpo Botan, Mossanda, Ribbuny Botan, Palumba
+- **Onion Seeds** — type: Material | rarity: Common | price: 70 | dropped by: Broncherry, Broncherry Aqua, Vaelet, Palumba
+- **Cloth** — type: Material | rarity: Common | price: 480 | tech level: 4 | recipe: 2 Wool | dropped by: Azurobe, Azurobe Cryst, Felbat, Croajiro, Croajiro Noct, Bakemi, Gildra
+- **High Quality Cloth** — type: Material | rarity: Uncommon | price: 2640 | tech level: 36 | recipe: 10 Wool, 1 Leather | dropped by: Sibelyx, Sibelyx Primo, Selyne
+- **Wooden Board** — type: Material | rarity: Common | price: 260 | tech level: 15 | recipe: 10 Wood, 5 Fiber, 1 Nail
+- **High Quality Wooden Board** — type: Material | rarity: Rare | price: 7680 | tech level: 43 | recipe: 10 Hardwood, 10 Wood, 2 High Quality Cloth
+- **Nail** — type: Material | rarity: Common | price: 60 | tech level: 10 | output: 5 | recipe: 1 Ingot
+- **Gunpowder** — type: Material | rarity: Common | price: 430 | tech level: 21 | recipe: 2 Charcoal, 1 Sulfur | dropped by: Tocotoco
+- **Circuit Board** — type: Material | rarity: Uncommon | price: 2500 | tech level: 35 | recipe: 2 Pure Quartz, 1 Polymer
+- **Polymer** — type: Material | rarity: Common | price: 1080 | tech level: 33 | recipe: 2 High Quality Pal Oil, 1 Sulfur
+- **Cement** — type: Material | rarity: Common | price: 90 | tech level: 19 | output: 10 | recipe: 20 Stone, 1 Bone, 1 Aquatic Pal Fluids
+- **Carbon Fiber** — type: Material | rarity: Common | price: 840 | tech level: 35 | recipe: 2 Coal, 1 Flame Organ | dropped by: Shadowbeak
+- **Cryogenic Coolant** — type: Material | rarity: Common | price: 720 | tech level: 31 | recipe: 1 Aquatic Pal Fluids, 1 Ice Organ
+- **Corrosive Solvent** — type: Material | rarity: Common | price: 720 | tech level: 37 | recipe: 1 Venom Gland, 1 Sulfur
+- **Bio Battery** — type: Material | rarity: Common | price: 2230 | tech level: 44 | recipe: 1 Electric Organ, 1 Refined Ingot, 1 Carbon Fiber
+- **Thermal Core** — type: Material | rarity: Common | price: 12290 | tech level: 59 | recipe: 4 Flame Organ, 8 Coal, 2 Corrosive Solvent, 2 Hexolite | dropped by: Jetragon, Aegidron
+- **Computer** — type: Material | rarity: Common | price: 22440 | tech level: 50 | recipe: 2 Circuit Board, 3 Plasteel, 2 Bio Battery, 2 Carbon Fiber
+- **AI Core** — type: Material | rarity: Common | price: 252940 | tech level: 67 | recipe: 5 Computer, 10 Soralite Ingot, 2 Thermal Core, 1 Ancient Civilization Core
+- **Charcoal** — type: Material | rarity: Common | price: 30 | recipe: 2 Wood
+- **Ingot** — type: Material | rarity: Common | price: 240 | recipe: 2 Ore | dropped by: Bushi, Bushi Noct
+- **Refined Ingot** — type: Material | rarity: Common | price: 720 | recipe: 2 Ore, 2 Coal
+- **Pal Metal Ingot** — type: Material | rarity: Common | price: 1250 | recipe: 4 Ore, 1 Pure Quartz, 2 Paldium Fragment
+- **Plasteel** — type: Material | rarity: Common | price: 2520 | tech level: 50 | recipe: 2 Crude Oil, 5 Ore | dropped by: Shadowbeak, Astegon
+- **Hexolite** — type: Material | rarity: Common | price: 3000 | tech level: 58 | recipe: 1 Chromite, 1 Hexolite Quartz | dropped by: Paladius, Necromus, Neptilius
+- **Coralum Ingot** — type: Material | rarity: Common | price: 6000 | tech level: 62 | recipe: 2 Coralum Ore, 5 Coal
+- **Soralite Ingot** — type: Material | rarity: Common | price: 7200 | tech level: 66 | recipe: 2 Soralite, 2 Pure Quartz
+- **Paloxite Ingot** — type: Material | rarity: Common | price: 16200 | tech level: 74 | recipe: 1 Soralite, 2 Paloxite, 1 World Tree Holy Water
+- **Hallowed Bar** — type: Material | rarity: Common | price: 300 | dropped by: Green Slime, Blue Slime, Red Slime, Purple Slime, Illuminant Slime, Rainbow Slime, Enchanted Sword, Cave Bat, Illuminant Bat, Eye of Cthulhu, Demon Eye
+- **Common Egg** — type: Material | rarity: Common | price: 10
+- **Common Egg** — type: Material | rarity: Uncommon | price: 10
+- **Large Common Egg** — type: Material | rarity: Rare | price: 10
+- **Large Common Egg** — type: Material | rarity: Epic | price: 10
+- **Huge Common Egg** — type: Material | rarity: Legendary | price: 10
+- **Scorching Egg** — type: Material | rarity: Common | price: 10
+- **Scorching Egg** — type: Material | rarity: Uncommon | price: 10
+- **Large Scorching Egg** — type: Material | rarity: Rare | price: 10
+- **Large Scorching Egg** — type: Material | rarity: Epic | price: 10
+- **Huge Scorching Egg** — type: Material | rarity: Legendary | price: 10
+- **Damp Egg** — type: Material | rarity: Common | price: 10
+- **Damp Egg** — type: Material | rarity: Uncommon | price: 10
+- **Large Damp Egg** — type: Material | rarity: Rare | price: 10
+- **Large Damp Egg** — type: Material | rarity: Epic | price: 10
+- **Huge Damp Egg** — type: Material | rarity: Legendary | price: 10
+- **Verdant Egg** — type: Material | rarity: Common | price: 10
+- **Verdant Egg** — type: Material | rarity: Uncommon | price: 10
+- **Large Verdant Egg** — type: Material | rarity: Rare | price: 10
+- **Large Verdant Egg** — type: Material | rarity: Epic | price: 10
+- **Huge Verdant Egg** — type: Material | rarity: Legendary | price: 10
+- **Electric Egg** — type: Material | rarity: Common | price: 10
+- **Electric Egg** — type: Material | rarity: Uncommon | price: 10
+- **Large Electric Egg** — type: Material | rarity: Rare | price: 10
+- **Large Electric Egg** — type: Material | rarity: Epic | price: 10
+- **Huge Electric Egg** — type: Material | rarity: Legendary | price: 10
+- **Frozen Egg** — type: Material | rarity: Common | price: 10
+- **Frozen Egg** — type: Material | rarity: Uncommon | price: 10
+- **Large Frozen Egg** — type: Material | rarity: Rare | price: 10
+- **Large Frozen Egg** — type: Material | rarity: Epic | price: 10
+- **Huge Frozen Egg** — type: Material | rarity: Legendary | price: 10
+- **Rocky Egg** — type: Material | rarity: Common | price: 10
+- **Rocky Egg** — type: Material | rarity: Uncommon | price: 10
+- **Large Rocky Egg** — type: Material | rarity: Rare | price: 10
+- **Large Rocky Egg** — type: Material | rarity: Epic | price: 10
+- **Huge Rocky Egg** — type: Material | rarity: Legendary | price: 10
+- **Dark Egg** — type: Material | rarity: Common | price: 10
+- **Dark Egg** — type: Material | rarity: Uncommon | price: 10
+- **Large Dark Egg** — type: Material | rarity: Rare | price: 10
+- **Large Dark Egg** — type: Material | rarity: Epic | price: 10
+- **Huge Dark Egg** — type: Material | rarity: Legendary | price: 10
+- **Dragon Egg** — type: Material | rarity: Common | price: 10
+- **Dragon Egg** — type: Material | rarity: Uncommon | price: 10
+- **Large Dragon Egg** — type: Material | rarity: Rare | price: 10
+- **Large Dragon Egg** — type: Material | rarity: Epic | price: 10
+- **Huge Dragon Egg** — type: Material | rarity: Legendary | price: 10
+- **Large Mutated Egg** — type: Material | rarity: Rare | price: 10
+- **Large Mutated Egg** — type: Material | rarity: Epic | price: 10
+- **Huge Mutated Egg** — type: Material | rarity: Legendary | price: 10
+- **Ominous Egg** — type: Material | rarity: Common | price: 10
+- **Ominous Egg** — type: Material | rarity: Uncommon | price: 10
+- **Large Ominous Egg** — type: Material | rarity: Rare | price: 10
+- **Large Ominous Egg** — type: Material | rarity: Epic | price: 10
+- **Huge Ominous Egg** — type: Material | rarity: Legendary | price: 10
+- **Ruby** — type: Material | rarity: Common | price: 20000 | dropped by: Direhowl, Relaxaurus, Vanwyrm, Roujay, Tetroise 
+- **Sapphire** — type: Material | rarity: Uncommon | price: 30000 | dropped by: Mau Cryst, Relaxaurus Lux, Vanwyrm Cryst, Menasting Terra, Selyne
+- **Emerald** — type: Material | rarity: Rare | price: 40000 | dropped by: Tetroise Primo
+- **Diamond** — type: Material | rarity: Epic | price: 50000 | dropped by: Frostallion, Frostallion Noct, Jetragon, Paladius, Necromus, Panthalus, Neptilius
+- **Precious Dragon Stone** — type: Material | rarity: Rare | price: 15000
+- **Precious Plume** — type: Material | rarity: Uncommon | price: 10000
+- **Precious Entrails** — type: Material | rarity: Rare | price: 12500
+- **Precious Claw** — type: Material | rarity: Uncommon | price: 7500
+- **Precious Pelt** — type: Material | rarity: Uncommon | price: 5000
+- **Small Pal Soul** — type: Material | rarity: Uncommon | price: 10 | dropped by: Cawgnito, Maraith, Felbat, Tombat, Daedream, Nox, Nitemary, Hoodle, Finsider, Finsider Ignis, Wispaw, Bakemi, Wistella
+- **Medium Pal Soul** — type: Material | rarity: Rare | price: 10 | dropped by: Blazamut Ryu, Wixen Noct, Helzephyr, Helzephyr Lux, Bushi Noct, Menasting, Menasting Terra, Sootseer, Nitemary Botan, Smokie Cryst
+- **Large Pal Soul** — type: Material | rarity: Epic | price: 10 | dropped by: Anubis, Frostallion Noct, Shadowbeak, Astegon, Jetragon, Paladius, Necromus, Sekhmet, Whalaska, Whalaska Ignis, Hartalis, Dualith, Dualith Noct, Tetroise , Tetroise Primo
+- **Giant Pal Soul** — type: Material | rarity: Legendary | price: 10 | dropped by: Panthalus, Silvance, Dandilord, Aegidron
+- **Skill Fruit: Power Shot** — type: Consume | rarity: Uncommon | price: 1000
+- **Skill Fruit: Air Cannon** — type: Consume | rarity: Uncommon | price: 1000
+- **Skill Fruit: Air Blade** — type: Consume | rarity: Rare | price: 3000
+- **Skill Fruit: Power Bomb** — type: Consume | rarity: Rare | price: 3000
+- **Skill Fruit: Implode** — type: Consume | rarity: Rare | price: 3000
+- **Skill Fruit: Holy Burst** — type: Consume | rarity: Epic | price: 5000
+- **Skill Fruit: Pal Blast** — type: Consume | rarity: Epic | price: 5000
+- **Grass Skill Fruit: Wind Cutter** — type: Consume | rarity: Uncommon | price: 1000
+- **Grass Skill Fruit: Seed Machine Gun** — type: Consume | rarity: Uncommon | price: 1000
+- **Grass Skill Fruit: Seed Mine** — type: Consume | rarity: Rare | price: 3000
+- **Grass Skill Fruit: Grass Tornado** — type: Consume | rarity: Rare | price: 3000
+- **Grass Skill Fruit: Spine Vine** — type: Consume | rarity: Rare | price: 3000
+- **Grass Skill Fruit: Multicutter** — type: Consume | rarity: Rare | price: 3000
+- **Grass Skill Fruit: Circle Vine** — type: Consume | rarity: Epic | price: 5000
+- **Grass Skill Fruit: Solar Blast** — type: Consume | rarity: Epic | price: 5000
+- **Grass Skill Fruit: Reflect Leaf** — type: Consume | rarity: Epic | price: 5000
+- **Grass Skill Fruit: Crosswind** — type: Consume | rarity: Epic | price: 5000
+- **Grass Skill Fruit: Wind Blast** — type: Consume | rarity: Epic | price: 1500
+- **Water Skill Fruit: Aqua Gun** — type: Consume | rarity: Uncommon | price: 1000
+- **Water Skill Fruit: Hydro Jet** — type: Consume | rarity: Uncommon | price: 1000
+- **Water Skill Fruit: Acid Rain** — type: Consume | rarity: Rare | price: 3000
+- **Water Skill Fruit: Bubble Blast** — type: Consume | rarity: Rare | price: 3000
+- **Water Skill Fruit: Aqua Burst** — type: Consume | rarity: Rare | price: 3000
+- **Water Skill Fruit: Splash** — type: Consume | rarity: Rare | price: 3000
+- **Water Skill Fruit: Torrential Blast** — type: Consume | rarity: Rare | price: 3000
+- **Water Skill Fruit: Curtain Splash** — type: Consume | rarity: Epic | price: 5000
+- **Water Skill Fruit: Hydro Laser** — type: Consume | rarity: Epic | price: 5000
+- **Water Skill Fruit: Hydro Slicer** — type: Consume | rarity: Epic | price: 5000
+- **Water Skill Fruit: Aqua Surge** — type: Consume | rarity: Epic | price: 5000
+- **Water Skill Fruit: Geyser Gush** — type: Consume | rarity: Epic | price: 1500
+- **Fire Skill Fruit: Ignis Blast** — type: Consume | rarity: Uncommon | price: 1000
+- **Fire Skill Fruit: Flare Arrow** — type: Consume | rarity: Uncommon | price: 1000
+- **Fire Skill Fruit: Spirit Fire** — type: Consume | rarity: Uncommon | price: 1000
+- **Fire Skill Fruit: Ignis Breath** — type: Consume | rarity: Rare | price: 3000
+- **Fire Skill Fruit: Flare Storm** — type: Consume | rarity: Rare | price: 3000
+- **Fire Skill Fruit: Flame Wall** — type: Consume | rarity: Rare | price: 3000
+- **Fire Skill Fruit: Flame Funnel** — type: Consume | rarity: Epic | price: 5000
+- **Fire Skill Fruit: Fire Ball** — type: Consume | rarity: Epic | price: 5000
+- **Fire Skill Fruit: Ignis Rage** — type: Consume | rarity: Epic | price: 5000
+- **Fire Skill Fruit: Volcanic Rain** — type: Consume | rarity: Epic | price: 5000
+- **Electric Skill Fruit: Shockwave** — type: Consume | rarity: Uncommon | price: 1000
+- **Electric Skill Fruit: Plasma Funnel** — type: Consume | rarity: Uncommon | price: 1000
+- **Electric Skill Fruit: Spark Blast** — type: Consume | rarity: Uncommon | price: 1000
+- **Electric Skill Fruit: Electric Ball** — type: Consume | rarity: Uncommon | price: 1000
+- **Electric Skill Fruit: Thunder Spear** — type: Consume | rarity: Uncommon | price: 1000
+- **Electric Skill Fruit: Lightning Streak** — type: Consume | rarity: Rare | price: 3000
+- **Electric Skill Fruit: Lock-on Laser** — type: Consume | rarity: Rare | price: 3000
+- **Electric Skill Fruit: Tri-Lightning** — type: Consume | rarity: Rare | price: 3000
+- **Electric Skill Fruit: TriSpark** — type: Consume | rarity: Rare | price: 3000
+- **Electric Skill Fruit: Lightning Bolt** — type: Consume | rarity: Epic | price: 5000
+- **Electric Skill Fruit: Lightning Strike** — type: Consume | rarity: Epic | price: 5000
+- **Electric Skill Fruit: Thunder Rain** — type: Consume | rarity: Epic | price: 5000
+- **Electric Skill Fruit: Thunderstorm** — type: Consume | rarity: Epic | price: 5000
+- **Thunder Skill Fruit: All Range Thunder** — type: Consume | rarity: Epic | price: 5000
+- **Ground Skill Fruit: Stone Cannon** — type: Consume | rarity: Uncommon | price: 1000
+- **Ground Skill Fruit: Bog Blast** — type: Consume | rarity: Uncommon | price: 1000
+- **Ground Skill Fruit: Stone Blast** — type: Consume | rarity: Uncommon | price: 1000
+- **Ground Skill Fruit: Sand Tornado** — type: Consume | rarity: Rare | price: 3000
+- **Ground Skill Fruit: Sand Twister** — type: Consume | rarity: Epic | price: 5000
+- **Ground Skill Fruit: Rock Lance** — type: Consume | rarity: Epic | price: 5000
+- **Ground Skill Fruit: Rockburst** — type: Consume | rarity: Epic | price: 5000
+- **Ground Skill Fruit: Rocky Impact** — type: Consume | rarity: Epic | price: 5000
+- **Ice Skill Fruit: Ice Missile** — type: Consume | rarity: Uncommon | price: 1000
+- **Ice Skill Fruit: Icicle Cutter** — type: Consume | rarity: Uncommon | price: 1000 | stats: magazineSize 1
+- **Ice Skill Fruit: Iceberg** — type: Consume | rarity: Rare | price: 3000
+- **Ice Skill Fruit: Crystal Breath** — type: Consume | rarity: Rare | price: 3000 | stats: magazineSize 1
+- **Ice Skill Fruit: Freeze Wall** — type: Consume | rarity: Rare | price: 3000
+- **Ice Skill Fruit: Icicle Bullet** — type: Consume | rarity: Rare | price: 3000
+- **Ice Skill Fruit: Icicle Line** — type: Consume | rarity: Epic | price: 5000
+- **Ice Skill Fruit: Blizzard Spike** — type: Consume | rarity: Epic | price: 5000
+- **Ice Skill Fruit: Diamond Rain** — type: Consume | rarity: Epic | price: 5000
+- **Ice Skill Fruit: Absolute Frost** — type: Consume | rarity: Epic | price: 5000
+- **Dark Skill Fruit: Shadow Burst** — type: Consume | rarity: Uncommon | price: 1000
+- **Dark Skill Fruit: Poison Blast** — type: Consume | rarity: Uncommon | price: 1000
+- **Dark Skill Fruit: Spirit Flame** — type: Consume | rarity: Uncommon | price: 1000
+- **Dark Skill Fruit: Dark Cannon** — type: Consume | rarity: Uncommon | price: 1000
+- **Dark Skill Fruit: Umbral Surge** — type: Consume | rarity: Uncommon | price: 1000
+- **Dark Skill Fruit: Dark Shot** — type: Consume | rarity: Uncommon | price: 1000
+- **Dark Skill Fruit: Nightmare Ball** — type: Consume | rarity: Rare | price: 3000
+- **Dark Skill Fruit: Dark Arrow** — type: Consume | rarity: Rare | price: 3000
+- **Dark Skill Fruit: Dark Laser** — type: Consume | rarity: Epic | price: 5000
+- **Dark Skill Fruit: Apocalypse** — type: Consume | rarity: Epic | price: 5000
+- **Dark Skill Fruit: Dark Whisp** — type: Consume | rarity: Epic | price: 5000
+- **Dark Skill Fruit: Poison Shower** — type: Consume | rarity: Epic | price: 1500
+- **Dragon Skill Fruit: Dragon Cannon** — type: Consume | rarity: Uncommon | price: 1000
+- **Dragon Skill Fruit: Dragon Burst** — type: Consume | rarity: Uncommon | price: 1000
+- **Dragon Skill Fruit: Dragon Breath** — type: Consume | rarity: Rare | price: 3000
+- **Dragon Skill Fruit: Comet** — type: Consume | rarity: Rare | price: 3000
+- **Dragon Skill Fruit: Blast Cannon** — type: Consume | rarity: Rare | price: 3000
+- **Dragon Skill Fruit: Dragon Meteor** — type: Consume | rarity: Epic | price: 5000
+- **Dragon Skill Fruit: Beam Slicer** — type: Consume | rarity: Epic | price: 5000
+- **Dragon Skill Fruit: Charge Cannon** — type: Consume | rarity: Epic | price: 5000
+- **Pal Reverser** — type: Consume | rarity: Epic | price: 10
+- **Implant: Mercy Hit** — type: Essential | rarity: Uncommon | price: 1
+- **Implant: Insomnia** — type: Essential | rarity: Uncommon | price: 1
+- **Implant: Philanthropist** — type: Essential | rarity: Epic | price: 1
+- **Implant: Impatient** — type: Essential | rarity: Uncommon | price: 1
+- **Implant: Serenity** — type: Essential | rarity: Epic | price: 1
+- **Implant: Fit as a Fiddle** — type: Essential | rarity: Uncommon | price: 1
+- **Implant: Infinite Stamina** — type: Essential | rarity: Epic | price: 1
+- **Implant: Eternal Engine** — type: Essential | rarity: Legendary | price: 1
+- **Implant: Nimble** — type: Essential | rarity: Uncommon | price: 1
+- **Implant: Runner** — type: Essential | rarity: Epic | price: 1
+- **Implant: Swift** — type: Essential | rarity: Legendary | price: 1
+- **Implant: Dainty Eater** — type: Essential | rarity: Uncommon | price: 1
+- **Implant: Diet Lover** — type: Essential | rarity: Epic | price: 1
+- **Implant: Mastery of Fasting** — type: Essential | rarity: Legendary | price: 1
+- **Implant: Positive Thinker** — type: Essential | rarity: Uncommon | price: 1
+- **Implant: Workaholic** — type: Essential | rarity: Epic | price: 1
+- **Implant: Heart of the Immovable King** — type: Essential | rarity: Legendary | price: 1
+- **Implant: Brave** — type: Essential | rarity: Uncommon | price: 1
+- **Implant: Ferocious** — type: Essential | rarity: Epic | price: 1
+- **Implant: Demon God** — type: Essential | rarity: Legendary | price: 1
+- **Implant: Hard Skin** — type: Essential | rarity: Uncommon | price: 1
+- **Implant: Burly Body** — type: Essential | rarity: Epic | price: 1
+- **Implant: Diamond Body** — type: Essential | rarity: Legendary | price: 1
+- **Implant: Serious** — type: Essential | rarity: Uncommon | price: 1
+- **Implant: Artisan** — type: Essential | rarity: Epic | price: 1
+- **Implant: Remarkable Craftsmanship** — type: Essential | rarity: Legendary | price: 1
+- **Implant: Musclehead** — type: Essential | rarity: Epic | price: 1
+- **Implant: Vanguard** — type: Essential | rarity: Epic | price: 1
+- **Implant: Stronghold Strategist** — type: Essential | rarity: Epic | price: 1
+- **Implant: Motivational Leader** — type: Essential | rarity: Epic | price: 1
+- **Implant: Noble** — type: Essential | rarity: Epic | price: 1
+- **Implant: Ace Swimmer** — type: Essential | rarity: Epic | price: 1
+- **Implant: Mine Foreman** — type: Essential | rarity: Rare | price: 1
+- **Implant: Logging Foreman** — type: Essential | rarity: Rare | price: 1
+- **Implant: Fine Furs** — type: Essential | rarity: Uncommon | price: 1
+- **Implant: Sleek Stroke** — type: Essential | rarity: Uncommon | price: 1
+- **Implant: Work Slave** — type: Essential | rarity: Uncommon | price: 1
+- **Implant: Wellness Watcher** — type: Essential | rarity: Epic | price: 1
+- **Implant: Healing Coach** — type: Essential | rarity: Epic | price: 1
+- **Implant: Reload Master** — type: Essential | rarity: Epic | price: 1
+- **Disposable Implant: Double-Edged Holy Sword** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: Sacred Flesh** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: Demonic Grasp** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: World Tree's Bounty** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: Hermit** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: Dimensional Leap** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: God of Destruction** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: Remarkable Craftsmanship** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: Diamond Body** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: Demon God** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: Mastery of Fasting** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: Heart of the Immovable King** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: Swift** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: Eternal Engine** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: Vampiric** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: King of the Waves** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: Babysitter** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: Idiosyncratic** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: Immortality** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: Heavily Armored** — type: Consume | rarity: Legendary | price: 10
+- **Disposable Implant: Skymarcher** — type: Consume | rarity: Legendary | price: 10
+- **Advanced Technical Manual** — type: Consume | rarity: Uncommon | price: 10 | dropped by: Wixen, Wixen Noct, Hoocrates, Katress, Katress Ignis
+- **Innovative Technical Manual** — type: Consume | rarity: Rare | price: 10 | dropped by: Anubis, Shadowbeak, Lyleen, Lyleen Noct
+- **Futuristic Technical Manual** — type: Consume | rarity: Epic | price: 10
+- **Ancient Technical Manual** — type: Consume | rarity: Legendary | price: 10
+- **Copper Key** — type: Consume | rarity: Uncommon | price: 1 | dropped by: Leezpunk
+- **Silver Key** — type: Consume | rarity: Rare | price: 1 | dropped by: Leezpunk, Leezpunk Ignis
+- **Gold Key** — type: Consume | rarity: Epic | price: 10
+- **Building Repair Kit** — type: Consume | rarity: Common | price: 120
+- **Aquatic Construction Kit** — type: Essential | rarity: Epic | price: 200 | tech level: 66 | recipe: 200 Cement, 50 Coralum Ingot, 100 High Quality Wooden Board
+- **Metal Bat Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Metal Bat Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Metal Bat Schematic 1
+- **Metal Bat Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Metal Bat Schematic 2
+- **Metal Bat Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Metal Bat Schematic 3
+- **Lily's Spear Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000
+- **Enhanced Lily's Spear Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000
+- **Sword Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Sword Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Sword Schematic 1
+- **Sword Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Sword Schematic 2
+- **Sword Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Sword Schematic 3
+- **Katana Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Katana Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Katana Schematic 1
+- **Katana Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Katana Schematic 2
+- **Katana Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Katana Schematic 3
+- **Beam Sword Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Beam Sword Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Beam Sword Schematic 1
+- **Beam Sword Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Beam Sword Schematic 2
+- **Beam Sword Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Beam Sword Schematic 3
+- **Laser Sword Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Laser Sword Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Laser Sword Schematic 1
+- **Laser Sword Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Laser Sword Schematic 2
+- **Laser Sword Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Laser Sword Schematic 3
+- **Old Bow Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Old Bow Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Old Bow Schematic 1
+- **Old Bow Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Old Bow Schematic 2
+- **Old Bow Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Old Bow Schematic 3
+- **Crossbow Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Crossbow Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Crossbow Schematic 1
+- **Crossbow Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Crossbow Schematic 2
+- **Crossbow Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Crossbow Schematic 3
+- **Compound Bow Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Compound Bow Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Compound Bow Schematic 1
+- **Compound Bow Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Compound Bow Schematic 2
+- **Compound Bow Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Compound Bow Schematic 3
+- **Advanced Bow Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Advanced Bow Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Advanced Bow Schematic 1
+- **Advanced Bow Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Advanced Bow Schematic 2
+- **Advanced Bow Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Advanced Bow Schematic 3
+- **Mechanical Bow Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Mechanical Bow Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Mechanical Bow Schematic 1
+- **Mechanical Bow Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Mechanical Bow Schematic 2
+- **Mechanical Bow Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Mechanical Bow Schematic 3
+- **Makeshift Handgun Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Makeshift Handgun Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Makeshift Handgun Schematic 1
+- **Makeshift Handgun Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Makeshift Handgun Schematic 2
+- **Makeshift Handgun Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Makeshift Handgun Schematic 3
+- **Handgun Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Handgun Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Handgun Schematic 1
+- **Handgun Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Handgun Schematic 2
+- **Handgun Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Handgun Schematic 3
+- **Old Revolver Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Old Revolver Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Old Revolver Schematic 1
+- **Old Revolver Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Old Revolver Schematic 2
+- **Old Revolver Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Old Revolver Schematic 3
+- **Makeshift Shotgun Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Makeshift Shotgun Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Makeshift Shotgun Schematic 1
+- **Makeshift Shotgun Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Makeshift Shotgun Schematic 2
+- **Makeshift Shotgun Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Makeshift Shotgun Schematic 3
+- **Double-Barreled Shotgun Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Double-Barreled Shotgun Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Double-Barreled Shotgun Schematic 1
+- **Double-Barreled Shotgun Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Double-Barreled Shotgun Schematic 2
+- **Double-Barreled Shotgun Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Double-Barreled Shotgun Schematic 3
+- **Pump-Action Shotgun Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Pump-Action Shotgun Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Pump-Action Shotgun Schematic 1
+- **Pump-Action Shotgun Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Pump-Action Shotgun Schematic 2
+- **Pump-Action Shotgun Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Pump-Action Shotgun Schematic 3
+- **Semi-Auto Shotgun Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Semi-Auto Shotgun Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Semi-Auto Shotgun Schematic 1
+- **Semi-Auto Shotgun Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Semi-Auto Shotgun Schematic 2
+- **Semi-Auto Shotgun Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Semi-Auto Shotgun Schematic 3
+- **Energy Shotgun Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Energy Shotgun Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Energy Shotgun Schematic 1
+- **Energy Shotgun Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Energy Shotgun Schematic 2
+- **Energy Shotgun Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Energy Shotgun Schematic 3
+- **Prototype Shotgun Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Prototype Shotgun Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Prototype Shotgun Schematic 1
+- **Prototype Shotgun Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Prototype Shotgun Schematic 2
+- **Prototype Shotgun Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Prototype Shotgun Schematic 3
+- **Beam Scatter Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Beam Scatter Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Beam Scatter Schematic 1
+- **Beam Scatter Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Beam Scatter Schematic 2
+- **Beam Scatter Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Beam Scatter Schematic 3
+- **Musket Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Musket Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Musket Schematic 1
+- **Musket Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Musket Schematic 2
+- **Musket Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Musket Schematic 3
+- **Single-Shot Rifle Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Single-Shot Rifle Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Single-Shot Rifle Schematic 1
+- **Single-Shot Rifle Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Single-Shot Rifle Schematic 2
+- **Single-Shot Rifle Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Single-Shot Rifle Schematic 3
+- **Semi-Auto Rifle Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Semi-Auto Rifle Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Semi-Auto Rifle Schematic 1
+- **Semi-Auto Rifle Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Semi-Auto Rifle Schematic 2
+- **Semi-Auto Rifle Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Semi-Auto Rifle Schematic 3
+- **Makeshift Assault Rifle Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Makeshift Assault Rifle Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Makeshift Assault Rifle Schematic 1
+- **Makeshift Assault Rifle Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Makeshift Assault Rifle Schematic 2
+- **Makeshift Assault Rifle Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Makeshift Assault Rifle Schematic 3
+- **Assault Rifle Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Assault Rifle Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Assault Rifle Schematic 1
+- **Assault Rifle Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Assault Rifle Schematic 2
+- **Assault Rifle Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Assault Rifle Schematic 3
+- **Heavy Assault Rifle Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Heavy Assault Rifle Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Heavy Assault Rifle Schematic 1
+- **Heavy Assault Rifle Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Heavy Assault Rifle Schematic 2
+- **Heavy Assault Rifle Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Heavy Assault Rifle Schematic 3
+- **Plasma Rifle Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Plasma Rifle Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Plasma Rifle Schematic 1
+- **Plasma Rifle Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Plasma Rifle Schematic 2
+- **Plasma Rifle Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Plasma Rifle Schematic 3
+- **Makeshift SMG Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Makeshift SMG Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Makeshift SMG Schematic 1
+- **Makeshift SMG Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Makeshift SMG Schematic 2
+- **Makeshift SMG Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Makeshift SMG Schematic 3
+- **SMG Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **SMG Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 SMG Schematic 1
+- **SMG Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 SMG Schematic 2
+- **SMG Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 SMG Schematic 3
+- **Combat SMG Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Combat SMG Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Combat SMG Schematic 1
+- **Combat SMG Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Combat SMG Schematic 2
+- **Combat SMG Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Combat SMG Schematic 3
+- **Rocket Launcher Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Rocket Launcher Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Rocket Launcher Schematic 1
+- **Rocket Launcher Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Rocket Launcher Schematic 2
+- **Rocket Launcher Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Rocket Launcher Schematic 3
+- **Laser Rifle Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Laser Rifle Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Laser Rifle Schematic 1
+- **Laser Rifle Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Laser Rifle Schematic 2
+- **Laser Rifle Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Laser Rifle Schematic 3
+- **Charge Rifle Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Charge Rifle Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Charge Rifle Schematic 1
+- **Charge Rifle Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Charge Rifle Schematic 2
+- **Charge Rifle Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Charge Rifle Schematic 3
+- **Overheat Rifle Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Overheat Rifle Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Overheat Rifle Schematic 1
+- **Overheat Rifle Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Overheat Rifle Schematic 2
+- **Overheat Rifle Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Overheat Rifle Schematic 3
+- **Flamethrower Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Flamethrower Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Flamethrower Schematic 1
+- **Flamethrower Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Flamethrower Schematic 2
+- **Flamethrower Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Flamethrower Schematic 3
+- **Gatling Gun Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Gatling Gun Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Gatling Gun Schematic 1
+- **Gatling Gun Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Gatling Gun Schematic 2
+- **Gatling Gun Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Gatling Gun Schematic 3
+- **Laser Gatling Gun Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Laser Gatling Gun Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Laser Gatling Gun Schematic 1
+- **Laser Gatling Gun Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Laser Gatling Gun Schematic 2
+- **Laser Gatling Gun Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Laser Gatling Gun Schematic 3
+- **Grenade Launcher Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Grenade Launcher Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Grenade Launcher Schematic 1
+- **Grenade Launcher Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Grenade Launcher Schematic 2
+- **Grenade Launcher Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Grenade Launcher Schematic 3
+- **Tactical Grenade Launcher Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Tactical Grenade Launcher Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Tactical Grenade Launcher Schematic 1
+- **Tactical Grenade Launcher Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Tactical Grenade Launcher Schematic 2
+- **Tactical Grenade Launcher Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Tactical Grenade Launcher Schematic 3
+- **Guided Missile Launcher Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Guided Missile Launcher Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Guided Missile Launcher Schematic 1
+- **Guided Missile Launcher Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Guided Missile Launcher Schematic 2
+- **Guided Missile Launcher Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Guided Missile Launcher Schematic 3
+- **Multi Guided Missile Launcher Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Multi Guided Missile Launcher Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000 | recipe: 5 Multi Guided Missile Launcher Schematic
+- **Multi Guided Missile Launcher Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Multi Guided Missile Launcher Schematic 1
+- **Multi Guided Missile Launcher Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Multi Guided Missile Launcher Schematic 2
+- **Multi Guided Missile Launcher Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Multi Guided Missile Launcher Schematic 3
+- **Plasma Cannon Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Plasma Cannon Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Plasma Cannon Schematic 1
+- **Plasma Cannon Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Plasma Cannon Schematic 2
+- **Plasma Cannon Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Plasma Cannon Schematic 3
+- **Beam Launcher Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Beam Launcher Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Beam Launcher Schematic 1
+- **Beam Launcher Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Beam Launcher Schematic 2
+- **Beam Launcher Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Beam Launcher Schematic 3
+- **Drone Launcher Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Drone Launcher Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Drone Launcher Schematic 1
+- **Drone Launcher Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Drone Launcher Schematic 2
+- **Drone Launcher Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Drone Launcher Schematic 3
+- **Excalibur Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Excalibur Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000 | recipe: 5 Excalibur Schematic
+- **Excalibur Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Excalibur Schematic 1
+- **Excalibur Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Excalibur Schematic 2
+- **Excalibur Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Excalibur Schematic 3
+- **Terra Blade Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Terra Blade Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000 | recipe: 5 Terra Blade Schematic
+- **Terra Blade Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Terra Blade Schematic 1
+- **Terra Blade Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Terra Blade Schematic 2
+- **Terra Blade Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Terra Blade Schematic 3
+- **Vortex Beater Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Vortex Beater Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000 | recipe: 5 Vortex Beater Schematic
+- **Vortex Beater Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Vortex Beater Schematic 1
+- **Vortex Beater Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Vortex Beater Schematic 2
+- **Vortex Beater Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Vortex Beater Schematic 3
+- **Nightglow Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Nightglow Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000 | recipe: 5 Nightglow Schematic
+- **Nightglow Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Nightglow Schematic 1
+- **Nightglow Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Nightglow Schematic 2
+- **Nightglow Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Nightglow Schematic 3
+- **Terraprisma Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Terraprisma Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000 | recipe: 5 Terraprisma Schematic
+- **Terraprisma Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Terraprisma Schematic 1
+- **Terraprisma Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Terraprisma Schematic 2
+- **Terraprisma Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Terraprisma Schematic 3
+- **Marksman Revolver Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000
+- **Core Eject Shotgun Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000
+- **Cloth Outfit Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Cloth Outfit Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Cloth Outfit Schematic 1
+- **Cloth Outfit Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Cloth Outfit Schematic 2
+- **Cloth Outfit Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Cloth Outfit Schematic 3
+- **Tropical Outfit Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Tropical Outfit Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Tropical Outfit Schematic 1
+- **Tropical Outfit Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Tropical Outfit Schematic 2
+- **Tropical Outfit Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Tropical Outfit Schematic 3
+- **Tundra Outfit Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Tundra Outfit Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Tundra Outfit Schematic 1
+- **Tundra Outfit Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Tundra Outfit Schematic 2
+- **Tundra Outfit Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Tundra Outfit Schematic 3
+- **Pelt Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Pelt Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Pelt Armor Schematic 1
+- **Pelt Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Pelt Armor Schematic 2
+- **Pelt Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Pelt Armor Schematic 3
+- **Heat Resistant Pelt Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Heat Resistant Pelt Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Heat Resistant Pelt Armor Schematic 1
+- **Heat Resistant Pelt Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Heat Resistant Pelt Armor Schematic 2
+- **Heat Resistant Pelt Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Heat Resistant Pelt Armor Schematic 3
+- **Cold Resistant Pelt Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Cold Resistant Pelt Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Cold Resistant Pelt Armor Schematic 1
+- **Cold Resistant Pelt Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Cold Resistant Pelt Armor Schematic 2
+- **Cold Resistant Pelt Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Cold Resistant Pelt Armor Schematic 3
+- **Metal Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Metal Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Metal Armor Schematic 1
+- **Metal Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Metal Armor Schematic 2
+- **Metal Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Metal Armor Schematic 3
+- **Heat Resistant Metal Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Heat Resistant Metal Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Heat Resistant Metal Armor Schematic 1
+- **Heat Resistant Metal Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Heat Resistant Metal Armor Schematic 2
+- **Heat Resistant Metal Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Heat Resistant Metal Armor Schematic 3
+- **Cold Resistant Metal Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Cold Resistant Metal Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Cold Resistant Metal Armor Schematic 1
+- **Cold Resistant Metal Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Cold Resistant Metal Armor Schematic 2
+- **Cold Resistant Metal Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Cold Resistant Metal Armor Schematic 3
+- **Refined Metal Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Refined Metal Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Refined Metal Armor Schematic 1
+- **Refined Metal Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Refined Metal Armor Schematic 2
+- **Refined Metal Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Refined Metal Armor Schematic 3
+- **Heat Resistant Refined Metal Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Heat Resistant Refined Metal Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Heat Resistant Refined Metal Armor Schematic 1
+- **Heat Resistant Refined Metal Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Heat Resistant Refined Metal Armor Schematic 2
+- **Heat Resistant Refined Metal Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Heat Resistant Refined Metal Armor Schematic 3
+- **Cold Resistant Refined Metal Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Cold Resistant Refined Metal Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Cold Resistant Refined Metal Armor Schematic 1
+- **Cold Resistant Refined Metal Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Cold Resistant Refined Metal Armor Schematic 2
+- **Cold Resistant Refined Metal Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Cold Resistant Refined Metal Armor Schematic 3
+- **Pal Metal Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Pal Metal Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Pal Metal Armor Schematic 1
+- **Pal Metal Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Pal Metal Armor Schematic 2
+- **Pal Metal Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Pal Metal Armor Schematic 3
+- **Heat Resistant Pal Metal Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Heat Resistant Pal Metal Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Heat Resistant Pal Metal Armor Schematic 1
+- **Heat Resistant Pal Metal Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Heat Resistant Pal Metal Armor Schematic 2
+- **Heat Resistant Pal Metal Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Heat Resistant Pal Metal Armor Schematic 3
+- **Cold Resistant Pal Metal Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Cold Resistant Pal Metal Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Cold Resistant Pal Metal Armor Schematic 1
+- **Cold Resistant Pal Metal Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Cold Resistant Pal Metal Armor Schematic 2
+- **Cold Resistant Pal Metal Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Cold Resistant Pal Metal Armor Schematic 3
+- **Plasteel Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Plasteel Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Plasteel Armor Schematic 1
+- **Plasteel Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Plasteel Armor Schematic 2
+- **Plasteel Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Plasteel Armor Schematic 3
+- **Heat Resistant Plasteel Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Heat Resistant Plasteel Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Heat Resistant Plasteel Armor Schematic 1
+- **Heat Resistant Plasteel Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Heat Resistant Plasteel Armor Schematic 2
+- **Heat Resistant Plasteel Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Heat Resistant Plasteel Armor Schematic 3
+- **Cold Resistant Plasteel Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Cold Resistant Plasteel Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Cold Resistant Plasteel Armor Schematic 1
+- **Cold Resistant Plasteel Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Cold Resistant Plasteel Armor Schematic 2
+- **Cold Resistant Plasteel Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Cold Resistant Plasteel Armor Schematic 3
+- **Lightweight Plasteel Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Lightweight Plasteel Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Lightweight Plasteel Armor Schematic 1
+- **Lightweight Plasteel Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Lightweight Plasteel Armor Schematic 2
+- **Lightweight Plasteel Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Lightweight Plasteel Armor Schematic 3
+- **Hexolite Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Hexolite Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Hexolite Armor Schematic 1
+- **Hexolite Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Hexolite Armor Schematic 2
+- **Hexolite Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Hexolite Armor Schematic 3
+- **Heat Resistant Hexolite Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Heat Resistant Hexolite Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Heat Resistant Hexolite Armor Schematic 1
+- **Heat Resistant Hexolite Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Heat Resistant Hexolite Armor Schematic 2
+- **Heat Resistant Hexolite Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Heat Resistant Hexolite Armor Schematic 3
+- **Cold Resistant Hexolite Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Cold Resistant Hexolite Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Cold Resistant Hexolite Armor Schematic 1
+- **Cold Resistant Hexolite Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Cold Resistant Hexolite Armor Schematic 2
+- **Cold Resistant Hexolite Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Cold Resistant Hexolite Armor Schematic 3
+- **Lightweight Hexolite Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Lightweight Hexolite Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Lightweight Hexolite Armor Schematic 1
+- **Lightweight Hexolite Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Lightweight Hexolite Armor Schematic 2
+- **Lightweight Hexolite Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Lightweight Hexolite Armor Schematic 3
+- **Ancient Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Ancient Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Ancient Armor Schematic 1
+- **Ancient Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Ancient Armor Schematic 2
+- **Ancient Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Ancient Armor Schematic 3
+- **Heat-Resistant Ancient Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Heat-Resistant Ancient Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Heat-Resistant Ancient Armor Schematic 1
+- **Heat-Resistant Ancient Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Heat-Resistant Ancient Armor Schematic 2
+- **Heat-Resistant Ancient Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Heat-Resistant Ancient Armor Schematic 3
+- **Cold-Resistant Ancient Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Cold-Resistant Ancient Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Cold-Resistant Ancient Armor Schematic 1
+- **Cold-Resistant Ancient Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Cold-Resistant Ancient Armor Schematic 2
+- **Cold-Resistant Ancient Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Cold-Resistant Ancient Armor Schematic 3
+- **Lightweight Ancient Armor Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Lightweight Ancient Armor Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Lightweight Ancient Armor Schematic 1
+- **Lightweight Ancient Armor Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Lightweight Ancient Armor Schematic 2
+- **Lightweight Ancient Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Lightweight Ancient Armor Schematic 3
+- **Hallowed Plate Mail Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Hallowed Plate Mail Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000 | recipe: 5 Hallowed Plate Mail Schematic
+- **Hallowed Plate Mail Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Hallowed Plate Mail Schematic 1
+- **Hallowed Plate Mail Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Hallowed Plate Mail Schematic 2
+- **Hallowed Plate Mail Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Hallowed Plate Mail Schematic 3
+- **V1 Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000
+- **V2 Armor Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000
+- **Feathered Hair Band Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Feathered Hair Band Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Feathered Hair Band Schematic 1
+- **Feathered Hair Band Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Feathered Hair Band Schematic 2
+- **Feathered Hair Band Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Feathered Hair Band Schematic 3
+- **Metal Helm Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Metal Helm Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Metal Helm Schematic 1
+- **Metal Helm Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Metal Helm Schematic 2
+- **Metal Helm Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Metal Helm Schematic 3
+- **Refined Metal Helm Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Refined Metal Helm Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Refined Metal Helm Schematic 1
+- **Refined Metal Helm Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Refined Metal Helm Schematic 2
+- **Refined Metal Helm Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Refined Metal Helm Schematic 3
+- **Pal Metal Helm Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Pal Metal Helm Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Pal Metal Helm Schematic 1
+- **Pal Metal Helm Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Pal Metal Helm Schematic 2
+- **Pal Metal Helm Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Pal Metal Helm Schematic 3
+- **Plasteel Helmet Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Plasteel Helmet Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Plasteel Helmet Schematic 1
+- **Plasteel Helmet Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Plasteel Helmet Schematic 2
+- **Plasteel Helmet Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Plasteel Helmet Schematic 3
+- **Hexolite Helmet Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Hexolite Helmet Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Hexolite Helmet Schematic 1
+- **Hexolite Helmet Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Hexolite Helmet Schematic 2
+- **Hexolite Helmet Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Hexolite Helmet Schematic 3
+- **Ancient Helm Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000
+- **Ancient Helm Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Ancient Helm Schematic 1
+- **Ancient Helm Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Ancient Helm Schematic 2
+- **Ancient Helm Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Ancient Helm Schematic 3
+- **Hallowed Mask Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Hallowed Mask Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000 | recipe: 5 Hallowed Mask Schematic
+- **Hallowed Mask Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Hallowed Mask Schematic 1
+- **Hallowed Mask Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Hallowed Mask Schematic 2
+- **Hallowed Mask Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Hallowed Mask Schematic 3
+- **Hallowed Helmet Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Hallowed Helmet Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000 | recipe: 5 Hallowed Helmet Schematic
+- **Hallowed Helmet Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Hallowed Helmet Schematic 1
+- **Hallowed Helmet Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Hallowed Helmet Schematic 2
+- **Hallowed Helmet Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Hallowed Helmet Schematic 3
+- **Hallowed Headgear Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Hallowed Headgear Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000 | recipe: 5 Hallowed Headgear Schematic
+- **Hallowed Headgear Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Hallowed Headgear Schematic 1
+- **Hallowed Headgear Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Hallowed Headgear Schematic 2
+- **Hallowed Headgear Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Hallowed Headgear Schematic 3
+- **Hallowed Hood Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Hallowed Hood Schematic 1** — type: Blueprint | rarity: Uncommon | price: 10000 | recipe: 5 Hallowed Hood Schematic
+- **Hallowed Hood Schematic 2** — type: Blueprint | rarity: Rare | price: 10000 | recipe: 5 Hallowed Hood Schematic 1
+- **Hallowed Hood Schematic 3** — type: Blueprint | rarity: Epic | price: 10000 | recipe: 5 Hallowed Hood Schematic 2
+- **Hallowed Hood Schematic 4** — type: Blueprint | rarity: Legendary | price: 10000 | recipe: 5 Hallowed Hood Schematic 3
+- **Monarch's Crown Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Golden Crown Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Long-Eared Headband Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Witch Hat Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Soft Hat Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Helmet Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Silk Hat Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Tricorne Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Exploration Cap Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Graduation Cap Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Farming Hat Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Bowler Hat Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Tocotoco Cap Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Grinning Tocotoco Cap Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Gumoss Cap Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Penking Cap Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Katress Cap Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Leezpunk Hood Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Killamari Cap Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Ribbuny Headband Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Swee Cap Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Dazzi Hat Schematic 1** — type: Blueprint | rarity: Common | price: 500
+- **Bellanoir's Slab Fragment** — type: Blueprint | rarity: Common | price: 10
+- **Bellanoir Libero's Slab Fragment** — type: Blueprint | rarity: Uncommon | price: 10
+- **Blazamut Ryu Slab Fragment** — type: Blueprint | rarity: Uncommon | price: 10
+- **Xenolord Slab Fragment** — type: Blueprint | rarity: Uncommon | price: 10
+- **Hartalis Slab Fragment** — type: Blueprint | rarity: Uncommon | price: 10
+- **Bellanoir Libero (Ultra) Slab Fragment** — type: Blueprint | rarity: Rare | price: 10
+- **Blazamut Ryu (Ultra) Slab Fragment** — type: Blueprint | rarity: Rare | price: 10
+- **Xenolord (Ultra) Slab Fragment** — type: Blueprint | rarity: Rare | price: 10
+- **Hartalis (Ultra) Slab Fragment** — type: Blueprint | rarity: Rare | price: 10
+- **Bellanoir's Slab** — type: Consume | rarity: Rare | price: 10 | recipe: 4 Bellanoir's Slab Fragment
+- **Bellanoir Libero's Slab** — type: Consume | rarity: Epic | price: 10 | recipe: 4 Bellanoir Libero's Slab Fragment
+- **Blazamut Ryu Slab** — type: Consume | rarity: Epic | price: 10 | recipe: 4 Blazamut Ryu Slab Fragment
+- **Xenolord Slab** — type: Consume | rarity: Epic | price: 10 | recipe: 4 Xenolord Slab Fragment
+- **Celestial Sigil** — type: Consume | rarity: Epic | price: 36000 | recipe: 100 Hallowed Bar
+- **Hartalis Slab** — type: Consume | rarity: Epic | price: 10 | recipe: 4 Hartalis Slab Fragment
+- **Bellanoir Libero (Ultra) Slab** — type: Consume | rarity: Legendary | price: 10 | recipe: 4 Bellanoir Libero (Ultra) Slab Fragment
+- **Blazamut Ryu (Ultra) Slab** — type: Consume | rarity: Legendary | price: 10 | recipe: 4 Blazamut Ryu (Ultra) Slab Fragment
+- **Xenolord (Ultra) Slab** — type: Consume | rarity: Legendary | price: 10 | recipe: 4 Xenolord (Ultra) Slab Fragment
+- **Celestial Sigil [Master]** — type: Consume | rarity: Legendary | price: 10
+- **Hartalis (Ultra) Slab** — type: Consume | rarity: Legendary | price: 10 | recipe: 4 Hartalis (Ultra) Slab Fragment
+- **Celestial Sigil Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Powerful Fishing Magnet** — type: Consume | rarity: Rare | price: 710 | tech level: 62 | output: 10 | recipe: 1 Hexolite, 1 Cryogenic Coolant, 1 Bio Battery
+- **Rayne Syndicate Flag Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Lyleen Statue Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Free Pal Alliance Flag Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Free Pal Alliance Banner Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Wire Fence Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Wooden Barricade Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Majestic Wall Torch Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Ceremonial Candlestick Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Majestic Candlestick Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Paper Lantern Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Red Wooden Lantern Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Yakumo Statue Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Laboratory Desk Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Laboratory Chair Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Moon Lord Statue Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Beginner Fishing Rod (Gumoss) Schematic** — type: Blueprint | rarity: Common | price: 10000
+- **Intermediate Fishing Rod (Croajiro) Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Advanced Fishing Rod (Depresso) Schematic** — type: Blueprint | rarity: Legendary | price: 10000
+- **Life Pendant Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Attack Pendant Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Defense Pendant Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Pendant of Diligence Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Heat-Resistant Undershirt Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Thermal Undershirt Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Multiclimate Undershirt Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Ring of Neutral Resistance Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Ring of Fire Resistance Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Ring of Water Resistance Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Ring of Electric Resistance Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Ring of Grass Resistance Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Ring of Ice Resistance Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Ring of Ground Resistance Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Ring of Dark Resistance Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Ring of Dragon Resistance Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Ring of Freight Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Neutral Support Whistle Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Fire Support Whistle Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Water Support Whistle Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Electric Support Whistle Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Grass Support Whistle Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Ice Support Whistle Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Ground Support Whistle Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Dark Support Whistle Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Dragon Support Whistle Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Attack Support Whistle Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Defense Support Whistle Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Growth Acceleration Bell Schematic** — type: Blueprint | rarity: Rare | price: 10000
+- **Dogen Emblem Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Silvegis Emblem Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Reptyro Charm Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Wumpo Charm Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Wandering Merchant Charm Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Vanguard Charm Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Warsect Terra's Belt Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Islander's Tool Belt Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Celestial Emperor's Baton Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Flame Emperor's Baton Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Lord of the Sea's Baton Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Lord of Lightning's Baton Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Spirit Emperor's Baton Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Ice Emperor's Baton Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Earth Emperor's Baton Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Lord of the Underworld's Baton Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Divine Dragon's Baton Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Pal Tamer's Glasses Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Air Walker Mk I Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Air Walker Mk II Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Air Walker Mk III Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Air Walker EX Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Hartalis's Talisman Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Blazamut's Talisman Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Neptilius's Talisman Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Orserk's Talisman Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Lyleen's Talisman Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Frostallion's Talisman Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Anubis's Talisman Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Lyleen Noct's Talisman Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Jetragon's Talisman Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Blazehowl Ring Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Faleris Aqua Ring Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Fenglope Lux Ring Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Menasting Terra Ring Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Vaelet Ring Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Katress Ring Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Elphidran Ring Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Cryolinx Ring Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Faleris Ring Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Ring of Trust Schematic** — type: Blueprint | rarity: Epic | price: 10000
+- **Phantom Ring Schematic** — type: Blueprint | rarity: Epic | price: 2750
+- **Hip Lantern** — type: Essential | rarity: Uncommon | price: 1 | tech level: 15 | recipe: 20 Ingot, 10 Wood, 10 Flame Organ, 5 Ancient Civilization Parts
+- **Enhanced Hip Lantern** — type: Essential | rarity: Rare | price: 1 | tech level: 29 | recipe: 30 Ingot, 30 Wood, 30 Flame Organ, 10 Ancient Civilization Parts
+- **Small Feed Bag** — type: Essential | rarity: Common | price: 1 | tech level: 9 | recipe: 5 Wood, 10 Fiber, 3 Leather
+- **Average Feed Bag** — type: Essential | rarity: Uncommon | price: 1 | tech level: 14 | recipe: 10 Wood, 30 Fiber, 10 Leather
+- **Large Feed Bag** — type: Essential | rarity: Rare | price: 1 | tech level: 23 | recipe: 20 Wood, 50 Fiber, 20 Leather
+- **Huge Feed Bag** — type: Essential | rarity: Epic | price: 1 | tech level: 36 | recipe: 30 Hardwood, 90 Fiber, 35 Leather, 10 Carbon Fiber
+- **Giant Feed Bag** — type: Essential | rarity: Legendary | price: 1 | tech level: 47 | recipe: 50 Hardwood, 200 Fiber, 50 Leather, 20 Carbon Fiber
+- **Mysterious Accessory Box** — type: Essential | rarity: Epic | price: 10
+- **Mystic Accessory Box** — type: Essential | rarity: Legendary | price: 10
+- **Lockpicking Tool v1** — type: Essential | rarity: Uncommon | price: 1 | tech level: 16 | recipe: 10 Ingot, 10 Paldium Fragment, 5 Nail
+- **Lockpicking Tool v2** — type: Essential | rarity: Rare | price: 1 | tech level: 25 | recipe: 20 Ingot, 20 Paldium Fragment, 10 Nail
+- **Lockpicking Tool v3** — type: Essential | rarity: Epic | price: 1 | tech level: 53 | recipe: 30 Pal Metal Ingot, 30 Paldium Fragment, 20 Nail
+- **Rushoar Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 6 | recipe: 3 Leather, 10 Stone, 5 Paldium Fragment
+- **Foxparks' Harness** — type: Essential | rarity: Common | price: 0 | tech level: 6 | recipe: 3 Leather, 5 Flame Organ, 5 Paldium Fragment
+- **Foxparks Cryst's Harness** — type: Essential | rarity: Common | price: 0 | tech level: 24 | recipe: 10 Leather, 10 Ice Organ, 20 Paldium Fragment
+- **Melpaca Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 7 | recipe: 3 Leather, 5 Wool, 5 Paldium Fragment
+- **Celaray's Gloves** — type: Essential | rarity: Common | price: 0 | recipe: 5 Cloth, 3 Aquatic Pal Fluids, 5 Paldium Fragment
+- **Celaray Lux's Gloves** — type: Essential | rarity: Common | price: 0 | recipe: 10 Cloth, 5 Electric Organ, 6 Paldium Fragment
+- **Jolthog's Gloves** — type: Essential | rarity: Common | price: 0 | recipe: 5 Cloth, 5 Electric Organ, 5 Paldium Fragment
+- **Jolthog Cryst's Gloves** — type: Essential | rarity: Common | price: 0 | recipe: 6 Cloth, 6 Ice Organ, 6 Paldium Fragment
+- **Daedream's Necklace** — type: Essential | rarity: Common | price: 0 | recipe: 5 Leather, 10 Fiber, 10 Paldium Fragment
+- **Direhowl's Saddled Harness** — type: Essential | rarity: Common | price: 0 | tech level: 9 | recipe: 10 Leather, 20 Wood, 15 Fiber, 10 Paldium Fragment
+- **Killamari's Gloves** — type: Essential | rarity: Common | price: 0 | recipe: 5 Cloth, 5 Venom Gland, 10 Paldium Fragment
+- **Killamari Primo's Gloves** — type: Essential | rarity: Common | price: 0 | recipe: 6 Cloth, 4 Aquatic Pal Fluids, 12 Paldium Fragment
+- **Chillet Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 11 | recipe: 10 Leather, 20 Fiber, 5 Cloth, 20 Paldium Fragment
+- **Chillet Ignis Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 40 | recipe: 20 Leather, 30 Fiber, 10 Cloth, 10 Flame Organ, 30 Paldium Fragment
+- **Lifmunk's Submachine Gun** — type: Essential | rarity: Common | price: 0 | tech level: 11 | recipe: 5 Ingot, 10 Stone, 20 Wood, 10 Paldium Fragment
+- **Tanzee's Assault Rifle** — type: Essential | rarity: Common | price: 0 | tech level: 12 | recipe: 5 Ingot, 15 Stone, 15 Wood, 10 Paldium Fragment
+- **Tanzee Ignis's Assault Rifle** — type: Essential | rarity: Common | price: 0 | tech level: 13 | recipe: 6 Ingot, 18 Stone, 18 Wood, 10 Flame Organ, 20 Paldium Fragment
+- **Eikthyrdeer Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 12 | recipe: 5 Leather, 20 Fiber, 10 Ingot, 3 Horn, 15 Paldium Fragment
+- **Eikthyrdeer Terra Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 21 | recipe: 6 Leather, 24 Fiber, 12 Ingot, 3 Horn, 18 Paldium Fragment
+- **Univolt Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 14 | recipe: 10 Leather, 5 Ingot, 10 Electric Organ, 15 Paldium Fragment
+- **Univolt Cryst Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 64 | recipe: 12 Leather, 5 Coralum Ingot, 10 Ice Organ, 20 Paldium Fragment
+- **Arsox Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 15 | recipe: 15 Leather, 25 Fiber, 10 Flame Organ, 15 Paldium Fragment
+- **Nitewing Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 15 | recipe: 20 Leather, 10 Cloth, 15 Ingot, 20 Fiber, 20 Paldium Fragment
+- **Surfent Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 16 | recipe: 5 Leather, 5 Aquatic Pal Fluids, 10 Paldium Fragment
+- **Surfent Terra Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 25 | recipe: 6 Leather, 6 Ingot, 12 Paldium Fragment
+- **Pengullet Rocket Launcher** — type: Essential | rarity: Common | price: 0 | tech level: 17 | recipe: 20 Ingot, 20 Stone, 3 Wooden Board, 20 Paldium Fragment
+- **Pengullet Lux's Rocket Launcher** — type: Essential | rarity: Common | price: 0 | tech level: 18 | recipe: 24 Ingot, 24 Stone, 3 Wooden Board, 20 Electric Organ, 24 Paldium Fragment
+- **Flopie's Necklace** — type: Essential | rarity: Common | price: 0 | recipe: 10 Leather, 20 Fiber, 5 Ingot, 15 Paldium Fragment
+- **Tocotoco's Gloves** — type: Essential | rarity: Common | price: 0 | tech level: 18 | recipe: 10 Cloth, 10 Leather, 15 Fiber, 10 Flame Organ, 15 Paldium Fragment
+- **Hangyu's Gloves** — type: Essential | rarity: Common | price: 0 | recipe: 5 Cloth, 3 Leather, 10 Fiber, 3 Ingot, 10 Paldium Fragment
+- **Hangyu Cryst's Glove** — type: Essential | rarity: Common | price: 0 | recipe: 6 Cloth, 3 Leather, 12 Fiber, 3 Ingot, 12 Paldium Fragment
+- **Grintale Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 19 | recipe: 10 Leather, 10 Paldium Fragment
+- **Elphidran Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 20 | recipe: 20 Leather, 20 Fiber, 15 Ingot, 20 Paldium Fragment
+- **Elphidran Aqua Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 32 | recipe: 24 Leather, 24 Fiber, 18 Ingot, 24 Paldium Fragment
+- **Tarantriss Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 20 | recipe: 30 Leather, 50 Fiber, 30 Venom Gland, 40 Paldium Fragment
+- **Vanwyrm Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 21 | recipe: 20 Leather, 10 Flame Organ, 15 Ingot, 30 Fiber, 20 Paldium Fragment
+- **Vanwyrm Cryst Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 22 | recipe: 24 Leather, 12 Ice Organ, 18 Ingot, 36 Fiber, 24 Paldium Fragment
+- **Sweepa Saddle** — type: Essential | rarity: Common | price: 0 | tech level: 20 | recipe: 3 Leather, 8 Cloth, 10 Paldium Fragment
+- **Dazzi's Necklace** — type: Essential | rarity: Uncommon | price: 0 | recipe: 15 Leather, 15 Fiber, 10 Ingot, 20 Paldium Fragment
+- **Dazzi Noct's Necklace** — type: Essential | rarity: Uncommon | price: 0 | recipe: 10 Leather, 30 Fiber, 10 Dark Fragment, 40 Paldium Fragment
+- **Kingpaca Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 23 | recipe: 20 Leather, 20 Fiber, 15 Ingot, 30 Wool, 20 Paldium Fragment
+- **Kingpaca Cryst Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 46 | recipe: 24 Leather, 24 Fiber, 18 Ingot, 36 Wool, 24 Paldium Fragment
+- **Galeclaw's Gloves** — type: Essential | rarity: Uncommon | price: 0 | recipe: 20 Cloth, 20 Leather, 30 Fiber, 30 Paldium Fragment
+- **Azurobe Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 24 | recipe: 25 Leather, 30 Fiber, 10 Cloth, 10 Aquatic Pal Fluids, 25 Paldium Fragment
+- **Azurobe Cryst Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 27 | recipe: 30 Leather, 36 Fiber, 12 Cloth, 12 Ice Organ, 30 Paldium Fragment
+- **Dinossom Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 24 | recipe: 15 Leather, 30 Fiber, 10 Ingot, 20 Paldium Fragment
+- **Dinossom Lux Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 34 | recipe: 18 Leather, 36 Fiber, 12 Ingot, 24 Paldium Fragment
+- **Helzephyr Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 25 | recipe: 30 Leather, 10 Cloth, 20 Ingot, 20 Electric Organ, 30 Paldium Fragment
+- **Helzephyr Lux Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 47 | recipe: 30 Leather, 10 Refined Ingot, 30 Electric Organ, 60 Paldium Fragment
+- **Fenglope Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 26 | recipe: 30 Leather, 30 Fiber, 20 Ingot, 20 Cloth, 40 Paldium Fragment
+- **Fenglope Lux Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 57 | recipe: 30 Leather, 30 Fiber, 20 Electric Organ, 10 High Quality Cloth, 45 Paldium Fragment
+- **Polapup Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 26 | stats: magazineSize 1 | recipe: 30 Leather, 60 Fiber, 30 Ingot, 6 Ice Organ, 30 Paldium Fragment
+- **Herbil's Harness** — type: Essential | rarity: Uncommon | price: 0 | recipe: 20 Leather, 40 Fiber, 20 Ingot, 25 Paldium Fragment
+- **Dazemu Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 28 | recipe: 20 Leather, 30 Fiber, 15 Ingot, 20 Paldium Fragment
+- **Pyrin Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 29 | recipe: 25 Leather, 30 Fiber, 20 Flame Organ, 15 Ingot, 25 Paldium Fragment
+- **Pyrin Noct Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 34 | recipe: 30 Leather, 36 Fiber, 24 Flame Organ, 18 Ingot, 30 Paldium Fragment
+- **Mammorest Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 28 | recipe: 50 Leather, 70 Fiber, 10 High Quality Pal Oil, 100 Wood, 60 Paldium Fragment
+- **Mammorest Cryst Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 41 | recipe: 60 Leather, 84 Fiber, 12 High Quality Pal Oil, 120 Wood, 72 Paldium Fragment
+- **Beakon Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 29 | recipe: 20 Leather, 10 Cloth, 20 Ingot, 20 Electric Organ, 25 Paldium Fragment
+- **Beakon Cryst Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 71 | recipe: 24 Leather, 12 Cloth, 24 Soralite Ingot, 20 Ice Organ, 30 Paldium Fragment
+- **Rayhound Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 30 | recipe: 20 Leather, 40 Fiber, 20 Ingot, 15 Electric Organ, 25 Paldium Fragment
+- **Rayhound Cryst Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 32 | recipe: 24 Leather, 48 Fiber, 20 Ingot, 20 Ice Organ, 30 Paldium Fragment
+- **Ghangler Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 31 | recipe: 20 Leather, 10 Cloth, 20 Ingot, 10 Cryogenic Coolant, 25 Paldium Fragment
+- **Ghangler Ignis Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 42 | recipe: 24 Leather, 12 High Quality Cloth, 20 Refined Ingot, 12 Flame Organ, 30 Paldium Fragment
+- **Mossanda's Grenade Launcher** — type: Essential | rarity: Uncommon | price: 0 | tech level: 32 | recipe: 50 Ingot, 20 High Quality Pal Oil, 40 Paldium Fragment
+- **Mossanda Lux's Grenade Launcher** — type: Essential | rarity: Uncommon | price: 0 | tech level: 34 | recipe: 60 Ingot, 24 High Quality Pal Oil, 48 Paldium Fragment
+- **Reindrix Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 31 | recipe: 25 Leather, 10 Ice Organ, 20 Ingot, 20 Horn, 25 Paldium Fragment
+- **Blazehowl Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 33 | recipe: 30 Leather, 30 Ingot, 50 Fiber, 20 Flame Organ, 30 Paldium Fragment
+- **Blazehowl Noct Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 35 | recipe: 36 Leather, 36 Ingot, 60 Fiber, 24 Flame Organ, 36 Paldium Fragment
+- **Ragnahawk Saddle** — type: Essential | rarity: Uncommon | price: 0 | tech level: 33 | recipe: 25 Leather, 10 Cloth, 20 Ingot, 20 Flame Organ, 25 Paldium Fragment
+- **Broncherry Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 33 | recipe: 20 Leather, 30 Fiber, 15 Ingot, 20 Paldium Fragment
+- **Broncherry Aqua Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 44 | recipe: 24 Leather, 36 Fiber, 20 Refined Ingot, 24 Paldium Fragment
+- **Palumba Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 35 | recipe: 30 Leather, 30 Cloth, 30 Ingot, 40 Paldium Fragment
+- **Braloha Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 36 | recipe: 20 Leather, 20 Cloth, 30 Fiber, 10 Refined Ingot, 30 Paldium Fragment
+- **Moldron Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 36 | recipe: 20 Leather, 20 Cloth, 15 Refined Ingot, 5 Flame Organ, 30 Paldium Fragment
+- **Moldron Cryst Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 70 | recipe: 24 Leather, 24 High Quality Cloth, 18 Coralum Ingot, 20 Ice Organ, 40 Paldium Fragment
+- **Maraith Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 37 | recipe: 15 Leather, 25 Fiber, 10 Refined Ingot, 20 Paldium Fragment
+- **Quivern Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 38 | recipe: 30 Leather, 20 Refined Ingot, 10 Cloth, 10 Cryogenic Coolant, 30 Paldium Fragment
+- **Quivern Botan Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 45 | recipe: 30 Leather, 30 Refined Ingot, 20 Cloth, 10 Cryogenic Coolant, 40 Paldium Fragment
+- **Astegon Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 39 | recipe: 30 Leather, 50 Refined Ingot, 50 Ingot, 10 Corrosive Solvent, 55 Paldium Fragment
+- **Shroomer Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 39 | recipe: 20 Leather, 20 Mushroom, 30 Fiber, 10 Refined Ingot, 30 Paldium Fragment
+- **Shroomer Noct Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 39 | recipe: 20 Leather, 20 Mysterious Mushroom, 30 Fiber, 10 Refined Ingot, 30 Paldium Fragment
+- **Grizzbolt's Minigun** — type: Essential | rarity: Rare | price: 0 | tech level: 40 | recipe: 50 Refined Ingot, 20 Polymer, 10 High Quality Pal Oil, 75 Paldium Fragment
+- **Xenogard Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 41 | recipe: 20 Leather, 30 Meteorite Fragment, 50 Paldium Fragment
+- **Yakumo Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 41 | recipe: 30 Leather, 50 Fiber, 20 Refined Ingot, 40 Paldium Fragment
+- **Whalaska Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 42 | recipe: 20 Leather, 10 Cloth, 20 Refined Ingot, 10 Cryogenic Coolant, 25 Paldium Fragment
+- **Whalaska Ignis Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 71 | recipe: 24 Leather, 12 Cloth, 20 Soralite Ingot, 20 Flame Organ, 30 Paldium Fragment
+- **Reptyro Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 42 | recipe: 20 Leather, 20 Refined Ingot, 20 Flame Organ, 20 Paldium Fragment
+- **Reptyro Cryst Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 43 | recipe: 24 Leather, 24 Refined Ingot, 24 Ice Organ, 24 Paldium Fragment
+- **Suzaku Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 43 | recipe: 20 Leather, 25 Refined Ingot, 20 Flame Organ, 40 Paldium Fragment
+- **Suzaku Aqua Saddle** — type: Essential | rarity: Rare | price: 0 | tech level: 44 | recipe: 24 Leather, 30 Refined Ingot, 24 Aquatic Pal Fluids, 48 Paldium Fragment
+- **Relaxaurus' Missile Launcher** — type: Essential | rarity: Epic | price: 0 | tech level: 45 | recipe: 100 Refined Ingot, 35 Polymer, 100 Ingot, 85 Paldium Fragment
+- **Relaxaurus Lux's Missile Launcher** — type: Essential | rarity: Epic | price: 0 | tech level: 48 | recipe: 120 Refined Ingot, 42 Polymer, 120 Ingot, 102 Paldium Fragment
+- **Wumpo Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 45 | recipe: 30 Leather, 20 Ice Organ, 50 Fiber, 10 Refined Ingot, 40 Paldium Fragment
+- **Wumpo Botan Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 51 | recipe: 36 Leather, 24 Beautiful Flower, 60 Fiber, 12 Refined Ingot, 48 Paldium Fragment
+- **Shadowbeak Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 47 | recipe: 50 Leather, 40 Refined Ingot, 15 Corrosive Solvent, 45 Paldium Fragment
+- **Dualith Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 48 | recipe: 30 Leather, 20 High Quality Cloth, 10 Refined Ingot, 40 Paldium Fragment
+- **Dualith Noct Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 69 | recipe: 36 Leather, 24 High Quality Cloth, 12 Soralite Ingot, 20 Dark Fragment, 40 Paldium Fragment
+- **Tetroise Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 48 | recipe: 32 Leather, 20 High Quality Cloth, 30 Refined Ingot, 45 Paldium Fragment
+- **Tetroise Primo Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 75 | recipe: 38 Leather, 24 High Quality Cloth, 16 Paloxite Ingot, 40 Paldium Fragment
+- **Nyafia's Shotgun** — type: Essential | rarity: Epic | price: 0 | tech level: 52 | recipe: 50 Refined Ingot, 30 Dark Fragment, 30 Polymer, 85 Paldium Fragment
+- **Selyne Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 53 | recipe: 20 Leather, 30 Plasteel, 10 Meteorite Fragment, 60 Paldium Fragment
+- **Bulldosu Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 53 | recipe: 24 Leather, 24 Fiber, 15 Cloth, 30 Plasteel, 24 Paldium Fragment
+- **Gildane Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 54 | recipe: 40 Leather, 20 High Quality Cloth, 60 Paldium Fragment
+- **Polapup Terra Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 55 | recipe: 36 Leather, 72 Fiber, 30 Plasteel, 7 Ice Organ, 36 Paldium Fragment
+- **Starryon Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 57 | recipe: 30 Leather, 15 High Quality Cloth, 20 Dark Fragment, 60 Paldium Fragment
+- **Starryon Primo Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 77 | recipe: 36 Leather, 18 High Quality Cloth, 24 Dark Fragment, 20 High Quality Pal Oil, 65 Paldium Fragment
+- **Kitsun Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 57 | recipe: 25 Leather, 10 Cloth, 15 Flame Organ, 20 Paldium Fragment
+- **Kitsun Noct Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 59 | recipe: 30 Leather, 10 High Quality Cloth, 30 Flame Organ, 40 Paldium Fragment
+- **Smokie's Harness** — type: Essential | rarity: Epic | price: 0 | tech level: 58 | recipe: 20 Leather, 50 Fiber, 5 Dark Fragment, 40 Paldium Fragment
+- **Azurmane Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 58 | recipe: 30 Leather, 15 High Quality Cloth, 50 Electric Organ, 60 Paldium Fragment
+- **Faleris Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 60 | recipe: 30 Leather, 10 High Quality Cloth, 5 Hexolite, 25 Flame Organ, 30 Paldium Fragment
+- **Faleris Aqua Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 60 | recipe: 30 Leather, 20 High Quality Cloth, 5 Hexolite, 30 Aquatic Pal Fluids, 75 Paldium Fragment
+- **Silvegis Saddle** — type: Essential | rarity: Epic | price: 0 | tech level: 60 | recipe: 30 Leather, 15 Hexolite, 75 Paldium Fragment
+- **Solmora Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 65 | recipe: 20 Leather, 10 Cloth, 10 Coralum Ingot, 25 Paldium Fragment
+- **Solmora Lux Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 66 | recipe: 24 Leather, 12 Cloth, 12 Coralum Ingot, 20 Electric Organ, 30 Paldium Fragment
+- **Dynamoff Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 66 | recipe: 20 Leather, 10 Cloth, 10 Soralite Ingot, 10 Electric Organ, 30 Paldium Fragment
+- **Xenolord Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 66 | recipe: 30 Leather, 50 Dark Fragment, 30 Meteorite Fragment, 200 Paldium Fragment
+- **Eidrolon Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 68 | recipe: 40 Leather, 30 High Quality Cloth, 20 Soralite Ingot, 45 Paldium Fragment
+- **Eidrolon Ignis Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 76 | recipe: 48 Leather, 36 High Quality Cloth, 24 Paloxite Ingot, 20 Flame Organ, 50 Paldium Fragment
+- **Roujay Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 72 | recipe: 24 Leather, 10 Soralite Ingot, 20 High Quality Cloth, 24 Paldium Fragment
+- **Ophydia Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 72 | recipe: 30 Leather, 20 High Quality Cloth, 24 Soralite Ingot, 15 Aquatic Pal Fluids, 75 Paldium Fragment
+- **Bastigor's Hammer** — type: Essential | rarity: Legendary | price: 0 | tech level: 73 | recipe: 30 Soralite Ingot, 50 Ice Organ, 140 Paldium Fragment
+- **Shaolong Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 77 | recipe: 40 Leather, 32 High Quality Cloth, 32 Soralite Ingot, 83 Paldium Fragment
+- **Aegidron Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 79 | recipe: 30 Leather, 24 High Quality Cloth, 18 Paloxite Ingot, 10 Flame Organ, 46 Paldium Fragment
+- **Jormuntide Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 40 | recipe: 36 Leather, 60 Fiber, 24 Refined Ingot, 24 Cryogenic Coolant, 48 Paldium Fragment
+- **Jormuntide Ignis Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 59 | recipe: 43 Leather, 72 Fiber, 28 Hexolite, 28 Flame Organ, 57 Paldium Fragment
+- **Blazamut Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 46 | recipe: 36 Leather, 36 Refined Ingot, 24 Ingot, 48 Paldium Fragment
+- **Blazamut Ryu Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 55 | recipe: 43 Leather, 43 Plasteel, 60 Flame Organ, 57 Paldium Fragment
+- **Celesdir Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 54 | recipe: 36 Leather, 24 High Quality Cloth, 5 High Quality Recovery Meds, 80 Paldium Fragment
+- **Celesdir Noct Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 78 | recipe: 43 Leather, 28 High Quality Cloth, 6 High Quality Recovery Meds, 20 Dark Fragment, 96 Paldium Fragment
+- **Paladius Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 61 | recipe: 36 Leather, 24 Hexolite, 36 Pal Metal Ingot, 102 Paldium Fragment
+- **Necromus Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 61 | recipe: 36 Leather, 24 Hexolite, 36 Pal Metal Ingot, 102 Paldium Fragment
+- **Frostallion Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 62 | recipe: 36 Leather, 36 Coralum Ingot, 60 Ice Organ, 80 Paldium Fragment
+- **Frostallion Noct Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 62 | recipe: 43 Leather, 43 Coralum Ingot, 72 Venom Gland, 96 Paldium Fragment
+- **Neptilius Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 64 | recipe: 48 Leather, 48 Coralum Ingot, 80 Aquatic Pal Fluids, 200 Paldium Fragment
+- **Hartalis Saddle** — type: Essential | rarity: Legendary | price: 0 | tech level: 70 | recipe: 60 Leather, 48 High Quality Cloth, 48 Coralum Ingot, 200 Paldium Fragment
+- **Jetragon's Missile Launcher** — type: Essential | rarity: Legendary | price: 0 | tech level: 79 | recipe: 70 Leather, 60 Paloxite Ingot, 24 AI Core, 210 Paldium Fragment
+- **Extra Weapon Holster** — type: Essential | rarity: Legendary | price: 1 | tech level: 27 | recipe: 20 Wooden Board, 30 Fiber, 20 Leather
+- **Extra Weapon Holster 2** — type: Essential | rarity: Legendary | price: 1 | tech level: 54 | recipe: 40 High Quality Wooden Board, 100 Fiber, 40 Leather, 20 Carbon Fiber
+- **Small Pouch** — type: Essential | rarity: Common | price: 1 | tech level: 27 | recipe: 10 Wooden Board, 20 Fiber, 10 Leather
+- **Medium Pouch** — type: Essential | rarity: Uncommon | price: 1 | tech level: 43 | recipe: 50 Hardwood, 50 Fiber, 20 Leather
+- **Large Pouch** — type: Essential | rarity: Rare | price: 1 | tech level: 53 | recipe: 20 High Quality Wooden Board, 80 Fiber, 30 Leather, 10 Carbon Fiber
+- **Giant Pouch** — type: Essential | rarity: Epic | price: 1 | tech level: 57 | recipe: 50 High Quality Wooden Board, 120 Fiber, 40 Leather, 20 Carbon Fiber
+- **Heavy Weight Module** — type: CaptureItemModifier | rarity: Uncommon | price: 4010 | tech level: 19 | recipe: 10 Paldium Fragment, 10 Ingot, 20 Stone
+- **Curve Module** — type: CaptureItemModifier | rarity: Uncommon | price: 14280 | tech level: 23 | recipe: 30 Paldium Fragment, 30 Ingot, 50 Stone, 2 Ancient Civilization Parts
+- **Sniper Module** — type: CaptureItemModifier | rarity: Rare | price: 31440 | tech level: 31 | recipe: 50 Paldium Fragment, 50 Ingot, 30 Cement, 8 Ancient Civilization Parts
+- **Slider Module** — type: CaptureItemModifier | rarity: Rare | price: 68350 | tech level: 39 | recipe: 100 Paldium Fragment, 30 Refined Ingot, 15 Carbon Fiber, 8 Corrosive Solvent, 10 Ancient Civilization Parts
+- **Sniper Module II** — type: CaptureItemModifier | rarity: Epic | price: 120840 | tech level: 48 | recipe: 200 Paldium Fragment, 30 Pal Metal Ingot, 30 Carbon Fiber, 20 Ancient Civilization Parts, 2 Ancient Civilization Core
+- **Homing Module** — type: CaptureItemModifier | rarity: Legendary | price: 1432580 | tech level: 69 | recipe: 50 Soralite Ingot, 3 AI Core, 40 Ancient Civilization Parts, 50 Dark Fragment, 5 Ancient Civilization Core
+- **Smokie Bounty Token** — type: Essential | rarity: Epic | price: 1
+- **Nitemary Bounty Token** — type: Essential | rarity: Epic | price: 1
+- **Starryon Bounty Token** — type: Essential | rarity: Epic | price: 1
+- **Prunelia Bounty Token** — type: Essential | rarity: Epic | price: 1
+- **Nyafia Bounty Token** — type: Essential | rarity: Epic | price: 1
+- **Gildane Bounty Token** — type: Essential | rarity: Epic | price: 1
+- **Omascul Bounty Token** — type: Essential | rarity: Epic | price: 1
+- **Tarantris Bounty Token** — type: Essential | rarity: Uncommon | price: 1
+- **Frostallion Noct Bounty Token** — type: Essential | rarity: Legendary | price: 1
+- **Foxparks Cryst Bounty Token** — type: Essential | rarity: Common | price: 1
+- **Dazzi Noct Bounty Token** — type: Essential | rarity: Epic | price: 1
+- **Cryolinx Terra Bounty Token** — type: Essential | rarity: Epic | price: 1
+- **Caprity Noct Bounty Token** — type: Essential | rarity: Common | price: 1
+- **Loupmoon Cryst Bounty Token** — type: Essential | rarity: Legendary | price: 1
+- **Ribbuny Botan Bounty Token** — type: Essential | rarity: Rare | price: 1
+- **Warsect Terra Bounty Token** — type: Essential | rarity: Legendary | price: 1
+- **Treasure Map** — type: Consume | rarity: Common | price: 1
+- **Treasure Map** — type: Consume | rarity: Uncommon | price: 10
+- **Treasure Map** — type: Consume | rarity: Rare | price: 10
+- **Treasure Map** — type: Consume | rarity: Epic | price: 10
+- **Treasure Map** — type: Consume | rarity: Legendary | price: 10
+- **Marine Echobone** — type: Essential | rarity: Legendary | price: 0
+- **Silent Echobone** — type: Essential | rarity: Legendary | price: 0
+- **Seafoam Echobone** — type: Essential | rarity: Legendary | price: 0
+- **Tidewind Echobone** — type: Essential | rarity: Legendary | price: 0
+- **Champion's Emblem** — type: Material | rarity: Epic | price: 1

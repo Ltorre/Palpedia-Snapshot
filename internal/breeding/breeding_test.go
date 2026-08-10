@@ -46,3 +46,27 @@ func TestDefaultCanonicalizesBossIDs(t *testing.T) {
 		t.Fatalf("result = %#v, ok=%v", result, ok)
 	}
 }
+
+func TestDefaultUsesPlayerFacingNames(t *testing.T) {
+	rules, err := Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := rules.DisplayName("BOSS_GrassMammoth"); got != "Mammorest" {
+		t.Fatalf("DisplayName(BOSS_GrassMammoth) = %q, want Mammorest", got)
+	}
+	if got, ok := rules.Key("Mammorest"); !ok || got != "GrassMammoth" {
+		t.Fatalf("Key(Mammorest) = %q, %t; want GrassMammoth, true", got, ok)
+	}
+}
+
+func TestSuggestionsPreferPlayerFacingNamePrefix(t *testing.T) {
+	rules, err := Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	suggestions := rules.Suggestions("mamm", 5)
+	if len(suggestions) == 0 || suggestions[0] != (Suggestion{CharacterID: "GrassMammoth", DisplayName: "Mammorest"}) {
+		t.Fatalf("Mammorest suggestions = %#v", suggestions)
+	}
+}

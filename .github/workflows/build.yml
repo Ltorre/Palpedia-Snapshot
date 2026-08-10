@@ -21,7 +21,7 @@ jobs:
       - uses: actions/setup-go@v6
         with:
           go-version: "1.26.x"
-      - run: sudo apt-get update && sudo apt-get install -y g++-mingw-w64-x86-64
+      - run: sudo apt-get update && sudo apt-get install -y g++-mingw-w64-x86-64 zip
       - run: ./scripts/build-ooz-windows.sh
       - run: go test ./...
       - run: GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-H=windowsgui" -o dist/palpedia-snapshot.exe ./cmd/palpedia-snapshot
@@ -43,11 +43,12 @@ jobs:
       - uses: actions/setup-go@v6
         with:
           go-version: "1.26.x"
-      - run: sudo apt-get update && sudo apt-get install -y g++-mingw-w64-x86-64
+      - run: sudo apt-get update && sudo apt-get install -y g++-mingw-w64-x86-64 zip
       - run: ./scripts/build-ooz-windows.sh
       - run: GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -trimpath -ldflags "-H=windowsgui -X main.version=${GITHUB_REF_NAME}" -o dist/palpedia-snapshot-windows-amd64.exe ./cmd/palpedia-snapshot
+      - run: cd notebooklm && zip -r ../dist/palpedia-snapshot-notebooklm-reference.zip README.md palworld-reference
       - run: test -f "releases/${GITHUB_REF_NAME}.md"
-      - run: gh release create "$GITHUB_REF_NAME" dist/palpedia-snapshot-windows-amd64.exe --title "$GITHUB_REF_NAME" --notes-file "releases/${GITHUB_REF_NAME}.md"
+      - run: gh release create "$GITHUB_REF_NAME" dist/palpedia-snapshot-windows-amd64.exe dist/palpedia-snapshot-notebooklm-reference.zip --title "$GITHUB_REF_NAME" --notes-file "releases/${GITHUB_REF_NAME}.md"
         env:
           GH_TOKEN: ${{ github.token }}
 

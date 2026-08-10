@@ -1,0 +1,309 @@
+# Partner skills
+
+## Source
+
+- URL: https://palworld.gg/partner-skills
+- Retrieved: 2026-08-08
+- This note is a factual, reorganized reference. Consult the source for live updates and full prose.
+
+Partner-skill associations captured from 299 Pal records.
+
+- **Fluffy Shield** — Pal: Lamball
+- **Cat Helper** — Pal: Cattiva
+- **Egg Layer** — Pal: Chikipi
+- **Lifmunk Recoil** — Pal: Lifmunk
+- **Surfing Slam** — Pal: Fuack
+- **Fire Tackle** — Pal: Fuack Ignis
+- **Dig Here!** — Pal: Vixy
+- **Zephyr Glider** — Pal: Celaray
+- **Jolt Glider** — Pal: Celaray Lux
+- **Fluffy Wool** — Pal: Cremis
+- **Leap Stance** — Pal: Croajiro
+- **Shadow Stance** — Pal: Croajiro Noct
+- **Herbil Pulse** — Pal: Herbil
+- **Soothing Shower** — Pal: Teafant
+- **Logging Assistance** — Pal: Gumoss
+- **Best Boy** — Pal: Pupperai
+- **Happy Clover** — Pal: Clovee
+- **Jolt Bomb** — Pal: Jolthog
+- **Cold Bomb** — Pal: Jolthog Cryst
+- **Caffeine Inoculation** — Pal: Depresso
+- **Pengullet Launcher** — Pal: Pengullet
+- **Pengullet Lux Launcher** — Pal: Pengullet Lux
+- **Brave Sailor** — Pal: Penking
+- **Unyielding Storm Commander** — Pal: Penking Lux
+- **Dark Knowledge** — Pal: Hoocrates
+- **Pacapaca Wool** — Pal: Melpaca
+- **King of Muscles** — Pal: Kingpaca
+- **Coldhearted King** — Pal: Kingpaca Cryst
+- **Dream Chaser** — Pal: Daedream
+- **Cheery Rifle** — Pal: Tanzee
+- **Chipper Chimp Gunfire** — Pal: Tanzee Ignis
+- **Kuudere** — Pal: Nox
+- **Magma Tears** — Pal: Flambelle
+- **Tiny Spark** — Pal: Rooby
+- **Gold Digger** — Pal: Mau
+- **Icy Whispers** — Pal: Mau Cryst
+- **Hard Head** — Pal: Rushoar
+- **Huggy Fire** — Pal: Foxparks
+- **Huggy Frost** — Pal: Foxparks Cryst
+- **Fried Squid** — Pal: Killamari
+- **Fried Killamari** — Pal: Killamari Primo
+- **Mining Assistance** — Pal: Fuddler
+- **Guardian of the Forest** — Pal: Eikthyrdeer
+- **Guardian of the Golden Forest** — Pal: Eikthyrdeer Terra
+- **Direhowl Rider** — Pal: Direhowl
+- **Berry Picker** — Pal: Caprity
+- **Venom Picker** — Pal: Caprity Noct
+- **Fluffy** — Pal: Swee
+- **King of Fluff** — Pal: Sweepa
+- **Spikey Carrier** — Pal: Turtacle
+- **Shiny Hauler** — Pal: Turtacle Terra
+- **Flying Trapeze** — Pal: Hangyu
+- **Winter Trapeze** — Pal: Hangyu Cryst
+- **Candy Pop** — Pal: Woolipop
+- **Bitter Pop** — Pal: Woolipop Terra
+- **Milk Maker** — Pal: Mozzarina
+- **Waterwing Dance** — Pal: Azurobe
+- **Icewing Dance** — Pal: Azurobe Cryst
+- **Static Electricity** — Pal: Sparkit
+- **Aqua Spout** — Pal: Kelpsea
+- **Lava Spout** — Pal: Kelpsea Ignis
+- **Happy-Go-Lucky Bunny** — Pal: Ribbuny
+- **Ground 'n' Pound** — Pal: Ribbuny Botan
+- **Jelliette Drop** — Pal: Jelliette
+- **Jellroy Drop** — Pal: Jellroy
+- **Magical Twin Powers** — Pal: Amione
+- **Sticky Princess** — Pal: Gloopie
+- **Cephalo-Princess** — Pal: Gloopie Primo
+- **Galeclaw Glider** — Pal: Galeclaw
+- **Death-Cheating Feline** — Pal: Wispaw
+- **Travel Companion** — Pal: Nitewing
+- **Ultrasonic Sensor** — Pal: Tombat
+- **Eggbomb Launcher** — Pal: Tocotoco
+- **Swift Deity** — Pal: Univolt
+- **Frigid Deity** — Pal: Univolt Cryst
+- **Angry Shark** — Pal: Gobfin
+- **Angry Shark** — Pal: Gobfin Ignis
+- **Dark Gleam Strike** — Pal: Loupmoon
+- **Frozen Gleam Strike** — Pal: Loupmoon Cryst
+- **Eerie Nightstreaker** — Pal: Cawgnito
+- **Warm Body** — Pal: Arsox
+- **Fluffy Flutterer** — Pal: Muffly
+- **Princess Gaze** — Pal: Bristla
+- **Mysterious Scales** — Pal: Cinnamoth
+- **Crackle Booster** — Pal: Puffolt
+- **Amicable Holy Dragon** — Pal: Elphidran
+- **Amicable Water Dragon** — Pal: Elphidran Aqua
+- **Aerial Marauder** — Pal: Vanwyrm
+- **Aerial Marauder** — Pal: Vanwyrm Cryst
+- **Life Steal** — Pal: Felbat
+- **Purification of Gaia** — Pal: Vaelet
+- **Worker Bee** — Pal: Beegarde
+- **Queen Bee Command** — Pal: Elizabee
+- **Heart Drain** — Pal: Lovander
+- **Glaring Cat's Eye** — Pal: Grintale
+- **Tarantriss’ Web** — Pal: Tarantriss
+- **Rider of the Snowy Mountain** — Pal: Polapup
+- **Snowy Mountain Slider** — Pal: Polapup Terra
+- **Too Cool to be Seen** — Pal: Leezpunk
+- **Too Cool to be Seen** — Pal: Leezpunk Ignis
+- **Full-Power Gorilla Mode** — Pal: Gorirat
+- **Full-Power Gorilla Pound** — Pal: Gorirat Terra
+- **Swift Swimmer** — Pal: Surfent
+- **Sand Swimmer** — Pal: Surfent Terra
+- **Grounded Archer** — Pal: Robinquill
+- **Master Archer** — Pal: Robinquill Terra
+- **Helper Bunny** — Pal: Flopie
+- **Lord Fox** — Pal: Wixen
+- **Black Fox Lord** — Pal: Wixen Noct
+- **Mystical Black Magic** — Pal: Katress
+- **Blazing Black Magic** — Pal: Katress Ignis
+- **Wings of Death** — Pal: Helzephyr
+- **Wings of Thunder** — Pal: Helzephyr Lux
+- **Mother Nature's Menace** — Pal: Elgrove
+- **Father Winter's Threat** — Pal: Elgrove Cryst
+- **Antigravity** — Pal: Lunaris
+- **Wind and Clouds** — Pal: Fenglope
+- **Stormcloud** — Pal: Fenglope Lux
+- **Fragrant Dragon** — Pal: Dinossom
+- **Thunder Dragon** — Pal: Dinossom Lux
+- **Brandish Blade** — Pal: Bushi
+- **Void Blade** — Pal: Bushi Noct
+- **Icy Maw** — Pal: Munchill
+- **Gaia Crusher** — Pal: Mammorest
+- **Ice Crusher** — Pal: Mammorest Cryst
+- **Water Gun** — Pal: Finsider
+- **Ember Chamber** — Pal: Finsider Ignis
+- **Blessing of the Flower Spirit** — Pal: Petallia
+- **Passion of the Flower Spirit** — Pal: Petallia Ignis
+- **Selfless Discipline** — Pal: Leafan
+- **Flameclaw Hunter** — Pal: Incineram
+- **Darkclaw Hunter** — Pal: Incineram Noct
+- **Lady of Lightning** — Pal: Dazzi
+- **Lady of Dark Lightning** — Pal: Dazzi Noct
+- **Red Hare** — Pal: Pyrin
+- **Black Hare** — Pal: Pyrin Noct
+- **Hungry Missile** — Pal: Relaxaurus
+- **Missile Party** — Pal: Relaxaurus Lux
+- **Aurora Guide** — Pal: Foxcicle
+- **Thunderous** — Pal: Beakon
+- **Coldsnap** — Pal: Beakon Cryst
+- **Master of Darkness** — Pal: Ghangler
+- **Abyssal Celebrity Chef** — Pal: Ghangler Ignis
+- **Lightning Shepherd** — Pal: Rayhound
+- **Snow Shepherd** — Pal: Rayhound Cryst
+- **Steel Scorpion** — Pal: Menasting
+- **Golden Scorpion** — Pal: Menasting Terra
+- **Hug Me Please** — Pal: Needoll
+- **Hug You So Much** — Pal: Needoll Noct
+- **Cool Body** — Pal: Reindrix
+- **Grenadier Panda** — Pal: Mossanda
+- **Grenadier Panda** — Pal: Mossanda Lux
+- **Wriggling Weasel** — Pal: Chillet
+- **Sparkling Weasel** — Pal: Chillet Ignis
+- **Flame Wing** — Pal: Ragnahawk
+- **Magma Overload** — Pal: Moldron
+- **Ice Overload** — Pal: Moldron Cryst
+- **Samba Step** — Pal: Palumba
+- **Drill Crusher** — Pal: Digtoise
+- **Love's First Blossom** — Pal: Broncherry
+- **Purity's Full Bloom** — Pal: Broncherry Aqua
+- **Soil Improver** — Pal: Dumud
+- **Golden Harvest** — Pal: Dumud Gild
+- **Balmy Weather** — Pal: Braloha
+- **Wolf of the Sun** — Pal: Kitsun
+- **Gloomhowl** — Pal: Kitsun Noct
+- **Hellflame Lion** — Pal: Blazehowl
+- **Darkflame Lion** — Pal: Blazehowl Noct
+- **Cast-Iron Shell** — Pal: Warsect
+- **Fullmetal Shell** — Pal: Warsect Terra
+- **Peacock Pounce** — Pal: Frostplume
+- **Phantasmal Arcana** — Pal: Majex
+- **Silk Shroud** — Pal: Sibelyx
+- **Gilded Shroud** — Pal: Sibelyx Primo
+- **Messenger of Death** — Pal: Maraith
+- **Rampant Spores** — Pal: Shroomer
+- **Roiling Spores** — Pal: Shroomer Noct
+- **Witch's Icy Veil** — Pal: Icelyn
+- **Resurrection** — Pal: Gildra
+- **Stormbringer Sea Dragon** — Pal: Jormuntide
+- **Stormbringer Lava Dragon** — Pal: Jormuntide Ignis
+- **Wings of Flame** — Pal: Suzaku
+- **Wings of Water** — Pal: Suzaku Aqua
+- **Sand Sprint** — Pal: Dazemu
+- **Sky Dragon Affection** — Pal: Quivern
+- **Grass Dragon Affection** — Pal: Quivern Botan
+- **Floral Boost** — Pal: Lullu
+- **Sandball Soccer** — Pal: Kikit
+- **Birds of a Feather** — Pal: Yakumo
+- **Fish Fillet** — Pal: Skutlass
+- **Seared Fish Fillet** — Pal: Skutlass Ignis
+- **Ore-Loving Beast** — Pal: Reptyro
+- **Ice-Loving Beast** — Pal: Reptyro Cryst
+- **Night Dancer** — Pal: Starryon
+- **Light Dancer** — Pal: Starryon Primo
+- **Power Stone** — Pal: Pierdon
+- **Power Crystal** — Pal: Pierdon Cryst
+- **Dragon Hunter** — Pal: Cryolinx
+- **Explosive Strength** — Pal: Cryolinx Terra
+- **Invisible Eye** — Pal: Snugloo
+- **Guardian of the Snowy Mountain** — Pal: Wumpo
+- **Guardian of the South** — Pal: Wumpo Botan
+- **Grave Robber** — Pal: Sootseer
+- **Entangling Tongue** — Pal: Carnibora
+- **Magma Kaiser** — Pal: Blazamut
+- **Dragon Kaiser** — Pal: Blazamut Ryu
+- **Forest Laser** — Pal: Dualith
+- **Corruption Laser** — Pal: Dualith Noct
+- **Guardian of the Desert** — Pal: Anubis
+- **Desert Empress** — Pal: Sekhmet
+- **Phantom Venom** — Pal: Prixter
+- **Scorpion Longwave** — Pal: Prixter Lux
+- **Masonry Archelon** — Pal: Tetroise
+- **Stone-Chaser Archelon** — Pal: Tetroise Primo
+- **Shot-Nyan Mode** — Pal: Nyafia
+- **Master of Unlocking** — Pal: Mimog
+- **Unknown Invader** — Pal: Xenovader
+- **Unknown Intruder** — Pal: Xenogard
+- **Prayer for Abundant Harvest** — Pal: Prunelia
+- **Soul Collector** — Pal: Nitemary
+- **Soul Binder** — Pal: Nitemary Botan
+- **Dig, Smokie! Dig!** — Pal: Smokie
+- **Cryo Instincts** — Pal: Smokie Cryst
+- **Masquerade Dance** — Pal: Omascul
+- **Chilled Whale Cruiser** — Pal: Whalaska
+- **Cozy Whale Cruiser** — Pal: Whalaska Ignis
+- **Grassland Gymnast** — Pal: Verdash
+- **Blade of Uncontrolled Passion** — Pal: Splatterina
+- **Sandstorm's Blessing** — Pal: Gildane
+- **Homeward Prayer** — Pal: Dogen
+- **Yokozuna's Presence** — Pal: Bulldosu
+- **Blessing of Purification** — Pal: Celesdir
+- **Blessing of Chaos** — Pal: Celesdir Noct
+- **Black Ankylosaur** — Pal: Astegon
+- **Steel Guardian Mode** — Pal: Knocklem
+- **Iron Guardian Mode** — Pal: Knocklem Ignis
+- **Aegis Shield** — Pal: Silvegis
+- **Plasma Dash** — Pal: Azurmane
+- **Big Stretch** — Pal: Valentail
+- **Charging Shell** — Pal: Snock
+- **Grounding Shell** — Pal: Snock Lux
+- **Fuzzy Fairy** — Pal: Souffline
+- **Friend of Earth** — Pal: Lapiron
+- **Void-Dweller** — Pal: Hoodle
+- **Chillswitch** — Pal: Slowatt
+- **Grinning Death** — Pal: Bakemi
+- **Charming Fish** — Pal: Solmora
+- **Shocking Fish** — Pal: Solmora Lux
+- **Long-Sleeved Hurray** — Pal: Lapure
+- **Liberated Pterosaur** — Pal: Eidrolon
+- **Resentful Pterosaur** — Pal: Eidrolon Ignis
+- **Electro-Massage Incubation** — Pal: Dynamoff
+- **Flower Dance** — Pal: Tropicaw
+- **Burning Future** — Pal: Flaracle
+- **Glorious Mist** — Pal: Ophydia
+- **Trick-Loving Fluffle** — Pal: Dupin
+- **Dark-Nester** — Pal: Roujay
+- **Snake's Sagacity** — Pal: Venusa
+- **Charming Spore** — Pal: Mycora
+- **Lantern Enchantment** — Pal: Loomen
+- **Hidden Dark Energy** — Pal: Wistella
+- **Untainted Maiden** — Pal: Solenne
+- **Stage Combat** — Pal: Renjishi
+- **Indestructible Fortress** — Pal: Aegidron
+- **Yellow Tank** — Pal: Grizzbolt
+- **Harvest Goddess** — Pal: Lyleen
+- **Goddess of the Tranquil Light** — Pal: Lyleen Noct
+- **Ferocious Thunder Dragon** — Pal: Orserk
+- **Scorching Predator** — Pal: Faleris
+- **Tidal Predator** — Pal: Faleris Aqua
+- **Modified DNA** — Pal: Shadowbeak
+- **Celestial Darkness** — Pal: Selyne
+- **Blizzard Crash** — Pal: Bastigor
+- **Azure Sovereign** — Pal: Shaolong
+- **Spore Stalwart** — Pal: Silvance
+- **Mist Stalwart** — Pal: Dandilord
+- **Nightmare Iris** — Pal: Bellanoir
+- **Nightmare Stare** — Pal: Bellanoir Libero
+- **Meteor Wings** — Pal: Xenolord
+- **Sacred Barrier** — Pal: Hartalis
+- **Holy Knight of the Firmament** — Pal: Paladius
+- **Dark Knight of the Abyss** — Pal: Necromus
+- **Icy Steed** — Pal: Frostallion
+- **Black Steed** — Pal: Frostallion Noct
+- **Sentinel of the Great Sea** — Pal: Neptilius
+- **Aerial Missile** — Pal: Jetragon
+- **Resonant Guardian** — Pal: Panthalus
+- **-** — Pal: Astralym
+- **Slime Body** — Pal: Blue Slime
+- **Bat Backup** — Pal: Cave Bat
+- **Demonic Sight** — Pal: Demon Eye
+- **Enchant** — Pal: Enchanted Sword
+- **Mad Eye Lunge** — Pal: Eye of Cthulhu
+- **Slime Body** — Pal: Green Slime
+- **Bat Backup** — Pal: Illuminant Bat
+- **Slime Body** — Pal: Illuminant Slime
+- **Slime Body** — Pal: Purple Slime
+- **Slime Body** — Pal: Rainbow Slime
+- **Slime Body** — Pal: Red Slime
