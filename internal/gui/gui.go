@@ -361,15 +361,13 @@ handled:
 	for species, button := range s.routeAvoidButtons {
 		if button.Clicked(gtx) {
 			s.routeExcluded[species] = true
-			delete(s.routeRebreed, species)
+			s.routeRebreed = make(map[string]bool)
 			s.calculateRoute()
 		}
 	}
 	for species, button := range s.routeRebreedButtons {
 		if button.Clicked(gtx) {
-			s.routeRebreed[species] = true
-			delete(s.routeExcluded, species)
-			s.calculateRoute()
+			s.expandRouteSpecies(species)
 		}
 	}
 }
@@ -602,10 +600,7 @@ func (s *screen) calculateRoute() {
 		s.statusError, s.status = false, s.t("planner_route_ready")
 		return
 	}
-	omittedInitial := make(map[string]bool, len(s.routeRebreed)+1)
-	for species := range s.routeRebreed {
-		omittedInitial[species] = true
-	}
+	omittedInitial := make(map[string]bool, 1)
 	if ownedPath.Generations == 0 {
 		s.plannerRouteNotice = fmt.Sprintf(s.t("planner_already_owned_inheritance"), rules.DisplayName(ownedPath.Target))
 		omittedInitial[ownedPath.Target] = true
@@ -614,8 +609,6 @@ func (s *screen) calculateRoute() {
 	if err != nil {
 		if len(s.routeExcluded) > 0 {
 			s.plannerRoute = s.t("planner_route_exclusion_no_route") + "\n" + s.t("planner_route_caveat")
-		} else if len(s.routeRebreed) > 0 {
-			s.plannerRoute = s.t("planner_route_rebreed_no_route") + "\n" + s.t("planner_route_caveat")
 		} else if s.plannerRouteNotice != "" {
 			s.plannerRoute = s.t("planner_inheritance_no_route") + "\n" + s.t("planner_route_caveat")
 		} else {
@@ -625,6 +618,10 @@ func (s *screen) calculateRoute() {
 		return
 	}
 	s.plannerRoutePath = &path
+	s.plannerRoute, s.statusError, s.status = s.routeDetails(path), false, s.t("planner_route_ready")
+}
+
+func (s *screen) routeDetails(path planner.Path) string {
 	var out strings.Builder
 	if path.Generations > 2 {
 		out.WriteString(s.t("planner_speed_title"))
@@ -646,7 +643,76 @@ func (s *screen) calculateRoute() {
 		out.WriteString("\n\n")
 	}
 	out.WriteString(s.t("planner_route_caveat"))
-	s.plannerRoute, s.statusError, s.status = out.String(), false, s.t("planner_route_ready")
+	return out.String()
+}
+
+func (s *screen) expandRouteSpecies(species string) {
+	if s.plannerRoutePath == nil {
+		return
+	}
+	rules, err := breeding.Default()
+	if err != nil {
+		s.statusError, s.status = true, err.Error()
+		return
+	}
+	branch, err := planner.ShortestPathWithOmittedInitialSpecies(rules, s.routeStartingPals(), species, map[string]bool{species: true}, s.routeExcluded)
+	if err != nil {
+		s.statusError, s.status = true, s.t("planner_route_rebreed_no_route")
+		return
+	}
+	path := mergeRouteBranch(*s.plannerRoutePath, branch)
+	s.plannerRoutePath = &path
+	s.routeRebreed[species] = true
+	s.plannerRoute, s.statusError, s.status = s.routeDetails(path), false, s.t("planner_route_rebreed_ready")
+}
+
+func mergeRouteBranch(base, branch planner.Path) planner.Path {
+	steps := make(map[string]planner.Step, len(base.Steps)+len(branch.Steps))
+	for _, step := range base.Steps {
+		steps[step.Child] = step
+	}
+	for _, step := range branch.Steps {
+		steps[step.Child] = step
+	}
+	visiting := make(map[string]bool)
+	depths := make(map[string]int)
+	var depth func(string) int
+	depth = func(species string) int {
+		if value, ok := depths[species]; ok {
+			return value
+		}
+		if visiting[species] {
+			return 0
+		}
+		step, ok := steps[species]
+		if !ok {
+			depths[species] = 0
+			return 0
+		}
+		visiting[species] = true
+		left, right := depth(step.ParentA), depth(step.ParentB)
+		value := left + 1
+		if right > left {
+			value = right + 1
+		}
+		delete(visiting, species)
+		depths[species] = value
+		return value
+	}
+	merged := make([]planner.Step, 0, len(steps))
+	for _, step := range steps {
+		step.Generation = depth(step.Child)
+		merged = append(merged, step)
+	}
+	sort.Slice(merged, func(i, j int) bool {
+		if merged[i].Generation != merged[j].Generation {
+			return merged[i].Generation < merged[j].Generation
+		}
+		return strings.Join([]string{merged[i].ParentA, merged[i].ParentB, merged[i].Child}, "\x00") < strings.Join([]string{merged[j].ParentA, merged[j].ParentB, merged[j].Child}, "\x00")
+	})
+	base.Steps = merged
+	base.Generations = depth(base.Target)
+	return base
 }
 
 func (s *screen) routeStartingPals() []planner.Pal {
@@ -1160,43 +1226,77 @@ func (s *screen) routeFamilyTree(gtx layout.Context) layout.Dimensions {
 	for _, step := range s.plannerRoutePath.Steps {
 		steps[step.Child] = step
 	}
-	return s.routeTreeNode(gtx, rules, s.plannerRoutePath.Target, s.t("planner_route_target"), steps, make(map[string]bool))
-}
-
-func (s *screen) routeTreeNode(gtx layout.Context, rules *breeding.Rules, species, role string, steps map[string]planner.Step, visiting map[string]bool) layout.Dimensions {
-	step, produced := steps[species]
-	if !produced || visiting[species] {
-		return s.routeSpeciesCard(gtx, rules, species, role)
+	nodes := make(map[int]map[string]bool)
+	depths := make(map[string]int)
+	visiting := make(map[string]bool)
+	var depth func(string) int
+	depth = func(species string) int {
+		if value, ok := depths[species]; ok {
+			return value
+		}
+		if visiting[species] {
+			return 0
+		}
+		step, produced := steps[species]
+		if !produced {
+			depths[species] = 0
+			return 0
+		}
+		visiting[species] = true
+		left, right := depth(step.ParentA), depth(step.ParentB)
+		delete(visiting, species)
+		depths[species] = left + 1
+		if right > left {
+			depths[species] = right + 1
+		}
+		return depths[species]
 	}
-	visiting[species] = true
-	defer delete(visiting, species)
-	return layout.Flex{Axis: layout.Vertical, Alignment: layout.Middle}.Layout(gtx,
-		layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-			return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Start}.Layout(gtx,
-				layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
-					return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
-						layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-							return s.routeTreeNode(gtx, rules, step.ParentA, s.t("planner_route_male_parent"), steps, visiting)
-						}),
-					)
-				}),
-				layout.Rigid(spacer(10)),
-				layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
-					return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
-						layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-							return s.routeTreeNode(gtx, rules, step.ParentB, s.t("planner_route_female_parent"), steps, visiting)
-						}),
-					)
-				}),
-			)
-		}),
-		layout.Rigid(spacer(4)),
-		layout.Rigid(s.note(fmt.Sprintf(s.t("planner_route_breed_rule"), step.Rule), s.mutedText())),
-		layout.Rigid(spacer(4)),
-		layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-			return s.routeSpeciesCard(gtx, rules, species, role)
-		}),
-	)
+	for _, step := range steps {
+		for _, species := range []string{step.ParentA, step.ParentB, step.Child} {
+			generation := depth(species)
+			if nodes[generation] == nil {
+				nodes[generation] = make(map[string]bool)
+			}
+			nodes[generation][species] = true
+		}
+	}
+	maxGeneration := depth(s.plannerRoutePath.Target)
+	children := make([]layout.FlexChild, 0, maxGeneration*2+1)
+	for generation := 0; generation <= maxGeneration; generation++ {
+		generation := generation
+		species := make([]string, 0, len(nodes[generation]))
+		for name := range nodes[generation] {
+			species = append(species, name)
+		}
+		sort.Slice(species, func(i, j int) bool { return rules.DisplayName(species[i]) < rules.DisplayName(species[j]) })
+		children = append(children,
+			layout.Rigid(s.note(fmt.Sprintf(s.t("planner_route_generation"), generation), s.mutedText())),
+			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+				row := make([]layout.FlexChild, 0, len(species)*2)
+				for index, name := range species {
+					index, name := index, name
+					if index > 0 {
+						row = append(row, layout.Rigid(spacer(8)))
+					}
+					row = append(row, layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
+						description := s.t("planner_route_starting_pal")
+						if step, produced := steps[name]; produced {
+							description = fmt.Sprintf(s.t("planner_route_bred_from"), rules.DisplayName(step.ParentA), rules.DisplayName(step.ParentB))
+						}
+						if name == s.plannerRoutePath.Target {
+							description = s.t("planner_route_target") + " · " + description
+						}
+						return s.routeSpeciesCard(gtx, rules, name, description)
+					}))
+				}
+				return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Start}.Layout(gtx, row...)
+			}),
+		)
+		if generation < maxGeneration {
+			children = append(children, layout.Rigid(spacer(10)))
+		}
+	}
+	return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
 }
 
 func (s *screen) routeSpeciesCard(gtx layout.Context, rules *breeding.Rules, species, role string) layout.Dimensions {
@@ -1719,8 +1819,11 @@ func init() {
 	translations[english]["planner_route_result_to"] = "%s · %d breeding generation(s)"
 	translations[english]["planner_route_title"] = "Route to %s · %d breeding generation(s)"
 	translations[english]["planner_route_tree_title"] = "Family tree"
-	translations[english]["planner_route_tree_help"] = "Each pair breeds the Pal directly beneath it. Click any non-target Pal to avoid that species and immediately try a different route."
+	translations[english]["planner_route_tree_help"] = "Each row is one breeding generation, so both parents always align in the same layer. A generated Pal lists the two parents that breed it."
 	translations[english]["planner_route_target"] = "Target"
+	translations[english]["planner_route_generation"] = "Generation %d"
+	translations[english]["planner_route_starting_pal"] = "Starting Pal"
+	translations[english]["planner_route_bred_from"] = "Bred from %s + %s"
 	translations[english]["planner_route_male_parent"] = "Male parent"
 	translations[english]["planner_route_female_parent"] = "Female parent"
 	translations[english]["planner_route_breed_rule"] = "↓ Breed together · %s"
@@ -1798,8 +1901,11 @@ func init() {
 	translations[french]["planner_route_result_to"] = "%s · %d génération(s) d’élevage"
 	translations[french]["planner_route_title"] = "Chemin vers %s · %d génération(s) d’élevage"
 	translations[french]["planner_route_tree_title"] = "Arbre familial"
-	translations[french]["planner_route_tree_help"] = "Chaque paire donne naissance au Pal affiché juste en dessous. Cliquez un Pal qui n’est pas la cible pour éviter cette espèce et essayer immédiatement un autre chemin."
+	translations[french]["planner_route_tree_help"] = "Chaque ligne représente une génération d’élevage : les deux parents sont donc toujours alignés sur la même couche. Un Pal obtenu indique les deux parents qui le produisent."
 	translations[french]["planner_route_target"] = "Cible"
+	translations[french]["planner_route_generation"] = "Génération %d"
+	translations[french]["planner_route_starting_pal"] = "Pal de départ"
+	translations[french]["planner_route_bred_from"] = "Obtenu avec %s + %s"
 	translations[french]["planner_route_male_parent"] = "Parent mâle"
 	translations[french]["planner_route_female_parent"] = "Parent femelle"
 	translations[french]["planner_route_breed_rule"] = "↓ Faire se reproduire · %s"
