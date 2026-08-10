@@ -13,8 +13,10 @@ import (
 	"time"
 
 	"gioui.org/app"
+	"gioui.org/f32"
 	"gioui.org/layout"
 	"gioui.org/op"
+	"gioui.org/op/clip"
 	"gioui.org/op/paint"
 	"gioui.org/text"
 	"gioui.org/unit"
@@ -65,6 +67,12 @@ type taskResult struct {
 type plannerPicker struct {
 	pal          planner.Pal
 	male, female widget.Clickable
+}
+
+type routeTreeNode struct {
+	species    string
+	generation int
+	rect       image.Rectangle
 }
 
 type screen struct {
@@ -1261,55 +1269,152 @@ func (s *screen) routeFamilyTree(gtx layout.Context) layout.Dimensions {
 		}
 	}
 	maxGeneration := depth(s.plannerRoutePath.Target)
-	children := make([]layout.FlexChild, 0, maxGeneration*2+1)
+
+	columnGap := gtx.Dp(unit.Dp(24))
+	cardHeight := gtx.Dp(unit.Dp(104))
+	rowGap := gtx.Dp(unit.Dp(22))
+	headerHeight := gtx.Dp(unit.Dp(25))
+	width := gtx.Constraints.Max.X
+	if width == 0 {
+		width = gtx.Constraints.Min.X
+	}
+	cardWidth := (width - maxGeneration*columnGap) / (maxGeneration + 1)
+	if cardWidth < gtx.Dp(unit.Dp(118)) {
+		cardWidth = gtx.Dp(unit.Dp(118))
+		width = cardWidth*(maxGeneration+1) + columnGap*maxGeneration
+	}
+
+	centers := make(map[string]int, len(steps)*2)
+	ordered := make(map[int][]string, maxGeneration+1)
 	for generation := 0; generation <= maxGeneration; generation++ {
-		generation := generation
-		species := make([]string, 0, len(nodes[generation]))
 		for name := range nodes[generation] {
-			species = append(species, name)
+			ordered[generation] = append(ordered[generation], name)
 		}
-		sort.Slice(species, func(i, j int) bool { return rules.DisplayName(species[i]) < rules.DisplayName(species[j]) })
-		children = append(children,
-			layout.Rigid(s.note(fmt.Sprintf(s.t("planner_route_generation"), generation), s.mutedText())),
-			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-				row := make([]layout.FlexChild, 0, len(species)*2)
-				for index, name := range species {
-					index, name := index, name
-					if index > 0 {
-						row = append(row, layout.Rigid(spacer(8)))
-					}
-					row = append(row, layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
-						description := s.t("planner_route_starting_pal")
-						if step, produced := steps[name]; produced {
-							description = fmt.Sprintf(s.t("planner_route_bred_from"), rules.DisplayName(step.ParentA), rules.DisplayName(step.ParentB))
-						}
-						if name == s.plannerRoutePath.Target {
-							description = s.t("planner_route_target") + " · " + description
-						}
-						return s.routeSpeciesCard(gtx, rules, name, description)
-					}))
-				}
-				return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Start}.Layout(gtx, row...)
-			}),
-		)
-		if generation < maxGeneration {
-			children = append(children, layout.Rigid(spacer(10)))
+		sort.Slice(ordered[generation], func(i, j int) bool {
+			if generation == 0 {
+				return rules.DisplayName(ordered[generation][i]) < rules.DisplayName(ordered[generation][j])
+			}
+			return routeParentCenter(ordered[generation][i], steps, centers) < routeParentCenter(ordered[generation][j], steps, centers)
+		})
+		lastCenter := -cardHeight
+		for index, name := range ordered[generation] {
+			center := cardHeight/2 + index*(cardHeight+rowGap)
+			if generation > 0 {
+				center = routeParentCenter(name, steps, centers)
+			}
+			if center < lastCenter+cardHeight+rowGap {
+				center = lastCenter + cardHeight + rowGap
+			}
+			centers[name] = center
+			lastCenter = center
 		}
 	}
-	return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
+
+	minCenter, maxCenter := 0, 0
+	for _, center := range centers {
+		if minCenter == 0 || center < minCenter {
+			minCenter = center
+		}
+		if center > maxCenter {
+			maxCenter = center
+		}
+	}
+	shift := headerHeight + cardHeight/2 - minCenter
+	treeNodes := make(map[string]routeTreeNode, len(centers))
+	for generation, species := range ordered {
+		for _, name := range species {
+			center := centers[name] + shift
+			treeNodes[name] = routeTreeNode{
+				species:    name,
+				generation: generation,
+				rect:       image.Rect(generation*(cardWidth+columnGap), center-cardHeight/2, generation*(cardWidth+columnGap)+cardWidth, center+cardHeight/2),
+			}
+		}
+	}
+	height := maxCenter + shift + cardHeight/2
+	s.drawRouteTreeConnectors(gtx, treeNodes, steps)
+	for generation, species := range ordered {
+		labelGtx := gtx
+		labelGtx.Constraints = layout.Constraints{Max: image.Pt(cardWidth, headerHeight)}
+		stack := op.Offset(image.Pt(generation*(cardWidth+columnGap), 0)).Push(gtx.Ops)
+		s.note(fmt.Sprintf(s.t("planner_route_generation"), generation), s.mutedText())(labelGtx)
+		stack.Pop()
+		for _, name := range species {
+			node := treeNodes[name]
+			nodeGtx := gtx
+			nodeGtx.Constraints = layout.Exact(node.rect.Size())
+			stack := op.Offset(node.rect.Min).Push(gtx.Ops)
+			role := s.t("planner_route_starting_pal")
+			if _, produced := steps[name]; produced {
+				role = s.t("planner_route_bred_pal")
+			}
+			if name == s.plannerRoutePath.Target {
+				role = s.t("planner_route_target")
+			}
+			s.routeSpeciesCard(nodeGtx, rules, name, role)
+			stack.Pop()
+		}
+	}
+	return layout.Dimensions{Size: image.Pt(width, height)}
+}
+
+func routeParentCenter(species string, steps map[string]planner.Step, centers map[string]int) int {
+	step, produced := steps[species]
+	if !produced {
+		return 0
+	}
+	return (centers[step.ParentA] + centers[step.ParentB]) / 2
+}
+
+func (s *screen) drawRouteTreeConnectors(gtx layout.Context, nodes map[string]routeTreeNode, steps map[string]planner.Step) {
+	var path clip.Path
+	path.Begin(gtx.Ops)
+	for child, step := range steps {
+		childNode, childOK := nodes[child]
+		left, leftOK := nodes[step.ParentA]
+		right, rightOK := nodes[step.ParentB]
+		if !childOK || !leftOK || !rightOK {
+			continue
+		}
+		joinX := float32(childNode.rect.Min.X - gtx.Dp(unit.Dp(12)))
+		leftY := float32((left.rect.Min.Y + left.rect.Max.Y) / 2)
+		rightY := float32((right.rect.Min.Y + right.rect.Max.Y) / 2)
+		childY := float32((childNode.rect.Min.Y + childNode.rect.Max.Y) / 2)
+		path.MoveTo(f32.Pt(float32(left.rect.Max.X), leftY))
+		path.LineTo(f32.Pt(joinX, leftY))
+		path.MoveTo(f32.Pt(float32(right.rect.Max.X), rightY))
+		path.LineTo(f32.Pt(joinX, rightY))
+		path.MoveTo(f32.Pt(joinX, leftY))
+		path.LineTo(f32.Pt(joinX, rightY))
+		path.MoveTo(f32.Pt(joinX, childY))
+		path.LineTo(f32.Pt(float32(childNode.rect.Min.X), childY))
+	}
+	paint.FillShape(gtx.Ops, s.routeTreeLineColor(), clip.Stroke{Path: path.End(), Width: float32(gtx.Dp(unit.Dp(2)))}.Op())
+}
+
+func (s *screen) routeTreeLineColor() color.NRGBA {
+	if s.isDark() {
+		return color.NRGBA{R: 164, G: 142, B: 255, A: 255}
+	}
+	return color.NRGBA{R: 101, G: 74, B: 190, A: 255}
 }
 
 func (s *screen) routeSpeciesCard(gtx layout.Context, rules *breeding.Rules, species, role string) layout.Dimensions {
 	clickable := s.plannerRoutePath != nil && species != s.plannerRoutePath.Target
 	content := func(gtx layout.Context) layout.Dimensions {
-		return layout.Inset{Top: unit.Dp(8), Bottom: unit.Dp(8), Left: unit.Dp(10), Right: unit.Dp(10)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+		return layout.Inset{Top: unit.Dp(7), Bottom: unit.Dp(7), Left: unit.Dp(9), Right: unit.Dp(9)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 			children := []layout.FlexChild{
 				layout.Rigid(s.captionValue(role)),
-				layout.Rigid(s.note(rules.DisplayName(species), s.primaryText())),
+				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+					label := material.Label(s.theme, unit.Sp(17), rules.DisplayName(species))
+					label.Color = s.primaryText()
+					label.MaxLines = 2
+					return label.Layout(gtx)
+				}),
 			}
 			if clickable {
 				children = append(children,
-					layout.Rigid(spacer(6)),
+					layout.Rigid(spacer(4)),
 					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 						return layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
 							layout.Flexed(1, func(gtx layout.Context) layout.Dimensions {
@@ -1819,10 +1924,11 @@ func init() {
 	translations[english]["planner_route_result_to"] = "%s · %d breeding generation(s)"
 	translations[english]["planner_route_title"] = "Route to %s · %d breeding generation(s)"
 	translations[english]["planner_route_tree_title"] = "Family tree"
-	translations[english]["planner_route_tree_help"] = "Each row is one breeding generation, so both parents always align in the same layer. A generated Pal lists the two parents that breed it."
+	translations[english]["planner_route_tree_help"] = "Follow the branches from left to right: two parent lines join into each bred Pal."
 	translations[english]["planner_route_target"] = "Target"
 	translations[english]["planner_route_generation"] = "Generation %d"
 	translations[english]["planner_route_starting_pal"] = "Starting Pal"
+	translations[english]["planner_route_bred_pal"] = "Bred Pal"
 	translations[english]["planner_route_bred_from"] = "Bred from %s + %s"
 	translations[english]["planner_route_male_parent"] = "Male parent"
 	translations[english]["planner_route_female_parent"] = "Female parent"
@@ -1901,10 +2007,11 @@ func init() {
 	translations[french]["planner_route_result_to"] = "%s · %d génération(s) d’élevage"
 	translations[french]["planner_route_title"] = "Chemin vers %s · %d génération(s) d’élevage"
 	translations[french]["planner_route_tree_title"] = "Arbre familial"
-	translations[french]["planner_route_tree_help"] = "Chaque ligne représente une génération d’élevage : les deux parents sont donc toujours alignés sur la même couche. Un Pal obtenu indique les deux parents qui le produisent."
+	translations[french]["planner_route_tree_help"] = "Suivez les branches de gauche à droite : les deux lignes des parents se rejoignent vers chaque Pal élevé."
 	translations[french]["planner_route_target"] = "Cible"
 	translations[french]["planner_route_generation"] = "Génération %d"
 	translations[french]["planner_route_starting_pal"] = "Pal de départ"
+	translations[french]["planner_route_bred_pal"] = "Pal élevé"
 	translations[french]["planner_route_bred_from"] = "Obtenu avec %s + %s"
 	translations[french]["planner_route_male_parent"] = "Parent mâle"
 	translations[french]["planner_route_female_parent"] = "Parent femelle"
