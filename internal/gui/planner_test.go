@@ -3,6 +3,8 @@
 package gui
 
 import (
+	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/Ltorre/palpedia-snapshot/internal/planner"
@@ -23,5 +25,16 @@ func TestPlannerRequiredGender(t *testing.T) {
 	s.selectedMale = &male
 	if got := s.plannerRequiredGender(); got != "" {
 		t.Fatalf("after both selections required gender = %q, want empty", got)
+	}
+}
+
+func TestBreedingSpeedTextFormatsLiteralPercentages(t *testing.T) {
+	for _, language := range []language{english, french} {
+		for _, key := range []string{"planner_speed_philanthropist", "planner_speed_babysitter"} {
+			got := fmt.Sprintf(translations[language][key], "Lamball")
+			if strings.Contains(got, "%!(MISSING)") {
+				t.Fatalf("%s/%s produced Go format diagnostic: %q", language, key, got)
+			}
+		}
 	}
 }
