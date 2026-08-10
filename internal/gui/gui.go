@@ -1303,7 +1303,11 @@ func (s *screen) routeFamilyTree(gtx layout.Context) layout.Dimensions {
 			if generation == 0 {
 				return rules.DisplayName(ordered[generation][i]) < rules.DisplayName(ordered[generation][j])
 			}
-			return routeParentCenter(ordered[generation][i], steps, centers) < routeParentCenter(ordered[generation][j], steps, centers)
+			left, right := routeParentCenter(ordered[generation][i], steps, centers), routeParentCenter(ordered[generation][j], steps, centers)
+			if left != right {
+				return left < right
+			}
+			return rules.DisplayName(ordered[generation][i]) < rules.DisplayName(ordered[generation][j])
 		})
 		lastCenter := -cardHeight
 		for index, name := range ordered[generation] {
