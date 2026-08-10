@@ -1,5 +1,7 @@
 # Palpedia Snapshot
 
+**Language:** English · [Français](README.fr.md)
+
 Read-only Windows app for exporting a Palworld `Level.sav` and its player saves. Run the executable normally to open the graphical interface; the command-line mode remains available when arguments are supplied.
 
 Each export creates a separate timestamped folder in the parent directory you choose, for example `export_08-09-2026 18-42`. The minute separator is `-` because Windows does not allow `:` in folder names.
