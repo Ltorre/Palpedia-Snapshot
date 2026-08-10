@@ -17,9 +17,9 @@ Add these files from that folder to NotebookLM:
 
 Do **not** add `world.json` to NotebookLM. It is a complete technical export for troubleshooting, not a NotebookLM source.
 
-## Breeding planner preview
+## Breeding planner and quickest route
 
-The `v3.0.0-rc1` branch adds in-app, read-only planning tools. The app first asks only for a `Level.sav`; after choosing it, select **NotebookLM export**, **Breeding planner**, or **Quickest route**. Only the chosen workspace opens, while the other choices stay available above it. **Change save** reopens the save selector at any time.
+Version 3 adds in-app, read-only planning tools. The app first asks only for a `Level.sav`; after choosing it, select **NotebookLM export**, **Breeding planner**, or **Quickest route**. Only the chosen workspace opens, while the other choices stay available above it. **Change save** reopens the save selector at any time.
 
 The planner can:
 
@@ -37,7 +37,11 @@ The quickest-route workspace uses dedicated outlined cards for target selection 
 - **Avoid species** removes that species from the route entirely and searches for an alternative.
 - **Breed new** removes only the owned copies from the starting collection, then adds that Pal’s own parent branch above the current tree. It does not replace the rest of the route. Use it again on a grandparent to add another earlier generation when you want to improve that Pal’s traits too.
 
-The family tree is displayed in generation-aligned rows, so both parents always appear on the same layer even if one branch needs more earlier generations. You can also limit the initial route to Pals with gold and/or diamond passive traits, then click **Use all Pals again** to reset every route decision. This lets you steer a species route while deciding which individual passive traits to preserve. If the target is already in the collection, the app clearly says so, then calculates the shortest route while deliberately excluding those copies. This keeps the route useful when breeding a new target to inherit a different set of passive traits. The selected male and female parents remain in dedicated cards above the scrollable Pal list.
+The route is a connected family tree: generations flow from left to right, and each pair of parent lines joins into the Pal it breeds. This keeps multi-step routes legible without having to parse relationship text inside every card.
+
+![Quickest breeding route family tree](docs/quickest-route-tree.svg)
+
+You can also limit the initial route to Pals with gold and/or diamond passive traits, then click **Use all Pals again** to reset every route decision. This lets you steer a species route while deciding which individual passive traits to preserve. If the target is already in the collection, the app clearly says so, then calculates the shortest route while deliberately excluding those copies. This keeps the route useful when breeding a new target to inherit a different set of passive traits. The selected male and female parents remain in dedicated cards above the scrollable Pal list.
 
 For a route longer than two generations, it also identifies the Philanthropist and Babysitter Pals in the loaded collection and explains how to use them to speed up the breeding farm.
 

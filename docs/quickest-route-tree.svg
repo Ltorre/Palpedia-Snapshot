@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="860" viewBox="0 0 1600 860" role="img" aria-labelledby="title description">
+  <title id="title">Palpedia Snapshot quickest breeding route family tree</title>
+  <desc id="description">A dark-themed breeding route where parent Pal cards connect from left to right into the final target.</desc>
+  <rect width="1600" height="860" fill="#10131d"/>
+  <rect x="18" y="18" width="1564" height="824" rx="12" fill="#171a25" stroke="#53617f" stroke-width="2"/>
+  <text x="44" y="66" fill="#f0f2f8" font-family="Segoe UI, Arial, sans-serif" font-size="27" font-weight="700">Dazzi Noct · 3 breeding generations</text>
+  <text x="44" y="100" fill="#f0f2f8" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700">Family tree</text>
+  <text x="44" y="125" fill="#b9c0d3" font-family="Segoe UI, Arial, sans-serif" font-size="16">Follow the branches from left to right: two parent lines join into each bred Pal.</text>
+  <g fill="#b9c0d3" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700">
+    <text x="44" y="166">Generation 0</text><text x="460" y="166">Generation 1</text><text x="860" y="166">Generation 2</text><text x="1260" y="166">Generation 3</text>
+  </g>
+  <g fill="none" stroke="#a68cff" stroke-width="3">
+    <path d="M390 247H426V353H460"/><path d="M390 459H426V353"/>
+    <path d="M390 671H426V565H460"/><path d="M806 353H826V565H860"/>
+    <path d="M806 565H826V565"/><path d="M1206 459H1226V353H1260"/>
+    <path d="M390 247H1226V353"/>
+  </g>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <g><rect x="44" y="190" width="346" height="114" rx="8" fill="#171a25" stroke="#586784" stroke-width="2"/><text x="60" y="216" fill="#b9c0d3" font-size="15">Starting Pal</text><text x="60" y="249" fill="#f5f6fb" font-size="22" font-weight="700">Dazzi</text><rect x="60" y="263" width="145" height="28" rx="4" fill="#30374a"/><text x="82" y="283" fill="#f5f6fb" font-size="14">Avoid species</text><rect x="211" y="263" width="163" height="28" rx="4" fill="#9175ff"/><text x="260" y="283" fill="#211c36" font-size="14">Breed new</text></g>
+    <g><rect x="44" y="402" width="346" height="114" rx="8" fill="#171a25" stroke="#586784" stroke-width="2"/><text x="60" y="428" fill="#b9c0d3" font-size="15">Starting Pal</text><text x="60" y="461" fill="#f5f6fb" font-size="22" font-weight="700">Incineram Noct</text><rect x="60" y="475" width="145" height="28" rx="4" fill="#30374a"/><text x="82" y="495" fill="#f5f6fb" font-size="14">Avoid species</text><rect x="211" y="475" width="163" height="28" rx="4" fill="#9175ff"/><text x="260" y="495" fill="#211c36" font-size="14">Breed new</text></g>
+    <g><rect x="44" y="614" width="346" height="114" rx="8" fill="#171a25" stroke="#586784" stroke-width="2"/><text x="60" y="640" fill="#b9c0d3" font-size="15">Starting Pal</text><text x="60" y="673" fill="#f5f6fb" font-size="22" font-weight="700">Jormuntide</text><rect x="60" y="687" width="145" height="28" rx="4" fill="#30374a"/><text x="82" y="707" fill="#f5f6fb" font-size="14">Avoid species</text><rect x="211" y="687" width="163" height="28" rx="4" fill="#9175ff"/><text x="260" y="707" fill="#211c36" font-size="14">Breed new</text></g>
+    <g><rect x="460" y="296" width="346" height="114" rx="8" fill="#171a25" stroke="#586784" stroke-width="2"/><text x="476" y="322" fill="#b9c0d3" font-size="15">Bred Pal</text><text x="476" y="355" fill="#f5f6fb" font-size="22" font-weight="700">Venusa</text><rect x="476" y="369" width="145" height="28" rx="4" fill="#30374a"/><text x="498" y="389" fill="#f5f6fb" font-size="14">Avoid species</text><rect x="627" y="369" width="163" height="28" rx="4" fill="#9175ff"/><text x="676" y="389" fill="#211c36" font-size="14">Breed new</text></g>
+    <g><rect x="460" y="508" width="346" height="114" rx="8" fill="#171a25" stroke="#586784" stroke-width="2"/><text x="476" y="534" fill="#b9c0d3" font-size="15">Bred Pal</text><text x="476" y="567" fill="#f5f6fb" font-size="22" font-weight="700">Omascul</text><rect x="476" y="581" width="145" height="28" rx="4" fill="#30374a"/><text x="498" y="601" fill="#f5f6fb" font-size="14">Avoid species</text><rect x="627" y="581" width="163" height="28" rx="4" fill="#9175ff"/><text x="676" y="601" fill="#211c36" font-size="14">Breed new</text></g>
+    <g><rect x="860" y="402" width="346" height="114" rx="8" fill="#171a25" stroke="#586784" stroke-width="2"/><text x="876" y="428" fill="#b9c0d3" font-size="15">Bred Pal</text><text x="876" y="461" fill="#f5f6fb" font-size="22" font-weight="700">Lyleen Noct</text><rect x="876" y="475" width="145" height="28" rx="4" fill="#30374a"/><text x="898" y="495" fill="#f5f6fb" font-size="14">Avoid species</text><rect x="1027" y="475" width="163" height="28" rx="4" fill="#9175ff"/><text x="1076" y="495" fill="#211c36" font-size="14">Breed new</text></g>
+    <g><rect x="1260" y="296" width="296" height="114" rx="8" fill="#211d35" stroke="#a68cff" stroke-width="3"/><text x="1276" y="322" fill="#d7cdff" font-size="15">Target</text><text x="1276" y="355" fill="#fff" font-size="22" font-weight="700">Dazzi Noct</text><text x="1276" y="383" fill="#c7bedf" font-size="15">Ready to breed</text></g>
+  </g>
+</svg>
