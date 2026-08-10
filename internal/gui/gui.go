@@ -116,7 +116,8 @@ type screen struct {
 	selectedMale, selectedFemale                                                                               *planner.Pal
 	plannerLoadedAt                                                                                            time.Time
 	plannerSaveModified                                                                                        time.Time
-	plannerPairResult, plannerRoute, plannerRouteNotice, plannerRouteTarget                                    string
+	plannerRoute, plannerRouteNotice, plannerRouteTarget                                                       string
+	plannerPairResult                                                                                          *planner.PairResult
 	plannerRoutePath                                                                                           *planner.Path
 }
 
@@ -243,7 +244,7 @@ func (s *screen) handle(gtx layout.Context) {
 				if result.err == nil {
 					s.plannerPals, s.plannerLoadedAt, s.plannerSaveModified = result.plannerPals, time.Now(), result.updatedAt
 					s.plannerPickers = make(map[string]*plannerPicker)
-					s.selectedMale, s.selectedFemale, s.plannerPairResult = nil, nil, ""
+					s.selectedMale, s.selectedFemale, s.plannerPairResult = nil, nil, nil
 					s.clearRoute()
 				}
 			}
@@ -347,13 +348,13 @@ handled:
 	for _, picker := range s.plannerPickers {
 		if picker.male.Clicked(gtx) {
 			pal := picker.pal
-			s.selectedMale, s.plannerPairResult = &pal, ""
+			s.selectedMale, s.plannerPairResult = &pal, nil
 			s.clearRoute()
 			s.plannerMale.Value, s.plannerFemale.Value = false, true
 		}
 		if picker.female.Clicked(gtx) {
 			pal := picker.pal
-			s.selectedFemale, s.plannerPairResult = &pal, ""
+			s.selectedFemale, s.plannerPairResult = &pal, nil
 			s.clearRoute()
 			s.plannerMale.Value, s.plannerFemale.Value = true, false
 		}
@@ -561,7 +562,7 @@ func (s *screen) calculatePair() {
 		if resolveErr != nil {
 			err = resolveErr
 		} else {
-			s.plannerPairResult = fmt.Sprintf(s.t("planner_pair_result"), rules.DisplayName(result.Child), result.Rule, result.TargetRank)
+			s.plannerPairResult = &result
 			s.statusError, s.status = false, s.t("planner_pair_ready")
 		}
 	}
@@ -1048,8 +1049,8 @@ func (s *screen) plannerSection(gtx layout.Context) layout.Dimensions {
 				return button.Layout(gtx)
 			}),
 		)
-		if s.plannerPairResult != "" {
-			children = append(children, layout.Rigid(spacer(5)), layout.Rigid(s.note(s.plannerPairResult, s.primaryText())))
+		if s.plannerPairResult != nil {
+			children = append(children, layout.Rigid(spacer(8)), layout.Rigid(s.plannerPairResultCard))
 		}
 		children = append(children,
 			layout.Rigid(spacer(8)),
@@ -1686,6 +1687,30 @@ func (s *screen) plannerParentCard(gtx layout.Context, title string, pal *planne
 	})
 }
 
+func (s *screen) plannerPairResultCard(gtx layout.Context) layout.Dimensions {
+	if s.plannerPairResult == nil {
+		return layout.Dimensions{}
+	}
+	rules, err := breeding.Default()
+	if err != nil {
+		return layout.Dimensions{}
+	}
+	result := s.plannerPairResult
+	return widget.Border{Color: s.routeTreeLineColor(), CornerRadius: unit.Dp(8), Width: unit.Dp(2)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+		return layout.Inset{Top: unit.Dp(10), Bottom: unit.Dp(10), Left: unit.Dp(12), Right: unit.Dp(12)}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+			return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
+				layout.Rigid(s.caption("planner_pair_child")),
+				layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+					label := material.Label(s.theme, unit.Sp(22), rules.DisplayName(result.Child))
+					label.Color = s.primaryText()
+					return label.Layout(gtx)
+				}),
+				layout.Rigid(s.captionValue(fmt.Sprintf(s.t("planner_pair_details"), result.Rule, result.TargetRank))),
+			)
+		})
+	})
+}
+
 func plannerPalLabel(pal planner.Pal) string {
 	return fmt.Sprintf("%s · Lv. %d · %s", planner.PalName(pal), planner.PalLevel(pal), pal.Gender)
 }
@@ -1903,7 +1928,8 @@ func init() {
 	translations[english]["planner_selected"] = "Male parent: %s\nFemale parent: %s"
 	translations[english]["planner_calculate_pair"] = "Calculate selected pair"
 	translations[english]["planner_select_parents"] = "Choose one male parent and one female parent first."
-	translations[english]["planner_pair_result"] = "Exact child: %s · rule: %s · generic target rank: %d"
+	translations[english]["planner_pair_child"] = "Exact child"
+	translations[english]["planner_pair_details"] = "Breeding rule: %s · generic target rank: %d"
 	translations[english]["planner_pair_ready"] = "Exact breeding outcome calculated."
 	translations[english]["planner_route_section"] = "Find the quickest target route"
 	translations[english]["planner_route_help"] = "Enter a Pal name such as Anubis or Mammorest. Game Character IDs such as SheepBall or PinkCat also work. The route uses the fewest sequential breeding generations from your current male/female collection."
@@ -1986,7 +2012,8 @@ func init() {
 	translations[french]["planner_selected"] = "Parent mâle : %s\nParent femelle : %s"
 	translations[french]["planner_calculate_pair"] = "Calculer la paire sélectionnée"
 	translations[french]["planner_select_parents"] = "Choisissez d’abord un parent mâle et un parent femelle."
-	translations[french]["planner_pair_result"] = "Enfant exact : %s · règle : %s · rang cible générique : %d"
+	translations[french]["planner_pair_child"] = "Enfant exact"
+	translations[french]["planner_pair_details"] = "Règle d’élevage : %s · rang cible générique : %d"
 	translations[french]["planner_pair_ready"] = "Résultat exact de l’élevage calculé."
 	translations[french]["planner_route_section"] = "Trouver le chemin le plus rapide"
 	translations[french]["planner_route_help"] = "Entrez un nom de Pal comme Anubis ou Mammorest. Les Character IDs du jeu, comme SheepBall ou PinkCat, fonctionnent aussi. Le chemin utilise le moins de générations d’élevage consécutives depuis votre collection mâle/femelle."

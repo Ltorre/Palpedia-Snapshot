@@ -25,7 +25,7 @@ The planner can:
 
 - browse every matching Pal in a scrollable collection list; search by player-facing name, raw game ID, or known trait; filter by male/female; and sort by level;
 - restrict the view to bundled gold (rank 3) or diamond (rank 4) passive-trait catalogs, including Philanthropist, Babysitter, and Demon God;
-- select a real male and female Pal, keeping their individual traits visible, then calculate the exact offspring species; and
+- select a real male and female Pal, keeping their individual traits visible, then calculate the exact offspring species in a dedicated outlined result card; and
 - calculate a textual route to a target Pal name or Character ID using the fewest sequential breeding generations from the loaded male/female collection.
 
 The planner translates all 299 bundled game IDs into their Palpedia-facing names: for example, `BOSS_GrassMammoth` displays as **Mammorest**. It still accepts raw IDs when useful.
