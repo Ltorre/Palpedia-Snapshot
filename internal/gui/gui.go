@@ -1053,7 +1053,16 @@ func (s *screen) plannerSection(gtx layout.Context) layout.Dimensions {
 			children = append(children, layout.Rigid(spacer(8)), layout.Rigid(s.plannerPairResultCard))
 		}
 		children = append(children,
-			layout.Rigid(spacer(8)),
+			layout.Rigid(spacer(12)),
+			layout.Rigid(s.plannerSearchCard),
+		)
+		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
+	})
+}
+
+func (s *screen) plannerSearchCard(gtx layout.Context) layout.Dimensions {
+	return s.outlinedCard(gtx, s.t("planner_search_title"), func(gtx layout.Context) layout.Dimensions {
+		return layout.Flex{Axis: layout.Vertical}.Layout(gtx,
 			layout.Rigid(s.caption("planner_filter_help")),
 			layout.Rigid(s.caption("planner_trait_help")),
 			layout.Rigid(s.editor(&s.plannerFilter, s.t("planner_filter"))),
@@ -1100,7 +1109,6 @@ func (s *screen) plannerSection(gtx layout.Context) layout.Dimensions {
 			layout.Rigid(spacer(4)),
 			layout.Rigid(s.plannerPalsList),
 		)
-		return layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
 	})
 }
 
@@ -1907,6 +1915,7 @@ func init() {
 	translations[english]["planner_loaded"] = "Loaded %d current Pals into the breeding planner."
 	translations[english]["planner_empty"] = "No current party or Palbox Pals are loaded. Update the planner from a selected save."
 	translations[english]["planner_pick_title"] = "Pick real parents"
+	translations[english]["planner_search_title"] = "Search your Pals"
 	translations[english]["planner_filter_help"] = "Search a Pal name (for example Mammorest), a raw game ID, or a passive trait. Filter by sex or sort by level when useful. Gold is rank 3; diamond is rank 4. If both are checked, either tier is included."
 	translations[english]["planner_trait_help"] = "Hover a trait to see its in-game effect."
 	translations[english]["planner_filter"] = "Search Pal name or trait"
@@ -1991,6 +2000,7 @@ func init() {
 	translations[french]["planner_loaded"] = "%d Pals actuels chargés dans le planificateur."
 	translations[french]["planner_empty"] = "Aucun Pal de l’équipe ou du Palbox n’est chargé. Mettez à jour depuis une sauvegarde sélectionnée."
 	translations[french]["planner_pick_title"] = "Choisir les vrais parents"
+	translations[french]["planner_search_title"] = "Rechercher vos Pals"
 	translations[french]["planner_filter_help"] = "Recherchez un nom de Pal (par exemple Mammorest), un identifiant du jeu ou un trait passif. Filtrez par sexe ou triez par niveau si nécessaire. Or = rang 3 ; diamant = rang 4. Avec les deux cochés, les deux rangs sont inclus."
 	translations[french]["planner_trait_help"] = "Survolez un trait pour voir son effet en jeu."
 	translations[french]["planner_filter"] = "Rechercher un Pal ou trait"
